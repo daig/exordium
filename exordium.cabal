@@ -1,0 +1,72 @@
+name:                exordium
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/daig/exordium#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Dai
+maintainer:          dailectic@gmail.com
+copyright:           Sodality
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Map,Bimap,Dimap
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+  default-extensions: RebindableSyntax 
+                     ,AllowAmbiguousTypes
+                     ,BangPatterns
+                     ,BinaryLiterals
+                     ,ConstraintKinds
+                     ,DataKinds
+                     ,DefaultSignatures
+                     ,DeriveAnyClass
+                     ,DeriveDataTypeable
+                     ,DeriveGeneric
+                     ,DeriveLift
+                     ,DeriveTraversable
+                     ,DerivingStrategies
+                     ,DuplicateRecordFields
+                     ,EmptyCase
+                     ,FlexibleContexts
+                     ,FlexibleInstances
+                     ,FunctionalDependencies
+                     ,GADTs
+                    , GeneralizedNewtypeDeriving
+                     ,InstanceSigs
+                     ,LambdaCase
+                     ,MultiWayIf
+                     ,NamedFieldPuns
+                     ,NamedWildCards
+                     ,NegativeLiterals
+                     ,NumDecimals
+                     ,OverloadedLabels
+                     ,OverloadedStrings
+                     ,ParallelListComp
+                     ,PartialTypeSignatures
+                     ,PatternSynonyms
+                     ,PolyKinds
+                     ,RankNTypes
+                     ,RecordWildCards
+                     ,RecursiveDo
+                     ,RoleAnnotations
+                     ,ScopedTypeVariables
+                     ,StandaloneDeriving
+                     ,StrictData
+                     ,TupleSections
+                     ,TypeApplications
+                     ,TypeFamilyDependencies
+                     ,TypeOperators
+                     ,ViewPatterns
+  build-depends:       base >= 4.7 && < 5
+                     , async
+                     , ghc-prim
+
+source-repository head
+  type:     git
+  location: https://github.com/daig/exordium

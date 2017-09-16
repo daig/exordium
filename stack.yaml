@@ -1,0 +1,10 @@
+packages:
+- '.'
+extra-deps:
+- dependent-sum-template-0.0.0.6
+- zenc-0.1.1
+
+flags: {}
+extra-package-dbs: []
+
+resolver: nightly-2017-09-07
