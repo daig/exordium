@@ -1,5 +1,6 @@
 module These where
 import Bimap
+import Swap
 
 data These a b = This a | That b | These a b
 instance Bimap These where

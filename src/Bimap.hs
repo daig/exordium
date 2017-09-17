@@ -22,12 +22,5 @@ distrib f g h i a =
   bimap (\x -> f (g x)) (\y -> h (i y)) a
   == bimap f h (bimap g i a)
 
-class Bimap p => Swap p where swap :: p a b -> p b a
-swapSwap :: (Eq (p a b),Swap p) => p a b -> Bool
-swapSwap a = swap (swap a) == a
-swapBimap :: (Swap p, Eq (p b a)) => (x -> a) -> (y -> b) -> p x y -> Bool
-swapBimap f g p = swap (bimap f g p) == bimap g f (swap p)
-
 instance Bimap (,) where
   bimap f g (x,y) = (f x, g y)
-instance Swap (,) where swap (a,b) = (b,a)
