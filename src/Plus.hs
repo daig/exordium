@@ -1,5 +1,6 @@
 module Plus where
 import Bool
+import Ord
 
 class Plus a where (+) :: a -> a -> a
 assoc :: (Eq a, Plus a) => a -> a -> a -> Bool

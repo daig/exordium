@@ -11,11 +11,6 @@ class Map f => Apply f where
 {-assoc :: (Eq (f a), Apply f) => f a -> f a -> f a -> Bool-}
 {-assoc a b c = (a|@|b)|@|c == a|@|(b|@|c)-}
 
-{-class (Map f, Apply f) => Pure f where-}
-  {-pure :: a -> f a-}
-  {-pure a = constMap a point-}
-  {-point :: f ()-}
-  {-point = pure ()-}
 
 {-mapPure :: forall f a b. (Eq (f b), Map f, Pure f) => (a -> b) -> a -> Bool-}
 {-mapPure f a = map f (pure a) == pure @f (f a)-}

@@ -1,5 +1,6 @@
 module Times where
 import Bool
+import Ord
 
 class Times a where (*) :: a -> a -> a
 assoc :: (Eq a, Times a) => a -> a -> a -> Bool

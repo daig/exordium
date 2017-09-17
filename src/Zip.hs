@@ -2,6 +2,7 @@ module Zip where
 import Map
 import Plus
 import Append
+import Empty
 import Times
 import Bool
 import Swap

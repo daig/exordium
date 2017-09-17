@@ -2,8 +2,9 @@ module Align where
 import Map
 import Plus
 import Append
-import TimesF
+import Empty
 import These
+import Ord
 import Bool
 import Swap
 

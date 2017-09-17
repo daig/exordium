@@ -1,5 +1,6 @@
 module Bimap where
 import Bool
+import Ord
 
 -- | Independently Map each on both sides
 class Bimap p where

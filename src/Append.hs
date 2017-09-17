@@ -1,9 +1,11 @@
 module Append where
 import Map
+import Ord
 import Bool
 import Sum
 import Biextract
 import Assoc
+import Empty
 
 
 class Map f => Append f where
@@ -16,8 +18,5 @@ class Map f => Append f where
 testAssoc :: (Map f, Eq (f (E (E a b) c)), Append f) => f a -> f b -> f c -> Bool
 testAssoc a b c = (a|+|b)|+|c == map assoc (a|+|(b|+|c))
 
-class Append f => Empty f where empty :: f a
-mapEmpty :: forall f a b. (Eq (f b), Map f, Empty f) => (a -> b) -> Bool
-mapEmpty f = map @f f empty == empty
-plusEmpty :: forall f x a. (Eq (f (E x a)), Eq (f (E a x)), Empty f) => f a -> Bool
+plusEmpty :: forall f x a. (Eq (f (E x a)), Eq (f (E a x)), Append f, Map f, Empty f) => f a -> Bool
 plusEmpty a = (a |+| empty @f @x) == map L a && (empty @f @x |+| a) == map R a

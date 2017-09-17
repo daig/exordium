@@ -5,7 +5,7 @@ module Ord
   ) where
 import Data.Ord as X (Ord(compare),Ordering(..))
 import Data.Ord
-import Bool
+import Data.Bool (Bool)
 
 (||) :: Ord a => a -> a -> a
 (||) = max
@@ -16,3 +16,7 @@ gt = (>)
 ge = (>=)
 lt = (<)
 le = (<=)
+
+infixr 2 ||
+infixr 3 &&
+infix 4 `gt`, `ge`, `lt`, `le`
