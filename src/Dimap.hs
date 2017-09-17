@@ -11,3 +11,4 @@ class Dimap p where
 
 instance Dimap (->) where
   dimap f g h a = g (h (f a))
+
