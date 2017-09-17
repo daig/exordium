@@ -16,6 +16,12 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Map,Bimap,Dimap
+                      ,Plus,Times,Power
+                      ,PlusF,TimesF
+                      ,Align
+                      ,MapT
+                      ,Swap
+                      ,K,Bool,These,Void
   ghc-options:         -Wall
   default-language:    Haskell2010
   default-extensions: RebindableSyntax 

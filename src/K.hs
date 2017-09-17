@@ -1,7 +1,6 @@
 module K where
 import Map
 import Bimap
-import Void
 
 newtype K a b = K a
 instance Bimap K where bimap f _ (K a) = K (f a)

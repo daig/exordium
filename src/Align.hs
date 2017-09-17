@@ -28,6 +28,3 @@ commutes :: (Align f, Eq (f (These a b))) => f a -> f b -> Bool
 commutes fa fb = (fa ||| fb) == map swap (fb ||| fa)
 alignEmpty :: forall f a b. (Empty f, Align f, Eq (f (These a b))) => f a -> Bool
 alignEmpty fa = (fa ||| empty @f @b) == map This fa
-alignPure :: (Pure f, Align f, Eq (f (These a b))) => f b -> a -> Bool
-alignPure fa a = (pure a ||| fa) == map (These a) fa
-

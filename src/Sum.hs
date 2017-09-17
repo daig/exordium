@@ -1,6 +1,6 @@
 module Sum where
 import Assoc
-import Codiag
+import Biextract
 import Bimap
 
 data E a b = L a | R b
@@ -16,5 +16,5 @@ instance Assoc E where
     L (L a) -> L a
     L (R b) -> R (L b)
     R c -> R (R c)
-instance Codiag E where
-  codiag = \case {L a -> a; R a -> a}
+instance Biextract E where
+  biextract f g = \case {L a -> f a; R b -> g b}
