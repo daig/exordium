@@ -2,7 +2,7 @@ module Times where
 import Bool
 import Ord
 import Plus
-import Data.Coerce
+import Fun
 
 class Times a where (*) :: a -> a -> a
 assoc :: (Eq a, Times a) => a -> a -> a -> Bool
