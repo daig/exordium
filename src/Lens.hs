@@ -31,3 +31,7 @@ type Prism s t a b = forall p f. (Choice p, Pure f, Apply f) => p a (f b) -> p s
 type Prism' s a = Prism s s a a
 
 type Review t b = forall p f. (Choice p, Bimap p, Map f) => p b (f b) -> p t (f t)
+
+
+{-coerced :: forall s t a b. (s =# a, t =# b) => Iso s t a b-}
+{-coerced -}
