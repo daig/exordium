@@ -17,8 +17,8 @@ library
   hs-source-dirs:      src
   exposed-modules:     Map,Bimap,Dimap
                       ,Plus,Times,Power
-                      ,PlusF,TimesF
-                      ,Align
+                      ,Append,Apply
+                      ,Align,Zip
                       ,MapT
                       ,Swap
                       ,K,Bool,These,Void
