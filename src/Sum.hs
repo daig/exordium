@@ -2,6 +2,7 @@ module Sum where
 import Assoc
 import Biextract
 import Bimap
+import LRPure
 
 data E a b = L a | R b
 
@@ -18,3 +19,6 @@ instance Assoc E where
     R c -> R (R c)
 instance Biextract E where
   biextract f g = \case {L a -> f a; R b -> g b}
+instance LRPure E where
+  inL = L
+  inR = R
