@@ -3,7 +3,7 @@
 {-# language UndecidableSuperClasses #-}
 module Coerce
   (type (=#),coerce,coerce#
-  ,fromInteger
+  ,fromInteger, fromString, ifThenElse
   ) where
 import Types
 import qualified Data.Coerce as C
@@ -27,12 +27,17 @@ type family AllSatisfied (cs :: [* -> Constraint]) (a :: *) = (c :: Constraint) 
   AllSatisfied (c ': cs) a = (c a, AllSatisfied cs a)
 class (AllSatisfied (Preserves b a) a, AllSatisfied (Preserves b a) b) => Cast# b a where
   type Preserves b a :: [* -> Constraint]
+  type Preserves b a = '[]
   cast# :: a -> b
 
 fromInteger :: Cast# a Integer => Integer -> a
 fromInteger = cast#
 fromString :: Cast# a [Char] => [Char] -> a
 fromString = cast#
+ifThenElse :: Cast# Bool b => b -> a -> a -> a
+ifThenElse b t f = case cast# b of
+  True -> t
+  False -> f
 
 instance Cast# a a where
   type Preserves a a = '[]
@@ -70,7 +75,6 @@ instance Cast# Word32 Integer where
 instance Cast# Word64 Integer where
   type Preserves Word64 Integer = '[]
   cast# = P.fromInteger
-
 instance Cast# Bool Integer where
   type Preserves Bool Integer = '[]
   cast# i = case P.mod i 2 == 0 of

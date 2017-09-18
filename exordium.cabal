@@ -43,7 +43,7 @@ library
                      ,FlexibleInstances
                      ,FunctionalDependencies
                      ,GADTs
-                    , GeneralizedNewtypeDeriving
+                     ,GeneralizedNewtypeDeriving
                      ,InstanceSigs
                      ,LambdaCase
                      ,MultiWayIf
