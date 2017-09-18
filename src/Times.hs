@@ -3,6 +3,7 @@ import Bool
 import Ord
 import Plus
 import Coerce
+import qualified Prelude as P
 
 class Times a where (*) :: a -> a -> a
 assoc :: (Eq a, Times a) => a -> a -> a -> Bool
@@ -24,3 +25,6 @@ newtype WrapTimes a = Times a
 instance Times a => Plus (WrapTimes a) where (+) = coerce ((*) @a)
 instance One a => Zero (WrapTimes a) where zero = coerce (one @a)
 instance Recip a => Negate (WrapTimes a) where negate = coerce (recip @a)
+
+-- Instances --
+{-instance Times Int where (+) = (P.+)-}
