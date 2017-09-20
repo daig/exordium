@@ -2,7 +2,7 @@
 {-# language UndecidableInstances #-}
 {-# language UndecidableSuperClasses #-}
 module Coerce
-  (type (=#),coerce,coerce#
+  (type (=#),coerce,coerce#,map#,lmap#,rmap#,premap#,postmap#
   ,fromInteger, fromString, ifThenElse
   ) where
 import Types
@@ -10,6 +10,9 @@ import qualified Data.Coerce as C
 import Unsafe.Coerce
 import qualified Prelude as P
 import GHC.Classes (Eq(..))
+import Map
+import Bimap
+import Dimap
 
 -- | Representational type equality. Contrast with nominal equality `~`
 type (=#) = C.Coercible
@@ -18,6 +21,19 @@ coerce = C.coerce
 
 coerce# :: forall b a. a -> b
 coerce# = unsafeCoerce
+
+map# :: forall b a f. (Map f, a =# b) => (a -> b) -> f a -> f b
+map# _ = coerce#
+
+rmap# :: forall b y p a. (Bimap p, y =# b) => (y -> b) -> p a y -> p a b
+rmap# _ = coerce#
+lmap# :: forall a x p b. (Bimap p, x =# a) => (x -> a) -> p x b -> p a b
+lmap# _ = coerce#
+
+postmap# :: forall b y p a. (Dimap p, y =# b) => (y -> b) -> p a y -> p a b
+postmap# _ = coerce#
+premap# :: forall a x p b. (Bimap p, a =# x) => (a -> x) -> p x b -> p a b
+premap# _ = coerce#
 
 class NoC a
 instance NoC a

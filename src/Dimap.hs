@@ -1,7 +1,6 @@
 {-# language MagicHash #-}
 module Dimap where
 import Sum
-import Coerce
 
 class Dimap p where
   {-# minimal dimap | premap,postmap #-}
@@ -11,8 +10,6 @@ class Dimap p where
   premap f = dimap f (\x -> x)
   postmap :: (y -> b) -> p a y -> p a b
   postmap = dimap (\x -> x)
-  premap# :: forall b a x. x =# b => p a x -> p a b
-  premap# = coerce#
 
 instance Dimap (->) where
   dimap f g h a = g (h (f a))
