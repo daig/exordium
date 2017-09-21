@@ -13,6 +13,7 @@ import GHC.Classes (Eq(..))
 import Map
 import Bimap
 import Dimap
+import Iso
 
 -- | Representational type equality. Contrast with nominal equality `~`
 type (=#) = C.Coercible
@@ -32,8 +33,11 @@ lmap# _ = coerce#
 
 postmap# :: forall b y p a. (Dimap p, y =# b) => (y -> b) -> p a y -> p a b
 postmap# _ = coerce#
-premap# :: forall a x p b. (Bimap p, a =# x) => (a -> x) -> p x b -> p a b
+premap# :: forall a x p b. (Dimap p, a =# x) => (a -> x) -> p x b -> p a b
 premap# _ = coerce#
+
+coerced :: forall s t a b. (s =# a, t =# b) => Iso s t a b
+coerced l = premap# coerce (postmap (map coerce) l)
 
 class NoC a
 instance NoC a

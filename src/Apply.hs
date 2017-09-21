@@ -8,6 +8,9 @@ class Map f => Apply f where
   (|@|) :: f (a -> b) -> f a -> f b
   (>>) :: f a -> f b -> f b
   a >> b = map (\x _ -> x) b |@| a
+
+liftA2 :: Apply f => (a -> b -> c) -> f a -> f b -> f c
+liftA2 f x = (map f x |@|)
 {-assoc :: (Eq (f a), Apply f) => f a -> f a -> f a -> Bool-}
 {-assoc a b c = (a|@|b)|@|c == a|@|(b|@|c)-}
 
