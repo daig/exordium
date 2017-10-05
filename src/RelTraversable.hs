@@ -7,6 +7,7 @@ import K
 import Plus
 
 class (Traversable t,RelFoldable t) => RelTraversable t where
+  {-# minimal traverse1 | sequence1 #-}
   traverse1 :: Apply f => (a -> f b) -> t a -> f (t b)
   traverse1 f t = sequence1 (map f t)
   sequence1 :: Apply f => t (f a) -> f (t a)

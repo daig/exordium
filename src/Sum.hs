@@ -1,4 +1,4 @@
-module Sum (E(..), module X) where
+module Sum (E(..), pattern L,module X) where
 import Assoc as X
 import Biextract as X
 import Bimap as X
@@ -6,6 +6,11 @@ import LRPure as X
 import Swap as X
 
 data E a b = L ~a | R ~b
+-- Waiting on GHC bug --
+{-data E a b = L' ~a | R ~b-}
+{-pattern L :: forall b a. a -> E a b-}
+{-pattern L a = L' a-}
+{-{-# COMPLETE L , R #-}-}
 
 instance Bimap E where
   bimap f g = \case {L a -> L (f a); R b -> R (g b)}

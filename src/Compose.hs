@@ -6,9 +6,9 @@ import Bimap
 import LRPure
 import Apply
 import Biapply
+import I
 
 
-newtype I a = I a
 newtype O f g a = O (f (g a))
 newtype OO f g a = OO (g (f a))
 type family Stacked (fs :: [* -> *]) = (f :: * -> *) | f -> fs where
