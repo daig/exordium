@@ -23,3 +23,5 @@ isJust = \case
 
 mapDefault :: MapMaybe f => (a -> b) -> f a -> f b
 mapDefault f = mapMaybe (\a -> Just (f a))
+
+{-instance MapMaybe Maybe where mapMaybe f = -}

@@ -1,10 +1,11 @@
-module Sum where
-import Assoc
-import Biextract
-import Bimap
-import LRPure
+module Sum (E(..), module X) where
+import Assoc as X
+import Biextract as X
+import Bimap as X
+import LRPure as X
+import Swap as X
 
-data E a b = L a | R b
+data E a b = L ~a | R ~b
 
 instance Bimap E where
   bimap f g = \case {L a -> L (f a); R b -> R (g b)}
@@ -22,3 +23,4 @@ instance Biextract E where
 instance LRPure E where
   inL = L
   inR = R
+instance Swap E where swap = \case {L a -> R a; R b -> L b}
