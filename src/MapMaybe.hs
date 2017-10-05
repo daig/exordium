@@ -10,9 +10,6 @@ class Map f => MapMaybe f where
   filter :: (a -> Bool) -> f a -> f a
   filter f x =  mapMaybe (\a -> case f a of {False -> Nothing; True -> Just a}) x
 
--- mapMaybe Just = id
--- mapMaybe (f <=< g) = mapMaybe f . mapMaybe g
-
 fromJust :: Maybe a -> a
 fromJust = \case
   Just a -> a
@@ -23,5 +20,3 @@ isJust = \case
 
 mapDefault :: MapMaybe f => (a -> b) -> f a -> f b
 mapDefault f = mapMaybe (\a -> Just (f a))
-
-{-instance MapMaybe Maybe where mapMaybe f = -}
