@@ -37,6 +37,7 @@ type s ~.! a = forall f. (Comap f, Apply f) => (a -> f a) -> s -> f s
 --Affine Fold
 type (s ~.? a) b t = forall f. (Comap f, Pure f) => (a -> f b) -> s -> f t
 
+-- Prism
 type (s ~+ a) b t = forall p f. (Choice p, Pure f) => p a (f b) -> p s (f t)
 type s ~~+ a = forall p f. (Choice p, Pure f) => p a (f a) -> p s (f s)
 type (s ~+. a) b t = Market a b a (I b) -> Market a b s (I t)
