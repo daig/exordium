@@ -1,5 +1,5 @@
 module AffTraversing (AffTraversing(..), module X) where
-import Traversing as X
+{-import Traversing as X-}
 import Choice as X
 import Strong as X
 import Pure as X

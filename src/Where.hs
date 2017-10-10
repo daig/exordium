@@ -1,5 +1,5 @@
 module Where where
-import LRPure
+import Pure2
 import Bimap
 import Biempty
 
@@ -9,7 +9,7 @@ instance Bimap Where where
     Here a -> Here (f a)
     There b -> There (g b)
     Nowhere -> Nowhere
-instance LRPure Where where
-  inL = Here
-  inR = There
+instance Pure2 Where where
+  pureL = Here
+  pureR = There
 instance Biempty Where where biempty = Nowhere

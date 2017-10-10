@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Map,Bimap,Dimap
+  exposed-modules:     Map,Bimap,Dimap, Sum
                       ,Plus,Times,Power
                       ,Append,Apply
                       ,Align,Zip

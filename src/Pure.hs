@@ -3,6 +3,8 @@ import Map
 import Sum
 import Void
 
+-- http://r6research.livejournal.com/28338.html
+
 class Map f => Pure f where
   {-# minimal pure | point | distL | distR #-}
   pure :: a -> f a

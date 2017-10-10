@@ -2,7 +2,7 @@ module Sum (E(..), pattern L,module X) where
 import Assoc as X
 import Biextract as X
 import Bimap as X
-import LRPure as X
+import InLR as X
 import Swap as X
 
 data E a b = L ~a | R ~b
@@ -25,7 +25,7 @@ instance Assoc E where
     R c -> R (R c)
 instance Biextract E where
   biextract f g = \case {L a -> f a; R b -> g b}
-instance LRPure E where
+instance InLR E where
   inL = L
   inR = R
 instance Swap E where swap = \case {L a -> R a; R b -> L b}

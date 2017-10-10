@@ -1,5 +1,4 @@
 module Times where
-import Plus
 import Types
 import qualified Prelude as P
 
