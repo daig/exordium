@@ -9,12 +9,6 @@ class Dimap p => Strong p where
   second :: p a b -> p (x,a) (x,b)
   second = \p -> dimap swap swap (first p)
 
-(.&) :: Strong p => p a b -> p (a,y) (b,y)
-(.&) = first
-(&.) :: Strong p => p a b -> p (x,a) (x,b)
-(&.) = second
-
-
 ($:) :: Strong p => p a (b -> c) -> p (a,b) c
 ($:) = \p -> (\(f,x) -> f x) `postmap` first p
 

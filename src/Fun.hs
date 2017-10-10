@@ -27,11 +27,3 @@ a ! b = a
 (???) :: a -> b -> Bool -> a
 (f ??? t) b = if b then t else f
 infix 3 ?, ??
-
-{-(<) :: (x -> b) -> (a -> x) -> a -> b-}
-{-f < g = \a -> f (g a)-}
-{-infixr 9 <-}
-
-{-(>) ::  (a -> x) -> (x -> b) -> a -> b-}
-{-f > g = \a -> g (f a)-}
-{-infixr 9 >-}

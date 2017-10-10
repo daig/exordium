@@ -1,5 +1,6 @@
-module Pure where
-import Map
+module Pure (Pure(..), module X) where
+import Map as X
+import Sum as X (E)
 import Sum
 import Void
 

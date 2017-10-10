@@ -1,5 +1,4 @@
-{-# language MagicHash #-}
-module Int where
+module Int (module X) where
 
 import GHC.Int as X
   (Int(..)

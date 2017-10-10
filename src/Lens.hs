@@ -13,29 +13,33 @@ type s ~~% a = forall f. (IsI f) => (a -> f a) -> s -> f s
 type (s ~%. a) b t = (a -> I b) -> s -> I t
 type s ~~%. a = (a -> I a) -> s -> I s
 
--- Getter
-type (s ~^ a) = forall f. IsK f => (a -> f a) -> s -> f s
-type (s ~^. a) = (a -> K a a) -> s -> K a s
 
--- Lens
-type (s ~* a) b t = forall f. Map f => (a -> f b) -> s -> f t
-type s ~~* a = forall f. Map f => (a -> f a) -> s -> f s
 
 -- Traversal
-type (s ~@ a) b t = forall f. Applicative f => (a -> f b) -> s -> f t
+type (s ~@ a) b t   = forall f. Applicative f => (a -> f b) -> s -> f t
 --Relevant Traversal
-type (s ~@! a) b t = forall f. Apply f => (a -> f b) -> s -> f t
+type (s ~@! a) b t  = forall f. Apply f => (a -> f b) -> s -> f t
 --Affine Traversal
-type (s ~@? a) b t = forall f. Pure f => (a -> f b) -> s -> f t
+type (s ~@? a) b t  = forall f. Pure f => (a -> f b) -> s -> f t
+-- Lens aka Linear Traversal
+type (s ~@!? a) b t = forall f. Map f => (a -> f b) -> s -> f t
+type (s ~*   a) b t = forall f. Map f => (a -> f b) -> s -> f t
+type s ~~@!? a      = forall f. Map f => (a -> f a) -> s -> f s
+type s ~~*   a      = forall f. Map f => (a -> f a) -> s -> f s
 
 -- Fold
-type s ~. a = forall f. (Comap f, Applicative f) => (a -> f a) -> s -> f s
+type s ~. a = forall f. (IsK f, Applicative f) => (a -> f a) -> s -> f s
 -- Getting
 type (s ~.. a) m = (a -> K m a) -> s -> K m s
 --Relevant Fold
-type s ~.! a = forall f. (Comap f, Apply f) => (a -> f a) -> s -> f s
+type s ~! a = forall f. (IsK f, Apply f) => (a -> f a) -> s -> f s
 --Affine Fold
-type (s ~.? a) b t = forall f. (Comap f, Pure f) => (a -> f b) -> s -> f t
+type (s ~? a) b t = forall f. (IsK f, Pure f) => (a -> f b) -> s -> f t
+-- Getter aka Linear Fold
+type (s ~!? a)  = forall f. IsK f => (a -> f a) -> s -> f s
+type (s ~^  a)  = forall f. IsK f => (a -> f a) -> s -> f s
+type (s ~!?. a) = (a -> K a a) -> s -> K a s
+type (s ~^.  a) = (a -> K a a) -> s -> K a s
 
 -- Prism
 type (s ~+ a) b t = forall p f. (Choice p, Pure f) => p a (f b) -> p s (f t)
@@ -50,6 +54,9 @@ type t ~|. b = KK b (I b) -> KK t (I t)
 -- Iso
 type (s ~= a) b t = forall p f. (Dimap p, Map f) => p a (f b) -> p s (f t)
 type (s ~~= a) = forall p f. (Dimap p, Map f) => p a (f a) -> p s (f s)
+-- Improper Iso
+type (s ~=# a) b t = forall p f. (Dimap p, Map f) => p a (f b) -> p s (f t)
+type (s ~~=# a) = forall p f. (Dimap p, Map f) => p a (f a) -> p s (f s)
 
 -- Equality
 type ((s :: k1) ~== (a :: k1)) (b :: k2) (t :: k2) = forall k3 (p :: k1 -> k3 -> *) (f :: k2 -> k3).
