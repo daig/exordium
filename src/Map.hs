@@ -7,3 +7,4 @@ class Map f where
   constMap b = map (\_ -> b)
 
 instance Map ((,) x) where map f (x,a) = (x,f a)
+instance Map ((->) x) where map f g = \x -> f (g x)
