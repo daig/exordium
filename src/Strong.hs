@@ -1,4 +1,4 @@
-module Strong (Strong(..), ($:), (.&), (&.), module X) where
+module Strong (Strong(..), ($:), module X) where
 import Dimap as X
 import Swap as X
 

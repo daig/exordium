@@ -1,4 +1,5 @@
-module Co.Map.Laws where
+module Comap.Laws where
+import Comap
 import Bool
 
 comapId :: (Comap f, Eq (f a)) => f a -> Bool

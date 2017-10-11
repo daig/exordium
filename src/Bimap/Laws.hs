@@ -1,4 +1,7 @@
-module Bi.Map.Laws where
+module Bimap.Laws where
+import Bimap
+import Bool
+import Ord
 
 bimapId :: (Bimap p, Eq (p a b)) => p a b -> Bool
 bimapId p = bimap (\x -> x) (\y -> y) p == p

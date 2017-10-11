@@ -1,7 +1,7 @@
-module Where where
-import Pure2
-import Bimap
-import Biempty
+module Where (Where(..), module X) where
+import InLR as X
+import Bimap as X
+import Biempty as X
 
 data Where a b = Here a | There b | Nowhere
 instance Bimap Where where
@@ -9,7 +9,7 @@ instance Bimap Where where
     Here a -> Here (f a)
     There b -> There (g b)
     Nowhere -> Nowhere
-instance Pure2 Where where
-  pureL = Here
-  pureR = There
+instance InLR Where where
+  inL = Here
+  inR = There
 instance Biempty Where where biempty = Nowhere

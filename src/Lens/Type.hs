@@ -4,7 +4,7 @@
 module Lens.Type where
 import I
 import K
-import Market as X (Market)
+import Market as X (Market,Market')
 import GHC.Types (type (*))
 
 type Optic f s t a b = (a -> f b) -> s -> f t

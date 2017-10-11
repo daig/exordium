@@ -15,13 +15,87 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Map,Bimap,Dimap, Sum
-                      ,Plus,Times,Power
-                      ,Append,Apply
-                      ,Align,Zip
-                      ,MapT
+  exposed-modules:     Addr
+                      ,AffFoldMap, AffTraverse, AffTraversing
+                      ,Append, Append.Laws
+                      ,Applicative, Apply
+                      ,Assoc
+                      ,Bazaar ,Baz
+                      ,BiAffFoldable, Biapply, Biempty, Bimap, Bimap.Laws
+                      ,Bind
+                      ,Bipure, BiRelFoldmap, Bitraverse
+                      ,Bool
+                      ,Cast
+                      ,Category
+                      ,Char.Prim
+                      ,ChoiceCompose, Choice
+                      ,Closed
+                      ,Cochoice
+                      ,Coerce
+                      ,Comap, Comap.Laws
+                      ,Compact.Prim
+                      ,Compose
+                      ,Cons
+                      ,Costrong
+                      ,Curry
+                      ,Def
+                      ,Dipure
+                      ,Distributive
+                      ,Divide
+                      ,Double.Prim
+                      ,Embed
+                      ,Empty, Empty.Laws
+                      ,EqF
+                      ,Exception.Prim
+                      ,Flip
+                      ,Float.Prim
+                      ,FoldMap
+                      ,Hoist
+                      ,Hollow
+                      ,I
+                      ,InLR
+                      ,Int, Int.Prim
+                      ,IO, IO.Prim
+                      ,Iso
+                      ,K
+                      ,Lens.Type
+                      ,LinFoldMap, LinTraverse
+                      ,Map, Map.Laws, MapMaybe, Mapping, MapT
+                      ,Market
+                      ,Maybe
+                      ,Minus
+                      ,Monad
+                      ,MutVar.Prim
+                      ,MVar
+                      ,Nat
+                      ,Negate, Negate.Laws
+                      ,O
+                      ,One
+                      ,Option
+                      ,Ord
+                      ,Plus
+                      ,Power, Power.Laws
+                      ,Prod
+                      ,Proxy
+                      ,Pure
+                      ,Recip, Recip.Laws
+                      ,RelFoldmap, RelTraverse, RelTraversing
+                      ,StablePtr.Prim
+                      ,STM.Prim
+                      ,StrongCompose, Strong
+                      ,Sum
                       ,Swap
-                      ,K,Bool,These,Void
+                      ,These
+                      ,Times, Times.Laws
+                      ,Traverse, Traversing
+                      ,Void
+                      ,Where
+                      ,Word.Prim
+                      ,WrapTimes
+                      ,Zero
+                      ,Zip
+
+
   ghc-options:         -Wall
   default-language:    Haskell2010
   default-extensions: RebindableSyntax 
@@ -35,7 +109,6 @@ library
                      ,DeriveDataTypeable
                      ,DeriveGeneric
                      ,DeriveLift
-                     ,DeriveTraverse
                      ,DerivingStrategies
                      ,DuplicateRecordFields
                      ,EmptyCase

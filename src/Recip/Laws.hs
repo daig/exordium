@@ -1,5 +1,7 @@
 module Recip.Laws where
 import Recip
+import Bool
+import Ord
 
 recipRecip :: (Recip a,Eq a) => a -> Bool
 recipRecip a = recip (recip a) == a
