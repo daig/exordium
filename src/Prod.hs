@@ -1,12 +1,12 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 module Prod where
-import LinTraversable
+import LinTraverse
 
-instance LinTraversable ((,) x) where traverse_ f (x,a) = map (x,) (f a)
-instance AffTraversable ((,) x) where traverse0 = traverse_
-instance RelTraversable ((,) x) where traverse1 = traverse_
-instance Traversable ((,) x) where traverse = traverse_
-instance LinFoldable ((,) x) where foldMap_ = foldMap_Default
-instance AffFoldable ((,) x) where foldMap0 = foldMap0Default
-instance RelFoldable ((,) x) where foldMap1 = foldMap1Default
-instance Foldable ((,) x) where foldMap = foldMapDefault
+instance LinTraverse ((,) x) where traverse_ f (x,a) = map (x,) (f a)
+instance AffTraverse ((,) x) where traverse0 = traverse_
+instance RelTraverse ((,) x) where traverse1 = traverse_
+instance Traverse ((,) x) where traverse = traverse_
+instance LinFoldMap ((,) x) where foldMap_ = foldMap_Default
+instance AffFoldMap ((,) x) where foldMap0 = foldMap0Default
+instance RelFoldMap ((,) x) where foldMap1 = foldMap1Default
+instance FoldMap ((,) x) where foldMap = foldMapDefault

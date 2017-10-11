@@ -603,7 +603,7 @@ instance (Map f, Apply m) => Apply (Stream f m) where
 
    {-and, recursively:-}
 
-{-> S.each :: (Monad m, Foldable t) => t a -> Stream (Of a) m ()-}
+{-> S.each :: (Monad m, FoldMap t) => t a -> Stream (Of a) m ()-}
 {-> S.each = foldr (\a b -> wrap (a :> b)) (return ())-}
 
    {-The two operations-}

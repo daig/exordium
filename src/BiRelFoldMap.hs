@@ -1,8 +1,8 @@
-module BiRelFoldable (BiRelFoldable(..), module X) where
-import BiFoldable as X
+module BiRelFoldMap (BiRelFoldMap(..), module X) where
+import BiFoldMap as X
 import Plus
 
-class BiFoldable t => BiRelFoldable t where
+class BiFoldMap t => BiRelFoldMap t where
   {-# minimal foldMapL1, foldMapR1  #-}
   foldMapL1 :: Plus s => (a -> s) -> t a b -> s
   foldMapR1 :: Plus s => (b -> s) -> t a b -> s

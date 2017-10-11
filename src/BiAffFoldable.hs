@@ -1,7 +1,7 @@
-module AffFoldable (BiAffFoldable(..),module X) where
-import BiFoldable as X
+module AffFoldMap (BiAffFoldMap(..),module X) where
+import BiFoldMap as X
 
-class BiFoldable t => BiAffFoldable t where
+class BiFoldMap t => BiAffFoldMap t where
   {-# minimal bifoldMap0 #-}
   bifoldMap0 :: Def m => (a -> m) -> (b -> m) -> t a b -> m
   foldMapL0 :: Def m => (a -> m) -> t a b -> m

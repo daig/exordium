@@ -1,5 +1,5 @@
 module Bazaar (Bazaar(..),sell,module X) where
-import RelTraversable as X
+import RelTraverse as X
 import Dimap as X
 import Applicative as X
 

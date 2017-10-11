@@ -1,7 +1,7 @@
-module Bifoldable (Bifoldable(..), module X) where
+module BifoldMap (BifoldMap(..), module X) where
 import Zero as X
 
-class (FoldableL t, FoldableR t) => Bifoldable t where
+class (FoldMapL t, FoldMapR t) => BifoldMap t where
   {-# minimal bifoldmap | foldmapl, foldmapr #-}
   bifoldMap :: Zero m => (a -> m) -> (b -> m) -> t a b -> m
   foldMapL :: Zero m => (a -> m) -> t a b -> m
