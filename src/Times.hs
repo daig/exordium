@@ -1,8 +1,13 @@
+{-# language UndecidableSuperClasses #-}
 module Times where
-import Types
+import Int
+import Types (Constraint)
 import qualified Prelude as P
 
-class Times a where (*) :: a -> a -> a
+class Times a where
+  type TimesC a :: Constraint
+  type TimesC a = ()
+  (*) :: a -> a -> a
 
 instance Times Int where (*) = (P.*)
 --TODO: add more

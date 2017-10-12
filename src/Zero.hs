@@ -10,4 +10,3 @@ zero :: Zero a => a
 zero = def
 plusZero :: (Eq a, Zero a) => a -> Bool
 plusZero a = (a + zero) == a && (zero + a) == a
-

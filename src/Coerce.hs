@@ -13,7 +13,7 @@ import GHC.Classes (Eq(..))
 import Map
 import Bimap
 import Dimap
-import Iso
+import Trivial
 
 -- | Representational type equality. Contrast with nominal equality `~`
 type (=#) = C.Coercible
@@ -36,14 +36,12 @@ postmap# _ = coerce#
 premap# :: forall a x p b. (Dimap p, a =# x) => (a -> x) -> p x b -> p a b
 premap# _ = coerce#
 
-coerced :: forall s t a b. (s =# a, t =# b) => Iso s t a b
-coerced l = premap# coerce (postmap (map coerce) l)
+{-coerced :: forall s t a b. (s =# a, t =# b) => Iso s t a b-}
+{-coerced l = premap# coerce (postmap (map coerce) l)-}
 
-class NoC a
-instance NoC a
 -- | A map from a to b which is morally a natural homomorphism, preserving at least the structure indicated by Preserves. See instance definitiions for examples of correct usage
 type family AllSatisfied (cs :: [* -> Constraint]) (a :: *) = (c :: Constraint) | c -> cs a where
-  AllSatisfied '[] a = NoC a
+  AllSatisfied '[] a = Trivial a
   AllSatisfied (c ': cs) a = (c a, AllSatisfied cs a)
 class (AllSatisfied (Preserves b a) a, AllSatisfied (Preserves b a) b) => Cast# b a where
   type Preserves b a :: [* -> Constraint]

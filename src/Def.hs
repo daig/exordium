@@ -4,6 +4,8 @@ import Types
 
 class Def a where def :: a
 
+instance Def (a -> a) where def = \a -> a
+instance (Def a, Def b) => Def (a,b) where def = (def,def)
 instance Def Integer where def = 0
 instance Def Int   where def = 0
 instance Def Int8  where def = 0

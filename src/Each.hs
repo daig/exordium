@@ -12,5 +12,3 @@ instance Each [a] a b [b] where
     go = \case
       [] -> pure []
       (a:as) -> f a |@(:)@| go as
-
-      <@(:)@>

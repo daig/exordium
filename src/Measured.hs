@@ -1,11 +1,12 @@
+{-# language UndecidableSuperClasses #-}
 module Measured (Measured(..), module X) where
 import Int
 import Coerce (fromInteger)
-import Plus as X
+import Zero as X
 
 
 -- The measure should preserve all monoidlike structures
-class Plus (Measure a) => Measured a where
+class Zero (Measure a) => Measured a where
   type Measure a
   measure :: a -> Measure a
 
