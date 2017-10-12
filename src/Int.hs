@@ -6,3 +6,4 @@ import GHC.Int as X
   ,Int16(..)
   ,Int32(..)
   ,Int64(..))
+import Plus as X

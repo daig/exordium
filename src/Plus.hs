@@ -30,3 +30,4 @@ instance Plus Word32 where (+) = (P.+)
 instance Plus Word64 where (+) = (P.+)
 instance Plus Bool where (+) = (P./=)
 
+instance (Plus a, Plus b) => Plus (a,b) where (a,b) + (x,y) = (a+x,b+y)

@@ -5,9 +5,10 @@ import FoldMap as X
 import Pure as X
 import K
 import Plus
+import Lens.Type (type (~@))
 
 class (Map t,FoldMap t) => Traverse t where
-  traverse :: (Pure f, Apply f) => (a -> f b) -> t a -> f (t b)
+  traverse :: (t a ~@ a) b (t b)
   traverse f t = sequence (map f t)
   sequence :: (Pure f,Apply f) => t (f a) -> f (t a)
   sequence = traverse (\x -> x)
