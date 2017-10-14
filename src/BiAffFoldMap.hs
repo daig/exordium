@@ -1,4 +1,4 @@
-module AffFoldMap (BiAffFoldMap(..),module X) where
+module BiAffFoldMap (BiAffFoldMap(..),module X) where
 import BiFoldMap as X
 
 class BiFoldMap t => BiAffFoldMap t where

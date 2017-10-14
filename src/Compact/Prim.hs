@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module Compact.Prim (module X) where
 import GHC.Prim as X
   (Compact#, State#, RealWorld, Int#, Word#

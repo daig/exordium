@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module STM.Prim (module X) where
 import GHC.Prim as X
   (TVar#, State#

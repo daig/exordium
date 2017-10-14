@@ -12,10 +12,7 @@ import Trivial
 {-fromInteger :: P.Num a => a-}
 {-fromInteger = P.fromInteger-}
 
-class PlusC a => Plus a where
-  type PlusC a :: Constraint
-  type PlusC a = ()
-  (+) :: a -> a -> a
+class Plus a where (+) :: a -> a -> a
 assoc :: (Eq a, Plus a) => a -> a -> a -> Bool
 assoc a b c = (a+b)+c == a+(b+c)
 

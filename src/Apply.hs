@@ -14,7 +14,7 @@ liftA2 f x = (map f x |@|)
 
 (|@) :: Apply f => f a -> (a -> b -> c) -> f b -> f c
 fa |@ f = (map f fa |@|)
-(@|) :: Apply f => (f b -> f c) -> f b -> f c
+(@|) :: (f b -> f c) -> f b -> f c
 f @| fb = f fb
 {-assoc :: (Eq (f a), Apply f) => f a -> f a -> f a -> Bool-}
 {-assoc a b c = (a|@|b)|@|c == a|@|(b|@|c)-}

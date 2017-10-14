@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module Int.Prim (module X) where
 import GHC.Prim as X
   (Int#

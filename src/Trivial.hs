@@ -1,3 +1,5 @@
+{-# language UndecidableSuperClasses #-}
+{-# language UndecidableInstances #-}
 module Trivial (Trivial, module X) where
 import Types as X (Constraint)
 

@@ -1,9 +1,5 @@
 module Iso where
-import Dimap
-import Map
-
-type Iso s t a b = forall p f. (Dimap p, Map f) => p a (f b) -> p s (f t)
-type Iso' s a = Iso s s a a
+import Lens.Type as X
 
 iso :: (s -> a) -> (b -> t) -> Iso s t a b
 iso sa bt = dimap sa (map bt)

@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module IO.Prim (module X) where
 import GHC.Prim as X
   (State#, RealWorld, ThreadId#, Int#

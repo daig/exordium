@@ -1,11 +1,11 @@
 module Bitraverse (Bitraverse(..),bifoldMapDefault,module X) where
 import Bimap as X
 import Applicative as X
-import BifoldMap as X
+import BiFoldMap as X
 import K
 import Plus
 
-class (Bimap t,BifoldMap t) => Bitraverse t where
+class (Bimap t,BiFoldMap t) => Bitraverse t where
   bitraverse :: (Pure f, Apply f) => (x -> f a) -> (y -> f b) -> t x y -> f (t a b)
   bitraverse f g t = bisequence (bimap f g t)
   bisequence :: Applicative f => t (f a) (f b) -> f (t a b)
