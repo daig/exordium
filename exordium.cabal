@@ -144,6 +144,7 @@ library
   build-depends:       base >= 4.7 && < 5
                      , async
                      , ghc-prim
+                     , template-haskell
 
 source-repository head
   type:     git

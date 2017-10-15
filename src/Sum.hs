@@ -5,7 +5,9 @@ import Bimap as X
 import InLR as X
 import Swap as X
 
+data family (+:) xs
 data E a b = L ~a | R ~b
+data a + b = L' ~a | R' ~b
 -- Waiting on GHC bug --
 {-data E a b = L' ~a | R ~b-}
 {-pattern L :: forall b a. a -> E a b-}
