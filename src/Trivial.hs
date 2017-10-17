@@ -1,7 +1,4 @@
-{-# language UndecidableSuperClasses #-}
-{-# language UndecidableInstances #-}
-module Trivial (Trivial, module X) where
-import Types as X (Constraint)
+module Trivial where
 
 class Trivial a
 instance Trivial a

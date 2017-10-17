@@ -17,4 +17,4 @@ instance Apply I where I f |@| I a = I (f a)
 instance Pure I where pure = I
 instance Distributive I where distribute a = I (map fold_ a)
 
-type IsI f = (LinFoldMap f, Applicative f, Distributive f)
+class (LinFoldMap f, Applicative f, Distributive f) => IsI f where

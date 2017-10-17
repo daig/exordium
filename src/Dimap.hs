@@ -12,3 +12,4 @@ class Dimap p where
   postmap = dimap (\x -> x)
 
 instance Dimap (->) where dimap f g h a = g (h (f a))
+

@@ -12,5 +12,5 @@ class Dimap p => Cochoice p where
 
 
 instance Cochoice (->) where
-  unleft f = \a -> go (L a) where go = \a -> biextract (\x -> x) (\x -> go (R x)) (f a)
-  unright f = \a -> go (R a) where go = \a -> biextract (\x -> go (L x)) (\x -> x) (f a)
+  unleft f = \a -> go (L a) where go = \a -> either (\x -> x) (\x -> go (R x)) (f a)
+  unright f = \a -> go (R a) where go = \a -> either (\x -> go (L x)) (\x -> x) (f a)

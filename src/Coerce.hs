@@ -2,7 +2,7 @@
 {-# language UndecidableInstances #-}
 {-# language UndecidableSuperClasses #-}
 module Coerce
-  (type (=#),coerce,coerce#,map#,lmap#,rmap#,premap#,postmap#
+  (type (#=),coerce,coerce#,map#,lmap#,rmap#,premap#,postmap#
   ,fromInteger, fromString, ifThenElse
   ) where
 import Types
@@ -16,37 +16,28 @@ import Dimap
 import Trivial
 
 -- | Representational type equality. Contrast with nominal equality `~`
-type (=#) = C.Coercible
-coerce :: forall b a. a =# b => a -> b
+type (#=) = C.Coercible
+coerce :: forall b a. a #= b => a -> b
 coerce = C.coerce
 
 coerce# :: forall b a. a -> b
 coerce# = unsafeCoerce
 
-map# :: forall b a f. (Map f, a =# b) => (a -> b) -> f a -> f b
+map# :: forall b a f. (Map f, a #= b) => (a -> b) -> f a -> f b
 map# _ = coerce#
 
-rmap# :: forall b y p a. (Bimap p, y =# b) => (y -> b) -> p a y -> p a b
+rmap# :: forall b y p a. (Bimap p, y #= b) => (y -> b) -> p a y -> p a b
 rmap# _ = coerce#
-lmap# :: forall a x p b. (Bimap p, x =# a) => (x -> a) -> p x b -> p a b
+lmap# :: forall a x p b. (Bimap p, x #= a) => (x -> a) -> p x b -> p a b
 lmap# _ = coerce#
 
-postmap# :: forall b y p a. (Dimap p, y =# b) => (y -> b) -> p a y -> p a b
+postmap# :: forall b y p a. (Dimap p, y #= b) => (y -> b) -> p a y -> p a b
 postmap# _ = coerce#
-premap# :: forall a x p b. (Dimap p, a =# x) => (a -> x) -> p x b -> p a b
+premap# :: forall a x p b. (Dimap p, a #= x) => (a -> x) -> p x b -> p a b
 premap# _ = coerce#
 
-{-coerced :: forall s t a b. (s =# a, t =# b) => Iso s t a b-}
+{-coerced :: forall s t a b. (s #= a, t #= b) => Iso s t a b-}
 {-coerced l = premap# coerce (postmap (map coerce) l)-}
-
--- | A map from a to b which is morally a natural homomorphism, preserving at least the structure indicated by Preserves. See instance definitiions for examples of correct usage
-type family AllSatisfied (cs :: [* -> Constraint]) (a :: *) = (c :: Constraint) | c -> cs a where
-  AllSatisfied '[] a = Trivial a
-  AllSatisfied (c ': cs) a = (c a, AllSatisfied cs a)
-class (AllSatisfied (Preserves b a) a, AllSatisfied (Preserves b a) b) => Cast# b a where
-  type Preserves b a :: [* -> Constraint]
-  type Preserves b a = '[]
-  cast# :: a -> b
 
 fromInteger :: Cast# a Integer => Integer -> a
 fromInteger = cast#
@@ -57,9 +48,12 @@ ifThenElse b t f = case cast# b of
   True -> t
   False -> f
 
+class Cast# b a where
+  type Preserves b a :: [* -> Constraint]
+  cast# :: a -> b
 instance Cast# a a where
   type Preserves a a = '[]
-  cast# a = a
+  cast# = \a -> a
   
 
 instance Cast# Int Integer where
