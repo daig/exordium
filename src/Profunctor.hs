@@ -1,5 +1,4 @@
-{-# language MagicHash #-}
-module Profunctor where
+module Profunctor (Profunctor(..), module X) where
 import Category as X
 
 class (Category (Precat p), Category (Postcat p)) => Profunctor (p :: k -> k' -> *) where
