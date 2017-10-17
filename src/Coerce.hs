@@ -13,7 +13,7 @@ import GHC.Classes (Eq(..))
 import Map
 import Bimap
 import Dimap
-import Trivial
+
 
 -- | Representational type equality. Contrast with nominal equality `~`
 type (#=) = C.Coercible

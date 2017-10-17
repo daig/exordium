@@ -1,4 +1,4 @@
-module I (I(..), IsI, module X) where
+module I (I(..), module X) where
 import Map as X
 import LinFoldMap as X
 import Applicative as X
@@ -17,4 +17,3 @@ instance Apply I where I f |@| I a = I (f a)
 instance Pure I where pure = I
 instance Distributive I where distribute a = I (map fold_ a)
 
-class (LinFoldMap f, Applicative f, Distributive f) => IsI f where
