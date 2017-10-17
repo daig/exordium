@@ -1,6 +1,6 @@
 module Sum (E(..), pattern L,module X) where
 import Assoc as X
-import Biextract as X
+import Either as X
 import Bimap as X
 import InLR as X
 import Swap as X
@@ -25,8 +25,8 @@ instance Assoc E where
     L (L a) -> L a
     L (R b) -> R (L b)
     R c -> R (R c)
-instance Biextract E where
-  biextract f g = \case {L a -> f a; R b -> g b}
+instance Either E where
+  either f g = \case {L a -> f a; R b -> g b}
 instance InLR E where
   inL = L
   inR = R

@@ -42,11 +42,6 @@ type (s ^~  a)  = forall f. IsK f => (a -> f a) -> s -> f s
 type (s !?~. a) = (a -> K a a) -> s -> K a s
 type (s ^~.  a) = (a -> K a a) -> s -> K a s
 
--- Prism
-type (s +~ a) b t = forall p f. (Choice p, Pure f) => p a (f b) -> p s (f t)
-type s +~~ a = forall p f. (Choice p, Pure f) => p a (f a) -> p s (f s)
-type (s +~. a) b t = Market a b a (I b) -> Market a b s (I t)
-type s +~~. a = Market' a a (I a) -> Market' a s (I s)
 
 -- Review
 type t |~ b = forall p f. (IsKK p, IsI f) => p b (f b) -> p t (f t)
