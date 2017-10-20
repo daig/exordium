@@ -16,8 +16,8 @@ instance Dimap (Market a b) where
   {-# INLINE premap #-}
   postmap f (Market bt seta) = Market (f . bt) (either (L . f) R . seta)
   {-# INLINE postmap #-}
-instance ComapL (Market a b) where comapL = premap
-instance MapR (Market a b) where mapR = postmap
+instance ComapL (Market a b) where comapl = premap
+instance MapR (Market a b) where mapr = postmap
 instance Map (Market a b s) where map = postmap
 
 instance Choice (Market a b) where
