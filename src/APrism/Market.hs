@@ -9,10 +9,6 @@ import Prelude ((.))
 data Market a b s t = Market (b -> t) (s -> E t a)
 type Market' a = Market a a
 
-instance Map (Market a b s) where
-  map f (Market bt seta) = Market (f . bt) (either (L . f) R . seta)
-  {-# INLINE map #-}
-
 instance Dimap (Market a b) where
   dimap f g (Market bt seta) = Market (g . bt) (either (L . g) R . seta . f)
   {-# INLINE dimap #-}
@@ -20,6 +16,9 @@ instance Dimap (Market a b) where
   {-# INLINE premap #-}
   postmap f (Market bt seta) = Market (f . bt) (either (L . f) R . seta)
   {-# INLINE postmap #-}
+instance ComapL (Market a b) where comapL = premap
+instance MapR (Market a b) where mapR = postmap
+instance Map (Market a b s) where map = postmap
 
 instance Choice (Market a b) where
   left (Market bt seta) = Market (L . bt) (\case

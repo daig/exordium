@@ -1,9 +1,11 @@
-module Bimap where
+module Bimap (Bimap(..), module X) where
 import Bool
 import Ord
+import MapL as X
+import MapR as X
 
 -- | Independently Map each on both sides
-class Bimap p where
+class (MapL p, MapR p) => Bimap p where
   {-# minimal bimap | lmap, rmap #-}
   bimap :: (x -> a) -> (y -> b) -> p x y -> p a b
   bimap f g p = rmap g (lmap f p)
