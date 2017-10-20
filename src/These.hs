@@ -8,6 +8,8 @@ instance Bimap These where
     This a -> This (f a)
     That b -> That (g b)
     These a b -> These (f a) (g b)
+instance MapL These where mapl = lmap
+instance MapR These where mapr = rmap
 instance Swap These where
   swap = \case
     This a -> That a

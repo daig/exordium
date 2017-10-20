@@ -1,8 +1,10 @@
 {-# language MagicHash #-}
-module Dimap where
+module Dimap (Dimap(..), module X) where
 import Sum
+import ComapL as X
+import MapR as X
 
-class Dimap p where
+class (ComapL p, MapR p) => Dimap p where
   {-# minimal dimap | premap,postmap #-}
   dimap :: (a -> x) -> (y -> b) -> p x y -> p a b
   dimap f g h = postmap g (premap f h)
