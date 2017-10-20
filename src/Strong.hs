@@ -12,3 +12,6 @@ class Dimap p => Strong p where
 ($:) :: Strong p => p a (b -> c) -> p (a,b) c
 ($:) = \p -> (\(f,x) -> f x) `postmap` first p
 
+instance Strong (->) where
+  first f = \(a,y) -> (f a,y)
+  second f = \(x,b) -> (x,f b)
