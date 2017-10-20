@@ -1,5 +1,7 @@
 {-# language TypeInType #-}
-module Equality (type (==~), type (==~~)) where
+module Equality
+  (type (==~), type (==~~)
+  ,module X) where
 import GHC.Types as X (type (*))
 
 type ((s :: k1) ==~ (a :: k1)) (b :: k2) (t :: k2) = forall k3 (p :: k1 -> k3 -> *) (f :: k2 -> k3).

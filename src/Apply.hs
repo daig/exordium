@@ -23,3 +23,6 @@ f @| fb = f fb
 {-mapPure f a = map f (pure a) == pure @f (f a)-}
 {-timesPure :: (Eq (f a), Apply f, Pure f) => f a -> a -> Bool-}
 {-timesPure fa a = (fa |@| pure a) == fa && (pure a |@| fa) == fa-}
+
+instance Apply ((->) x) where
+  f |@| g = \x -> f x (g x)
