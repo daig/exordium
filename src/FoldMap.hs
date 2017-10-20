@@ -8,3 +8,5 @@ class FoldMap t where
   foldr :: (a -> b -> b) -> b -> t a -> b
   foldr c z t = foldMap c t z
   {-foldl :: (b -> a -> b) -> b -> t a -> b-}
+
+instance FoldMap ((,) x) where foldMap f (x,a) = f a

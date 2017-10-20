@@ -8,3 +8,5 @@ class (AffFoldMap t, RelFoldMap t) =>  LinFoldMap t where
   foldMap_ f x = f (fold_ x)
   fold_ :: t a -> a
   fold_ = foldMap_ (\x -> x)
+
+instance LinFoldMap ((,) x) where foldMap_ f (x,a) = f a

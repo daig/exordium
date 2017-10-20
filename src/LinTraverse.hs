@@ -5,7 +5,6 @@ import Apply as X
 import AffTraverse as X
 import RelTraverse as X
 import K
-import Plus
 
 class (AffTraverse t, RelTraverse t,LinFoldMap t) => LinTraverse t where
   traverse_ :: Map f => (a -> f b) -> t a -> f (t b)
@@ -16,3 +15,4 @@ class (AffTraverse t, RelTraverse t,LinFoldMap t) => LinTraverse t where
 foldMap_Default :: LinTraverse t => (a -> m) -> t a -> m
 foldMap_Default f t = case traverse_ (\x -> K (f x)) t of {K m -> m}
 
+instance LinTraverse ((,) x) where traverse_ f (x,a) = (x,) `map` f a

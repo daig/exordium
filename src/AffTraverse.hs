@@ -14,3 +14,5 @@ class (Traverse t,AffFoldMap t) => AffTraverse t where
 
 foldMap0Default :: (AffTraverse t, Def m) => (a -> m) -> t a -> m
 foldMap0Default f t = case traverse0 (\x -> K (f x)) t of {K m -> m}
+
+instance AffTraverse ((,) x) where traverse0 f (x,a) = (x,) `map` f a

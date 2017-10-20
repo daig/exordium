@@ -2,7 +2,7 @@
 module Prod where
 import LinTraverse
 
-instance LinTraverse ((,) x) where traverse_ f (x,a) = map (x,) (f a)
+instance LinTraverse ((,) x) where traverse_ f (x,a) = (x,) `map` f a
 instance AffTraverse ((,) x) where traverse0 = traverse_
 instance RelTraverse ((,) x) where traverse1 = traverse_
 instance Traverse ((,) x) where traverse = traverse_

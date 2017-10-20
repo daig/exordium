@@ -15,3 +15,5 @@ class (Traverse t,RelFoldMap t) => RelTraverse t where
 
 foldMap1Default :: (RelTraverse t, Plus m) => (a -> m) -> t a -> m
 foldMap1Default f t = case traverse1 (\x -> K (f x)) t of {K m -> m}
+
+instance RelTraverse ((,) x) where traverse1 f (x,a) = (x,) `map` f a
