@@ -1,8 +1,16 @@
 module Witness (W(..), runWitness, type (|=>)(..), type (=>.)(..), module X) where
 import Constraint as X
 import Profunctor as X
+import Prelude 
 
 data W c = c => W
+newtype c |=> r = WithCtx (c => r)
+instance Profunctor (|=>) where
+  type Precat (|=>) = (=>.)
+  premap' p (WithCtx cr) = WithCtx (comapEnv p cr)
+  type Postcat (|=>) = (->)
+  postmap' f (WithCtx cr) = WithCtx (f cr)
+  dimap' p f (WithCtx cr) = WithCtx (comapEnv p (f cr))
 
 runWitness :: W c -> (c => r) -> r
 runWitness W = \r -> r
@@ -15,10 +23,32 @@ infixr `comapEnv`
 instance Compose (=>.) where f < g = Sub (g `comapEnv` f `comapEnv` W)
 instance Category (=>.) where id = Sub W
 
-newtype c |=> r = Constrained {getConstrained :: c => r}
-instance Profunctor (|=>) where
-  type Precat (|=>) = (=>.)
-  type Postcat (|=>) = (->)
-  premap' p (Constrained cr) = Constrained (comapEnv p cr)
-  postmap' f (Constrained cr) = Constrained (f cr)
-  dimap' p f (Constrained cr) = Constrained (comapEnv p (f cr))
+-- | A @CFun c k a b@ is a function from @a@ to @b@, requiring constraint @c@ and providing constraint @k@
+newtype CFun c k a b = CFun {runCFun :: c => (k => a) -> b}
+purecf :: (c a => a -> b) -> CFun (c a) (c a) a b
+purecf f = CFun f
+purek :: k => CFun c k a a
+purek = CFun (\a -> a)
+purea :: a -> CFun c c x a
+purea a = CFun (\_ -> a)
+puref :: (c => a -> b) -> CFun c c a b
+puref f = CFun f
+
+testDyn :: Show a => a -> CFun c (Show x) (x -> y) y
+testDyn a = CFun (\f -> f a)
+
+teste = puref @(Show Int) @Int show
+testa = purea @Int 3
+testf :: CFun c c Int Int
+testf = puref (*2)
+{-compk :: CFun c k a a -> CFun k q a a -> CFun c (k,q) a a -}
+{-compk (CFun f) (CFun g) = CFun (f < g)-}
+(><) :: CFun k q x y -> CFun c k y z -> CFun c q x z
+CFun f >< CFun g = CFun (\x -> g (f x))
+
+postmapC :: (c => y -> z) -> CFun c k x y -> CFun c k x z
+postmapC f (CFun g) = CFun (\x -> f (g x))
+
+{-f :: c => (k => x) -> y-}
+{-g :: k => (q => y) -> z-}
+{-c => (q => x) -> z-}
