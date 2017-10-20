@@ -3,9 +3,11 @@ import Dimap as X
 import Swap as X
 
 class Dimap p => Strong p where
-  {-# minimal first | second #-}
+  {-# minimal lens | first | second #-}
+  lens :: (s -> a) -> (s -> b -> t) -> p a b -> p s t
+  lens get set = \p -> dimap (\x -> (x,get x)) (\(s,b) -> set s b) (second p)
   first :: p a b -> p (a,y) (b,y)
-  first = \p -> dimap swap swap (second p)
+  first = lens (\(a,_) -> a) (\(_,c) b -> (b,c))
   second :: p a b -> p (x,a) (x,b)
   second = \p -> dimap swap swap (first p)
 
