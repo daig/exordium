@@ -1,6 +1,5 @@
 module Apply where
 import Map
-import Bool
 
 
 class Map f => Apply f where

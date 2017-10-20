@@ -1,4 +1,4 @@
-module Exchange (Exchange(..), module X) where
+module AnIso.Exchange (Exchange(..), module X) where
 import Map as X
 import Dimap as X
 
