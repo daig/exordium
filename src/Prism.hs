@@ -5,8 +5,7 @@ module Prism
   ,prism, prism'
   ,module X) where
 import Iso as X
-import I as X
-import Market as X
+import Choice as X
 import Sum as X
 import Option as X
 

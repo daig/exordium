@@ -1,4 +1,4 @@
-module Market (Market(..), Market', module X) where
+module APrism.Market (Market(..), Market', module X) where
 import Sum as X (E)
 import Sum
 import Choice as X

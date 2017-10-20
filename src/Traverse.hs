@@ -5,7 +5,7 @@ import FoldMap as X
 import Pure as X
 import K
 import Plus
-import Lens.Type (type (@~))
+import Traversal as X
 
 class (Map t,FoldMap t) => Traverse t where
   traverse :: (t a @~ a) b (t b)

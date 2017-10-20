@@ -16,7 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Addr.Prim
-                      ,AffFoldMap, AffTraverse, AffTraversing
+                      ,AffFoldMap, AffTraverse, AffTraversing, AffTraversal
                       ,Append, Append.Laws
                       ,Applicative, Apply
                       ,Assoc
@@ -25,7 +25,7 @@ library
                       ,Bind
                       ,Bipure, BiRelFoldMap, Bitraverse
                       ,Bool
-                      ,Cast
+                      --,Cast
                       ,Category
                       ,Char.Prim
                       ,ChoiceCompose, Choice
@@ -46,18 +46,21 @@ library
                       ,Embed
                       ,Empty, Empty.Laws
                       ,EqF
+                      ,Equality, AnEquality, AnEquality.Identical
                       ,Exception.Prim
                       ,Flip
                       ,Float.Prim
+                      ,Fold, AFold
                       ,FoldMap
+                      ,Getter
                       ,Hoist
                       ,Hollow
                       ,I
                       ,InLR
                       ,Int, Int.Prim
                       ,IO, IO.Prim
+                      ,Iso, AnIso, AnIso.Exchange
                       ,K
-                      ,Lens.Type
                       ,LinFoldMap, LinTraverse
                       ,Map, Map.Laws, MapMaybe, Mapping, MapT
                       ,Market
@@ -74,11 +77,13 @@ library
                       ,Ord
                       ,Plus
                       ,Power, Power.Laws
+                      ,Prism, APrism, APrism.Market
                       ,Prod
                       ,Proxy
                       ,Pure
                       ,Recip, Recip.Laws
-                      ,RelFoldMap, RelTraverse, RelTraversing
+                      ,RelFoldMap, RelTraverse, RelTraversing, RelTraversal
+                      ,Setter, ASetter
                       ,StablePtr.Prim
                       ,STM.Prim
                       ,StrongCompose, Strong
@@ -86,7 +91,7 @@ library
                       ,Swap
                       ,These
                       ,Times, Times.Laws
-                      ,Traverse, Traversing
+                      ,Traverse, Traversing, Traversal
                       ,Void
                       ,Where
                       ,Word.Prim

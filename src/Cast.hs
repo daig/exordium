@@ -4,7 +4,7 @@ module Cast where
 import AllSatisfied
 import Prism
 import Iso
-import AGetter
+import AFold
 
 class (AllSatisfied (Preserves a b) a, AllSatisfied (Preserves a b) b) => a ~? b where
   {-# minimal tryCasted# | upcast#, tryDowncast# #-}
