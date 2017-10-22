@@ -17,3 +17,7 @@ foldMapDefault :: (Traverse t, Zero m) => (a -> m) -> t a -> m
 foldMapDefault f t = case traverse (\x -> K (f x)) t of {K m -> m}
 
 instance Traverse ((,) x) where traverse f (x,a) = (x,) `map` f a
+instance Traverse [] where
+  traverse f = go where
+    go = \case
+      [] -> pure []

@@ -10,3 +10,8 @@ class FoldMap t where
   {-foldl :: (b -> a -> b) -> b -> t a -> b-}
 
 instance FoldMap ((,) x) where foldMap f (x,a) = f a
+instance FoldMap [] where
+  foldMap f = go where
+    go = \case
+      [] -> def
+      a:as -> f a + go as
