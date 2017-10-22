@@ -1,9 +1,9 @@
-module RelTraversing (RelTraversing(..), module X) where
+module RelTraversed (RelTraversed(..), module X) where
 import Strong as X
 import Apply as X
 import RelTraverse as X
 
-class Strong p => RelTraversing p where
+class Strong p => RelTraversed p where
   {-# minimal wander1 #-}
   wander1 :: (forall f. Apply f => (a -> f b) -> s -> f t) -> p a b -> p s t
   traversing1 :: RelTraverse t => p a b -> p (t a) (t b)
@@ -11,11 +11,11 @@ class Strong p => RelTraversing p where
 
 newtype RelBaz t b a = RelBaz {runRelBaz :: forall f. Apply f => (a -> f b) -> f t}
 
-firstDefault :: RelTraversing p => p a b -> p (a,y) (b,y)
+firstDefault :: RelTraversed p => p a b -> p (a,y) (b,y)
 firstDefault = \p -> dimap swap swap (traversing1 p)
 
-secondDefault :: RelTraversing p => p a b -> p (x,a) (x,b)
+secondDefault :: RelTraversed p => p a b -> p (x,a) (x,b)
 secondDefault = traversing1
 
-lensDefault :: RelTraversing p => (s -> a) -> (s -> b -> t) -> p a b -> p s t
+lensDefault :: RelTraversed p => (s -> a) -> (s -> b -> t) -> p a b -> p s t
 lensDefault get set = wander1 (\afb s -> set s `map` afb (get s))

@@ -16,7 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Addr.Prim
-                      ,AffFoldMap, AffTraverse, AffTraversing, AffTraversal
+                      ,AffFoldMap, AffTraverse, AffTraversed, AffTraversal
                       ,Append, Append.Laws
                       ,Applicative, Apply
                       ,Assoc
@@ -82,7 +82,7 @@ library
                       ,Proxy
                       ,Pure
                       ,Recip, Recip.Laws
-                      ,RelFoldMap, RelTraverse, RelTraversing, RelTraversal
+                      ,RelFoldMap, RelTraverse, RelTraversed, RelTraversal
                       ,Setter, ASetter
                       ,StablePtr.Prim
                       ,STM.Prim
@@ -91,7 +91,7 @@ library
                       ,Swap
                       ,These
                       ,Times, Times.Laws
-                      ,Traverse, Traversing, Traversal
+                      ,Traverse, Traversed, Traversal
                       ,Void
                       ,Where
                       ,Word.Prim
