@@ -4,6 +4,8 @@ import Either as X
 import Bimap as X
 import InLR as X
 import Swap as X
+import Map as X
+import Witness
 
 data family (+:) xs
 data E a b = L ~a | R ~b
@@ -16,7 +18,7 @@ data a + b = L' ~a | R' ~b
 
 instance Bimap E where bimap f g = \case {L a -> L (f a); R b -> R (g b)}
 instance MapL E where mapl = lmap
-instance MapR E where mapr = rmap
+instance MapR E where mapr = rmap; mapDict = W
 instance Assoc E where
   assoc = \case
     L a -> L (L a)
@@ -32,3 +34,4 @@ instance InLR E where
   inL = L
   inR = R
 instance Swap E where swap = \case {L a -> R a; R b -> L b}
+instance Map (E a) where map = rmap

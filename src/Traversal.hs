@@ -5,5 +5,5 @@ import AffTraversal as X
 import RelTraversal as X
 import Applicative as X
 
-type (s @~ a) b t = forall f. Applicative f => (a -> f b) -> s -> f t
-type s @~~ a      = forall f. Applicative f => (a -> f a) -> s -> f s
+type (s @~  a) b t = forall p. Traversing p => p a b -> p s t
+type  s @~~ a      = forall p. Traversing p => p a a -> p s s
