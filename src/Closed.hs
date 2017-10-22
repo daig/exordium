@@ -8,6 +8,11 @@ class Dimap p => Closed p where
   grate :: (((s -> a) -> b) -> t) -> p a b -> p s t
   grate f = \p -> dimap (\a g -> g a) f (closed p)
 
+instance Closed (->) where
+  closed f = \xa x -> f (xa x)
+  grate k f s = k (\sa -> f (sa s))
+
 -- | curry
 ($.) :: Closed p => p (a,b) c -> p a (b -> c)
 ($.) = \p -> (,) `premap` closed p
+

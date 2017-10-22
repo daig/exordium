@@ -1,21 +1,22 @@
 module Iso
   (type (=~), type (=~~), type (=:~)
-  ,iso, isoF
+  ,iso, iso', isoF
   ,module X) where
 import Equality as X
 import Dimap as X
-import Map as X
 import NatTrans as X (type (~>))
 
-type (s =~ a) b t = forall p f. (Dimap p, Map f) => p a (f b) -> p s (f t)
-type (s =~~ a) = forall p f. (Dimap p, Map f) => p a (f a) -> p s (f s)
+type (s =~  a) b t = forall p. Dimap p => p a b -> p s t
+type  s =~~ a      = forall p. Dimap p => p a a -> p s s
 
 iso :: (s -> a) -> (b -> t) -> (s =~ a) b t
-iso sa bt = dimap sa (map bt)
+iso = dimap
 {-# inline iso #-}
+iso' :: (a -> b) -> (b -> a) -> a =~~ b
+iso' = dimap
+{-# inline iso' #-}
 
-
-type f =:~ g = forall p h x y. (Dimap p, Map h) => p (g x) (h (g y)) -> p (f x) (h (f y))
+type f =:~ g = forall p x y. Dimap p => p (g x) (g y) -> p (f x) (f y)
 isoF :: f~>g -> g~>f -> f=:~g
-isoF sa bt = dimap sa (map bt)
+isoF = dimap
 {-# inline isoF #-}
