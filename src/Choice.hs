@@ -1,7 +1,6 @@
 module Choice (Choice(..), (|.), (.|), module X) where
 import Dimap  as X
-import Sum as X (E)
-import Sum
+import Sum as X
 
 class Dimap p => Choice p where
   {-# minimal prism | left | right #-}
@@ -11,6 +10,11 @@ class Dimap p => Choice p where
   left = prism L (either R (\x -> L (R x)))
   right :: p a b -> p (E x a) (E x b)
   right = \p -> dimap swap swap (left p)
+
+instance Choice (->) where
+  prism constr pat f s = case pat s of
+    L t -> t
+    R a -> constr (f a)
 
 (.|) :: Choice p => p a b -> p (E a y) (E b y)
 (.|) = left

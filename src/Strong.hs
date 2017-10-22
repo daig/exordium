@@ -15,5 +15,6 @@ class Dimap p => Strong p where
 ($:) = \p -> (\(f,x) -> f x) `postmap` first p
 
 instance Strong (->) where
+  lens get set f s = set s (f (get s))
   first f = \(a,y) -> (f a,y)
   second f = \(x,b) -> (x,f b)
