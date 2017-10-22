@@ -24,3 +24,5 @@ instance AffTraverse (E x) where
 instance Traverse (E x) where traverse = traverse0
 instance AffFoldMap (E x)
 instance FoldMap (E x)
+
+instance AffTraverse (K x) where traverse0 f (K x) = pure (K x)

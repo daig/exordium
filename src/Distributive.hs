@@ -4,10 +4,14 @@ module Distributive
   ,module X) where
 import Map as X
 import I
+import K
+import Coerce
 
+class Map f => Close f where close :: (x -> f a) -> f (x -> a)
+instance Close ((->) z) where close xza = \z x -> xza x z
   -- O < map distribute < collect f = collect (O < f)
   -- distribute < distribute = id
-class Map t => Distributive t where
+class Pure t => Distributive t where
   {-# minimal distribute | collect | zipFWith #-}
   distribute :: Map f => f (t a) -> t (f a)
   distribute = collect (\x -> x)
@@ -26,6 +30,11 @@ zipWith f t t' = zipFWith (\(V2 a b) -> f a b) (V2 t t')
 
 mapDefault :: Distributive t => (a -> b) -> t a -> t b
 mapDefault f ta = case collect (\x -> I (f x)) ta of I tb -> tb
+
+distRDefault :: Distributive t => E x (t a) -> t (E x a)
+distRDefault = distribute
+pureDefault :: Distributive t => a -> t a
+pureDefault a = map# (\(K a) -> a) (distribute (K a))
 
 
 instance Distributive ((->) x) where

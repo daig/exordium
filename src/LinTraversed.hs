@@ -8,7 +8,7 @@ import LinTraverse as X
 import Baz
 import I
 
--- TODO: merge with Strong??
+-- TODO: merge with Strong/Representable??
 class Strong p => LinTraversed p where
   {-# minimal wander_ | traversed_ #-}
   wander_ :: (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t

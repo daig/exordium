@@ -5,6 +5,7 @@ import FoldMap as X
 import Applicative as X
 import K
 import Plus
+import Bind
 
 class (Map t,FoldMap t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}
@@ -23,3 +24,6 @@ instance Traverse [] where
   traverse f = go where
     go = \case
       [] -> pure []
+
+
+instance Traverse (K x) where traverse f (K x) = pure (K x)

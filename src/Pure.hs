@@ -5,6 +5,7 @@ import Sum
 import Void
 
 -- http://r6research.livejournal.com/28338.html
+-- a Pure f is strong with respect to E
 
 class Map f => Pure f where
   {-# minimal pure | point | distL | distR #-}
