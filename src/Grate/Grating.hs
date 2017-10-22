@@ -9,7 +9,3 @@ instance Closed (Grating a b) where
 
 instance Dimap (Grating a b) where
   dimap f g (Grating z) = Grating (\d -> g (z (\k -> d (k < f))))
-
-instance ComapL (Grating a b)
-instance MapR (Grating a b)
-
