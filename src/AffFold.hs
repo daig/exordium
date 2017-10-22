@@ -2,6 +2,6 @@ module AffFold
   (type (?~)
   ,module X) where
 import Getter as X
-import Pure as X
+import AffTraversed as X
 
-type s ?~ a = forall f. (Pure f, Comap f) => (a -> f a) -> s -> f s
+type s ?~ a = forall p. (AffTraversed p, BiComap p) => p a a -> p s a

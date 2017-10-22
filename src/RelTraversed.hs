@@ -4,6 +4,7 @@ import Apply as X
 import RelTraverse as X
 import LinTraversed as X
 import Baz
+import I
 
 class LinTraversed p => RelTraversed p where
   {-# minimal wander1 | traversed1 #-}
@@ -11,3 +12,5 @@ class LinTraversed p => RelTraversed p where
   wander1 f pab = dimap (\s -> Baz (\afb -> f afb s)) (sold @Apply) (traversed1 pab)
   traversed1 :: RelTraverse t => p a b -> p (t a) (t b)
   traversed1 = wander1 traverse1
+
+instance RelTraversed (->) where wander1 l f s = case l (\a -> I (f a)) s of {I t -> t}

@@ -1,9 +1,9 @@
 module Fold
-  (type (^~)
+  (type (.~)
   ,module X) where
-import Applicative as X
-import Comap as X
+import Traversed as X
+import BiComap as X
 import AffFold as X
 import RelFold as X
 
-type s !?~ a = forall f. (Applicative f, Comap f) => (a -> f a) -> s -> f s
+type s .~ a = forall p. (Traversed p, BiComap p) => p a a -> p s s

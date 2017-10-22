@@ -1,10 +1,6 @@
-module BiComap
-  (BiComap(..)
-  ,module X) where
-import ComapL as X
-import ComapR as X
+module BiComap where
 
-class (ComapL p, ComapR p) => BiComap p where
+class BiComap p where
   {-# minimal bicomap | lcomap, rcomap #-}
   bicomap :: (a -> x) -> (b -> y) -> p x y -> p a b
   bicomap f g p = rcomap g (lcomap f p)

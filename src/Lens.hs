@@ -5,6 +5,7 @@ module Lens
 import Iso as X
 import Strong as X
 
+-- TODO: Should this require LinTraversed?
 type (s *~  a) b t = forall p. Strong p => p a b -> p s t
 type  s *~~ a      = forall p. Strong p => p a a -> p s s
 

@@ -2,8 +2,6 @@ module I (I(..), module X) where
 import Map as X
 import LinFoldMap as X
 import Applicative as X
-import Distributive as X
-{-import Traverse-}
 import GHC.Show (Show)
 
 -- | Identity type
@@ -16,5 +14,4 @@ instance FoldMap I where foldMap = foldMap_
 instance Apply I where I f |@| I a = I (f a)
 instance Pure I where pure = I
 instance Applicative I
-instance Distributive I where distribute a = I (map fold_ a)
 

@@ -1,12 +1,12 @@
 module Traversed (Traversed(..), module X) where
-import Choice as X
-import Strong as X
+import AffTraversed as X
+import RelTraversed as X
 import Applicative as X
 import Traverse as X
 import Baz
 import I
 
-class (Choice p, Strong p) => Traversed p where
+class (AffTraversed p, RelTraversed p) => Traversed p where
   {-# minimal wander | traversed #-}
   wander :: (forall f. Applicative f => (a -> f b) -> s -> f t) -> p a b -> p s t
   wander f pab = dimap (\s -> Baz (\afb -> f afb s)) (sold @Applicative) (traversed pab)

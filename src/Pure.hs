@@ -16,3 +16,6 @@ class Map f => Pure f where
   distR e = map swap (distL (swap e))
   point :: f ()
   point = map (\case {L a' -> a'; R r -> case r of {}}) (distR (L @() @(f X) ()))
+
+instance Pure ((->) x) where pure a = \_ -> a
+instance Pure (E x) where pure = R

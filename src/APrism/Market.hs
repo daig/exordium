@@ -2,6 +2,7 @@ module APrism.Market (Market(..), Market', module X) where
 import Sum as X (E)
 import Sum
 import Choice as X
+import Pure as X
 import Dimap as X
 import Map as X
 import Prelude ((.))
@@ -17,6 +18,7 @@ instance Dimap (Market a b) where
   postmap f (Market bt seta) = Market (f . bt) (either (L . f) R . seta)
   {-# INLINE postmap #-}
 instance Map (Market a b s) where map = postmap
+instance Pure (Market a b s) where pure t = Market (\_ -> t) (\_ -> L t)
 
 instance Choice (Market a b) where
   left (Market bt seta) = Market (L . bt) (\case

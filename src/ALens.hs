@@ -18,3 +18,5 @@ withLens l f = case l (Shop (\x -> x) (\_ b -> b)) of Shop x y -> f x y
 cloneLens :: (s *~. a) b t -> (s *~ a) b t
 cloneLens l = withLens l (\x y p -> lens x y p)
 
+{-withLens' :: (forall f. Map f => (a -> f b) -> s -> f t) -> ((s -> a) -> (s -> b -> t) -> r) -> r-}
+{-withLens' -}

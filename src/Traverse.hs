@@ -7,8 +7,11 @@ import K
 import Plus
 
 class (Map t,FoldMap t) => Traverse t where
+  {-# minimal traverse | cocollect | sequence #-}
   traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
-  traverse f t = sequence (map f t)
+  traverse f t = cocollect (\x -> x) (map f t)
+  cocollect :: Applicative f => (t a -> b) -> t (f a) -> f b
+  cocollect tab tfa = map tab (sequence tfa)
   sequence :: Applicative f => t (f a) -> f (t a)
   sequence = traverse (\x -> x)
 
