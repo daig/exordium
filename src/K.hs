@@ -1,10 +1,8 @@
 module K (K(..),KK(..), IsK, IsKK, Def, Plus, module X) where
 import Map as X
 import Bimap as X
-import Def
-import Pure as X
-import Plus
-import Apply as X
+import Applicative as X
+import Zero as X
 import Comap as X
 import Dimap as X
 import Choice as X
@@ -29,6 +27,7 @@ instance Dimap KK where dimap _ f (KK a) = KK (f a)
 
 instance Def a => Pure (K a) where pure = \_ -> K def
 instance Plus a => Apply (K a) where K a |@| K b = K (a + b)
+instance Zero a => Applicative (K a)
 
 type IsK f = (Map f, Comap f)
 type IsKK f = (Dimap f, Bimap f)

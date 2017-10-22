@@ -6,7 +6,7 @@ import K
 import Plus
 
 class (Bimap t,BiFoldMap t) => Bitraverse t where
-  bitraverse :: (Pure f, Apply f) => (x -> f a) -> (y -> f b) -> t x y -> f (t a b)
+  bitraverse :: Applicative f => (x -> f a) -> (y -> f b) -> t x y -> f (t a b)
   bitraverse f g t = bisequence (bimap f g t)
   bisequence :: Applicative f => t (f a) (f b) -> f (t a b)
   bisequence = bitraverse (\x -> x) (\y -> y)

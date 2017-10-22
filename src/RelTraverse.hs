@@ -1,10 +1,8 @@
 module RelTraverse (RelTraverse(..), foldMap1Default, module X) where
 import Map as X
 import RelFoldMap as X
-import Apply as X
 import Traverse as X
 import K
-import Plus
 
 class (Traverse t,RelFoldMap t) => RelTraverse t where
   {-# minimal traverse1 | sequence1 #-}

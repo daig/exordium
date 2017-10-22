@@ -9,7 +9,7 @@ import Plus
 class (Map t,FoldMap t) => Traverse t where
   traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
   traverse f t = sequence (map f t)
-  sequence :: (Pure f,Apply f) => t (f a) -> f (t a)
+  sequence :: Applicative f => t (f a) -> f (t a)
   sequence = traverse (\x -> x)
 
 foldMapDefault :: (Traverse t, Zero m) => (a -> m) -> t a -> m
