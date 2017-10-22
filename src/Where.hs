@@ -9,8 +9,6 @@ instance Bimap Where where
     Here a -> Here (f a)
     There b -> There (g b)
     Nowhere -> Nowhere
-instance MapL Where where mapl = lmap
-instance MapR Where where mapr = rmap
 
 instance InLR Where where
   inL = Here

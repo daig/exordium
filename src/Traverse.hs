@@ -2,13 +2,12 @@ module Traverse (Traverse(..),foldMapDefault,module X) where
 import Map as X
 import Apply as X
 import FoldMap as X
-import Pure as X
+import Applicative as X
 import K
 import Plus
-import Traversal as X
 
 class (Map t,FoldMap t) => Traverse t where
-  traverse :: (t a @~ a) b (t b)
+  traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
   traverse f t = sequence (map f t)
   sequence :: (Pure f,Apply f) => t (f a) -> f (t a)
   sequence = traverse (\x -> x)

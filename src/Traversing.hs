@@ -7,9 +7,9 @@ import Baz
 import I
 
 class (Choice p, Strong p) => Traversing p where
-  {-# minimal wander | traversing #-}
+  {-# minimal wander | traversed #-}
   wander :: (forall f. Applicative f => (a -> f b) -> s -> f t) -> p a b -> p s t
-  wander f pab = dimap (\s -> Baz (\afb -> f afb s)) sold (traversing pab)
+  wander f pab = dimap (\s -> Baz (\afb -> f afb s)) sold (traversed pab)
   traversed :: Traverse t => p a b -> p (t a) (t b)
   traversed = wander traverse
 

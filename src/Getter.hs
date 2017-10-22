@@ -1,6 +1,7 @@
 module Getter (type (^~), getter, module X) where
 import Lens as X
 import Comap as X
+import Map as X
 import Dimap
 
 -- Linear fold

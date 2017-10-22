@@ -17,8 +17,6 @@ data a + b = L' ~a | R' ~b
 {-{-# COMPLETE L , R #-}-}
 
 instance Bimap E where bimap f g = \case {L a -> L (f a); R b -> R (g b)}
-instance MapL E where mapl = lmap
-instance MapR E where mapr = rmap; mapDict = W
 instance Assoc E where
   assoc = \case
     L a -> L (L a)
