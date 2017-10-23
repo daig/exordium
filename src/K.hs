@@ -26,7 +26,7 @@ instance Comap (K a) where comap _ (K a) = K a
 instance Dimap KK where dimap _ f (KK a) = KK (f a)
 
 instance Def a => Pure (K a) where pure = \_ -> K def
-instance Plus a => Apply (K a) where K a @$@ K b = K (a + b)
+instance Plus a => Apply (K a) where K a |$| K b = K (a + b)
 instance Zero a => Applicative (K a)
 
 type IsK f = (Map f, Comap f)

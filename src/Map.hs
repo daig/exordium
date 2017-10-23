@@ -1,5 +1,7 @@
+{-# language UndecidableInstances #-}
 module Map where
 import Prelude (($)) -- TOOD: reexport
+import qualified Prelude as P
 
 class Map f where
   {-# minimal map #-}
@@ -21,3 +23,7 @@ instance Map [] where
     go = \case
       [] -> []
       a:as -> f a : go as
+
+instance Map f => P.Functor f where
+  fmap = map
+  (<$) = (!@)

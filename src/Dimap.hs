@@ -31,12 +31,12 @@ p @<! x = constpremap x p
 p @> f = premap f p
 (>@>) :: Dimap p => (a -> x) -> (y -> b) -> p x y -> p a b
 (>@>) = dimap
-(>@|) :: Dimap p => (a -> x) -> p x y -> (y -> b) -> p a b
-(f >@| p) g = dimap f g p
-(|@>) :: ((y -> b) -> p a b) -> (y -> b) -> p a b
-k |@> f = k f
-(<@|) :: Dimap p => (y -> b) -> p x y -> (a -> x) -> p a b
-(g <@| p) f = dimap f g p
-(|@<) :: ((a -> x) -> p a b) -> (a -> x) -> p a b
-k |@< f = k f
+(>|) :: Dimap p => (a -> x) -> p x y -> (y -> b) -> p a b
+(f >| p) g = dimap f g p
+(|>) :: ((y -> b) -> p a b) -> (y -> b) -> p a b
+k |> f = k f
+(<|) :: Dimap p => (y -> b) -> p x y -> (a -> x) -> p a b
+(g <| p) f = dimap f g p
+(|<) :: ((a -> x) -> p a b) -> (a -> x) -> p a b
+k |< f = k f
 instance Dimap (->) where dimap f g h a = g (h (f a))

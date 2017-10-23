@@ -12,7 +12,7 @@ instance LinFoldMap I where foldMap_ f (I a) = f a
 instance RelFoldMap I where foldMap1 = foldMap_
 instance AffFoldMap I where foldMap0 = foldMap_
 instance FoldMap I where foldMap = foldMap_
-instance Apply I where I f @$@ I a = I (f a)
+instance Apply I where I f |$| I a = I (f a)
 instance Pure I where pure = I
 instance Applicative I
 
