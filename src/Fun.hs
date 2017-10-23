@@ -1,4 +1,8 @@
-module Fun where
+module Fun
+  (
+  module X) where
+import Constant as X
+import Category as X
 
 f # a = f a
 flip, (##) :: (a -> b -> c) -> b -> a -> c
@@ -7,23 +11,19 @@ flip = (##)
 (f ### c) a b = f a b c
 infixl 3 #,##,###
 
-(#&) :: (a -> a -> b) -> a -> b
-f #& a = f a a
+{-(#&) :: (a -> a -> b) -> a -> b-}
+{-f #& a = f a a-}
 
-(%) :: a -> (a -> b) -> a
-a % f = f a
-infixl 1 %
+{-(%) :: a -> (a -> b) -> a-}
+{-a % f = f a-}
+{-infixl 1 %-}
 
-(&%) = flip (#&)
+{-(&%) = flip (#&)-}
 
 
-(!) :: a -> b -> a
-a ! b = a
-(!!) :: a -> b -> b
-
-(?),(??) :: Bool -> a -> a -> a
-(b ? f) t = if b then t else f
-(b ?? t) f = if b then t else f
-(???) :: a -> b -> Bool -> a
-(f ??? t) b = if b then t else f
-infix 3 ?, ??
+{-(?),(??) :: Bool -> a -> a -> a-}
+{-(b ? f) t = if b then t else f-}
+{-(b ?? t) f = if b then t else f-}
+{-(???) :: a -> b -> Bool -> a-}
+{-(f ??? t) b = if b then t else f-}
+{-infix 3 ?, ??-}

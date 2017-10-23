@@ -11,6 +11,3 @@ class Times a where
 
 instance Times Int where (*) = (P.*)
 --TODO: add more
-
-newtype WrapTimes a = WrapTimes a
-instance Times a => Plus (WrapTimes a) where WrapTimes a + WrapTimes b = WrapTimes (a*b)

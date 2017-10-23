@@ -1,10 +1,18 @@
 module Map where
+import Prelude (($)) -- TOOD: reexport
 
 class Map f where
   {-# minimal map #-}
   map :: (a -> b) -> f a -> f b
-  constMap :: b -> f a -> f b
-  constMap b = map (\_ -> b)
+  (!@) :: b -> f a -> f b
+  (!@) b = map (\_ -> b)
+
+($@) :: Map f => (a -> b) -> f a -> f b
+($@) = map
+(@$) :: Map f => f (a -> b) -> a -> f b
+fab @$ a = ($ a) $@ fab
+infixl 1 @$
+f ## b = \a -> f a b
 
 instance Map ((,) x) where map f (x,a) = (x,f a)
 instance Map ((->) x) where map f g = \x -> f (g x)

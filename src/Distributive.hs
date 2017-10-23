@@ -6,6 +6,7 @@ import Map as X
 import I
 import K
 import Coerce
+import Prelude (($)) -- TODO: reexport
 
 class Map f => Close f where close :: (x -> f a) -> f (x -> a)
 instance Close ((->) z) where close xza = \z x -> xza x z
@@ -21,6 +22,9 @@ class Pure t => Distributive t where
   collect :: Map f => (a -> t b) -> f a -> t (f b)
   collect f a  = zipFWith (\x -> x) (map f a)
   -- TODO: is collect (\x -> x) === cotraverse (\x -> x)
+
+(=@) :: (Distributive t, Map f) => (a -> t b) -> f a -> t (f b)
+(=@) = collect
 
 -- TODO: merge into data family
 data V2 a = V2 ~a ~a
@@ -38,6 +42,7 @@ pureDefault a = map# (\(K a) -> a) (distribute (K a))
 
 
 instance Distributive ((->) x) where
-  collect axb fa = \x -> map (\a -> axb a x) fa
+  collect axb fa = \x -> (\a -> axb a x) $@ fa
+  distribute fxa = \x -> ($ x) $@ fxa
 
 instance Distributive I where distribute a = I (map fold_ a)

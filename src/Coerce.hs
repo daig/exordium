@@ -3,12 +3,12 @@
 {-# language UndecidableSuperClasses #-}
 module Coerce
   (type (#=),coerce,coerce#,map#,lmap#,rmap#,premap#,postmap#
-  ,fromInteger, fromString, ifThenElse
   ) where
 import Types
 import qualified Data.Coerce as C
 import Unsafe.Coerce
 import qualified Prelude as P
+import qualified GHC.Exts as P
 import GHC.Classes (Eq(..))
 import Map
 import Bimap
@@ -39,14 +39,8 @@ premap# _ = coerce#
 {-coerced :: forall s t a b. (s #= a, t #= b) => Iso s t a b-}
 {-coerced l = premap# coerce (postmap (map coerce) l)-}
 
-fromInteger :: Cast# a Integer => Integer -> a
-fromInteger = cast#
-fromString :: Cast# a [Char] => [Char] -> a
-fromString = cast#
-ifThenElse :: Cast# Bool b => b -> a -> a -> a
-ifThenElse b t f = case cast# b of
-  True -> t
-  False -> f
+instance {-# overlappable #-} Cast# a Integer => P.Num a where fromInteger = cast#
+instance {-# overlappable #-} Cast# a [Char] => P.IsString a where fromString = cast#
 
 class Cast# b a where
   type Preserves b a :: [* -> Constraint]

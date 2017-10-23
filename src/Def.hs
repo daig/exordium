@@ -1,5 +1,4 @@
 module Def where
-import Coerce (fromInteger)
 import Types
 
 class Def a where def :: a
