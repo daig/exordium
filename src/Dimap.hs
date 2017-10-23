@@ -23,20 +23,35 @@ p >! b = constpostmap b p
 (@<!) :: Dimap p => p x b -> x -> p a b
 p @<! x = constpremap x p
 
+(<#) :: Dimap p => (y -> b) -> p a y -> p a b
+(>#) :: Dimap p => (a -> x) -> p x b -> p a b
+(#<) :: Dimap p => p x b -> (a -> x) -> p a b
+(#>) :: Dimap p => p a y -> (y -> b) -> p a b
+(<#) = postmap
+(>#) = premap
+p #< f = premap f p
+p #> f = postmap f p
+
+
 (<@) :: Dimap p => (y -> b) -> p a y -> p a b
-(<@) = postmap
 (>@) :: Dimap p => (a -> x) -> p x b -> p a b
+(@<) :: Dimap p => p x b -> (a -> x) -> p a b
+(@>) :: Dimap p => p a y -> (y -> b) -> p a b
+(<@) = postmap
 (>@) = premap
-(@>) :: Dimap p => p x b -> (a -> x) -> p a b
-p @> f = premap f p
+p @< f = premap f p
+p @> f = postmap f p
+
 (>@>) :: Dimap p => (a -> x) -> (y -> b) -> p x y -> p a b
 (>@>) = dimap
+
 (>|) :: Dimap p => (a -> x) -> p x y -> (y -> b) -> p a b
-(f >| p) g = dimap f g p
 (|>) :: ((y -> b) -> p a b) -> (y -> b) -> p a b
+(f >| p) g = dimap f g p
 k |> f = k f
+
 (<|) :: Dimap p => (y -> b) -> p x y -> (a -> x) -> p a b
-(g <| p) f = dimap f g p
 (|<) :: ((a -> x) -> p a b) -> (a -> x) -> p a b
+(g <| p) f = dimap f g p
 k |< f = k f
 instance Dimap (->) where dimap f g h a = g (h (f a))

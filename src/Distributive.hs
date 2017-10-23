@@ -26,6 +26,7 @@ class Pure t => Distributive t where
 (=@) :: (Distributive t, Map f) => (a -> t b) -> f a -> t (f b)
 (=@) = collect
 
+
 -- TODO: merge into data family
 data V2 a = V2 ~a ~a
 instance Map V2 where map f (V2 a b) = V2 (f a) (f b)

@@ -1,4 +1,5 @@
 module Bimap where
+import Fun
 
 -- | Independently Map each on both sides
 class Bimap p where
@@ -9,5 +10,14 @@ class Bimap p where
   rmap :: (x -> b) -> p a x -> p a b
   rmap = bimap (\a -> a)
 
-instance Bimap (,) where
-  bimap f g (x,y) = (f x, g y)
+
+(<@>) :: Bimap p => (x -> a) -> (y -> b) -> p x y -> p a b
+($@.) :: Bimap p => (x -> a) -> p x b -> p a b
+($.@) :: Bimap p => (x -> b) -> p a x -> p a b
+(&@)  :: Bimap p => (a -> b) -> p a a -> p b b
+(<@>) = bimap
+(&@) f = bimap f f
+($@.) = lmap -- TODO: unsatisfying names
+($.@) = rmap --
+
+instance Bimap (,) where bimap f g (x,y) = (f x, g y)

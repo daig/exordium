@@ -14,7 +14,6 @@ class Map f where
 (@$) :: Map f => f (a -> b) -> a -> f b
 fab @$ a = ($ a) $@ fab
 infixl 1 @$
-f ## b = \a -> f a b
 
 instance Map ((,) x) where map f (x,a) = (x,f a)
 instance Map ((->) x) where map f g = \x -> f (g x)

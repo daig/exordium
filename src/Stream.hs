@@ -2,57 +2,67 @@
 {-# LANGUAGE UndecidableInstances, CPP, FlexibleInstances, MultiParamTypeClasses  #-}
 {-#LANGUAGE Trustworthy #-}
 module Streaming.Internal where
-import Map
-import Bind
-import Pure
+import Monad
+import MapF
+import Data.Typeable
+import Prelude (($))
+import Category
+
 
 data Stream f m r = Step !(f (Stream f m r))
                   | Effect (m (Stream f m r))
                   | Return r
                   deriving (Typeable)
-deriving instance (Show r, Show (m (Stream f m r))
-                  , Show (f (Stream f m r))) => Show (Stream f m r)
-deriving instance (Eq r, Eq (m (Stream f m r))
-                  , Eq (f (Stream f m r))) => Eq (Stream f m r)
-deriving instance (Typeable f, Typeable m, Data r, Data (m (Stream f m r))
-                  , Data (f (Stream f m r))) => Data (Stream f m r)
-instance (Map f, Bind m) => Map (Stream f m) where
-  fmap f = loop where
-    loop stream = case stream of
-      Return r -> Return (f r)
-      Effect m  -> Effect (map loop m)
-      Step f   -> Step (map loop f)
-  {-# INLINABLE map #-}
-  constMap a stream0 = loop stream0 where
-    loop stream = case stream of
-      Return r -> Return a
-      Effect m  -> Effect (map loop m)
-      Step f    -> Step (map loop f)
-  {-# INLINABLE constMap #-}  
+instance BimapF Stream where
+  bimapf f g = go where
+    go = \case
+      Return r -> Return r
+      Step fs -> Step<f $ go $@ fs
+      Effect m -> Effect<g $ go $@ m
+instance Map f => MapF (Stream f) where mapf = mapfDefault
+{-deriving instance (Show r, Show (m (Stream f m r))-}
+                  {-, Show (f (Stream f m r))) => Show (Stream f m r)-}
+{-deriving instance (Eq r, Eq (m (Stream f m r))-}
+                  {-, Eq (f (Stream f m r))) => Eq (Stream f m r)-}
+{-deriving instance (Typeable f, Typeable m, Data r, Data (m (Stream f m r))-}
+                  {-, Data (f (Stream f m r))) => Data (Stream f m r)-}
+{-instance (Map f, Bind m) => Map (Stream f m) where-}
+  {-fmap f = loop where-}
+    {-loop stream = case stream of-}
+      {-Return r -> Return (f r)-}
+      {-Effect m  -> Effect (map loop m)-}
+      {-Step f   -> Step (map loop f)-}
+  {-{-# INLINABLE map #-}-}
+  {-constMap a stream0 = loop stream0 where-}
+    {-loop stream = case stream of-}
+      {-Return r -> Return a-}
+      {-Effect m  -> Effect (map loop m)-}
+      {-Step f    -> Step (map loop f)-}
+  {-{-# INLINABLE constMap #-}  -}
 
-instance Pure (Stream f m) where
-  pure = Return
-  {-# INLINE pure #-}
+{-instance Pure (Stream f m) where-}
+  {-pure = Return-}
+  {-{-# INLINE pure #-}-}
 
-instance (Map f, Apply m) => Apply (Stream f m) where
-  stream1 >> stream2 = loop stream1 where
-    loop stream = case stream of
-      Return _ -> stream2
-      Effect m  -> Effect (map loop m)
-      Step f   -> Step (map loop f)  
-  {-# INLINABLE (>>) #-}
-  stream1 |@| stream2 = loop stream1 where
-    loop = \case
-      Return f -> map f stream2
-      Effect m -> Effect (map loop m)
-      Step f -> Step (map loop f)
-  stream >>= f =
-    loop stream where
-    loop stream0 = case stream0 of
-      Step fstr -> Step (fmap loop fstr)
-      Effect m   -> Effect (liftM loop m)
-      Return r  -> f r
-  {-# INLINABLE (>>=) #-}       
+{-instance (Map f, Apply m) => Apply (Stream f m) where-}
+  {-stream1 >> stream2 = loop stream1 where-}
+    {-loop stream = case stream of-}
+      {-Return _ -> stream2-}
+      {-Effect m  -> Effect (map loop m)-}
+      {-Step f   -> Step (map loop f)  -}
+  {-{-# INLINABLE (>>) #-}-}
+  {-stream1 |@| stream2 = loop stream1 where-}
+    {-loop = \case-}
+      {-Return f -> map f stream2-}
+      {-Effect m -> Effect (map loop m)-}
+      {-Step f -> Step (map loop f)-}
+  {-stream >>= f =-}
+    {-loop stream where-}
+    {-loop stream0 = case stream0 of-}
+      {-Step fstr -> Step (fmap loop fstr)-}
+      {-Effect m   -> Effect (liftM loop m)-}
+      {-Return r  -> f r-}
+  {-{-# INLINABLE (>>=) #-}       -}
 
 
 {-instance (Functor f, Monad m) => Applicative (Stream f m) where-}

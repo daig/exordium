@@ -1,6 +1,7 @@
 module Fun
-  (
-  module X) where
+  ((#),(##), (###)
+  ,($&)
+  ,module X) where
 import Constant as X
 import Category as X
 
@@ -10,6 +11,8 @@ flip, (##) :: (a -> b -> c) -> b -> a -> c
 flip = (##)
 (f ### c) a b = f a b c
 infixl 3 #,##,###
+
+f $& a = f a a
 
 {-(#&) :: (a -> a -> b) -> a -> b-}
 {-f #& a = f a a-}

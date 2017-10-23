@@ -8,6 +8,7 @@ import Types
 import qualified Data.Coerce as C
 import Unsafe.Coerce
 import qualified Prelude as P
+import Prelude as X (Num)
 import qualified GHC.Exts as P
 import GHC.Classes (Eq(..))
 import Map
