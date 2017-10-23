@@ -20,3 +20,4 @@ class Map f => Pure f where
 
 instance Pure ((->) x) where pure a = \_ -> a
 instance Pure (E x) where pure = R
+instance Pure [] where pure a = [a]

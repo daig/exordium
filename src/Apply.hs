@@ -24,5 +24,6 @@ f @| fb = f fb
 {-timesPure :: (Eq (f a), Apply f, Pure f) => f a -> a -> Bool-}
 {-timesPure fa a = (fa |@| pure a) == fa && (pure a |@| fa) == fa-}
 
-instance Apply ((->) x) where
-  f |@| g = \x -> f x (g x)
+instance Apply ((->) x) where f |@| g = \x -> f x (g x)
+instance Apply [] where fs |@| as = [f a | f <- fs, a <- as]
+

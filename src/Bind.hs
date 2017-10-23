@@ -1,6 +1,7 @@
 module Bind (Bind(..),(>>=),apDefault,module X) where
 import Map as X
 import Apply as X
+import Append
 
 class Apply m => Bind m where
   {-# minimal join | bind #-}
@@ -16,3 +17,8 @@ m >>= f = bind f m
 
 apDefault :: Bind m => m (a -> b) -> m a -> m b
 apDefault mf ma = bind (\f -> map f ma) mf
+
+instance Bind [] where
+  bind f = \case
+    [] -> []
+    a:as -> f a `append` bind f as
