@@ -39,7 +39,7 @@ library
                       ,Costrong
                       ,Curry
                       ,Def
-                      ,Dipure
+                      ,Arr
                       ,Distributive
                       ,Divide
                       ,Double.Prim

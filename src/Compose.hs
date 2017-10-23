@@ -1,7 +1,7 @@
 module Compose where
 
 -- f < (g < h) = (f < g) < h
--- if (p :: * -> * -> *) then instance Dipure p
+-- if (p :: * -> * -> *) then instance Arr p
 class Compose p where
   {-# minimal (<) | (>) #-}
   (<) :: p x b -> p a x -> p a b
