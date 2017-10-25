@@ -1,12 +1,12 @@
 module Fun
   ((#),(##), (###)
+  ,(!),(!!)
   ,($&)
   ,module X) where
-import Constant as X
 import Category as X
 import Prelude (seq)
 
-a ! _ = a
+(!) = \a _ -> a
 (!!) = seq
 
 f # a = f a

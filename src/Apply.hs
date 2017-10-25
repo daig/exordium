@@ -1,6 +1,6 @@
 module Apply where
 import Map
-import Constant
+import Fun
 
 
 class Map f => Apply f where

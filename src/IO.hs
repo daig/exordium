@@ -1,5 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 {-# language UnboxedTuples #-}
+{-# language MagicHash #-}
 module IO where
 {-import IO.Prim-}
 import GHC.Types as X (IO(..))

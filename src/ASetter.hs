@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module ASetter (
   type (%~.), type (%~~.)
   ,set, over

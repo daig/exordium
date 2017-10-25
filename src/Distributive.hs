@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module Distributive
   (Distributive(..)
   ,zipWith, mapDefault
