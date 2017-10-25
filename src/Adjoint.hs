@@ -2,7 +2,18 @@ module Adjoint where
 import Monad as X
 import Comonad as X
 import O as X
+import Iso as X
+import Star as X
+import Costar as X
+import Coerce
+import Fun
+import AFold
+import AReview
 
-class (Monad (O f g), Comonad (O g f)) => f -| g where
+class (Monad (f `O` g), Comonad (g `O` f)) => f -| g | f -> g, g -> f where
+  adjoint :: Costar f =::~ Star g
+  adjoint = isoP (Star < leftAdjunct < runCostar) (Costar < rightAdjunct < runStar)
   leftAdjunct :: (f a ->   b) ->   a -> g b
-  rightAdjunt :: (a   -> g b) -> f a ->   b
+  leftAdjunct = runStar < view adjoint < Costar
+  rightAdjunct :: (a   -> g b) -> f a ->   b
+  rightAdjunct = runCostar < review adjoint < Star

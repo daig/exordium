@@ -1,6 +1,6 @@
 module AFold
   (type (^~.), type (^~..), type (^~~.)
-  {-,toListOf, foldMapOf, foldOf-}
+  ,toListOf, foldMapOf, foldOf, view
   ,module X) where
 import Forget as X
 import qualified Prelude as P
@@ -17,3 +17,7 @@ foldMapOf l f s = case l (Forget (\a -> f a)) of Forget g -> g s
 
 foldOf :: s ^~~. a -> s -> a
 foldOf l = foldMapOf l (\a -> a)
+
+-- | Synonym for foldOf
+view :: s ^~~. a -> s -> a
+view = foldOf

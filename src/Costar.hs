@@ -4,7 +4,7 @@ import Category as X
 import Closed as X hiding (mapDefault)
 import Map as X
 
-newtype Costar f a b = Costar (f a -> b)
+newtype Costar f a b = Costar {runCostar :: f a -> b}
 
 instance Map f => Closed (Costar f) where
   closed (Costar fab) = Costar (\fxa x -> fab (map (\f -> f x) fxa))
