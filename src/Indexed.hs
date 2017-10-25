@@ -19,14 +19,14 @@ class Indexed f where
   tabulate :: (Ix f -> a) -> f a
   tabulate = review indexed
 
-mapDefault :: Indexed f => (a -> b) -> f a -> f b
-mapDefault f = over indexed (map f)
+{-mapDefault :: Indexed f => (a -> b) -> f a -> f b-}
+{-mapDefault f = over indexed (map f)-}
 
 distributeDefault :: (Indexed i, Map f) => f (i a) -> i (f a)
 distributeDefault fi = tabulate (\k -> map (`index` k) fi)
 
 apDefault :: Indexed f => f (a -> b) -> f a -> f b
-apDefault f g = tabulate (index f |@| index g)
+apDefault f g = tabulate (index f |$| index g)
 
 instance Indexed ((->) x) where
   type Ix ((->) x) = x

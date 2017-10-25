@@ -11,4 +11,4 @@ import Fun
 class (Coapplicative w,Duplicate w) => Comonad w
 
 mapDefault :: Comonad w => (a -> b) -> w a -> w b
-mapDefault f = extend (f < extract)
+mapDefault f = extend (f < fold_)
