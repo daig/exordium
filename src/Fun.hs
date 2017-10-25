@@ -3,6 +3,7 @@ module Fun
   ,(!),(!!)
   ,($&)
   ,module X) where
+import Prelude as X (($))
 import Category as X
 import Prelude (seq)
 

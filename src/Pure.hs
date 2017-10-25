@@ -1,12 +1,18 @@
 module Pure (Pure(..), module X) where
 import Map as X
-import Sum as X (E)
-import Sum
+import Sum as X
 import Void
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E
 
+-- | Natural laws:
+-- distR < right (map f) = map (right f) < distR
+-- distR < left f = map (left f) < distR
+-- 
+-- Derived Laws:
+-- distR < L = pure < L
+-- dirtR < R = map R
 class Map f => Pure f where
   {-# minimal pure | point | distL | distR #-}
   pure :: a -> f a

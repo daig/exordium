@@ -3,6 +3,7 @@ import Map
 import Fun
 
 
+-- | (f |$(<)$| g) |$| w = f |$| (g |$| w)
 class Map f => Apply f where
   {-# minimal (|$|) #-}
   (|$|) :: f (a -> b) -> f a -> f b

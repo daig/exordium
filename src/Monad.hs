@@ -2,8 +2,11 @@
 module Monad (Monad,module X) where
 import Bind as X
 import Applicative as X
+import Category as X
 import qualified Prelude as P
 
+-- | pure <=< f = f
+--   f <=< pure = f
 class (Bind m, Applicative m) => Monad m
 
 instance Monad []

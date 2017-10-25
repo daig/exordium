@@ -4,6 +4,14 @@ import Apply as X
 import Append
 import Fun
 
+-- | Associativity of join:
+--  join < join = join < map join
+--  or equivalently
+-- m >>= (\x -> k x >>= h) = (m >>= k) >>= h
+--  or equivalently (f >=> (g >=> h)) = ((f >=> g) >=> h)
+--
+-- Distribution over |$|:
+-- join (f |$(|$|)$| a) = join f |$| join a
 class Apply m => Bind m where
   {-# minimal join | (=<<) #-}
   join :: m (m a) -> m a
