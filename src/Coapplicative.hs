@@ -1,7 +1,7 @@
 module Coapplicative (Coapplicative,module X) where
 
-import Extract as X
+import LinFoldMap as X
 import Apply as X
 
--- | extract (f |$| a) = extract f (extract a)
+-- | fold_ (f |$| a) = fold_ f (fold_ a)
 class (LinFoldMap f, Apply f) => Coapplicative f
