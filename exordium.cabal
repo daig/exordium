@@ -1,0 +1,65 @@
+name:                exordium
+version:             0.1.0.0
+synopsis:            
+description:
+homepage:            https://github.com/daig/exordium#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Dai
+maintainer:          dailectic@gmail.com
+copyright:           Sodality
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+  default-extensions: NoImplicitPrelude
+                     ,AllowAmbiguousTypes
+                     ,BangPatterns
+                     ,BinaryLiterals
+                     ,ConstraintKinds
+                     ,DataKinds
+                     ,DeriveAnyClass
+                     ,DeriveDataTypeable
+                     ,DeriveGeneric
+                     ,DeriveLift
+                     ,DerivingStrategies
+                     ,EmptyCase
+                     ,FlexibleContexts
+                     ,FlexibleInstances
+                     ,FunctionalDependencies
+                     ,GADTs
+                     ,GeneralizedNewtypeDeriving
+                     ,LambdaCase
+                     ,MultiWayIf
+                     ,NamedWildCards
+                     ,NegativeLiterals
+                     ,NoMonomorphismRestriction
+                     ,NumDecimals
+                     ,OverloadedStrings
+                     ,PartialTypeSignatures
+                     ,PatternSynonyms
+                     ,PolyKinds
+                     ,RankNTypes
+                     ,RecordWildCards
+                     ,RecursiveDo
+                     ,RoleAnnotations
+                     ,ScopedTypeVariables
+                     ,StandaloneDeriving
+                     ,StrictData
+                     ,TupleSections
+                     ,TypeApplications
+                     ,TypeFamilyDependencies
+                     ,TypeInType
+                     ,TypeOperators
+                     ,ViewPatterns
+  build-depends:       base >= 4.7 && < 5
+
+source-repository head
+  type:     git
+  location: https://github.com/daig/exordium
