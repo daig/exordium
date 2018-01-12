@@ -6,5 +6,3 @@ instance Strong (Shop a b) where
   first (Shop x y) = Shop (\(a,_) -> x a) (\(s,c) b -> (y s b,c))
 instance Dimap (Shop a b) where
   dimap f g (Shop x y) = Shop (\s -> x (f s)) (\s b -> g (y (f s) b))
-instance ComapL (Shop a b)
-instance MapR (Shop a b)

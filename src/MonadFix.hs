@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module MonadFix (MonadFix(..),module X) where
 import Monad as X
 

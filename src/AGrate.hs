@@ -4,7 +4,7 @@ module AGrate
   ,module X) where
 import Grate as X
 import Grate.Grating as X
-import Costar as X
+import Costar as X hiding (mapDefault)
 import Star as X
 import Distributive as X
 import Zipping as X

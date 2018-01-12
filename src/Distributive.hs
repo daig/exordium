@@ -9,10 +9,6 @@ import K
 import Coerce
 import Prelude (($)) -- TODO: reexport
 
-class Map f => Close f where close :: (x -> f a) -> f (x -> a)
-instance Close ((->) z) where close xza = \z x -> xza x z
-  -- O < map distribute < collect f = collect (O < f)
-  -- distribute < distribute = id
 class Pure t => Distributive t where
   {-# minimal distribute | collect | zipFWith #-}
   distribute :: Map f => f (t a) -> t (f a)

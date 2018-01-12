@@ -1,7 +1,6 @@
 {-# language UndecidableSuperClasses #-}
 module Measured (Measured(..), module X) where
 import Int
-import Coerce (fromInteger)
 import Zero as X
 
 

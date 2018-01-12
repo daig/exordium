@@ -1,0 +1,63 @@
+name: exordium
+version: '0.1.0.0'
+category: Prelude
+author: Dai
+maintainer: dailectic@gmail.com
+copyright: 2017 Dai
+license: MIT
+github: daig/exordium
+extra-source-files:
+- README.md
+default-extensions:
+- NoImplicitPrelude
+- AllowAmbiguousTypes
+- BangPatterns
+- BinaryLiterals
+- ConstraintKinds
+- DataKinds
+- DefaultSignatures
+- DeriveAnyClass
+- DeriveDataTypeable
+- DeriveGeneric
+- DeriveLift
+- DerivingStrategies
+- DuplicateRecordFields
+- EmptyCase
+- FlexibleContexts
+- FlexibleInstances
+- FunctionalDependencies
+- GADTs
+- GeneralizedNewtypeDeriving
+- InstanceSigs
+- LambdaCase
+- MultiWayIf
+- NamedFieldPuns
+- NamedWildCards
+- NegativeLiterals
+- NumDecimals
+- OverloadedLabels
+- OverloadedStrings
+- ParallelListComp
+- PartialTypeSignatures
+- PatternSynonyms
+- PolyKinds
+- RankNTypes
+- RecordWildCards
+- RecursiveDo
+- RoleAnnotations
+- ScopedTypeVariables
+- StandaloneDeriving
+- StrictData
+- TupleSections
+- TypeApplications
+- TypeFamilyDependencies
+- TypeOperators
+- ViewPatterns
+dependencies:
+- base >=4.7 && <5
+- async
+- ghc-prim
+- template-haskell
+library:
+  source-dirs: src
+  ghc-options: -Wall

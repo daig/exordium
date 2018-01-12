@@ -1,7 +1,7 @@
 {-# LANGUAGE RankNTypes, StandaloneDeriving,DeriveDataTypeable, BangPatterns #-}
 {-# LANGUAGE UndecidableInstances, CPP, FlexibleInstances, MultiParamTypeClasses  #-}
 {-#LANGUAGE Trustworthy #-}
-module Streaming.Internal where
+module Stream where
 import Monad
 import MapF
 import Data.Typeable

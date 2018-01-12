@@ -6,7 +6,6 @@ import FingerTree.Digit as X
 import FingerTree.Node as X
 import Prelude (Show,error)
 import Cons
-import Coerce (fromString)
 import Eq
 
 data FingerTree a

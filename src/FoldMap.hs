@@ -3,7 +3,7 @@ import Zero
 import Map as X
 import K
 
-class Map t => FoldMap t where
+class FoldMap t where
   {-# minimal foldMap | foldr #-}
   foldMap :: Zero m => (a -> m) -> t a -> m
   foldMap f t = foldr (\a m -> f a + m) zero t -- TODO: check the order

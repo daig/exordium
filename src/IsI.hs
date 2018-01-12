@@ -1,6 +1,8 @@
+{-# language MagicHash #-}
 module IsI (IsI(..), module X) where
 import I as X
 import Dimap as X
+import Distributive
 import Prelude (seq)
 import Coerce
 

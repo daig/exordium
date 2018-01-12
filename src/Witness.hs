@@ -14,8 +14,8 @@ data W c = c => W
 
 {-runWitness :: W c -> (c => r) -> r-}
 {-runWitness W = \r -> r-}
-{--- | A value @a =>. b@ is a witness to the fact that forall x, a x implies b x-}
-{-data a =>. b = Sub (a => W b)-}
+-- | A value @a =>. b@ is a witness to the fact that forall x, a x implies b x
+data a =>. b = Sub (a => W b)
 {--- | Contravariantly map an entailment over an environment-}
 {-comapEnv :: a =>. b -> (b => r) -> (a => r)-}
 {-comapEnv w r = case w of Sub W -> r-}

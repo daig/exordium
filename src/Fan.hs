@@ -8,9 +8,9 @@ instance (Map f, Map g) => Map (f :&: g) where
 instance (Pure f, Pure g) => Pure (f :&: g) where
   pure a = (pure a :&: pure a)
 instance (Apply f, Apply g) => Apply (f :&: g) where
-  (f :&: g) |@| (a :&: b) = (f |@| a) :&: (g |@| b)
+  (f :&: g) |$| (a :&: b) = (f |$| a) :&: (g |$| b)
 -- TODO: this is a bad Bind instance. Does it break laws? Can we do better?
 instance (Bind m, Bind n) => Bind (m :&: n) where
-  bind f (m :&: n) =
-    bind (\x -> case f x of {m' :&: _ -> m'}) m
-    :&: bind (\x -> case f x of {_ :&: n' -> n'}) n
+  f =<< (m :&: n) =
+    ((\x -> case f x of {m' :&: _ -> m'}) =<< m)
+    :&: ((\x -> case f x of {_ :&: n' -> n'}) =<< n)

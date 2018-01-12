@@ -21,9 +21,9 @@ instance Map Digit where
 
 instance RelTraverse Digit where
   traverse1 f (Digit1 a) = Digit1 `map` f a
-  traverse1 f (Digit2 a b) = map Digit2 (f a) |@| f b
-  traverse1 f (Digit3 a b c) = map Digit3 (f a) |@| f b |@| f c
-  traverse1 f (Digit4 a b c d) = map Digit4 (f a) |@| f b |@| f c |@| f d
+  traverse1 f (Digit2 a b) = map Digit2 (f a) |$| f b
+  traverse1 f (Digit3 a b c) = map Digit3 (f a) |$| f b |$| f c
+  traverse1 f (Digit4 a b c d) = map Digit4 (f a) |$| f b |$| f c |$| f d
 instance Traverse Digit where traverse = traverse1
   
 

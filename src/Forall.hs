@@ -1,8 +1,10 @@
 {-# language UndecidableInstances #-}
+{-# language MagicHash #-}
 {-# language UndecidableSuperClasses #-}
 module Forall (Forall, inst, forall, module X) where
 import Witness as X
 import Coerce
+import GHC.Exts (Constraint)
 
 type family Skolem (p :: k -> Constraint) :: k where
 
