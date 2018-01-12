@@ -8,3 +8,5 @@ class BiComap p where
   lcomap f = bicomap f (\b -> b)
   rcomap :: (b -> y) -> p a y -> p a b
   rcomap = bicomap  (\a -> a)
+  bothcomap :: (a -> x) -> p x x -> p a a
+  bothcomap f = bicomap f f

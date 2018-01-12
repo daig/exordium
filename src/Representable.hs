@@ -3,15 +3,13 @@ module Representable
   ,firstDefault, secondDefault, wander_Default
   ,module X) where
 import Sieve as X
+import Tabulated as X
 import LinTraversed as X (LinTraversed(..))
-import I
 
-class (Dimap p, Map (Rep p)) => Tabulated p where
-  tabulateP :: (a -> Rep p b) -> p a b
 class (Sieve p, Tabulated p, LinTraversed p) => Representable p where
   {-tabulatedP :: Iso' (a -> Rep p b) (p a b)-}
 
-wander_Default :: Representable p => (forall f. (a -> f b) -> s -> f t) -> p a b -> p s t
+wander_Default :: Representable p => (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t
 wander_Default l p = tabulateP (l (sieve p))
 
 firstDefault :: Representable p => p a b -> p (a,y) (b,y)

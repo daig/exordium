@@ -2,7 +2,7 @@
 {-# language UndecidableSuperClasses #-}
 module Prism
   (type (+~),type (+~~)
-  ,prism'
+  ,prism, prism'
   ,module X) where
 import Iso as X
 import Choice as X
