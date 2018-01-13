@@ -1,7 +1,7 @@
 module APrism.Market (Market(..), Market', module X) where
 import Sum as X (E)
 import Sum
-import Choice as X
+import Prism as X
 import Pure as X
 import Dimap as X
 import Map as X
@@ -20,7 +20,7 @@ instance Dimap (Market a b) where
 instance Map (Market a b s) where map = postmap
 instance Pure (Market a b s) where pure t = Market (\_ -> t) (\_ -> L t)
 
-instance Choice (Market a b) where
+instance Prism (Market a b) where
   left (Market bt seta) = Market (L . bt) (\case
     L s -> case seta s of
       L t -> L (L t)

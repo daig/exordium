@@ -1,5 +1,5 @@
 module Zipping where
-import Choice as X
+import Prism as X
 import Strong as X
 import Closed as X
 import Distributive

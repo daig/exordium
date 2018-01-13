@@ -5,7 +5,7 @@ import Applicative as X
 import Zero as X
 import Comap as X
 import Dimap as X
-import Choice as X
+import Prism as X
 import Sum as X (E)
 import Sum
 
@@ -17,7 +17,7 @@ newtype KK (a :: *) b = KK b
 instance Bimap KK where bimap _ g (KK b) = (KK (g b))
 instance Map (KK a) where map f (KK b) = KK (f b)
 
-instance Choice KK where
+instance Prism KK where
   left (KK b) = KK (L b)
   right (KK b) = KK (R b)
 

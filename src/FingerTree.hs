@@ -5,7 +5,6 @@ import Measured as X
 import FingerTree.Digit as X
 import FingerTree.Node as X
 import Prelude (Show,error)
-import Cons
 import Eq
 
 data FingerTree a
