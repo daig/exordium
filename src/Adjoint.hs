@@ -14,7 +14,7 @@ import Fun
 import AFold
 import AReview
 
-class (Monad (f `O` g), Comonad (g `O` f),LinFoldMap f, Indexed g) => f -| g | f -> g, g -> f where
+class (Monad (f `O` g), Comonad (g `O` f),FoldMap_ f, Indexed g) => f -| g | f -> g, g -> f where
   adjuncted :: Costar f =::~ Star g
   adjuncted = isoP (Star < leftAdjunct < runCostar) (Costar < rightAdjunct < runStar)
   leftAdjunct :: (f a ->   b) ->   a -> g b

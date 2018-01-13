@@ -1,5 +1,5 @@
 module Bazaar (Bazaar(..),sell,module X) where
-import RelTraverse as X
+import Traverse1 as X
 import Dimap as X
 import Prelude (($)) -- TOOD reexport
 

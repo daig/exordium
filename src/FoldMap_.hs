@@ -1,10 +1,10 @@
-module LinFoldMap (module X, LinFoldMap(..)) where
-import AffFoldMap as X
-import RelFoldMap as X
+module FoldMap_ (module X, FoldMap_(..)) where
+import FoldMap0 as X
+import FoldMap1 as X
 import Sum as X
 import Fun
 
-class (AffFoldMap t, RelFoldMap t) =>  LinFoldMap t where
+class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}
   foldMap_ :: (a -> b) -> t a -> b
   foldMap_ f x = f (fold_ x)
@@ -29,4 +29,4 @@ class (AffFoldMap t, RelFoldMap t) =>  LinFoldMap t where
   {-sequenceSnd :: t (a,b) -> (a,t b)-}
   {-sequenceSnd t = (fold_ $ (\(a,_) -> a) $@ t, (\(_,b) -> b) $@ t)-}
 
-instance LinFoldMap ((,) x) where foldMap_ f (x,a) = f a
+instance FoldMap_ ((,) x) where foldMap_ f (x,a) = f a

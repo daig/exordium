@@ -1,13 +1,13 @@
 module Traverse0 where
 import Map
-import AffFoldMap
+import FoldMap0
 import Pure
 import Traverse
 import K
 import Def
 import Sum
 
-class (Traverse t,AffFoldMap t) => Traverse0 t where
+class (Traverse t,FoldMap0 t) => Traverse0 t where
   traverse0 :: Pure f => (a -> f b) -> t a -> f (t b)
   traverse0 f t = sequence0 (map f t)
   sequence0 :: Pure f => t (f a) -> f (t a)
@@ -22,7 +22,7 @@ instance Traverse0 (E x) where
     L x -> pure (L x)
     R a -> map R (afb a)
 instance Traverse (E x) where traverse = traverse0
-instance AffFoldMap (E x)
+instance FoldMap0 (E x)
 instance FoldMap (E x)
 
 instance Traverse0 (K x) where traverse0 f (K x) = pure (K x)

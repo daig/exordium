@@ -1,12 +1,12 @@
 module Traversed (Traversed(..), module X) where
 import Traversed0 as X
-import RelTraversed as X
+import Traversed1 as X
 import Applicative as X
 import Traverse as X
 import Baz
 import I
 
-class (Traversed0 p, RelTraversed p) => Traversed p where
+class (Traversed0 p, Traversed1 p) => Traversed p where
   {-# minimal wander | traversed #-}
   wander :: (forall f. Applicative f => (a -> f b) -> s -> f t) -> p a b -> p s t
   wander f pab = dimap (\s -> Baz (\afb -> f afb s)) (sold @Applicative) (traversed pab)

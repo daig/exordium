@@ -7,7 +7,7 @@ import Prelude (seq)
 import Coerce
 
 -- | Isomorphic to I
-class (LinFoldMap f, Applicative f, Distributive f) => IsI f where
+class (FoldMap_ f, Applicative f, Distributive f) => IsI f where
   taintedMap :: Map g => g a -> g (f a)
   taintedDot :: Dimap p => p a b -> p a (f b)
   untaintedDot :: Dimap p => p a (f b) -> p a b

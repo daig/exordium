@@ -1,7 +1,7 @@
-module BiAffFoldMap (BiAffFoldMap(..),module X) where
+module BiFoldMap0 (BiFoldMap0(..),module X) where
 import BiFoldMap as X
 
-class BiFoldMap t => BiAffFoldMap t where
+class BiFoldMap t => BiFoldMap0 t where
   {-# minimal bifoldMap0 #-}
   bifoldMap0 :: Def m => (a -> m) -> (b -> m) -> t a b -> m
   foldMapL0 :: Def m => (a -> m) -> t a b -> m

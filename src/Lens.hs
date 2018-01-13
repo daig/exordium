@@ -2,7 +2,7 @@ module Lens (module Lens, module X) where
 import Dimap as X
 import Swap as X
 import Map as X
-import LinTraverse as X
+import Traverse_ as X
 import K
 import I
 
@@ -13,7 +13,7 @@ class Dimap p => Lens p where
   {-lens get set = traversal_ (\afb s -> set s `map` afb (get s))-}
   traversal_ :: (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t
   traversal_ f = lens (\s -> case f K s of {K a -> a}) (\s b -> case f (\_ -> I b) s of {I t -> t})
-  traversed_ :: LinTraverse t => p a b -> p (t a) (t b)
+  traversed_ :: Traverse_ t => p a b -> p (t a) (t b)
   traversed_ = traversal_ traverse_
   second :: p a b -> p (x,a) (x,b)
   {-second = \p -> dimap swap swap (first p)-}

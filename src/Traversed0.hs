@@ -26,3 +26,6 @@ leftDefault :: Traversed0 p => p a b -> p (E a y) (E b y)
 leftDefault = \p -> dimap swap swap (traversed0 p)
 rightDefault :: Traversed0 p => p a b -> p (E x a) (E x b)
 rightDefault = traversed0
+
+{-type (s @?~ a) b t  = forall f. Pure f => (a -> f b) -> s -> f t-}
+{-type s @?~~ a       = forall f. Pure f => (a -> f a) -> s -> f s-}
