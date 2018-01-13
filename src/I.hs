@@ -17,7 +17,7 @@ instance Pure I where pure = I
 instance Applicative I
 
 instance LinTraverse I where traverse_ f (I a) = map I (f a)
-instance AffTraverse I where traverse0 = traverse_
+instance Traverse0 I where traverse0 = traverse_
 instance RelTraverse I where traverse1 = traverse_
 instance Traverse I where traverse = traverse_
 

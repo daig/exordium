@@ -16,7 +16,7 @@ instance FoldMap (Baz Map t b) where foldMap = foldMapDefault
 instance Traverse (Baz Map t b) where
   traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))
 instance AffFoldMap (Baz Map t b) where foldMap0 = foldMap0Default
-instance AffTraverse (Baz Map t b) where
+instance Traverse0 (Baz Map t b) where
   traverse0 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))
 instance RelFoldMap (Baz Map t b) where foldMap1 = foldMap1Default
 instance RelTraverse (Baz Map t b) where
@@ -29,7 +29,7 @@ instance FoldMap (Baz Pure t b) where foldMap = foldMapDefault
 instance Traverse (Baz Pure t b) where
   traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Pure) (f x)))))
 instance AffFoldMap (Baz Pure t b) where foldMap0 = foldMap0Default
-instance AffTraverse (Baz Pure t b) where
+instance Traverse0 (Baz Pure t b) where
   traverse0 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Pure) (f x)))))
 
 instance FoldMap (Baz Apply t b) where foldMap = foldMapDefault

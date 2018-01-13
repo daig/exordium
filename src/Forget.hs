@@ -23,7 +23,7 @@ instance Def r => Prism (Forget r) where
 
 instance Zero r => Traversed (Forget r) where
   wander l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
-instance Def r => AffTraversed (Forget r) where
-  wander0 l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
+instance Def r => Traversed0 (Forget r) where
+  traversal0 l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Plus r => RelTraversed (Forget r) where
   wander1 l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})

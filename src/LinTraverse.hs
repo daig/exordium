@@ -2,11 +2,11 @@ module LinTraverse (LinTraverse(..), foldMap_Default, module X) where
 import Map as X
 import LinFoldMap as X
 import Apply as X
-import AffTraverse as X
+import Traverse0 as X
 import RelTraverse as X
 import K
 
-class (AffTraverse t, RelTraverse t,LinFoldMap t) => LinTraverse t where
+class (Traverse0 t, RelTraverse t,LinFoldMap t) => LinTraverse t where
   traverse_ :: Map f => (a -> f b) -> t a -> f (t b)
   traverse_ f t = sequence_ (map f t)
   sequence_ :: Map f => t (f a) -> f (t a)
