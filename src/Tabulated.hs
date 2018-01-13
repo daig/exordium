@@ -1,6 +1,6 @@
 module Tabulated (Tabulated(..), module X) where
 import Rep as X
-import Strong as X
+import Lens as X
 import Dimap as X
 import Map as X
 

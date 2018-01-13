@@ -6,7 +6,7 @@ import Sieve as X
 import Tabulated as X
 import Sum
 
-class (Sieve p, Tabulated p, Strong p) => Representable p where
+class (Sieve p, Tabulated p, Lens p) => Representable p where
   {-tabulatedP :: Iso' (a -> Rep p b) (p a b)-}
 
 wander_Default :: Representable p => (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t

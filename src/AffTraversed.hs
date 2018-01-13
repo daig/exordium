@@ -4,7 +4,7 @@ module AffTraversed
   ,module X) where
 {-import Traversed as X-}
 import Prism as X
-import Strong as X
+import Lens as X
 import Pure as X
 import AffTraverse as X
 import Baz
@@ -12,7 +12,7 @@ import I
 import Sum
 
 -- TODO: merge with Choice??
-class (Prism p, Strong p) => AffTraversed p where
+class (Prism p, Lens p) => AffTraversed p where
   wander0 :: (forall f. Pure f => (a -> f b) -> s -> f t) -> p a b -> p s t
   {-wander0 f pab = dimap (\s -> Baz (\afb -> f afb s)) (sold @Pure) (traversed0 pab)-}
   traversed0 :: AffTraverse t => p a b -> p (t a) (t b)

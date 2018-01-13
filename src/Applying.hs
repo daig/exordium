@@ -1,8 +1,8 @@
 module Applying where
 
 import Dimap as X
-import Strong as X (Strong)
-import Strong 
+import Lens as X (Lens)
+import Lens 
 import Compose as X (Compose)
 import Compose
 
@@ -15,5 +15,5 @@ class Dimap p => Applying p where
   pab *** pxy = ((\(a,_) -> a) >|pab|> (,))
             @@@ ((\(_,x) -> x) >@ pxy       )
 
-alongsideDefault :: (Strong p, Compose p) => p a b -> p x y -> p (a,x) (b,y)
+alongsideDefault :: (Lens p, Compose p) => p a b -> p x y -> p (a,x) (b,y)
 alongsideDefault pab pxy = first pab < second pxy
