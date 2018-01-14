@@ -31,23 +31,23 @@ pattern FTN l t r <- FTN# _ l t r where
   FTN l t r = FTN# ((measure l + measure t) + measure r) l t r
 
 
--- TODO: make Iso
 nodeToDigit :: Node a -> Digit a
 nodeToDigit = \case
   Node2# _ a b -> Digit2 a b
   Node3# _ a b c -> Digit3 a b c
 
-{-ftCons a = \case-}
-  {-FT0 -> FT1 a-}
-  {-FT1 b -> FTN (Digit1 a) FT0 (Digit1 b)-}
-  {-FTN# v (Digit4 b c d e) !t r -> FTN# (measure a + v) (Digit2 a b) (Node3 c d e `nodeCons` t) r-}
-  {-FTN# v l t r -> FTN# (measure a + v) (consDigit# l) t r-}
-  {-where-}
-    {-consDigit# = \case-}
-      {-Digit1 b -> Digit2 a b-}
-      {-Digit2 b c -> Digit3 a b c-}
-      {-Digit3 b c d -> Digit4 a b c d-}
-      {-Digit4{} -> error "consDigit#"-}
+ftCons :: Measured a => a -> FingerTree a -> FingerTree a
+ftCons a = \case
+  FT0 -> FT1 a
+  FT1 b -> FTN (Digit1 a) FT0 (Digit1 b)
+  FTN# v (Digit4 b c d e) !t r -> FTN# (measure a + v) (Digit2 a b) (Node3 c d e `ftCons` t) r
+  FTN# v l t r -> FTN# (measure a + v) (consDigit# l) t r
+  where
+    consDigit# = \case
+      Digit1 b -> Digit2 a b
+      Digit2 b c -> Digit3 a b c
+      Digit3 b c d -> Digit4 a b c d
+      Digit4{} -> error "consDigit#"
 {-instance Snoc FingerTree where-}
   {-x |+ a = case x of-}
     {-FT0 -> FT1 a-}

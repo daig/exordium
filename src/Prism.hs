@@ -28,4 +28,3 @@ type  s +~~ a      = forall p. Prism p => p a a -> p s s
 
 prism' :: (s -> (?) a) -> (b -> s) -> (s +~ a) b s
 prism' sma = prism (\s -> case sma s of {Some a -> R a; None -> L s})
-

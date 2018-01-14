@@ -1,4 +1,5 @@
 module Arr (Arr(..), module X) where
+import Const as X
 import Dimap as X
 import Category as X
 

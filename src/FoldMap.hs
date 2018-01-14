@@ -1,6 +1,5 @@
-module FoldMap (FoldMap(..), module X) where
+module FoldMap (FoldMap(..)) where
 import Zero
-import Map as X
 import K
 
 class FoldMap t where

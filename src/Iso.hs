@@ -1,5 +1,5 @@
 module Iso
-  (type (=~), type (=~~), type (=:~), type (=::~)
+  (type (=~), type (=~~), type (=:~), type (=::~), type Iso
   ,iso, iso', isoF, isoP
   ,re
   ,module X) where
@@ -8,6 +8,7 @@ import Dimap as X
 import NatTrans as X
 import AnIso.Re
 
+type Iso s a b t = forall p. Dimap p => p a b -> p s t
 type (s =~  a) b t = forall p. Dimap p => p a b -> p s t
 iso :: (s -> a) -> (b -> t) -> (s =~ a) b t
 iso = dimap

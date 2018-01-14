@@ -1,6 +1,6 @@
 module Representable
   (Representable(..), Tabulated(..)
-  ,firstDefault, secondDefault, wander_Default
+  ,firstDefault, secondDefault, traversal_Default
   ,module X) where
 import Sieve as X
 import Tabulated as X
@@ -9,8 +9,8 @@ import Sum
 class (Sieve p, Tabulated p, Lens p) => Representable p where
   {-tabulatedP :: Iso' (a -> Rep p b) (p a b)-}
 
-wander_Default :: Representable p => (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t
-wander_Default l p = tabulateP (l (sieve p))
+traversal_Default :: Representable p => (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t
+traversal_Default l p = tabulateP (l (sieve p))
 
 firstDefault :: Representable p => p a b -> p (a,y) (b,y)
 firstDefault p = tabulateP (\(a,y) -> map (\b -> (b,y)) (sieve p a))
