@@ -1,6 +1,6 @@
 module Grates
   (type (&~.), type (&~~.)
-  ,withGrate, cloneGrate, zipFWithOf, collectOf
+  ,withGrate, cloneGrate, zipFOf, collectOf
   ,module X) where
 import Grates.Grating as X
 import Costar as X hiding (mapDefault)
@@ -20,8 +20,8 @@ withGrate g = case g (Grating (\f -> f (\x -> x))) of Grating z -> z
 cloneGrate :: (s &~. a) b t -> (s &~ a) b t
 cloneGrate g = grate (withGrate g)
 
-zipFWithOf :: (Costar f a b -> Costar f s t) -> (f a -> b) -> f s -> t
-zipFWithOf g f = case g (Costar f) of Costar f' -> f'
+zipFOf :: (Costar f a b -> Costar f s t) -> (f a -> b) -> f s -> t
+zipFOf g f = case g (Costar f) of Costar f' -> f'
 
 zipWithOf :: (Zipping a b -> Zipping s t) -> (a -> a -> b) -> s -> s -> t
 zipWithOf l z = case l (Zipping z) of Zipping z' -> z'

@@ -1,12 +1,10 @@
 module Indexed
-  (Indexed(..)
-  ,mapDefault
+  (module Indexed
   ,module X) where
 import Isos as X
 import Distributive as X
 import AFold (foldOf)
-import AReview (review)
-import ASetter (over)
+import Prisms (review)
 import Apply
 
 class Indexed f where
@@ -19,14 +17,14 @@ class Indexed f where
   tabulate :: (Ix f -> a) -> f a
   tabulate = review indexed
 
-{-mapDefault :: Indexed f => (a -> b) -> f a -> f b-}
-{-mapDefault f = over indexed (map f)-}
+indexed_map :: Indexed f => (a -> b) -> f a -> f b
+indexed_map f = indexed (map f)
 
-distributeDefault :: (Indexed i, Map f) => f (i a) -> i (f a)
-distributeDefault fi = tabulate (\k -> map (`index` k) fi)
+indexed_distribute :: (Indexed i, Map f) => f (i a) -> i (f a)
+indexed_distribute fi = tabulate (\k -> map (`index` k) fi)
 
-apDefault :: Indexed f => f (a -> b) -> f a -> f b
-apDefault f g = tabulate (index f |$| index g)
+indexed_ap :: Indexed f => f (a -> b) -> f a -> f b
+indexed_ap f g = tabulate (index f |$| index g)
 
 instance Indexed ((->) x) where
   type Ix ((->) x) = x

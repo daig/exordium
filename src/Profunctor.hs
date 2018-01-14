@@ -12,4 +12,3 @@ class (Category (Precat p), Category (Postcat p)) => Profunctor (p :: k -> k' ->
   postmap' :: Postcat p y b -> p a y -> p a b
   postmap' = dimap' id
 
-

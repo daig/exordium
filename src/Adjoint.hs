@@ -12,7 +12,7 @@ import Indexed as X hiding (mapDefault)
 import Coerce
 import Fun
 import AFold
-import AReview
+import Prisms (review)
 
 class (Monad (f `O` g), Comonad (g `O` f),FoldMap_ f, Indexed g) => f -| g | f -> g, g -> f where
   adjuncted :: Costar f ~~~= Star g

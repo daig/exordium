@@ -5,7 +5,7 @@ import Distributive as X
 class Dimap p => Closed p where
   {-# minimal closed | grate #-}
   zipped :: Distributive f => p a b -> p (f a) (f b)
-  zipped = collection collect -- grate (\f -> zipFWith f (\x -> x))
+  zipped = collection collect -- grate (\f -> zipF f (\x -> x))
   closed :: p a b -> p (x -> a) (x -> b)
   closed = zipped -- grate (\g x -> g (\f -> f x))
   grate :: (((s -> a) -> b) -> t) -> p a b -> p s t

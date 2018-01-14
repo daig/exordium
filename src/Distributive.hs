@@ -1,7 +1,6 @@
 {-# language MagicHash #-}
 module Distributive
-  (Distributive(..)
-  ,zipWith, mapDefault
+  (module Distributive
   ,module X) where
 import Map as X
 import I
@@ -9,34 +8,42 @@ import K
 import Coerce
 import Prelude (($)) -- TODO: reexport
 
-class Pure t => Distributive t where
-  {-# minimal distribute | collect | zipFWith #-}
+class Applicative t => Distributive t where
+  {-# minimal distribute | collect | zipF #-}
   distribute :: Map f => f (t a) -> t (f a)
   distribute = collect (\x -> x)
   -- aka cotraverse
-  zipFWith :: Map f => (f a -> b) -> f (t a) -> t b
-  zipFWith f = \fta -> map f (distribute fta)
+  zipF :: Map f => (f a -> b) -> f (t a) -> t b
+  zipF f = \fta -> map f (distribute fta)
   collect :: Map f => (a -> t b) -> f a -> t (f b)
-  collect f a  = zipFWith (\x -> x) (map f a)
+  collect f a  = zipF (\x -> x) (map f a)
   -- TODO: is collect (\x -> x) === cotraverse (\x -> x)
 
-(=@) :: (Distributive t, Map f) => (a -> t b) -> f a -> t (f b)
-(=@) = collect
-
-
 -- TODO: merge into data family
-data V2 a = V2 ~a ~a
+data V2 a = V2 {v2a :: ~a, v2b :: ~a} 
 instance Map V2 where map f (V2 a b) = V2 (f a) (f b)
-zipWith :: Distributive t => (a -> a -> b) -> t a -> t a -> t b
-zipWith f t t' = zipFWith (\(V2 a b) -> f a b) (V2 t t')
+instance Pure V2 where pure a = V2 a a
+instance Distributive V2 where distribute fta = V2 (map v2a fta) (map v2b fta)
+instance Apply V2 where (|$|) = zipF_ap
+instance Applicative V2
+zip' :: Distributive t => (a -> a -> b) -> t a -> t a -> t b
+zip' f t t' = zipF (\(V2 a b) -> f a b) (V2 t t')
 
-mapDefault :: Distributive t => (a -> b) -> t a -> t b
-mapDefault f ta = case collect (\x -> I (f x)) ta of I tb -> tb
+-- TODO: Avoid incomplete pattern
+zipF_zip :: Distributive t => (a -> b -> r) -> t a -> t b -> t r
+zipF_zip f t t' = zipF (\(V2 (L a) (R b)) -> f a b) (V2 (map L t) (map R t'))
 
-distRDefault :: Distributive t => E x (t a) -> t (E x a)
-distRDefault = distribute
-pureDefault :: Distributive t => a -> t a
-pureDefault a = map# (\(K a) -> a) (distribute (K a))
+zipF_ap :: Distributive t => t (a -> r) -> t a -> t r
+zipF_ap t t' = zipF (\(V2 (L f) (R a)) -> f a) (V2 (map L t) (map R t'))
+
+collect_map :: Distributive t => (a -> b) -> t a -> t b
+collect_map f ta = case collect (\x -> I (f x)) ta of I tb -> tb
+
+distribute_distR :: Distributive t => E x (t a) -> t (E x a)
+distribute_distR = distribute
+
+distribute_pure :: Distributive t => a -> t a
+distribute_pure a = map# (\(K x) -> x) (distribute (K a))
 
 
 instance Distributive ((->) x) where

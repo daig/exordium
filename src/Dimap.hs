@@ -1,5 +1,6 @@
 {-# language MagicHash #-}
 module Dimap where
+import Data.Coerce
 
 class Dimap p where
   {-# minimal dimap | premap,postmap #-}
@@ -55,3 +56,6 @@ k |> f = k f
 (g <| p) f = dimap f g p
 k |< f = k f
 instance Dimap (->) where dimap f g h a = g (h (f a))
+
+(^!) :: ((x -> a) -> r) -> a -> r
+l ^! a = l (\_ -> a)
