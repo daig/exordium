@@ -1,4 +1,4 @@
-module Grate.Grating (Grating(..), module X) where
+module Grates.Grating (Grating(..), module X) where
 import Closed as X
 import Category
 

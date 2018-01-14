@@ -1,9 +1,8 @@
-module Traverse (Traverse(..),foldMapDefault,module X) where
+module Traverse (Traverse(..),module X) where
 import Map as X
 import Apply as X
 import FoldMap as X
 import Applicative as X
-import K
 import Plus
 import Bind
 
@@ -16,8 +15,8 @@ class (Map t,FoldMap t) => Traverse t where
   sequence :: Applicative f => t (f a) -> f (t a)
   sequence = traverse (\x -> x)
 
-foldMapDefault :: (Traverse t, Zero m) => (a -> m) -> t a -> m
-foldMapDefault f t = case traverse (\x -> K (f x)) t of {K m -> m}
+{-foldMapDefault :: (Traverse t, Zero m) => (a -> m) -> t a -> m-}
+{-foldMapDefault f t = case traverse (\x -> K (f x)) t of {K m -> m}-}
 
 instance Traverse ((,) x) where traverse f (x,a) = (x,) `map` f a
 instance Traverse [] where
@@ -26,4 +25,3 @@ instance Traverse [] where
       [] -> pure []
 
 
-instance Traverse (K x) where traverse f (K x) = pure (K x)

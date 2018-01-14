@@ -2,7 +2,7 @@ module Indexed
   (Indexed(..)
   ,mapDefault
   ,module X) where
-import Iso as X
+import Isos as X
 import Distributive as X
 import AFold (foldOf)
 import AReview (review)
@@ -12,7 +12,7 @@ import Apply
 class Indexed f where
   {-# minimal indexed | index,tabulate #-}
   type Ix f :: *
-  indexed :: f =:~ ((->) (Ix f))
+  indexed :: f ~~= ((->) (Ix f))
   indexed = isoF index tabulate
   index :: f a -> Ix f -> a
   index = foldOf indexed

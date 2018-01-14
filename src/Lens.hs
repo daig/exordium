@@ -23,17 +23,14 @@ class Dimap p => Lens p where
   {-first = traversal_ (\afb (a,y) -> (,y) `map` afb a)-}
   first = \p -> dimap swap swap (second p)
 
+type (s ~*  a) b t = forall p. Lens p => p a b -> p s t
+
 ($:) :: Lens p => p a (b -> c) -> p (a,b) c
 ($:) = \p -> (\(f,x) -> f x) `postmap` first p
 
 dimapDefault :: Lens p => (a -> x) -> (y -> b) -> p x y -> p a b
 dimapDefault f g = traversal_ (\xfy a -> map g (xfy (f a)))
 
-type (s *~  a) b t = forall p. Lens p => p a b -> p s t
-type  s *~~ a      = forall p. Lens p => p a a -> p s s
-
-{-lens' :: (s -> (a,b -> t)) -> (s *~ a) b t-}
-{-lens' f = lens (\(f -> (a,_)) -> a) (\(f -> (_,g)) -> g)-}
 
 instance Lens (->) where
   lens get set f s = set s (f (get s))

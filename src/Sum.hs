@@ -7,7 +7,6 @@ import Swap as X
 import Map as X
 import Witness
 
-data family (+:) xs
 data E a b = L ~a | R ~b
 data a + b = L' ~a | R' ~b
 -- Waiting on GHC bug --

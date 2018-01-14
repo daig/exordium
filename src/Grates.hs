@@ -1,13 +1,15 @@
-module AGrate
+module Grates
   (type (&~.), type (&~~.)
   ,withGrate, cloneGrate, zipFWithOf, collectOf
   ,module X) where
-import Grate as X
-import Grate.Grating as X
+import Grates.Grating as X
 import Costar as X hiding (mapDefault)
 import Star as X
 import Distributive as X
 import Zipping as X
+
+type (s &~  a) b t = forall p. Closed p => p a b -> p s t
+type  s &~~ a      = forall p. Closed p => p a a -> p s s
 
 type (s &~.  a) b t = Grating a b a b -> Grating a b s t
 type  s &~~. a      = Grating a a a a -> Grating a a s s

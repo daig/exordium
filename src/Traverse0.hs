@@ -3,7 +3,6 @@ import Map
 import FoldMap0
 import Pure
 import Traverse
-import K
 import Def
 import Sum
 
@@ -13,8 +12,8 @@ class (Traverse t,FoldMap0 t) => Traverse0 t where
   sequence0 :: Pure f => t (f a) -> f (t a)
   sequence0 = traverse0 (\x -> x)
 
-foldMap0Default :: (Traverse0 t, Def m) => (a -> m) -> t a -> m
-foldMap0Default f t = case traverse0 (\x -> K (f x)) t of {K m -> m}
+{-foldMap0Default :: (Traverse0 t, Def m) => (a -> m) -> t a -> m-}
+{-foldMap0Default f t = case traverse0 (\x -> K (f x)) t of {K m -> m}-}
 
 instance Traverse0 ((,) x) where traverse0 f (x,a) = (x,) `map` f a
 instance Traverse0 (E x) where
@@ -25,4 +24,3 @@ instance Traverse (E x) where traverse = traverse0
 instance FoldMap0 (E x)
 instance FoldMap (E x)
 
-instance Traverse0 (K x) where traverse0 f (K x) = pure (K x)

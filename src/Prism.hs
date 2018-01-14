@@ -1,13 +1,23 @@
-module Prism (Prism(..), module X) where
+module Prism (module Prism, module X) where
 import Dimap  as X
 import Sum as X
-import Option as X
+import Traverse0
+import Traverse
 
-{-(forall f. Pure f => (a -> f b) -> s -> f t)-}
-p seta bt afb s = case seta s of
-  L t -> pure t
-  R a -> bt `map` afb a
+{-type Prismoid s a b t = forall f. X f => (f a -> b) -> f s -> t-}
+prismoid :: Traverse0 f => (s -> E t a) -> (b -> t) -> (f a -> b) -> f s -> t
+prismoid seta bt fab fs = case traverse0 seta fs of
+  L t -> t
+  R fa -> bt (fab fa)
 
+data List t a = Done t | More a (List t a)
+instance Map (List t) where
+  map f = go where go = \case {Done t -> Done t; More a as -> More (f a) (go as)}
+{-prismoid' :: Traverse f => (s -> E t a) -> (b -> t) -> (f a -> b) -> f s -> t-}
+{-prismoid' seta bt fab fs = case traverse seta fs of-}
+  {-L t -> t-}
+  {-R fa -> bt (fab fa)-}
+  
 
 class Dimap p => Prism p where
   {-# minimal prism | left | right #-}
@@ -18,13 +28,10 @@ class Dimap p => Prism p where
   right :: p a b -> p (E x a) (E x b)
   right = \p -> dimap swap swap (left p)
 
+type (s ~+ a) b t = forall p. Prism p => p a b -> p s t
+
 instance Prism (->) where
   prism pat constr f s = case pat s of
     L t -> t
     R a -> constr (f a)
 
-type (s +~  a) b t = forall p. Prism p => p a b -> p s t
-type  s +~~ a      = forall p. Prism p => p a a -> p s s
-
-prism' :: (s -> (?) a) -> (b -> s) -> (s +~ a) b s
-prism' sma = prism (\s -> case sma s of {Some a -> R a; None -> L s})

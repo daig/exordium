@@ -1,6 +1,6 @@
-module FoldMap (FoldMap(..)) where
+module FoldMap (FoldMap(..), module X) where
+import Zero as X (Zero,Def,Plus)
 import Zero
-import K
 
 class FoldMap t where
   {-# minimal foldMap | foldr #-}
@@ -10,11 +10,9 @@ class FoldMap t where
   foldr c z t = foldMap c t z
   {-foldl :: (b -> a -> b) -> b -> t a -> b-}
 
-instance FoldMap ((,) x) where foldMap f (x,a) = f a
+instance FoldMap ((,) x) where foldMap f (_,a) = f a
 instance FoldMap [] where
   foldMap f = go where
     go = \case
       [] -> def
       a:as -> f a + go as
-
-instance FoldMap (K x) where foldMap = \_ _ -> def

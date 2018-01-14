@@ -1,4 +1,4 @@
-module K (K(..),KK(..), IsK, IsKK, Def, Plus, module X) where
+module K (module X) where
 import Map as X
 import Bimap as X
 import Applicative as X
@@ -8,12 +8,14 @@ import Dimap as X
 import Prism as X
 import Sum as X (E)
 import Sum
+import K.Type as X
+import Traverse as X
+import Traverse0 as X
+import FoldMap0 as X
 
-newtype K a (b :: *) = K a
 instance Bimap K where bimap f _ (K a) = K (f a)
 instance Map (K a) where map _ (K a) = K a
 
-newtype KK (a :: *) b = KK b
 instance Bimap KK where bimap _ g (KK b) = (KK (g b))
 instance Map (KK a) where map f (KK b) = KK (f b)
 
@@ -29,5 +31,7 @@ instance Def a => Pure (K a) where pure = \_ -> K def
 instance Plus a => Apply (K a) where K a |$| K b = K (a + b)
 instance Zero a => Applicative (K a)
 
-type IsK f = (Map f, Comap f)
-type IsKK f = (Dimap f, Bimap f)
+instance Traverse (K x) where traverse f (K x) = pure (K x)
+instance FoldMap (K x) where foldMap = \_ _ -> def
+instance FoldMap0 (K x) where foldMap0 _ _ = def
+instance Traverse0 (K x) where traverse0 f (K x) = pure (K x)

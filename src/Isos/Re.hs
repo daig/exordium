@@ -1,4 +1,4 @@
-module AnIso.Re (Re(..),module X) where
+module Isos.Re (Re(..),module X) where
 import Dimap as X
 import Fun
 
