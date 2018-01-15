@@ -31,6 +31,8 @@ f =>= g = g =<= f
 apDefault :: Bind m => m (a -> b) -> m a -> m b
 apDefault mf ma = mf >>= ($@ ma)
 
+instance Bind ((->) r) where
+  f =<< g = \r -> f (g r) r
 instance Bind [] where
   (=<<) f = \case
     [] -> []
