@@ -1,7 +1,7 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
 {-# language UndecidableSuperClasses #-}
-module Forall (Forall, ForallF, inst, forall, module X) where
+module Forall (Forall, ForallF, ForallT, ForallP, inst, forall, module X) where
 import Witness as X
 import Coerce
 import GHC.Exts (Constraint)
