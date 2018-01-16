@@ -8,7 +8,3 @@ class (Pure f, Apply f) => Applicative f
 
 instance Applicative []
 instance Applicative ((->) x)
-
-instance Applicative f => P.Applicative f where
-  pure = X.pure
-  (<*>) = (|$|)

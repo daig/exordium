@@ -1,19 +1,12 @@
-module Sum (E(..), pattern L,module X) where
+module Sum (E(..), module X) where
 import Assoc as X
 import Either as X
 import Bimap as X
 import InLR as X
 import Swap as X
 import Map as X
-import Witness
+import Sum.Type as X
 
-data E a b = L ~a | R ~b
-data a + b = L' ~a | R' ~b
--- Waiting on GHC bug --
-{-data E a b = L' ~a | R ~b-}
-{-pattern L :: forall b a. a -> E a b-}
-{-pattern L a = L' a-}
-{-{-# COMPLETE L , R #-}-}
 
 instance Bimap E where bimap f g = \case {L a -> L (f a); R b -> R (g b)}
 instance Assoc E where
@@ -32,3 +25,4 @@ instance InLR E where
   inR = R
 instance Swap E where swap = \case {L a -> R a; R b -> L b}
 instance Map (E a) where map = rmap
+instance MapIso (E a) where mapIso _ = rmap

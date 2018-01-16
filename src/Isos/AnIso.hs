@@ -9,3 +9,4 @@ instance Dimap (AnIso a b) where
   premap f (AnIso sa bt) = AnIso (\x -> sa (f x)) bt
   postmap g (AnIso sa bt) = AnIso sa (\b -> g (bt b))
 instance Map (AnIso a b s) where map = postmap
+instance MapIso (AnIso a b s) where mapIso _ = postmap

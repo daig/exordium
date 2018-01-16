@@ -14,9 +14,11 @@ import Traverse0 as X
 import FoldMap0 as X
 
 instance Bimap K where bimap f _ (K a) = K (f a)
+instance MapIso (K a) where mapIso = map_mapIso
 instance Map (K a) where map _ (K a) = K a
 
 instance Bimap KK where bimap _ g (KK b) = (KK (g b))
+instance MapIso (KK a) where mapIso = map_mapIso
 instance Map (KK a) where map f (KK b) = KK (f b)
 
 instance Prism KK where

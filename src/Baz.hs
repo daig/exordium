@@ -20,6 +20,7 @@ newtype Baz c t b a = Baz {runBaz :: forall f. c f => (a -> f b) -> f t}
 sold :: c I => Baz c t a a -> t
 sold m = case runBaz m I of {I t -> t}
 
+instance MapIso (Baz c t b) where mapIso = map_mapIso
 instance Map (Baz c t b) where map f (Baz t) = Baz (\afb -> t (\x -> afb (f x)))
 
 instance FoldMap (Baz Map t b) where foldMap = foldMapDefault

@@ -6,8 +6,10 @@ import I
 import Mapping.Bar
 
 class (Closed p, Traversed p) => Mapping p where
-  {-# minimal mapping | roam #-}
-  roam :: (forall f. (Applicative f, Distributive f) => (a -> f b) -> s -> f t) -> p a b -> p s t
-  roam f = \p -> dimap (\s -> Bar (\afb -> f afb s)) (\(Bar k) -> (\(I x) -> x) (k I)) (mapping p)
-  mapping :: Map f => p a b -> p (f a) (f b)
-  mapping = roam collect
+  {-# minimal mapping | mapped #-}
+  mapping :: (forall f. (Applicative f, Distributive f) => (a -> f b) -> s -> f t) -> p a b -> p s t
+  mapping f = \p -> dimap (\s -> Bar (\afb -> f afb s))
+                          (\(Bar k) -> (\(I x) -> x) (k I))
+                          (mapped p)
+  mapped :: Map f => p a b -> p (f a) (f b)
+  mapped = mapping collect

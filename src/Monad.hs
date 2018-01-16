@@ -11,9 +11,9 @@ class (Bind m, Applicative m) => Monad m
 
 instance Monad ((->) r)
 instance Monad []
-instance Monad m => P.Monad m where
-  return = pure
-  (>>=) = (X.>>=)
+{-instance Monad m => P.Monad m where-}
+  {-return = pure-}
+  {-(>>=) = (X.>>=)-}
 
 (>>) :: Monad m => m a -> m b -> m b
 m >> m' = m >>= (\_ -> m')

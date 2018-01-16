@@ -13,6 +13,7 @@ instance Lens (Forget r) where
   traversal_ l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Dimap (Forget r) where
   dimap f _ (Forget z) = Forget (premap f z)
+instance MapIso (Forget r a) where mapIso = map_mapIso
 instance Map (Forget r a) where map _ (Forget z) = Forget z
 instance BiComap (Forget r) where
   bicomap f _ (Forget z) = Forget (premap f z)

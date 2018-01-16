@@ -10,9 +10,9 @@ prismoid seta bt fab fs = case traverse0 seta fs of
   L t -> t
   R fa -> bt (fab fa)
 
-data List t a = Done t | More a (List t a)
-instance Map (List t) where
-  map f = go where go = \case {Done t -> Done t; More a as -> More (f a) (go as)}
+{-data List t a = Done t | More a (List t a)-}
+{-instance Map (List t) where-}
+  {-map f = go where go = \case {Done t -> Done t; More a as -> More (f a) (go as)}-}
 {-prismoid' :: Traverse f => (s -> E t a) -> (b -> t) -> (f a -> b) -> f s -> t-}
 {-prismoid' seta bt fab fs = case traverse seta fs of-}
   {-L t -> t-}

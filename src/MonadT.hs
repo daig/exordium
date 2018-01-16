@@ -1,7 +1,6 @@
 module MonadT (MonadT(..), module X) where
 import MapT as X
 import Monad as X
-import Forall as X
 
 class MapT t => MonadT t where
   bindT :: Monad n => (m --> t n) -> (t m --> t n)

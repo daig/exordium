@@ -9,6 +9,7 @@ import GHC.Prim (State#)
 import Traverse_ as X
 import Monad
 
+instance MapIso IO where mapIso = map_mapIso
 instance Map IO where
   map f (IO k) = IO (\s -> case k s of {(# s', a #) -> (# s', f a #)})
   b !@ IO k = IO (\s -> case k s of {(# s', _ #) -> (# s', b #)})

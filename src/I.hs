@@ -7,6 +7,7 @@ import GHC.Show (Show)
 
 -- | Identity type
 newtype I a = I a deriving Show
+instance MapIso I where mapIso = map_mapIso
 instance Map I where map f (I a) = I (f a)
 instance FoldMap_ I where foldMap_ f (I a) = f a
 instance FoldMap1 I where foldMap1 = foldMap_

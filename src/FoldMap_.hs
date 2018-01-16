@@ -1,8 +1,6 @@
 module FoldMap_ (module X, FoldMap_(..)) where
 import FoldMap0 as X
 import FoldMap1 as X
-import Sum as X
-import Fun
 
 class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}

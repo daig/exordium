@@ -15,6 +15,7 @@ instance Dimap (APrism a b) where
   {-# INLINE premap #-}
   postmap f (APrism seta bt) = APrism (either (L . f) R . seta) (f . bt)
   {-# INLINE postmap #-}
+instance MapIso (APrism a b s) where mapIso = map_mapIso
 instance Map (APrism a b s) where map = postmap
 instance Pure (APrism a b s) where pure t = APrism (\_ -> L t) (\_ -> t)
 

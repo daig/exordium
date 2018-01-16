@@ -1,5 +1,6 @@
 {-# language MagicHash #-}
 module Dimap where
+import NatTrans as X
 import Data.Coerce
 
 class Dimap p where
@@ -59,3 +60,23 @@ instance Dimap (->) where dimap f g h a = g (h (f a))
 
 (^!) :: ((x -> a) -> r) -> a -> r
 l ^! a = l (\_ -> a)
+
+type (s ~= a) b t = forall p. Dimap p => p a b -> p s t
+iso :: (s -> a) -> (b -> t) -> (s ~= a) b t
+iso = dimap
+{-# inline iso #-}
+
+type a ~== b = forall p. Dimap p => p a a -> p b b
+iso' :: (b -> a) -> (a -> b) -> a~==b
+iso' = dimap
+{-# inline iso' #-}
+
+type f ~~= g = forall p x y. Dimap p => p (g x) (g y) -> p (f x) (f y)
+isoF :: f-->g -> g-->f -> f~~=g
+isoF = dimap
+{-# inline isoF #-}
+
+type p ~~~= q = forall i a b x y. Dimap i => i (q x y) (q a b) -> i (p x y) (p a b)
+isoP :: p--->q -> q--->p -> p~~~=q
+isoP = dimap
+{-# inline isoP #-}

@@ -4,7 +4,9 @@
 module Forall (Forall, ForallF, ForallT, ForallP, inst, forall, module X) where
 import Witness as X
 import Coerce
-import GHC.Exts (Constraint)
+import GHC.Exts as X (Constraint)
+
+{-# DEPRECATED ForallT, ForallP "rename these!" #-}
 
 type family Skolem (p :: k -> Constraint) :: k where
 
@@ -13,6 +15,7 @@ instance p (Skolem p) => Forall (p :: k -> Constraint)
 
 class p (f a) => ComposeC (p :: k' -> Constraint) (f :: k -> k') (a :: k)
 instance p (f a) => ComposeC p f a
+
 
 class Forall (ComposeC p f) => ForallF (p :: k' -> Constraint) (f :: k -> k')
 instance Forall (ComposeC p f) => ForallF p f

@@ -13,6 +13,7 @@ instance FoldMap1 Digit where
   foldMap1 f (Digit4 a b c d) = f a + f b + f c + f d
 instance FoldMap Digit where foldMap = foldMap1
 
+instance MapIso Digit where mapIso = map_mapIso
 instance Map Digit where
   map f (Digit1 a) = Digit1 (f a)
   map f (Digit2 a b) = Digit2 (f a) (f b)
