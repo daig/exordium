@@ -1,6 +1,6 @@
 {-# language UndecidableSuperClasses #-}
 module Indexable where
-import Traversed
+import Traversal
 import Int
 import Category
 
@@ -12,7 +12,7 @@ import Category
   {-type Unindexed (->) = (->)-}
   {-indexP = \a _ -> a-}
 
-{-type IndexedTraversal i s a b t = forall p. (IndexedP i p, Traversed p, Traversed (Unindexed p))-}
+{-type IndexedTraversal i s a b t = forall p. (IndexedP i p, Traversal p, Traversal (Unindexed p))-}
                                {-=> p a b -> Unindexed p s t-}
 
 {-newtype IFun i a b = IFun {runIFun :: i -> a -> b}-}
@@ -36,5 +36,5 @@ import Category
     {-[] -> []-}
     {-a:as -> f i a : go (i+1) as-}
 
-{-bar :: Traversed p => p a b -> p [a] [b]-}
+{-bar :: Traversal p => p a b -> p [a] [b]-}
 {-bar = wander traverse-}
