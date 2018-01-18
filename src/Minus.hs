@@ -1,13 +1,15 @@
 {-# language PostfixOperators #-}
-module Minus (Minus(..), defaultNegate, module X) where
-import Def as X
+module Minus (Minus(..), module X) where
+import PlusZero as X
 import Option as X (type (?))
 import Option
 
 
--- a - a = def
+-- a - a = zero
 -- (a - b) - c = a - (b + c)
-class Def a => Minus a where (-) :: a -> a -> a
-
-defaultNegate :: Minus a => a -> a
-defaultNegate = \a -> def - a
+class PlusZero a => Minus a where
+  {-# minimal (-) | negate #-}
+  (-) :: a -> a -> a
+  a - b = a + negate b
+  negate :: a -> a
+  negate a = zero - a

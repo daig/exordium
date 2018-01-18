@@ -12,10 +12,10 @@ data FingerTree a
   | FT1 ~a
   | FTN# (Measure a) (Digit a) ~(FingerTree (Node a)) (Digit a)
 deriving instance (Show a, Show (Measure a)) => Show (FingerTree a)
-instance (Measured a, Def (Measure a)) => Measured (FingerTree a) where
+instance (Measured a, Zero (Measure a)) => Measured (FingerTree a) where
   type Measure (FingerTree a) = Measure a
   measure = \case
-    FT0 -> def
+    FT0 -> zero
     FT1 a -> measure a
     FTN# v _ _ _ -> v
 

@@ -3,7 +3,6 @@ import Map as X
 import Apply as X
 import FoldMap as X
 import Applicative as X
-import Plus
 import Bind
 
 class (Map t,FoldMap t) => Traverse t where

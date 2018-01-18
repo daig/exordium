@@ -1,11 +1,11 @@
 {-# language UndecidableSuperClasses #-}
 module Measured (Measured(..), module X) where
 import Int
-import Zero as X
+import PlusZero as X
 
 
 -- The measure should preserve all monoidlike structures
-class Zero (Measure a) => Measured a where
+class PlusZero (Measure a) => Measured a where
   type Measure a
   measure :: a -> Measure a
 

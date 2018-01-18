@@ -1,12 +1,14 @@
-module Zero (Zero,zero,module X) where
-import Plus as X
-import Def as X
+module Zero where
+{-import Types-}
 
-import Bool
-import Ord
+class Zero a where zero :: a
 
-type Zero a = (Plus a, Def a)
-zero :: Zero a => a
-zero = def
-plusZero :: (Eq a, Zero a) => a -> Bool
-plusZero a = (a + zero) == a && (zero + a) == a
+instance Zero (a -> a) where zero = \a -> a
+instance (Zero a, Zero b) => Zero (a,b) where zero = (zero,zero)
+{-instance Zero Integer where zero = 0-}
+{-instance Zero Word   where zero = 0-}
+{-instance Zero Word8  where zero = 0-}
+{-instance Zero Word16 where zero = 0-}
+{-instance Zero Word32 where zero = 0-}
+{-instance Zero Word64 where zero = 0-}
+{-instance Zero Bool where zero = False-}

@@ -1,5 +1,5 @@
 module Forget where
-import Zero as X
+import PlusZero as X
 import Lens as X
 import Map as X
 import Traversal as X
@@ -19,12 +19,12 @@ instance BiComap (Forget r) where
   bicomap f _ (Forget z) = Forget (premap f z)
 instance Comap (Forget r a) where comap _ (Forget z) = Forget z
 
-instance Def r => Prism (Forget r) where
-  left (Forget z) = Forget (either z (\_ -> def))
+instance Zero r => Prism (Forget r) where
+  left (Forget z) = Forget (either z (\_ -> zero))
 
-instance Zero r => Traversal (Forget r) where
+instance PlusZero r => Traversal (Forget r) where
   traversal l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
-instance Def r => Traversal0 (Forget r) where
+instance Zero r => Traversal0 (Forget r) where
   traversal0 l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Plus r => Traversal1 (Forget r) where
   traversal1 l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})

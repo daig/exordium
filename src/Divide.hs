@@ -1,4 +1,9 @@
 module Divide (Divide(..), module X) where
-import One as X
+import TimesOne as X
 
-class One a => Divide a where (/) :: a -> a -> a
+class TimesOne a => Divide a where
+  {-# minimal (/) | recip #-}
+  (/) :: a -> a -> a
+  a / b = a * recip b
+  recip :: a -> a
+  recip a = one / a

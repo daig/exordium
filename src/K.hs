@@ -29,11 +29,11 @@ instance Comap (K a) where comap _ (K a) = K a
 
 instance Dimap KK where dimap _ f (KK a) = KK (f a)
 
-instance Def a => Pure (K a) where pure = \_ -> K def
+instance Zero a => Pure (K a) where pure = \_ -> K zero
 instance Plus a => Apply (K a) where K a |$| K b = K (a + b)
-instance Zero a => Applicative (K a)
+instance PlusZero a => Applicative (K a)
 
 instance Traverse (K x) where traverse f (K x) = pure (K x)
-instance FoldMap (K x) where foldMap = \_ _ -> def
-instance FoldMap0 (K x) where foldMap0 _ _ = def
+instance FoldMap (K x) where foldMap = \_ _ -> zero
+instance FoldMap0 (K x) where foldMap0 _ _ = zero
 instance Traverse0 (K x) where traverse0 f (K x) = pure (K x)
