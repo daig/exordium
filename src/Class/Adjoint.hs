@@ -1,7 +1,4 @@
-module Adjoint
-  (type (-|)(..)
-  ,pureDefault, extractDefault
-  ,module X) where
+module Class.Adjoint (module Class.Adjoint, module X) where
 import Class.Monad as X
 import Class.Comonad as X hiding (mapDefault)
 import Type.O as X
@@ -23,17 +20,3 @@ class (Monad (f `O` g), Comonad (g `O` f),FoldMap_ f, Indexed g) => f -| g | f -
   rightAdjunct :: (a   -> g b) -> f a ->   b
   rightAdjunct = runCostar < review adjuncted < Star
 
-pureDefault :: f -| g => a -> O g f a
-pureDefault = O < leftAdjunct id
-
-extractDefault :: f -| g => O f g a -> a
-extractDefault = rightAdjunct id < (\(O fg) -> fg)
-
-tabulateDefault :: f -| g => (f () -> b) -> g b
-tabulateDefault f = leftAdjunct f ()
-
-extractFDefault :: f -| g => f a -> a
-extractFDefault = splitF > \case {(a,_) -> a}
-
-splitF :: f -| g => f a -> (a,f ())
-splitF = rightAdjunct ((`leftAdjunct` ()) < (,))

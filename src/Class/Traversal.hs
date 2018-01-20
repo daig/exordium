@@ -3,7 +3,7 @@ import Class.Traversal0 as X
 import Class.Traversal1 as X
 import Class.Applicative as X
 import Class.Traverse as X
-import Internal.Traversal.Baz
+import Internal.Traversal
 import Type.I
 
 class (Traversal0 p, Traversal1 p) => Traversal p where

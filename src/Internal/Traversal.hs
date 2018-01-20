@@ -1,4 +1,4 @@
-module Internal.Traversal.Baz where
+module Internal.Traversal where
 import Utils.Traverse_
 import Utils.Dimap
 import Type.I

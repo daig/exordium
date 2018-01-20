@@ -1,6 +1,5 @@
-module Align (Align(..), module X) where
+module Class.Align (module Class.Align, module X) where
 import Class.Map as X
-import Class.Plus
 import Type.These as X
 
 -- | fa |&| fb = map swap (fb |&| fa) TODO: Is this always useful?
@@ -18,6 +17,3 @@ class Map f => Align f where
       These x y -> h x y
   {-both :: (a -> b -> c) -> -}
 
--- | Default definition for (+) @(f a)
-alignWith_plus :: (Align f, Plus a) => f a -> f a -> f a
-alignWith_plus = alignWith (\x -> x) (\x -> x) plus 

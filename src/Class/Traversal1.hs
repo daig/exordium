@@ -2,7 +2,7 @@ module Class.Traversal1 (module Class.Traversal1, module X) where
 import Class.Lens as X
 import Class.Apply as X
 import Class.Traverse1 as X
-import Internal.Traversal.Baz
+import Internal.Traversal
 import Type.I
 import Type.O
 

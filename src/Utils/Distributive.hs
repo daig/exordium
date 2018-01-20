@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module Utils.Distributive (module Utils.Distributive, module X) where
 import Class.Distributive as X
-import Internal.Distributive.V2
+import Internal.Distributive
 import Utils.Map
 import Type.I
 import Type.K

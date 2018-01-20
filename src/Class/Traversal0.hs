@@ -4,7 +4,7 @@ import Class.Prism as X
 import Class.Lens as X
 import Class.Pure as X
 import Class.Traverse0 as X
-import Internal.Traversal.Baz
+import Internal.Traversal
 import Type.I
 import Utils.E
 import Utils.Tuple
