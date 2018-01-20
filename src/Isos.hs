@@ -1,7 +1,7 @@
 module Isos
   (module Isos
   ,module X) where
-import Dimap as X
+import Class.Dimap as X
 import Isos.AnIso as X (AnIso)
 import AFold as X -- TODO: move to Folds.hs
 import Prisms as X

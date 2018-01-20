@@ -1,7 +1,6 @@
 {-# language MagicHash #-}
-module Comap where
-import K.Type
-import Isos.Re
+module Class.Comap where
+import Type.K
 import Coerce
 import Class.Map
 

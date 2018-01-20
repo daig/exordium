@@ -2,7 +2,6 @@ module Class.FoldMap (FoldMap(..), module X) where
 import Class.PlusZero as X
 import Utils.K
 import Utils.List
-import Baz
 import Utils.Tuple
 {-import Class.Traverse-}
 
@@ -18,3 +17,4 @@ instance FoldMap ((,) x) where foldMap f (_,a) = f a
 instance FoldMap [] where foldMap = list'foldMap zero plus
 instance FoldMap (K x) where foldMap = \_ _ -> zero
 {-instance FoldMap (Baz Applicative t b) where foldMap = baz'foldMap traverse-}
+{-instance FoldMap (Baz Pure t b) where foldMap = baz'foldMap traverse-}

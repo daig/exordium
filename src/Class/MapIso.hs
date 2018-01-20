@@ -8,6 +8,7 @@ import Utils.K
 import Utils.E
 import Utils.Tuple
 import Utils.Option
+import Utils.I
 {-import Utils.Baz-}
 
 class MapIso f where mapIso :: (b -> a) -> (a -> b) -> f a -> f b
@@ -21,5 +22,7 @@ instance (MapIso f,MapIso g) => MapIso (O f g) where
 instance MapIso (E a) where mapIso _ = e'map
 instance MapIso ((,) x) where mapIso _ = tuple'map
 instance MapIso (?) where mapIso _ = option'map
+instance MapIso I where mapIso _ = i'map
+
 
 {-instance MapIso (Baz c t b) where mapIso _ = baz'map-}

@@ -1,15 +1,15 @@
 {-# language PostfixOperators #-}
 module Minus (Minus(..), module X) where
 import Class.PlusZero as X
-import Option as X (type (?))
-import Option
+import Type.Option as X (type (?))
+import Type.Option
 
 
 -- a - a = zero
 -- (a - b) - c = a - (b + c)
 class PlusZero a => Minus a where
-  {-# minimal (-) | negate #-}
-  (-) :: a -> a -> a
-  a - b = a + negate b
+  {-# minimal minus | negate #-}
+  minus :: a -> a -> a
+  a `minus` b = a `plus` negate b
   negate :: a -> a
-  negate a = zero - a
+  negate = minus zero

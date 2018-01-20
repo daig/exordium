@@ -3,7 +3,7 @@ module Prisms
   ,module X) where
 import Prisms.APrism as X (APrism,APrism')
 import Prisms.APrism
-import Option as X
+import Type.Option as X
 import K as X (K)
 import Flip as X
 import K

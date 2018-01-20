@@ -6,7 +6,9 @@ import Utils.List
 import Utils.Where
 import Utils.E
 import Utils.Tuple
+import Utils.I
 import Type.Option
+import Utils.Bazaar
 {-import Utils.Baz-}
 
 class MapIso f => Map f where
@@ -29,5 +31,8 @@ instance (Map f,Map g) => Map (O f g) where map f (O fg) = O (map (map f) fg)
 instance Map (E a) where map = e'map
 instance Map ((,) x) where map = tuple'map
 instance Map (?) where map f = \case {None -> None; Some a -> Some (f a)}
+instance Map I where map = i'map
+instance Map (Bazaar Map a b) where map = bazaar'map map
+instance MapIso (Bazaar Map a b) where mapIso _ = bazaar'map map
 
 {-instance Map (Baz c t b) where map = baz'map-}

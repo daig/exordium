@@ -1,4 +1,4 @@
-module Compose where
+module Class.Compose where
 
 -- f < (g < h) = (f < g) < h
 -- if (p :: * -> * -> *) then instance Arr p

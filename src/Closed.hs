@@ -1,5 +1,5 @@
 module Closed (Closed(..), ($.), zipped, module X) where
-import Dimap as X
+import Class.Dimap as X
 import Distributive as X
 
 class Dimap p => Closed p where

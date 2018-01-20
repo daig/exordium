@@ -2,8 +2,9 @@ module Class.Traversal1 (module Class.Traversal1, module X) where
 import Class.Lens as X
 import Class.Apply as X
 import Class.Traverse1 as X
-import Type.Baz
+import Baz
 import Type.I
+import Type.O
 
 {-ff :: (s -> FunList a b t) -> (forall f. Apply f => (a -> f b) -> s -> f t)-}
 {-ff sabt afb s = case sabt s of-}
@@ -17,6 +18,9 @@ class Lens p => Traversal1 p where
   traversed1 = traversal1 traverse1
 
 instance Traversal1 (->) where traversal1 l f s = case l (\a -> I (f a)) s of {I t -> t}
+
+instance Traverse1 (Baz Map t b) where
+  traverse1 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))
 
 {-type (s @!~ a) b t = forall f. Apply f => (a -> f b) -> s -> f t-}
 {-type s @!~~ a      = forall f. Apply f => (a -> f a) -> s -> f s-}

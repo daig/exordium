@@ -1,49 +1,62 @@
-module Baz where
-import Bazaar
+module Baz (module Baz, module X) where
+import Utils.Bazaar as X
 {-import Class.Traverse_ as X-}
 import Type.I
 import Type.K
 import Type.O
+import Class.Traverse_
 
 
 newtype Baz c t b a = Baz {runBaz :: forall f. c f => (a -> f b) -> f t}
 
-sold :: c I => Baz c t a a -> t
-sold m = case runBaz m I of {I t -> t}
+sold' :: forall c a t. c I => (forall f. c f => (a -> f a) -> f t) -> t
+sold' afaft = case afaft I of I t -> t
+sold :: forall c t a. c I => Baz c t a a -> t
+sold (Baz afaft) = sold' @c @a afaft
 
-baz'map :: (x -> a) -> Baz c t b x -> Baz c t b a
-baz'map f (Baz t) = Baz (\afb -> t (\x -> afb (f x)))
-{-baz'foldMap :: _ -> ( -> Baz c t b a -> m-}
-baz'foldMap traverse = \f t -> case traverse (\x -> K (f x)) t of K m -> m
+{-traverse_foldMap :: (forall x y. (x -> K m y) -> t x -> K m (t y)) -> (a -> m) -> t a -> m-}
+{-traverse_foldMap traverse = \am ta -> case traverse (\a -> K (am a)) ta of K m' -> m'-}
+{-baz'traverse :: forall c f a a' t b. (forall g x y. c g => (x -> y) -> g x -> g y)-}
+             {--> (a -> f a') -> Baz c t b a -> f (Baz c t b a')-}
+{-baz'traverse afa' (Baz afbft) =-}
+  {-let-}
+    {-q a = sell @c `map` afa' a-}
+    {-afbft-}
+{-baz'traverse map map' f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map' (sell @c) (f x)))))-}
+
+{-baz'map :: (x -> a) -> Baz c t b x -> Baz c t b a-}
+{-baz'map f (Baz t) = Baz (\afb -> t (\x -> afb (f x)))-}
+{-baz'foldMap :: (forall x y. (x -> K m y) -> Baz c t b x -> K m y) -> (a -> m) -> Baz c t b a -> m-}
+{-baz'foldMap traverse = \f t -> case traverse (\x -> K (f x)) t of K m -> m-}
 
 {-instance Traverse (Baz Map t b) where-}
   {-traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))-}
-{-instance FoldMap0 (Baz Map t b) where foldMap0 = foldMap0Zeroault-}
+{-instance FoldMap0 (Baz Map t b) where foldMap0 = traverse0_foldMap0-}
 {-instance Traverse0 (Baz Map t b) where-}
   {-traverse0 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))-}
-{-instance FoldMap1 (Baz Map t b) where foldMap1 = foldMap1Zeroault-}
+{-instance FoldMap1 (Baz Map t b) where foldMap1 = traverse1_foldMap1-}
 {-instance Traverse1 (Baz Map t b) where-}
   {-traverse1 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))-}
 {-instance FoldMap_ (Baz Map t b) where-}
- {-foldMap_ = foldMap_Zeroault -}
+ {-foldMap_ = traverse__foldMap_ -}
 
 {-instance Traverse_ (Baz Map t b) where-}
   {-traverse_ f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))-}
 
-{-instance FoldMap (Baz Pure t b) where foldMap = foldMapZeroault-}
+{-instance FoldMap (Baz Pure t b) where foldMap = traverse_foldMap-}
 {-instance Traverse (Baz Pure t b) where-}
   {-traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Pure) (f x)))))-}
-{-instance FoldMap0 (Baz Pure t b) where foldMap0 = foldMap0Zeroault-}
+{-instance FoldMap0 (Baz Pure t b) where foldMap0 = traverse0_foldMap0-}
 {-instance Traverse0 (Baz Pure t b) where-}
   {-traverse0 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Pure) (f x)))))-}
 
-{-instance FoldMap (Baz Apply t b) where foldMap = foldMapZeroault-}
+{-instance FoldMap (Baz Apply t b) where foldMap = traverse_foldMap-}
 {-instance Traverse (Baz Apply t b) where-}
   {-traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Apply) (f x)))))-}
-{-instance FoldMap1 (Baz Apply t b) where foldMap1 = foldMap1Zeroault-}
+{-instance FoldMap1 (Baz Apply t b) where foldMap1 = traverse1_foldMap1-}
 {-instance Traverse1 (Baz Apply t b) where-}
   {-traverse1 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Apply) (f x)))))-}
 
-{-instance FoldMap (Baz Applicative t b) where foldMap = foldMapZeroault-}
+{-instance FoldMap (Baz Applicative t b) where foldMap = traverse_foldMap traverse-}
 {-instance Traverse (Baz Applicative t b) where-}
   {-traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Applicative) (f x)))))-}

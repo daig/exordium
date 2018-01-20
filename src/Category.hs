@@ -1,5 +1,5 @@
 module Category (Category(..), module X) where
-import Compose as X
+import Class.Compose as X
 
 class Compose p => Category p where id :: p a a
 

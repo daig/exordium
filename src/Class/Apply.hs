@@ -3,6 +3,7 @@ import Class.Map as X
 import Utils.K
 import Utils.Fun
 import Utils.List
+import Type.I
 import Class.Plus as X
 
 
@@ -17,3 +18,4 @@ class Map f => Apply f where
 instance Apply ((->) x) where f `ap` g = \x -> f x (g x)
 instance Apply [] where fs `ap` as = [f a | f <- fs, a <- as]
 instance Plus a => Apply (K a) where K a `ap` K b = K (a `plus` b)
+instance Apply I where I f `ap` I a = I (f a)

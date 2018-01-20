@@ -6,6 +6,7 @@ import Type.E as X
 import Utils.E
 import Type.X
 import Type.K
+import Utils.Bazaar
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E
@@ -36,3 +37,7 @@ instance Pure (E x) where pure = R
 instance Pure [] where pure a = [a]
 
 instance Zero a => Pure (K a) where pure _ = zero
+
+instance Pure (Bazaar Pure a b) where pure = bazaar'pure pure
+instance Map (Bazaar Pure a b) where map = bazaar'map map
+instance MapIso (Bazaar Pure a b) where mapIso _ = bazaar'map map

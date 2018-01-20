@@ -11,6 +11,6 @@ import Class.Apply as X
 class Apply w => Duplicate w where
   {-# minimal duplicate | extend #-}
   duplicate :: w a -> w (w a)
-  duplicate = extend id
+  duplicate = extend (\wa -> wa)
   extend :: (w a -> b) -> w a -> w b
   extend f = \wa -> f `map` duplicate wa

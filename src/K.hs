@@ -1,14 +1,14 @@
 module K (module X) where
 import Class.Map as X
-import Bimap as X
+import Class.Bimap as X
 import Applicative as X
 import Zero as X
 import Comap as X
-import Dimap as X
+import Class.Dimap as X
 import Prism as X
 import Type.E as X (E)
 import Type.E
-import K.Type as X
+import Type.K as X
 import Traverse as X
 import Traverse0 as X
 import FoldMap0 as X

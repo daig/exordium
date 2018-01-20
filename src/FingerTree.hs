@@ -1,7 +1,7 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
 module FingerTree (FingerTree(..,FTN), module X) where
-import Measured as X
+import Class.Measured as X
 import FingerTree.Digit as X
 import FingerTree.Node as X
 import Prelude (Show,error)
@@ -23,12 +23,12 @@ instance FoldMap FingerTree where
   foldMap f = \case
     FT0 -> zero
     FT1 x -> f x
-    FTN# _ l t r -> foldMap f l + foldMap (foldMap f) t + foldMap f r
+    FTN# _ l t r -> foldMap f l `plus` foldMap (foldMap f) t `plus` foldMap f r
 
 
 pattern FTN :: Measured a => Digit a -> FingerTree (Node a) -> Digit a -> FingerTree a
 pattern FTN l t r <- FTN# _ l t r where
-  FTN l t r = FTN# ((measure l + measure t) + measure r) l t r
+  FTN l t r = FTN# ((measure l `plus` measure t) `plus` measure r) l t r
 
 
 nodeToDigit :: Node a -> Digit a
@@ -40,8 +40,8 @@ ftCons :: Measured a => a -> FingerTree a -> FingerTree a
 ftCons a = \case
   FT0 -> FT1 a
   FT1 b -> FTN (Digit1 a) FT0 (Digit1 b)
-  FTN# v (Digit4 b c d e) !t r -> FTN# (measure a + v) (Digit2 a b) (Node3 c d e `ftCons` t) r
-  FTN# v l t r -> FTN# (measure a + v) (consDigit# l) t r
+  FTN# v (Digit4 b c d e) !t r -> FTN# (measure a `plus` v) (Digit2 a b) (Node3 c d e `ftCons` t) r
+  FTN# v l t r -> FTN# (measure a `plus` v) (consDigit# l) t r
   where
     consDigit# = \case
       Digit1 b -> Digit2 a b
@@ -49,11 +49,11 @@ ftCons a = \case
       Digit3 b c d -> Digit4 a b c d
       Digit4{} -> error "consDigit#"
 {-instance Snoc FingerTree where-}
-  {-x |+ a = case x of-}
+  {-x |`plus` a = case x of-}
     {-FT0 -> FT1 a-}
     {-FT1 b -> FTN (Digit1 b) FT0 (Digit1 a)-}
-    {-FTN# v l !t (Digit4 b c d e) -> FTN# (v + measure a) l (t |+ Node3 b c d) (Digit2 e a)-}
-    {-FTN# v l t r -> FTN# (v + measure a) l t (snocDigit# r)-}
+    {-FTN# v l !t (Digit4 b c d e) -> FTN# (v `plus` measure a) l (t |`plus` Node3 b c d) (Digit2 e a)-}
+    {-FTN# v l t r -> FTN# (v `plus` measure a) l t (snocDigit# r)-}
     {-where-}
       {-snocDigit# = \case-}
         {-Digit1 b -> Digit2 b a-}

@@ -2,7 +2,7 @@ module Type.Star (module Type.Star, module X) where
 import Category as X
 import Class.Monad as X (Monad)
 import Class.Monad
-import Dimap as X
+import Class.Dimap as X
 
 newtype Star f a b = Star {runStar :: a -> f b}
 {-instance Bind m => Compose (Star m) where Star f > Star g = Star (g <=< f)-}

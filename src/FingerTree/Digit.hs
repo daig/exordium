@@ -1,16 +1,16 @@
 module FingerTree.Digit (Digit(..), module X) where
 import Prelude (Show)
-import FoldMap1 as X
-import Measured as X
+import Class.FoldMap1 as X
+import Class.Measured as X
 import Class.Traverse1 as X
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show
 
 instance FoldMap1 Digit where
   foldMap1 f (Digit1 a) = f a
-  foldMap1 f (Digit2 a b) = f a + f b
-  foldMap1 f (Digit3 a b c) = f a + f b + f c
-  foldMap1 f (Digit4 a b c d) = f a + f b + f c + f d
+  foldMap1 f (Digit2 a b) = f a `plus` f b
+  foldMap1 f (Digit3 a b c) = f a `plus` f b `plus` f c
+  foldMap1 f (Digit4 a b c d) = f a `plus` f b `plus` f c `plus` f d
 instance FoldMap Digit where foldMap = foldMap1
 
 instance MapIso Digit where mapIso = map_mapIso
@@ -22,9 +22,9 @@ instance Map Digit where
 
 instance Traverse1 Digit where
   traverse1 f (Digit1 a) = Digit1 `map` f a
-  traverse1 f (Digit2 a b) = map Digit2 (f a) |$| f b
-  traverse1 f (Digit3 a b c) = map Digit3 (f a) |$| f b |$| f c
-  traverse1 f (Digit4 a b c d) = map Digit4 (f a) |$| f b |$| f c |$| f d
+  traverse1 f (Digit2 a b) = map Digit2 (f a) `ap` f b
+  traverse1 f (Digit3 a b c) = map Digit3 (f a) `ap` f b `ap` f c
+  traverse1 f (Digit4 a b c d) = map Digit4 (f a) `ap` f b `ap` f c `ap` f d
 instance Traverse Digit where traverse = traverse1
   
 

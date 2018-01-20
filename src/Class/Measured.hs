@@ -1,5 +1,5 @@
 {-# language UndecidableSuperClasses #-}
-module Measured (Measured(..), module X) where
+module Class.Measured (module Class.Measured, module X) where
 import Type.Int
 import Class.PlusZero as X
 

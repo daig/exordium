@@ -24,11 +24,6 @@ class Dimap p => Lens p where
   {-first = traversal_ (\afb (a,y) -> (,y) `map` afb a)-}
   first = \p -> dimap tuple'swap tuple'swap (second p)
 
-type (s ~*  a) b t = forall p. Lens p => p a b -> p s t
-
-($:) :: Lens p => p a (b -> c) -> p (a,b) c
-($:) = \p -> (\(f,x) -> f x) `postmap` first p
-
 traversal__dimap :: Lens p => (a -> x) -> (y -> b) -> p x y -> p a b
 traversal__dimap f g = traversal_ (\xfy a -> map g (xfy (f a)))
 
@@ -37,10 +32,10 @@ instance Lens (->) where
   first = fun'first
   second = fun'second
 
-instance Optic Lens where data A Lens a b s t = Lens (s -> a) (s -> b -> t)
-instance Lens (A Lens a b) where
-  first (Lens x y) = Lens (\(a,_) -> x a) (\(s,c) b -> (y s b,c))
-instance Dimap (A Lens a b) where
-  dimap f g (Lens x y) = Lens (\s -> x (f s)) (\s b -> g (y (f s) b))
+{-instance Optic Lens where data A Lens a b s t = Lens (s -> a) (s -> b -> t)-}
+{-instance Lens (A Lens a b) where-}
+  {-first (Lens x y) = Lens (\(a,_) -> x a) (\(s,c) b -> (y s b,c))-}
+{-instance Dimap (A Lens a b) where-}
+  {-dimap f g (Lens x y) = Lens (\s -> x (f s)) (\s b -> g (y (f s) b))-}
 
 {-data A Lens p a b t = Pretext {runPretext :: forall f. Map f => p a (f b) -> f t}-}

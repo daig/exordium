@@ -16,7 +16,7 @@ class (Lifts (LiftC t) t, TMap t) => TPure t where
   {-deriving newtype (MapIso,Map,Pure,Apply,Applicative)-}
 {-instance Bind m => Bind (II m) where f =<< II m = II ((\x -> runII (f x)) =<< m)-}
 {-instance Monad m => Monad (II m)-}
-{-instance MapT II where mapT f (II m) = II (f m)-}
+{-instance TMap II where mapT f (II m) = II (f m)-}
 {-instance PureT II where-}
   {-{-type LiftC II = Monad-}-}
   {-pureT = II-}

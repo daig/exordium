@@ -1,5 +1,6 @@
 module Utils.Dimap (module Utils.Dimap, module X) where
 import Class.Dimap as X
+import NatTrans as X
 
 dimap_rmap :: Dimap p => (x -> b) -> p a x -> p a b
 dimap_rmap = dimap (\a -> a)

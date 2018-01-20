@@ -10,8 +10,8 @@ import qualified GHC.Exts as P
 import GHC.Classes (Eq(..))
 import Forall
 {-import Class.Map-}
-{-import Bimap-}
-{-import Dimap-}
+{-import Class.Bimap-}
+{-import Class.Dimap-}
 
 
 -- | Representational type equality. Contrast with nominal equality `~`
