@@ -1,6 +1,6 @@
-module Closed (Closed(..), ($.), zipped, module X) where
+module Class.Closed (Closed(..), module X) where
 import Class.Dimap as X
-import Distributive as X
+import Class.Distributive as X
 
 class Dimap p => Closed p where
   {-# minimal closed | grate #-}
@@ -15,15 +15,7 @@ class Dimap p => Closed p where
 
   {-traversal :: (forall f. Applicative f => (a -> f b) -> s -> f t) -> p a b -> p s t-}
 
-
-closed' :: Closed p => p a b -> p (x -> a) (x -> b)
-closed' = zipped
-
 instance Closed (->) where
   closed f = \xa x -> f (xa x)
   grate k f s = k (\sa -> f (sa s))
-
--- | curry
-($.) :: Closed p => p (a,b) c -> p a (b -> c)
-($.) = \p -> (,) `premap` closed p
 

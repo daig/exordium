@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Addr.Prim (addr2Int#,int2Addr#,module X) where
+module Prim.Addr (addr2Int#,int2Addr#,module X) where
 import GHC.Prim as X
   (Addr#, Char#, Int#, Word#, Float#, Double#, StablePtr#, State#
   ,nullAddr#

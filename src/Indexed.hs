@@ -2,10 +2,11 @@ module Indexed
   (module Indexed
   ,module X) where
 import Isos as X
-import Distributive as X
+import Class.Distributive as X
 import AFold (foldOf)
 import Prisms (review)
-import Apply
+import Utils.Dimap
+import Class.Apply
 
 class Indexed f where
   {-# minimal indexed | index,tabulate #-}
@@ -24,7 +25,7 @@ indexed_distribute :: (Indexed i, Map f) => f (i a) -> i (f a)
 indexed_distribute fi = tabulate (\k -> map (`index` k) fi)
 
 indexed_ap :: Indexed f => f (a -> b) -> f a -> f b
-indexed_ap f g = tabulate (index f |$| index g)
+indexed_ap f g = tabulate (index f `ap` index g)
 
 instance Indexed ((->) x) where
   type Ix ((->) x) = x

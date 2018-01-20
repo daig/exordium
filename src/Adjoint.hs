@@ -3,16 +3,17 @@ module Adjoint
   ,pureDefault, extractDefault
   ,module X) where
 import Class.Monad as X
-import Comonad as X hiding (mapDefault)
-import O as X
+import Class.Comonad as X hiding (mapDefault)
+import Type.O as X
 import Isos as X
-import Star as X
+import Type.Star as X
 import Costar as X
 import Indexed as X hiding (mapDefault)
 import Coerce
 import Fun
 import AFold
 import Prisms (review)
+import Utils.Dimap
 
 class (Monad (f `O` g), Comonad (g `O` f),FoldMap_ f, Indexed g) => f -| g | f -> g, g -> f where
   adjuncted :: Costar f ~~~= Star g
@@ -26,7 +27,7 @@ pureDefault :: f -| g => a -> O g f a
 pureDefault = O < leftAdjunct id
 
 extractDefault :: f -| g => O f g a -> a
-extractDefault = rightAdjunct id < unO
+extractDefault = rightAdjunct id < (\(O fg) -> fg)
 
 tabulateDefault :: f -| g => (f () -> b) -> g b
 tabulateDefault f = leftAdjunct f ()

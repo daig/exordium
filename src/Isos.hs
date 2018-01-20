@@ -2,11 +2,11 @@ module Isos
   (module Isos
   ,module X) where
 import Class.Dimap as X
-import Isos.AnIso as X (AnIso)
+import AnIso as X (AnIso)
 import AFold as X -- TODO: move to Folds.hs
 import Prisms as X
-import Isos.AnIso
-import Isos.Re
+import AnIso
+import Type.Re
 
 re :: (Re p s t s t -> Re p s t a b) -> p b a -> p t s
 re l = runRe (l (Re (\p -> p)))

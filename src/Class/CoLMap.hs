@@ -1,4 +1,6 @@
 module Class.CoLMap where
+import Type.K
+import Flip
 
 class CoLMap p where
   colmap :: (a -> x) -> p x b -> p a b
@@ -6,3 +8,4 @@ class CoLMap p where
   {-colmap = coerce# (comap @(Flip p b))-}
 
 instance CoLMap (->) where colmap f p = \a -> p (f a)
+instance CoLMap (Flipped K) where colmap _ (Flip (K b)) = Flip (K b)

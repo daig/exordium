@@ -1,13 +1,13 @@
 module Prisms
   (module Prisms
   ,module X) where
-import Prisms.APrism as X (APrism,APrism')
-import Prisms.APrism
+import Type.APrism as X (APrism)
+import Type.APrism
 import Type.Option as X
-import K as X (K)
+import Type.K as X (K)
+import Type.K
 import Flip as X
-import K
-import Prism as X
+import Class.Prism as X
 
 type (s ~+. a) b t = APrism a b a b -> APrism a b s t
 withPrism :: (s ~+. a) b t -> ((s -> E t a) -> (b -> t) -> r) -> r

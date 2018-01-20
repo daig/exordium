@@ -1,5 +1,5 @@
 module Type.Star (module Type.Star, module X) where
-import Category as X
+import Class.Category as X
 import Class.Monad as X (Monad)
 import Class.Monad
 import Class.Dimap as X

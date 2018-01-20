@@ -42,6 +42,11 @@ instance FoldMap1 (Baz Apply t b) where foldMap1 = traverse1_foldMap1
 instance Map (Baz Apply t b) where map = traverse_map
 instance MapIso (Baz Apply t b) where mapIso _ = traverse_map
 
+instance Traverse (Baz Applicative t b) where
+  traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Applicative) (f x)))))
+instance FoldMap  (Baz Applicative t b) where foldMap  = traverse_foldMap
+instance Map (Baz Applicative t b) where map = traverse_map
+instance MapIso (Baz Applicative t b) where mapIso _ = traverse_map
 {-traverse_foldMap :: (forall x y. (x -> K m y) -> t x -> K m (t y)) -> (a -> m) -> t a -> m-}
 {-traverse_foldMap traverse = \am ta -> case traverse (\a -> K (am a)) ta of K m' -> m'-}
 {-baz'traverse :: forall c f a a' t b. (forall g x y. c g => (x -> y) -> g x -> g y)-}

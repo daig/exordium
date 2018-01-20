@@ -13,5 +13,8 @@ f =>= g = g =<= f
 (!<<) :: Bind m => m a -> m b -> m a
 (!<<) = constBind
 
+(>>!) :: Bind m => m a -> m b -> m b
+a >>! b = b !<< a
+
 bind_ap :: Bind m => m (a -> b) -> m a -> m b
 bind_ap mf ma = (`map` ma) `bind` mf

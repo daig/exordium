@@ -1,6 +1,6 @@
 module Mapping.Bar (Bar(..), module X) where
-import Applicative as X
-import Distributive as X
+import Class.Applicative as X
+import Class.Distributive as X
 
 newtype Bar t b a = Bar {runBar :: forall f. (Applicative f, Distributive f) => (a -> f b) -> f t}
 instance MapIso (Bar t b) where mapIso = map_mapIso

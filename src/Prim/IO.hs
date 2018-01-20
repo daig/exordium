@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module IO.Prim (module X) where
+module Prim.IO (module X) where
 import GHC.Prim as X
   (State#, RealWorld, ThreadId#, Int#
   ,fork#, forkOn#

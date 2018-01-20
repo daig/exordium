@@ -1,5 +1,4 @@
-module Type.APrism (module Type.APrism, module X) where
+module Type.APrism (APrism(..), module X) where
 import Type.E as X
-import Type.Free4
-import Class.Prism as X
 
+data APrism a b s t = APrism (s -> E t a) (b -> t)

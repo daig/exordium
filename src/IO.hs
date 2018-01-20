@@ -3,7 +3,7 @@
 {-# language MagicHash #-}
 module IO where
 import Type.IO as X
-{-import Traverse_ as X-}
+{-import Class.Traverse_ as X-}
 {-import Class.Monad-}
 
 {-instance MapIso IO where mapIso = map_mapIso-}

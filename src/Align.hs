@@ -9,7 +9,7 @@ import Type.These as X
 class Map f => Align f where
   {-# minimal alignWith | align #-}
   align :: f a -> f b -> f (These a b)
-  align = align This That These
+  align = alignWith This That These
   alignWith :: (a -> c) -> (b -> c) -> (a -> b -> c) -> f a -> f b -> f c
   alignWith f g h = \a b -> go `map` align a b where
     go = \case
@@ -20,4 +20,4 @@ class Map f => Align f where
 
 -- | Default definition for (+) @(f a)
 alignWith_plus :: (Align f, Plus a) => f a -> f a -> f a
-alignWith_plus = alignWith (\x -> x) (\x -> x) (+) 
+alignWith_plus = alignWith (\x -> x) (\x -> x) plus 

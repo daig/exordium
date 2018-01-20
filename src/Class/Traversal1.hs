@@ -19,8 +19,5 @@ class Lens p => Traversal1 p where
 
 instance Traversal1 (->) where traversal1 l f s = case l (\a -> I (f a)) s of {I t -> t}
 
-instance Traverse1 (Baz Map t b) where
-  traverse1 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))
-
 {-type (s @!~ a) b t = forall f. Apply f => (a -> f b) -> s -> f t-}
 {-type s @!~~ a      = forall f. Apply f => (a -> f a) -> s -> f s-}

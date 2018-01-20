@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Int.Prim (module X) where
+module Prim.Int (module X) where
 import GHC.Prim as X
   (Int#
   ,(+#),(-#),(*#)

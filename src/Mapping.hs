@@ -1,9 +1,9 @@
 module Mapping (Mapping(..), module X) where
 import Class.Traversal as X
-import Closed as X
-import Distributive as X
-import I
-import Class.Mapping.Bar
+import Class.Closed as X
+import Class.Distributive as X
+import Type.I
+import Mapping.Bar
 
 class (Closed p, Traversal p) => Mapping p where
   {-# minimal mapping | mapped #-}

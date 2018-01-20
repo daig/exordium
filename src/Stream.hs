@@ -6,7 +6,7 @@ module Stream where
 {-import Class.MapF-}
 {-import Data.Typeable-}
 {-import Prelude (($))-}
-{-import Category-}
+{-import Class.Category-}
 
 
 {-data Stream f m r = Step !(f (Stream f m r))-}

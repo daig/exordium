@@ -2,6 +2,7 @@ module Class.FoldMap_ (module X, FoldMap_(..)) where
 import Class.FoldMap0 as X
 import Class.FoldMap1 as X
 import Utils.Tuple
+import Utils.I
 
 class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}
@@ -29,3 +30,4 @@ class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-sequenceSnd t = (fold_ $ (\(a,_) -> a) $@ t, (\(_,b) -> b) $@ t)-}
 
 instance FoldMap_ ((,) x) where foldMap_ = tuple'foldMap
+instance FoldMap_ I where foldMap_ = i'foldMap_
