@@ -2,7 +2,7 @@ module Adjoint
   (type (-|)(..)
   ,pureDefault, extractDefault
   ,module X) where
-import Monad as X
+import Class.Monad as X
 import Comonad as X hiding (mapDefault)
 import O as X
 import Isos as X

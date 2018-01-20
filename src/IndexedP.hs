@@ -1,6 +1,6 @@
-module IndexedP where
-import Witness as X (W(..))
-import Traversal as X (Traversal)
+module IndexedP (module IndexedP, module X) where
+import Type.Witness as X
+import Class.Traversal as X
 import Applicative as X
 
 class IndexedP p where ixmap :: (i -> j) -> p j a b -> p i a b

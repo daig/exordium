@@ -1,7 +1,7 @@
 {-# language UndecidableSuperClasses #-}
 module Measured (Measured(..), module X) where
-import Int
-import PlusZero as X
+import Type.Int
+import Class.PlusZero as X
 
 
 -- The measure should preserve all monoidlike structures
@@ -11,7 +11,7 @@ class PlusZero (Measure a) => Measured a where
 
 instance Measured [a] where
   type Measure [a] = Int
-  measure = go 0 where go !n = \case {[] -> n; _:xs -> go (n+1) xs}
+  measure = go 0 where go !n = \case {[] -> n; _:xs -> go (n `plus` 1) xs}
 
 instance (Measured a, Measured b) => Measured (a,b) where
   type Measure (a,b) = (Measure a, Measure b)

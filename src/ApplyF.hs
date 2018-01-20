@@ -1,6 +1,6 @@
-module ApplyF where
+module Class.FApply (module Class.FApply, module X) where
 
-import PureF as X
+import Class.FPure as X
 
 -- TODO: fix name
-class PureF t => BindF t where apf :: t m (a -> b) -> t m a -> t m b
+class FPure t => FAp t where fap :: t m (a -> b) -> t m a -> t m b

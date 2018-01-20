@@ -1,6 +1,6 @@
 {-# language PostfixOperators #-}
 module Minus (Minus(..), module X) where
-import PlusZero as X
+import Class.PlusZero as X
 import Option as X (type (?))
 import Option
 

@@ -1,6 +1,6 @@
 module Optic where
-import Sum
-import Map
+import Type.E
+import Class.Map
 {-import Curry-}
 import Flip
 import O

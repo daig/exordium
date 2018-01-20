@@ -1,6 +1,6 @@
 module WithEnv (WithEnv(..), module X) where
 
-import Monad as X
+import Class.Monad as X
 
 -- | ask >> ask = ask
 -- withEnv (\_ -> a) = pure a

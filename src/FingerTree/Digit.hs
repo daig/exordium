@@ -2,7 +2,7 @@ module FingerTree.Digit (Digit(..), module X) where
 import Prelude (Show)
 import FoldMap1 as X
 import Measured as X
-import Traverse1 as X
+import Class.Traverse1 as X
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show
 

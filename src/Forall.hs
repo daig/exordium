@@ -1,10 +1,8 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
 {-# language UndecidableSuperClasses #-}
-module Forall (Forall, ForallF, ForallT, ForallP, inst, forall, module X) where
-import Witness as X
-import Coerce
-import GHC.Exts as X (Constraint)
+module Forall (module Forall, module X) where
+import Type.Witness as X
 
 {-# DEPRECATED ForallT, ForallP "rename these!" #-}
 
@@ -32,13 +30,26 @@ instance Forall (Q p t) => ForallT p t
 class Forall (Q p t) => ForallP (p :: k'' -> Constraint) (t :: k -> k' -> k'')
 instance Forall (Q p t) => ForallP p t
 
+
+class Uncurry p x => Uncurry p x
+instance Uncurry p x => Uncurry p x
+
+type family Uncurry' (f :: k -> k' -> k'') (ab :: (k,k')) :: k'' where
+  Uncurry' f '(a,b) = f a b
+
+{-type Forall2 p = Forall (Uncurry p)-}
+
+{-class p (Uncurry' f ab) => Compose2 (p :: k'' -> Constraint) (f :: k -> k' -> k'') (ab :: (k,k'))-}
+{-instance p (Uncurry' f ab) => Compose2 p f ab-}
+
+
+
 -- TODO: ForallD p t ~~ forall a. p (t a a)
+--
 
 
+{-inst :: forall p a. Forall p =>. p a-}
+{-inst = coerce# (Sub W :: Forall p =>. p (Skolem p))-}
 
-
-inst :: forall p a. Forall p =>. p a
-inst = coerce# (Sub W :: Forall p =>. p (Skolem p))
-
-forall :: forall p. (forall a. W (p a)) -> W (Forall p)
-forall w = case w :: W (p (Skolem p)) of W -> W
+{-forall :: forall p. (forall a. W (p a)) -> W (Forall p)-}
+{-forall w = case w :: W (p (Skolem p)) of W -> W-}

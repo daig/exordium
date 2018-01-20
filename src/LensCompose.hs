@@ -1,6 +1,6 @@
 module LensCompose (LensCompose(..), module X) where
-import Compose as X
-import Lens as X
+import Class.Compose as X
+import Class.Lens as X
 
 class (Lens p, Compose p) => LensCompose p where
   (***) :: p a b -> p a' b' -> p (a,a') (b,b')

@@ -2,7 +2,7 @@
 module Distributive
   (module Distributive
   ,module X) where
-import Map as X
+import Class.Map as X
 import I
 import K
 import Coerce

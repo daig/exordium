@@ -1,5 +1,5 @@
 module WithState (WithState(..), module X) where
-import Monad as X
+import Class.Monad as X
 
 -- | get >> get = get
 --   put s >> get = pure s

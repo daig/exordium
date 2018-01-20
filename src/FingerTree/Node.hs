@@ -2,8 +2,8 @@
 {-# language MagicHash #-}
 module FingerTree.Node (Node(Node2,Node2#,Node3,Node3#), module X) where
 import Prelude (Show)
-import Measured as X
-import FoldMap1 as X
+import Class.Measured as X
+import Class.FoldMap1 as X
 
 data Node a = Node2# (Measure a) ~a ~a | Node3# (Measure a) ~a ~a ~a
 

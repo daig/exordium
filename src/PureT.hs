@@ -1,16 +1,16 @@
-module PureT (PureT(..), module X) where
-import MapT as X
-import Monad as X
-import Lifts as X (Lifts)
-import Constraint as X
+module Class.TPure (module Class.TPure, module X) where
+import Class.TMap as X
+import Class.Monad as X
+import Class.Lifts as X
+import Type.Constraint as X
 
 {-instance Lifts Monad II-}
 {-instance Lifts Map II-}
 
-class (Lifts (LiftC t) t, MapT t) => PureT t where
+class (Lifts (LiftC t) t, TMap t) => TPure t where
   type LiftC t :: (* -> *) -> Constraint
   type LiftC t = Map
-  pureT :: c m => m --> t m
+  tpure :: c m => m --> t m
 
 {-newtype II m a = II {runII :: m a}-}
   {-deriving newtype (MapIso,Map,Pure,Apply,Applicative)-}

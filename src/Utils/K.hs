@@ -1,0 +1,8 @@
+module Utils.K (module Utils.K, module X) where
+import Type.K as X
+
+k'bimap f _ = k'lmap f
+k'lmap f = \case K a -> K (f a)
+k'map _ = k'absurd
+k'absurd :: K a x -> K a y
+k'absurd (K a) = K a

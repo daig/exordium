@@ -2,20 +2,30 @@
 {-# language UndecidableInstances #-}
 {-# language UndecidableSuperClasses #-}
 module Coerce where
-import Types
 import qualified Data.Coerce as C
 import Unsafe.Coerce
 import qualified Prelude as P
 import Prelude as X (Num)
 import qualified GHC.Exts as P
 import GHC.Classes (Eq(..))
-{-import Map-}
+import Forall
+{-import Class.Map-}
 {-import Bimap-}
 {-import Dimap-}
 
 
 -- | Representational type equality. Contrast with nominal equality `~`
 type (#=) = C.Coercible
+
+class f a #= f g => CoerceF f g a
+instance f a #= f g => CoerceF f g a
+type f ##= g = ForallF (CoerceF f g)
+
+{-class p a b #= q a b => CoerceP p q a b-}
+{-instance p a b #= q a b => CoerceP p q a b-}
+{-type p ###= q = Forall2 (CoerceP p q)-}
+
+
 coerce :: forall b a. a #= b => a -> b
 coerce = C.coerce
 

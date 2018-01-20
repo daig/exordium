@@ -1,8 +1,8 @@
 module Forget where
-import PlusZero as X
+import Class.PlusZero as X
 import Lens as X
-import Map as X
-import Traversal as X
+import Class.Map as X
+import Class.Traversal as X
 import BiComap as X
 import Comap as X
 import K

@@ -2,24 +2,27 @@
 {-# LANGUAGE UndecidableInstances, CPP, FlexibleInstances, MultiParamTypeClasses  #-}
 {-#LANGUAGE Trustworthy #-}
 module Stream where
-import Monad
-import MapF
-import Data.Typeable
-import Prelude (($))
-import Category
+{-import Class.Monad-}
+{-import Class.MapF-}
+{-import Data.Typeable-}
+{-import Prelude (($))-}
+{-import Category-}
 
 
-data Stream f m r = Step !(f (Stream f m r))
-                  | Effect (m (Stream f m r))
-                  | Return r
-                  deriving (Typeable)
-instance BimapF Stream where
-  bimapf f g = go where
-    go = \case
-      Return r -> Return r
-      Step fs -> Step<f $ go $@ fs
-      Effect m -> Effect<g $ go $@ m
-instance Map f => MapF (Stream f) where mapf = mapfDefault
+{-data Stream f m r = Step !(f (Stream f m r))-}
+                  {-| Effect (m (Stream f m r))-}
+                  {-| Return r-}
+                  {-deriving (Typeable)-}
+{-instance BimapF Stream where-}
+  {-bimapf f g = go where-}
+    {-go = \case-}
+      {-Return r -> Return r-}
+      {-Step fs -> Step<f $ go $@ fs-}
+      {-Effect m -> Effect<g $ go $@ m-}
+{-instance Map f => MapF (Stream f) where mapf = mapfDefault-}
+
+
+
 {-deriving instance (Show r, Show (m (Stream f m r))-}
                   {-, Show (f (Stream f m r))) => Show (Stream f m r)-}
 {-deriving instance (Eq r, Eq (m (Stream f m r))-}
