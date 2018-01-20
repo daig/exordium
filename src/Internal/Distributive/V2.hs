@@ -1,4 +1,4 @@
-module Utils.Distributive.V2 where
+module Internal.Distributive.V2 where
 import Class.Distributive
 import Utils.Map
 

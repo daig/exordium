@@ -1,8 +1,8 @@
 {-# language MagicHash #-}
 module Utils.Distributive (module Utils.Distributive, module X) where
 import Class.Distributive as X
-import Utils.Distributive.V2
-import Coerce
+import Internal.Distributive.V2
+import Utils.Map
 import Type.I
 import Type.K
 
@@ -24,4 +24,4 @@ distribute_distR :: Distributive t => E x (t a) -> t (E x a)
 distribute_distR = distribute
 
 distribute_pure :: forall t a. Distributive t => a -> t a
-distribute_pure a = coerce# @(t a) (distribute @t (K a))
+distribute_pure a = map# @a (distribute (K a))
