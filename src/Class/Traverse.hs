@@ -4,6 +4,8 @@ import Class.Applicative as X
 import Class.Bind
 import Utils.Tuple
 import Utils.List
+import Type.O
+import Type.I
 
 class (Map t,FoldMap t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}
@@ -19,5 +21,4 @@ class (Map t,FoldMap t) => Traverse t where
 
 instance Traverse ((,) x) where traverse = tuple'traverse_ map
 instance Traverse [] where traverse = list'traverse map pure ap
-
 
