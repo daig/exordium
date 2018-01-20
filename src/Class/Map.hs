@@ -7,7 +7,7 @@ import Utils.Where
 import Utils.E
 import Utils.Tuple
 import Utils.I
-import Type.Option
+import Type.Maybe
 
 class MapIso f => Map f where
   {-# minimal map #-}
@@ -23,5 +23,5 @@ instance Map (Where a) where map = where'map
 instance (Map f,Map g) => Map (O f g) where map f (O fg) = O (map (map f) fg)
 instance Map (E a) where map = e'map
 instance Map ((,) x) where map = tuple'map
-instance Map (?) where map f = \case {None -> None; Some a -> Some (f a)}
+instance Map Maybe where map f = \case {Nothing -> Nothing; Just a -> Just (f a)}
 instance Map I where map = i'map

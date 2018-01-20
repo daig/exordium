@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module MVar.Prim where
+module Prim.MVar where
 import GHC.Prim as X
   (MVar#, State#, Int#
   ,newMVar#

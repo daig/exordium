@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Compact.Prim (module X) where
+module Prim.Compact (module X) where
 import GHC.Prim as X
   (Compact#, State#, RealWorld, Int#, Word#
   ,compactNew#, compactResize#

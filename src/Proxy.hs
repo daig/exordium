@@ -1,4 +1,4 @@
-{-# options_ghc -Wno-orphans #-}
+{-# maybes_ghc -Wno-orphans #-}
 module Proxy
   (module X
   ) where
