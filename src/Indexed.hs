@@ -1,7 +1,7 @@
 module Indexed
   (module Indexed
   ,module X) where
-import Isos as X
+import Utils.Dimap as X
 import Class.Distributive as X
 import AFold (foldOf)
 import Prisms (review)

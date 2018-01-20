@@ -5,7 +5,7 @@ module Adjoint
 import Class.Monad as X
 import Class.Comonad as X hiding (mapDefault)
 import Type.O as X
-import Isos as X
+import Utils.Dimap as X
 import Type.Star as X
 import Costar as X
 import Indexed as X hiding (mapDefault)
