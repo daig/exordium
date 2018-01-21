@@ -1,6 +1,6 @@
 module Internal.Traversal where
-import Utils.Traverse_
-import Utils.Dimap
+import Traverse_
+import Dimap
 import I.Type
 import O.Type
 

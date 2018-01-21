@@ -1,8 +1,8 @@
 module Apply.Class (Apply(..),module X) where
 import Map.Class as X
-import Utils.K
-import Utils.Fun
-import Utils.List
+import K
+import Fun
+import List
 import I.Type
 import O.Type
 import Plus.Class as X

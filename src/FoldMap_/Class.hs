@@ -1,8 +1,8 @@
 module FoldMap_.Class (module X, FoldMap_(..)) where
 import FoldMap0.Class as X
 import FoldMap1.Class as X
-import Utils.Tuple
-import Utils.I
+import Tuple
+import I
 
 class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}

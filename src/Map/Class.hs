@@ -1,12 +1,12 @@
 module Map.Class (module Map.Class, module X) where
 import MapIso.Class as X
 import O.Type
-import Utils.K
-import Utils.List
-import Utils.Where
-import Utils.E
-import Utils.Tuple
-import Utils.I
+import K
+import List
+import Where
+import E
+import Tuple
+import I
 import Maybe.Type
 
 class MapIso f => Map f where

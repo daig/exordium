@@ -1,6 +1,6 @@
 module Grates.Grating (Grating(..), module X) where
 import Closed.Class as X
-import Utils.Dimap
+import Dimap
 import Category.Class
 
 newtype Grating a b s t = Grating (((s -> a) -> b) -> t)

@@ -4,8 +4,8 @@ import Map.Class as X
 import Traverse_.Class as X
 import K.Type
 import I.Type
-import Utils.Tuple
-import Utils.Fun
+import Tuple
+import Fun
 
 class Dimap p => Lens p where
   {-# minimal lens | traversal_ | traversed_ | first | second #-}

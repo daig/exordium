@@ -6,8 +6,8 @@ import Traversal.Class as X
 import BiComap.Class as X
 import Comap.Class as X
 import K.Type
-import Utils.E
-import Utils.Dimap
+import E
+import Dimap
 
 newtype Forget r a b = Forget (a -> r)
 instance Lens (Forget r) where

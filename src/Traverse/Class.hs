@@ -2,8 +2,8 @@ module Traverse.Class (module Traverse.Class, module X) where
 import FoldMap.Class as X
 import Applicative.Class as X
 import Bind.Class
-import Utils.Tuple
-import Utils.List
+import Tuple
+import List
 import O.Type
 import I.Type
 

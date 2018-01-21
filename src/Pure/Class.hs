@@ -3,7 +3,7 @@ import Map.Class as X
 import Lifts.Class as X
 import Zero.Class as X
 import E.Type as X
-import Utils.E
+import E
 import X.Type
 import K.Type
 import I.Type

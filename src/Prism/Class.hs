@@ -1,7 +1,7 @@
 module Prism.Class (module Prism.Class, module X) where
 import Dimap.Class as X
 import E.Type as X
-import Utils.E
+import E
 import Traverse0.Class
 import Traverse.Class
 import K.Type

@@ -1,11 +1,11 @@
 module Bimap.Class (module Bimap.Class, module X) where
 import LMap.Class as X
 import RMap.Class as X
-import Utils.Tuple
-import Utils.K
-import Utils.These
-import Utils.Where
-import Utils.E
+import Tuple
+import K
+import These
+import Where
+import E
 
 -- | Independently Map each on both sides
 class (LMap p, RMap p) => Bimap p where

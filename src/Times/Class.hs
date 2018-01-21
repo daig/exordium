@@ -1,5 +1,5 @@
 module Times.Class where
-import Utils.Int
+import Int
 import Constraint.Type
 import qualified Prelude as P
 

@@ -1,8 +1,8 @@
 module FoldMap1.Class (FoldMap1(..), module X) where
 import FoldMap.Class as X
 import Plus.Class
-import Utils.Tuple
-import Utils.I
+import Tuple
+import I
 
 class FoldMap t => FoldMap1 t where
   foldMap1 :: Plus s => (a -> s) -> t a -> s

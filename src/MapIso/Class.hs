@@ -2,13 +2,13 @@ module MapIso.Class where
 import O.Type
 import K.Type
 import These.Type
-import Utils.Where
-import Utils.List
-import Utils.K
-import Utils.E
-import Utils.Tuple
-import Utils.Maybe
-import Utils.I
+import Where
+import List
+import K
+import E
+import Tuple
+import Maybe
+import I
 
 class MapIso f where mapIso :: (b -> a) -> (a -> b) -> f a -> f b
 

@@ -1,9 +1,9 @@
 module LMap.Class where
-import Utils.Tuple
-import Utils.K
-import Utils.E
-import Utils.These
-import Utils.Where
+import Tuple
+import K
+import E
+import These
+import Where
 
 class LMap p where
   lmap :: (x -> a) -> p x b -> p a b

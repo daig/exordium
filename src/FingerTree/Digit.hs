@@ -3,7 +3,7 @@ import Prelude (Show)
 import FoldMap1.Class as X
 import Measured.Class as X
 import Traverse1.Class as X
-import Utils.Map
+import Map
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show
 

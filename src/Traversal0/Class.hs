@@ -6,8 +6,8 @@ import Pure.Class as X
 import Traverse0.Class as X
 import Internal.Traversal
 import I.Type
-import Utils.E
-import Utils.Tuple
+import E
+import Tuple
 
 -- TODO: merge with Choice??
 class (Prism p, Lens p) => Traversal0 p where
