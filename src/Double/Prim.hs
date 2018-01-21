@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.Double
+module Double.Prim
   (Double#, module X
   ,(+##),(-##),(*##),(/##),(**##)
   ,(>##),(>=##),(==##),(/=##),(<##),(<=##)

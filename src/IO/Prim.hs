@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.IO
+module IO.Prim
   (State#, RealWorld, ThreadId#, module X
   ,fork#, forkOn#
   ,killThread#

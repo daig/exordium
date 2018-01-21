@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.Float
+module Float.Prim
   (Float#, module X
   ,plusFloat#, minusFloat#, timesFloat#, divideFloat#, powerFloat#
   ,negateFloat# ,fabsFloat#
@@ -9,4 +9,4 @@ module Prim.Float
   ,sinhFloat#, coshFloat#, tanhFloat#
   ,float2Int#, decodeFloat_Int#) where
 import GHC.Prim
-import Prim.Int as X (Int#)
+import Int.Prim as X (Int#)

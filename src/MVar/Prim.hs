@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.MVar
+module MVar.Prim
   (MVar#, State#, Int#
   ,newMVar#
   ,takeMVar#, tryTakeMVar#

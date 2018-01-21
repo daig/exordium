@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.StablePtr
+module StablePtr.Prim
   (StablePtr#, StableName#, State#, RealWorld, Int#
   ,makeStablePtr#, deRefStablePtr#, eqStablePtr#
   ,makeStableName#, eqStableName#, stableNameToInt#) where

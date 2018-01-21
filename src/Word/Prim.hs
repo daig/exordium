@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.Word
+module Word.Prim
   (Word#, module X
   ,plusWord#, minusWord#, timesWord#
   ,plusWord2#, subWordC#, timesWord2#

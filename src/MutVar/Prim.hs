@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.MutVar
+module MutVar.Prim
   (MutVar#, State#, Int#
   ,newMutVar#, readMutVar#, writeMutVar# ,atomicModifyMutVar#
   ,sameMutVar# ,casMutVar# ) where

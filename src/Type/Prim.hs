@@ -1,4 +1,4 @@
-module Prim.Type
+module Type.Prim
   (Type, type (*), RuntimeRep(..)
   ,VecCount(..),VecElem(..)
   ,type TYPE

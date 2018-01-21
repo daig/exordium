@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.Compact
+module Compact.Prim
   (Compact#, module X
   ,compactNew#, compactResize#
   ,compactContains#, compactContainsAny#
@@ -9,7 +9,7 @@ module Prim.Compact
   ,compactAdd# , compactAddWithSharing#
   ,compactSize#) where
 import GHC.Prim
-import Prim.IO as X (State#,RealWorld)
-import Prim.Int as X (Int#)
-import Prim.Word as X(Word#)
+import IO.Prim as X (State#,RealWorld)
+import Int.Prim as X (Int#)
+import Word.Prim as X(Word#)
 

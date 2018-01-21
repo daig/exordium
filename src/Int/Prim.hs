@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.Int
+module Int.Prim
   (Int#
   ,(+#),(-#),(*#)
   ,mulIntMayOflo#

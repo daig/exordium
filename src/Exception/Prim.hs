@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Prim.Exception
+module Exception.Prim
   (State#, RealWorld
   ,catch#, raise#, raiseIO#
   ,maskAsyncExceptions#, maskUninterruptible#
