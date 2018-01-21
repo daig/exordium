@@ -1,6 +1,6 @@
 {-# language UndecidableSuperClasses #-}
 module Optic.Class (module Optic.Class, module X) where
-import Type.Constraint as X
+import Constraint.Type as X
 import Forall2.Class as X
 
 class Forall2F c (A c) => Optic (c :: (k -> k' -> *) -> Constraint)  where

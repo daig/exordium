@@ -4,8 +4,8 @@ import Applicative.Class as X
 import Bind.Class
 import Utils.Tuple
 import Utils.List
-import Type.O
-import Type.I
+import O.Type
+import I.Type
 
 class (Map t,FoldMap t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}

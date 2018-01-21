@@ -1,7 +1,7 @@
 module Dimap.Class (Dimap(..), module X) where
 import CoLMap.Class as X
 import RMap.Class as X
-import Type.K
+import K.Type
 import Flip
 
 class (CoLMap p, RMap p) => Dimap p where

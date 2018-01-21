@@ -3,9 +3,9 @@ module Applicative.Class (module Applicative.Class, module X) where
 import Pure.Class as X
 import Apply.Class as X
 import PlusZero.Class
-import Type.K
-import Type.I
-import Type.O
+import K.Type
+import I.Type
+import O.Type
 
 class (Pure f, Apply f) => Applicative f
 

@@ -2,8 +2,8 @@ module Lens.Class (module Lens.Class, module X) where
 import Dimap.Class as X
 import Map.Class as X
 import Traverse_.Class as X
-import Type.K
-import Type.I
+import K.Type
+import I.Type
 import Utils.Tuple
 import Utils.Fun
 

@@ -3,8 +3,8 @@ module Utils.Distributive (module Utils.Distributive, module X) where
 import Distributive.Class as X
 import Internal.Distributive
 import Utils.Map
-import Type.I
-import Type.K
+import I.Type
+import K.Type
 
 -- TODO: merge into data family
 zip' :: Distributive t => (a -> a -> b) -> t a -> t a -> t b

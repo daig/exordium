@@ -1,5 +1,5 @@
 module Utils.Where (module Utils.Where, module X) where
-import Type.Where as X
+import Where.Type as X
 
 where'bimap :: (x -> a) -> (y -> b) -> Where x y -> Where a b
 where'bimap f g = \case

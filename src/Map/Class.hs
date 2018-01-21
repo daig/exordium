@@ -1,13 +1,13 @@
 module Map.Class (module Map.Class, module X) where
 import MapIso.Class as X
-import Type.O
+import O.Type
 import Utils.K
 import Utils.List
 import Utils.Where
 import Utils.E
 import Utils.Tuple
 import Utils.I
-import Type.Maybe
+import Maybe.Type
 
 class MapIso f => Map f where
   {-# minimal map #-}

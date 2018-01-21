@@ -1,5 +1,5 @@
 module CoLMap.Class where
-import Type.K
+import K.Type
 import Flip
 
 class CoLMap p where

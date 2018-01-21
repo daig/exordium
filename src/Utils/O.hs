@@ -1,6 +1,6 @@
 module Utils.O (module Utils.O, module X) where
-import Type.O as X
-import Type.I as X
+import O.Type as X
+import I.Type as X
 
 type family Stacked (fs :: [* -> *]) = (f :: * -> *) | f -> fs where
   Stacked '[] = I

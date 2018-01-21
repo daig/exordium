@@ -2,12 +2,12 @@ module Pure.Class (module Pure.Class, module X) where
 import Map.Class as X
 import Lifts.Class as X
 import Zero.Class as X
-import Type.E as X
+import E.Type as X
 import Utils.E
-import Type.X
-import Type.K
-import Type.I
-import Type.O
+import X.Type
+import K.Type
+import I.Type
+import O.Type
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E

@@ -8,8 +8,8 @@ import NatTrans as X
 {-import Prisms as X-}
 import Internal.Dimap
 import Internal.Dimap as X (AnIso)
-import Type.Re as X (Re)
-import Type.Re
+import Re.Type as X (Re)
+import Re.Type
 
 dimap_rmap :: Dimap p => (x -> b) -> p a x -> p a b
 dimap_rmap = dimap (\a -> a)

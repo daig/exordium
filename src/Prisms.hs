@@ -1,11 +1,11 @@
 module Prisms
   (module Prisms
   ,module X) where
-import Type.APrism as X (APrism)
-import Type.APrism
-import Type.Maybe as X
-import Type.K as X (K)
-import Type.K
+import APrism.Type as X (APrism)
+import APrism.Type
+import Maybe.Type as X
+import K.Type as X (K)
+import K.Type
 import Flip as X
 import Prism.Class as X
 

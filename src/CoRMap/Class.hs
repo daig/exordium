@@ -1,5 +1,5 @@
 module CoRMap.Class where
-import Type.K
+import K.Type
 
 class CoRMap p where
   cormap :: (b -> x) -> p a x -> p a b

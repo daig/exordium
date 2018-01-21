@@ -1,8 +1,8 @@
 module Internal.Traversal where
 import Utils.Traverse_
 import Utils.Dimap
-import Type.I
-import Type.O
+import I.Type
+import O.Type
 
 newtype Baz c t b a = Baz {runBaz :: forall f. c f => (a -> f b) -> f t}
 

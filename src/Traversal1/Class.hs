@@ -3,8 +3,8 @@ import Lens.Class as X
 import Apply.Class as X
 import Traverse1.Class as X
 import Internal.Traversal
-import Type.I
-import Type.O
+import I.Type
+import O.Type
 
 {-ff :: (s -> FunList a b t) -> (forall f. Apply f => (a -> f b) -> s -> f t)-}
 {-ff sabt afb s = case sabt s of-}

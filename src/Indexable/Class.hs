@@ -1,7 +1,7 @@
 {-# language UndecidableSuperClasses #-}
 module Indexable.Class where
 {-import Traversal.Class-}
-{-import Type.Int-}
+{-import Int.Type-}
 {-import Category.Class-}
 
 {-class (Unindexed (Unindexed p) ~ Unindexed p, IndexedP i (Unindexed p)) => IndexedP i p where-}

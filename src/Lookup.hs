@@ -1,5 +1,5 @@
 module Lookup where
-import Type.Maybe
+import Maybe.Type
 
 
 class Index f where

@@ -1,7 +1,7 @@
 module MapM.Class (MapM(..), module X) where
 import Map.Class as X
-import Type.Bool as X
-import Type.Maybe as X
+import Bool.Type as X
+import Maybe.Type as X
 
 class Map f => MapM f where
   {-# minimal mapM | filter #-}

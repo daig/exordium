@@ -1,7 +1,7 @@
 module PlusZero.Class (module PlusZero.Class, module X) where
 import Plus.Class as X
 import Zero.Class as X
-import Type.Int
+import Int.Type
 
 -- | zero + a = a + zero = a
 class (Plus a, Zero a) => PlusZero a

@@ -1,6 +1,6 @@
 module Align.Class (module Align.Class, module X) where
 import Map.Class as X
-import Type.These as X
+import These.Type as X
 
 -- | fa |&| fb = map swap (fb |&| fa) TODO: Is this always useful?
 -- f |&| empty = map This f

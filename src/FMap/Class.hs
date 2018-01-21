@@ -2,7 +2,7 @@ module FMap.Class (module FMap.Class, module X) where
 import Map.Class as X
 import Dimap.Class as X
 import NatTrans as X
-import Type.Constraint as X
+import Constraint.Type as X
 
 class FMap t where
   type FMapC t :: (* -> *) -> Constraint -- TODO: unsatisfied with name

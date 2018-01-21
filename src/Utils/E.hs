@@ -1,5 +1,5 @@
 module Utils.E (module Utils.E, module X) where
-import Type.E as X
+import E.Type as X
 
 e'bifoldMap_ f g = \case
   L a -> f a

@@ -1,5 +1,5 @@
 module Plus.Class where
-import Type.Int
+import Int.Type
 import qualified Prelude as P
 
 {-fromInteger :: P.Num a => a-}

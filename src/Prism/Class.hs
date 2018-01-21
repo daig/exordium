@@ -1,10 +1,10 @@
 module Prism.Class (module Prism.Class, module X) where
 import Dimap.Class as X
-import Type.E as X
+import E.Type as X
 import Utils.E
 import Traverse0.Class
 import Traverse.Class
-import Type.K
+import K.Type
 
 {-type Prismoid s a b t = forall f. X f => (f a -> b) -> f s -> t-}
 prismoid :: Traverse0 f => (s -> E t a) -> (b -> t) -> (f a -> b) -> f s -> t

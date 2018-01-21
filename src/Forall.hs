@@ -2,7 +2,7 @@
 {-# language MagicHash #-}
 {-# language UndecidableSuperClasses #-}
 module Forall (module Forall, module X) where
-import Type.Witness as X
+import Witness.Type as X
 
 {-# DEPRECATED ForallT, ForallP "rename these!" #-}
 

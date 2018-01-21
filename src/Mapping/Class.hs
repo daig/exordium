@@ -2,7 +2,7 @@ module Mapping.Class (Mapping(..), module X) where
 import Traversal.Class as X
 import Closed.Class as X
 import Distributive.Class as X
-import Type.I
+import I.Type
 import Internal.Mapping
 
 class (Closed p, Traversal p) => Mapping p where

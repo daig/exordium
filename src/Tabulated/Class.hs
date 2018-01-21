@@ -1,5 +1,5 @@
 module Tabulated.Class (module Tabulated.Class, module X) where
-import Type.Rep as X
+import Rep.Type as X
 import Lens.Class as X
 
 class (Dimap p, Map (Rep p)) => Tabulated p where

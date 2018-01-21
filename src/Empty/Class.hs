@@ -1,6 +1,6 @@
 module Empty.Class (module Empty.Class, module X) where
 import Map.Class as X
-import Type.X as X
+import X.Type as X
 
 class Map f => Empty f where
   {-# minimal empty | void #-}

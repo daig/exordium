@@ -1,5 +1,5 @@
 module Utils.APrism (module Utils.APrism, module X) where
-import Type.APrism as X
+import APrism.Type as X
 import Utils.E as X
 import Prelude ((.))
 

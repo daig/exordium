@@ -1,6 +1,6 @@
 module Zero.Class where
-import Type.K
-import Type.Int
+import K.Type
+import Int.Type
 
 class Zero a where zero :: a
 

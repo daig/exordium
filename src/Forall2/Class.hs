@@ -1,7 +1,7 @@
 {-# language UndecidableSuperClasses #-}
 {-# language UndecidableInstances #-}
 module Forall2.Class (module Forall2.Class, module X) where
-import Type.Constraint as X
+import Constraint.Type as X
 
 type family Skolem2 (p :: k -> k' -> Constraint) :: k where
 type family Skolem2' (p :: k -> k' -> Constraint) :: k' where

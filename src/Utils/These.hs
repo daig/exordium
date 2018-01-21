@@ -1,5 +1,5 @@
 module Utils.These (module Utils.These, module X) where
-import Type.These as X
+import These.Type as X
 
 these'bimap f g = \case
   This a -> This (f a)

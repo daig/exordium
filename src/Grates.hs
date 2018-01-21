@@ -4,7 +4,7 @@ module Grates
   ,module X) where
 import Grates.Grating as X
 import Costar as X hiding (mapDefault)
-import Type.Star as X
+import Star.Type as X
 import Distributive.Class as X
 import Zipping as X
 

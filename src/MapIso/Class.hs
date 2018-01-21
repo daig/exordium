@@ -1,7 +1,7 @@
 module MapIso.Class where
-import Type.O
-import Type.K
-import Type.These
+import O.Type
+import K.Type
+import These.Type
 import Utils.Where
 import Utils.List
 import Utils.K

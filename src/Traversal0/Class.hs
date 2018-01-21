@@ -5,7 +5,7 @@ import Lens.Class as X
 import Pure.Class as X
 import Traverse0.Class as X
 import Internal.Traversal
-import Type.I
+import I.Type
 import Utils.E
 import Utils.Tuple
 

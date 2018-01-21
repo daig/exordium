@@ -1,5 +1,5 @@
 module Utils.K (module Utils.K, module X) where
-import Type.K as X
+import K.Type as X
 
 k'bimap f _ = k'lmap f
 k'lmap f = \case K a -> K (f a)

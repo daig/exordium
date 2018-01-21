@@ -3,8 +3,8 @@ import Map.Class as X
 import Utils.K
 import Utils.Fun
 import Utils.List
-import Type.I
-import Type.O
+import I.Type
+import O.Type
 import Plus.Class as X
 
 

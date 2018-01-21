@@ -1,6 +1,6 @@
 module Times.Class where
 import Utils.Int
-import Type.Constraint
+import Constraint.Type
 import qualified Prelude as P
 
 class Times a where times :: a -> a -> a

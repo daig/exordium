@@ -4,7 +4,7 @@ import Traversal1.Class as X
 import Applicative.Class as X
 import Traverse.Class as X
 import Internal.Traversal
-import Type.I
+import I.Type
 
 class (Traversal0 p, Traversal1 p) => Traversal p where
   {-# minimal traversal | traversed #-}
