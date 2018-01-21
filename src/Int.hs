@@ -1,9 +1,9 @@
-module Int (module Int, module X) where
-import Int.Type as X
-import GHC.Num ((+),(*),(-))
-
-int'plus,int'times,int'minus :: Int -> Int -> Int
-
-int'plus = (+)
-int'times = (*)
-int'minus = (-)
+{-# OPTIONS_HADDOCK not-home #-}
+module Int
+ (Int(..)
+ ,Int8(..)
+ ,Int16(..)
+ ,Int32(..)
+ ,Int64(..)
+ ) where
+import GHC.Int

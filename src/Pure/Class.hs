@@ -4,7 +4,7 @@ import Lifts.Class as X
 import Zero.Class as X
 import E.Type as X
 import E
-import X.Type
+import Any
 import K.Type
 import I.Type
 import O.Type
@@ -28,7 +28,7 @@ class Map f => Pure f where
   distR :: E a (f b) -> f (E a b)
   distR e = map e'swap (distL (e'swap e))
   point :: f ()
-  point = map (\case {L a' -> a'; R r -> case r of {}}) (distR (L @() @(f X) ()))
+  point = map (\case {L a' -> a'; R r -> case r of {}}) (distR (L @() @(f Any) ()))
 
 pure_zero :: (Pure f, Zero a) => f a
 pure_zero = pure zero

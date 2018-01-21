@@ -1,9 +1,9 @@
-module X (module X, module X) where
-import X.Type as X
+module Any (Any, __, absurd) where
+import GHC.Exts
 import qualified Prelude as P
 
 __ :: a
 __ = P.undefined
 
-absurd :: X -> a
+absurd :: Any -> a
 absurd = \case {}

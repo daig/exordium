@@ -1,6 +1,6 @@
 {-# language UndecidableSuperClasses #-}
 module Measured.Class (module Measured.Class, module X) where
-import Int.Type
+import Int
 import PlusZero.Class as X
 
 
