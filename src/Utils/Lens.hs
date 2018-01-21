@@ -1,5 +1,5 @@
 module Utils.Lens (module Utils.Lens, module X) where
-import Class.Lens as X
+import Lens.Class as X
 
 {-type (s *~. a) b t = (a -> Pretext (->) a b b) -> (s -> Pretext (->) a b t)-}
 {-type s *~~. a = (a -> Pretext (->) a a a) -> (s -> Pretext (->) a a s)-}

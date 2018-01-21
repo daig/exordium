@@ -1,5 +1,5 @@
 module Utils.Bimap (module Utils.Bimap, module X) where
-import Class.Bimap as X
+import Bimap.Class as X
 
 bimap_lmap :: Bimap p => (x -> a) -> p x b -> p a b
 bimap_lmap = (`bimap` (\b -> b))

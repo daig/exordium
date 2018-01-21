@@ -1,5 +1,5 @@
 module Utils.Closed (module Utils.Closed, module X) where
-import Class.Closed as X
+import Closed.Class as X
 
 -- | curry
 ($.) :: Closed p => p (a,b) c -> p a (b -> c)

@@ -1,5 +1,5 @@
 module Type.ContT where
-{-import Class.TMap as X-}
+{-import TMap.Class as X-}
 
 newtype ContT r m a = ContT {runContT :: (a -> m r) -> m r}
 

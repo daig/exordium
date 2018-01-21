@@ -1,6 +1,6 @@
 module Utils.Apply (module Utils.Apply, module X) where
-import Class.Apply as X
-import Class.Plus as X
+import Apply.Class as X
+import Plus.Class as X
 
 liftA2 :: Apply f => (a -> b -> c) -> f a -> f b -> f c
 liftA2 f fa = fa |$ f

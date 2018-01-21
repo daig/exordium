@@ -1,8 +1,8 @@
 module Costar (Costar(..),module X) where
-import Class.Comonad as X
-import Class.Category as X
-import Class.Closed as X hiding (mapDefault)
-import Class.Map as X
+import Comonad.Class as X
+import Category.Class as X
+import Closed.Class as X hiding (mapDefault)
+import Map.Class as X
 import Utils.Dimap
 
 newtype Costar f a b = Costar {runCostar :: f a -> b}

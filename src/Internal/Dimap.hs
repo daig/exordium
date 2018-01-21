@@ -1,5 +1,5 @@
 module Internal.Dimap (AnIso(..), module X) where
-import Class.Dimap as X
+import Dimap.Class as X
 
 data AnIso a b s t = AnIso (s -> a) (b -> t)
 

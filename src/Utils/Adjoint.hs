@@ -1,5 +1,5 @@
 module Utils.Adjoint (module Utils.Adjoint, module X) where
-import Class.Adjoint as X
+import Adjoint.Class as X
 import Fun
 
 leftAdjunct_pure :: f -| g => a -> O g f a

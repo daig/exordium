@@ -1,5 +1,5 @@
 module Utils.Bind (module Utils.Bind, module X) where
-import Class.Bind as X
+import Bind.Class as X
 
 (=<<) :: Bind m => (a -> m b) -> m a -> m b
 (=<<) = bind

@@ -4,7 +4,7 @@ module Fun
   ,($&)
   ,module X) where
 import Prelude as X (($))
-import Class.Category as X
+import Category.Class as X
 import Prelude (seq)
 
 (!) = \a _ -> a

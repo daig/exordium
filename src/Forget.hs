@@ -1,10 +1,10 @@
 module Forget where
-import Class.PlusZero as X
-import Class.Lens as X
-import Class.Map as X
-import Class.Traversal as X
-import Class.BiComap as X
-import Class.Comap as X
+import PlusZero.Class as X
+import Lens.Class as X
+import Map.Class as X
+import Traversal.Class as X
+import BiComap.Class as X
+import Comap.Class as X
 import Type.K
 import Utils.E
 import Utils.Dimap

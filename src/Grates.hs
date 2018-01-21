@@ -5,7 +5,7 @@ module Grates
 import Grates.Grating as X
 import Costar as X hiding (mapDefault)
 import Type.Star as X
-import Class.Distributive as X
+import Distributive.Class as X
 import Zipping as X
 
 type (s &~  a) b t = forall p. Closed p => p a b -> p s t

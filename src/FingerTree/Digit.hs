@@ -1,8 +1,8 @@
 module FingerTree.Digit (Digit(..), module X) where
 import Prelude (Show)
-import Class.FoldMap1 as X
-import Class.Measured as X
-import Class.Traverse1 as X
+import FoldMap1.Class as X
+import Measured.Class as X
+import Traverse1.Class as X
 import Utils.Map
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show

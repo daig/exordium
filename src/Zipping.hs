@@ -1,9 +1,9 @@
 module Zipping where
-import Class.Prism as X
-import Class.Lens as X
-import Class.Closed as X
-import Class.Distributive
-import Class.Map
+import Prism.Class as X
+import Lens.Class as X
+import Closed.Class as X
+import Distributive.Class
+import Map.Class
 import Utils.Dimap
 
 newtype Zipping a b = Zipping {runZipping :: a -> a -> b}

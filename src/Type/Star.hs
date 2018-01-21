@@ -1,8 +1,8 @@
 module Type.Star (module Type.Star, module X) where
-import Class.Category as X
-import Class.Monad as X (Monad)
-import Class.Monad
-import Class.Dimap as X
+import Category.Class as X
+import Monad.Class as X (Monad)
+import Monad.Class
+import Dimap.Class as X
 
 newtype Star f a b = Star {runStar :: a -> f b}
 {-instance Bind m => Compose (Star m) where Star f > Star g = Star (g <=< f)-}

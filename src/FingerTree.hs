@@ -1,7 +1,7 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
 module FingerTree (FingerTree(..,FTN), module X) where
-import Class.Measured as X
+import Measured.Class as X
 import FingerTree.Digit as X
 import FingerTree.Node as X
 import Prelude (Show,error)

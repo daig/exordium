@@ -7,7 +7,7 @@ import Type.Maybe as X
 import Type.K as X (K)
 import Type.K
 import Flip as X
-import Class.Prism as X
+import Prism.Class as X
 
 type (s ~+. a) b t = APrism a b a b -> APrism a b s t
 withPrism :: (s ~+. a) b t -> ((s -> E t a) -> (b -> t) -> r) -> r

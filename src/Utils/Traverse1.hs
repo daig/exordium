@@ -1,5 +1,5 @@
 module Utils.Traverse1 (module Utils.Traverse1, module X) where
-import Class.Traverse1 as X
+import Traverse1.Class as X
 {-import Utils.FoldMap1 as X-}
 import Utils.Traverse as X
 import Type.K

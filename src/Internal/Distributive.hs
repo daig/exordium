@@ -1,5 +1,5 @@
 module Internal.Distributive where
-import Class.Distributive
+import Distributive.Class
 import Utils.Map
 
 data V2 a = V2 {v2a :: ~a, v2b :: ~a} 

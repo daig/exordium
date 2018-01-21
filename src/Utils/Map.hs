@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module Utils.Map (module Utils.Map, module X) where
-import Class.Map as X
+import Map.Class as X
 import Coerce as X (type (#=))
 import Coerce (coerce#)
 

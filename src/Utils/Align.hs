@@ -1,6 +1,6 @@
 module Utils.Align (module Utils.Align, Plus, module X) where
-import Class.Align as X
-import Class.Plus
+import Align.Class as X
+import Plus.Class
 
 -- | Default definition for (+) @(f a)
 alignWith_plus :: (Align f, Plus a) => f a -> f a -> f a

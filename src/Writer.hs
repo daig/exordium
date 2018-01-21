@@ -1,5 +1,5 @@
 module Writer (module Writer, module X) where
-import Class.Monad as X
+import Monad.Class as X
 
 class Monad m => Writer m where
   {-# minimal (writer | tell), pass, listen #-}

@@ -9,9 +9,9 @@ import Prelude as X (Num)
 import qualified GHC.Exts as P
 import GHC.Classes (Eq(..))
 import Forall
-{-import Class.Map-}
-{-import Class.Bimap-}
-{-import Class.Dimap-}
+{-import Map.Class-}
+{-import Bimap.Class-}
+{-import Dimap.Class-}
 
 
 -- | Representational type equality. Contrast with nominal equality `~`

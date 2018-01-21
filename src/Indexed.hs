@@ -2,11 +2,11 @@ module Indexed
   (module Indexed
   ,module X) where
 import Utils.Dimap as X
-import Class.Distributive as X
+import Distributive.Class as X
 import AFold (foldOf)
 import Prisms (review)
 import Utils.Dimap
-import Class.Apply
+import Apply.Class
 
 class Indexed f where
   {-# minimal indexed | index,tabulate #-}

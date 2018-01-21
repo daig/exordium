@@ -1,6 +1,6 @@
 module Times.WrapTimes (WrapTimes(..),module X) where
 import Minus as X
-import Class.Divide as X
+import Divide.Class as X
 
 newtype WrapTimes a = Times a
 instance TimesOne a => PlusZero (WrapTimes a)

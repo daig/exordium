@@ -1,5 +1,5 @@
 module Utils.Traversal0 (module Utils.Traversal0, module X) where
-import Class.Traversal0 as X
+import Traversal0.Class as X
 import Utils.E
 
 traversed0_left :: Traversal0 p => p a b -> p (E a y) (E b y)
