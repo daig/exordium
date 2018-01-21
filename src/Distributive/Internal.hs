@@ -1,4 +1,4 @@
-module Internal.Distributive where
+module Distributive.Internal where
 import Distributive.Class
 import Map
 

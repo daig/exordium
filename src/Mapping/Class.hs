@@ -3,7 +3,7 @@ import Traversal.Class as X
 import Closed.Class as X
 import Distributive.Class as X
 import I.Type
-import Internal.Mapping
+import Mapping.Internal
 
 class (Closed p, Traversal p) => Mapping p where
   {-# minimal mapping | mapped #-}

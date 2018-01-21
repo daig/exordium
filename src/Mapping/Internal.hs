@@ -1,4 +1,4 @@
-module Internal.Mapping (Bar(..), module X) where
+module Mapping.Internal (Bar(..), module X) where
 import Applicative.Class as X
 import Distributive.Class as X
 import Map

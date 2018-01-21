@@ -1,4 +1,4 @@
-module Internal.Traversal where
+module Traversal.Internal where
 import Traverse_
 import Dimap
 import I.Type
