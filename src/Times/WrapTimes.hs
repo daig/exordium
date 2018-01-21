@@ -1,4 +1,4 @@
-module WrapTimes (WrapTimes(..),module X) where
+module Times.WrapTimes (WrapTimes(..),module X) where
 import Minus as X
 import Class.Divide as X
 

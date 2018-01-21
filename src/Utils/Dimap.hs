@@ -6,8 +6,8 @@ import NatTrans as X
 {-import AnIso as X (AnIso)-}
 {-import AFold as X -- TODO: move to Folds.hs-}
 {-import Prisms as X-}
-import AnIso as X (AnIso)
-import AnIso
+import Internal.Dimap
+import Internal.Dimap as X (AnIso)
 import Type.Re as X (Re)
 import Type.Re
 
