@@ -3,7 +3,7 @@ import Class.PlusZero as X
 import Class.Lens as X
 import Class.Map as X
 import Class.Traversal as X
-import BiComap as X
+import Class.BiComap as X
 import Class.Comap as X
 import Type.K
 import Utils.E
@@ -21,7 +21,8 @@ instance MapIso (Forget r a) where mapIso = map_mapIso
 instance Map (Forget r a) where map = rmap_map
 instance BiComap (Forget r) where
   bicomap f _ (Forget z) = Forget (colmap f z)
-instance Comap (Forget r a) where comap _ (Forget z) = Forget z
+instance Comap (Forget r a) where comap = cormap
+instance CoRMap (Forget r) where cormap _ (Forget z) = Forget z
 
 instance Zero r => Prism (Forget r) where
   left (Forget z) = Forget (e'bifoldMap_ z (\_ -> zero))
