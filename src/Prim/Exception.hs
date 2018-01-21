@@ -1,8 +1,7 @@
 {-# language MagicHash #-}
-module Prim.Exception (module X) where
-import GHC.Base as X (RealWorld)
-import GHC.Prim as X
-  (State#
+module Prim.Exception
+  (State#, RealWorld
   ,catch#, raise#, raiseIO#
   ,maskAsyncExceptions#, maskUninterruptible#
-  ,unmaskAsyncExceptions#, getMaskingState#)
+  ,unmaskAsyncExceptions#, getMaskingState#) where
+import GHC.Prim

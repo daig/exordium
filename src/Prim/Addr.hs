@@ -1,7 +1,6 @@
 {-# language MagicHash #-}
-module Prim.Addr (addr2Int#,int2Addr#,module X) where
-import GHC.Prim as X
-  (Addr#, Char#, Int#, Word#, Float#, Double#, StablePtr#, State#
+module Prim.Addr 
+  (Addr#, module X
   ,nullAddr#
   ,plusAddr#, minusAddr#,remAddr#
   ,gtAddr#, geAddr#, eqAddr#, neAddr#, ltAddr#, leAddr#
@@ -14,8 +13,17 @@ import GHC.Prim as X
   ,indexFloatOffAddr#, readFloatOffAddr#
   ,indexDoubleOffAddr#, readDoubleOffAddr#
   ,indexStablePtrOffAddr#, readStablePtrOffAddr#
-  ,indexAddrOffAddr#, readAddrOffAddr#)
+  ,indexAddrOffAddr#, readAddrOffAddr#
+  ,addr2Int#,int2Addr#) where
+import GHC.Prim hiding (addr2Int#, int2Addr#)
 import qualified GHC.Prim as Prim
+import Prim.Char as X (Char#)
+import Prim.Int as X (Int#)
+import Prim.Word as X (Word#)
+import Prim.Float as X (Float#)
+import Prim.Double as X (Double#)
+import Prim.StablePtr as X (StablePtr#)
+import Prim.IO as X (State#)
 
 {-# DEPRECATED addr2Int#, int2Addr# "Addr are not Int" #-}
 addr2Int# :: Addr# -> Int#

@@ -1,11 +1,12 @@
 {-# language MagicHash #-}
-module Prim.Float (module X) where
-import GHC.Prim as X
-  (Float#, Int#
-  ,plusWord#, minusWord#, timesWord#, divideFloat#, powerFloat#
+module Prim.Float
+  (Float#, module X
+  ,plusFloat#, minusFloat#, timesFloat#, divideFloat#, powerFloat#
   ,negateFloat# ,fabsFloat#
   ,expFloat#, logFloat#, sqrtFloat#
   ,sinFloat#, cosFloat#, tanFloat#
   ,asinFloat#, acosFloat#, atanFloat#
   ,sinhFloat#, coshFloat#, tanhFloat#
-  ,float2Int#, decodeFloat_Int#)
+  ,float2Int#, decodeFloat_Int#) where
+import GHC.Prim
+import Prim.Int as X (Int#)

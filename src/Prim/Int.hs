@@ -1,6 +1,5 @@
 {-# language MagicHash #-}
-module Prim.Int (module X) where
-import GHC.Prim as X
+module Prim.Int
   (Int#
   ,(+#),(-#),(*#)
   ,mulIntMayOflo#
@@ -10,4 +9,5 @@ import GHC.Prim as X
   ,addIntC#, subIntC#
   ,(>#),(>=#),(==#),(/=#),(<#),(<=#)
   ,uncheckedIShiftL#, uncheckedIShiftRA#, uncheckedIShiftRL#
-  ,narrow8Int#, narrow16Int#, narrow32Int#)
+  ,narrow8Int#, narrow16Int#, narrow32Int#) where
+import GHC.Prim

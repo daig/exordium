@@ -1,7 +1,6 @@
 {-# language MagicHash #-}
-module Prim.Double (module X) where
-import GHC.Prim as X
-  (Double#, Int#, Word#, Float#
+module Prim.Double
+  (Double#, module X
   ,(+##),(-##),(*##),(/##),(**##)
   ,(>##),(>=##),(==##),(/=##),(<##),(<=##)
   ,negateDouble#
@@ -11,4 +10,6 @@ import GHC.Prim as X
   ,asinDouble#, acosDouble#, atanDouble#
   ,sinhDouble#, coshDouble#, tanhDouble#
   ,double2Int#, double2Float#
-  ,decodeDouble_2Int#, decodeDouble_Int64#)
+  ,decodeDouble_2Int#, decodeDouble_Int64#) where
+import GHC.Prim 
+import GHC.Prim as X (Int#,Word#,Float#)

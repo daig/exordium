@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
-module Prim.StablePtr (module X) where
-import GHC.Prim as X
+module Prim.StablePtr
   (StablePtr#, StableName#, State#, RealWorld, Int#
   ,makeStablePtr#, deRefStablePtr#, eqStablePtr#
-  ,makeStableName#, eqStableName#, stableNameToInt#)
+  ,makeStableName#, eqStableName#, stableNameToInt#) where
+import GHC.Prim

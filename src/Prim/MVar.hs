@@ -1,9 +1,9 @@
 {-# language MagicHash #-}
-module Prim.MVar where
-import GHC.Prim as X
+module Prim.MVar
   (MVar#, State#, Int#
   ,newMVar#
   ,takeMVar#, tryTakeMVar#
   ,putMVar#, tryPutMVar#
   ,readMVar#, tryReadMVar#
-  ,sameMVar#, isEmptyMVar#)
+  ,sameMVar#, isEmptyMVar#) where
+import GHC.Prim

@@ -1,7 +1,6 @@
 {-# language MagicHash #-}
-module Prim.IO (module X) where
-import GHC.Prim as X
-  (State#, RealWorld, ThreadId#, Int#
+module Prim.IO
+  (State#, RealWorld, ThreadId#, module X
   ,fork#, forkOn#
   ,killThread#
   ,yield#
@@ -12,4 +11,6 @@ import GHC.Prim as X
   ,threadStatus#
   ,delay#,waitRead#,waitWrite#
   ,touch#
-  ,par#, spark#, seq#, getSpark#, numSparks#)
+  ,par#, spark#, seq#, getSpark#, numSparks#) where
+import GHC.Prim
+import GHC.Prim as X (Int#)

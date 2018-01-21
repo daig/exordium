@@ -1,4 +1,4 @@
-module Class.Dimap (module Class.Dimap, module X) where
+module Class.Dimap (Dimap(..), module X) where
 import Class.CoLMap as X
 import Class.RMap as X
 import Type.K

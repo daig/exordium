@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
-module Prim.MutVar (module X) where
-import GHC.Prim as X
+module Prim.MutVar
   (MutVar#, State#, Int#
   ,newMutVar#, readMutVar#, writeMutVar# ,atomicModifyMutVar#
-  ,sameMutVar# ,casMutVar# )
+  ,sameMutVar# ,casMutVar# ) where
+import GHC.Prim
 {-TODO: document compare-and-swap - possible improvement in atomic-primops-}
