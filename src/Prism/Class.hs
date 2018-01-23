@@ -5,6 +5,7 @@ import E
 import Traverse0.Class
 import Traverse.Class
 import K.Type
+import Star.Type
 
 {-type Prismoid s a b t = forall f. X f => (f a -> b) -> f s -> t-}
 prismoid :: Traverse0 f => (s -> E t a) -> (b -> t) -> (f a -> b) -> f s -> t
@@ -37,6 +38,11 @@ instance Prism (->) where
     L t -> t
     R a -> constr (f a)
 
+instance Pure f => Prism (Star f) where
+  prism pat constr (Star afb) = Star (\s -> case pat s of
+    L t -> pure t
+    R a -> constr `map` afb a)
+  
 {-instance Prism (Flip K) where-}
   {-left (Flip (K b)) = Flip (K (L b))-}
   {-right (Flip (K b)) = Flip (K (R b))-}

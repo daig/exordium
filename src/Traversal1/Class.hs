@@ -5,6 +5,7 @@ import Traverse1.Class as X
 import Traversal.Internal
 import I.Type
 import O.Type
+import Star.Type
 
 {-ff :: (s -> FunList a b t) -> (forall f. Apply f => (a -> f b) -> s -> f t)-}
 {-ff sabt afb s = case sabt s of-}
@@ -18,6 +19,7 @@ class Lens p => Traversal1 p where
   traversed1 = traversal1 traverse1
 
 instance Traversal1 (->) where traversal1 l f s = case l (\a -> I (f a)) s of {I t -> t}
+instance Apply f => Traversal1 (Star f) where traversal1 afbsft (Star afb) = Star (\s -> afbsft afb s)
 
 {-type (s @!~ a) b t = forall f. Apply f => (a -> f b) -> s -> f t-}
 {-type s @!~~ a      = forall f. Apply f => (a -> f a) -> s -> f s-}

@@ -1,6 +1,7 @@
 module CoLMap.Class where
 import K.Type
 import Flip
+import Star.Type
 
 class CoLMap p where
   colmap :: (a -> x) -> p x b -> p a b
@@ -8,4 +9,5 @@ class CoLMap p where
   {-colmap = coerce# (comap @(Flip p b))-}
 
 instance CoLMap (->) where colmap f p = \a -> p (f a)
+instance CoLMap (Star f) where colmap ax (Star xfb) = Star (\a -> xfb (ax a))
 instance CoLMap (Flipped K) where colmap _ (Flip (K b)) = Flip (K b)

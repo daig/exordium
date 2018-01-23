@@ -1,6 +1,7 @@
 module RMap.Class (module RMap.Class, module X) where
 import Map.Class as X
 import Tuple
+import Star.Type
 import K
 import E
 import These
@@ -20,3 +21,4 @@ instance RMap These where rmap = these'map
 instance RMap Where where rmap = where'map
 instance RMap E where rmap = e'map
 instance RMap (Flipped K) where rmap g (Flip (K b)) = Flip (K (g b))
+instance Map f => RMap (Star f) where rmap yb (Star afy) = Star (\a -> yb `map` afy a)

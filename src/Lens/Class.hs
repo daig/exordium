@@ -6,6 +6,7 @@ import K.Type
 import I.Type
 import Tuple
 import Fun
+import Star.Type
 
 class Dimap p => Lens p where
   {-# minimal lens | traversal_ | traversed_ | first | second #-}
@@ -32,6 +33,7 @@ instance Lens (->) where
   first = fun'first
   second = fun'second
 
+instance Map f => Lens (Star f) where traversal_ afbsft (Star afb) = Star (\s -> afbsft afb s)
 {-instance Optic Lens where data A Lens a b s t = Lens (s -> a) (s -> b -> t)-}
 {-instance Lens (A Lens a b) where-}
   {-first (Lens x y) = Lens (\(a,_) -> x a) (\(s,c) b -> (y s b,c))-}

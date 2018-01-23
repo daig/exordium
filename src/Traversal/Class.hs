@@ -5,6 +5,7 @@ import Applicative.Class as X
 import Traverse.Class as X
 import Traversal.Internal
 import I.Type
+import Star.Type
 
 class (Traversal0 p, Traversal1 p) => Traversal p where
   {-# minimal traversal | traversed #-}
@@ -15,3 +16,4 @@ class (Traversal0 p, Traversal1 p) => Traversal p where
 
 instance Traversal (->) where traversal l f s = case l (\a -> I (f a)) s of {I t -> t}
 
+instance Applicative f => Traversal (Star f) where traversal afbsft (Star afb) = Star (\s -> afbsft afb s)

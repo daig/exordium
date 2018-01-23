@@ -14,3 +14,4 @@ instance Applicative ((->) x)
 instance PlusZero a => Applicative (K a)
 instance Applicative I
 instance (Applicative f, Applicative g) => Applicative (O f g)
+
