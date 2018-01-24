@@ -11,3 +11,9 @@ class Map f => MapM f where
                 ( map f x))
   filter :: (a -> Bool) -> f a -> f a
   filter f x =  mapM (\a -> case f a of {False -> Nothing; True -> Just a}) x
+
+instance MapM [] where
+  mapM amb = go where
+    go = \case
+      [] -> [] 
+      a:as -> case amb a of {Nothing -> go as; Just b -> b : go as}
