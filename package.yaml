@@ -58,6 +58,8 @@ dependencies:
 - async
 - ghc-prim
 - template-haskell
+- containers
+- integer-gmp
 library:
   source-dirs: src
   ghc-options: -Wall
