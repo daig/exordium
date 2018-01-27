@@ -16,3 +16,4 @@ instance Zero Int where zero = 0
 {-instance Zero Bool where zero = False-}
 
 instance Zero a => Zero (K a b) where zero = K zero
+instance Zero () where zero = ()
