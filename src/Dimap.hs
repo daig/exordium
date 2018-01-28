@@ -10,11 +10,11 @@ import Dimap.Internal
 import Dimap.Internal as X (AnIso)
 import Re.Type as X (Re)
 import Re.Type
+import Instances
 
-dimap_rmap :: Dimap p => (x -> b) -> p a x -> p a b
-dimap_rmap = dimap (\a -> a)
-dimap_colmap :: Dimap p => (a -> x) -> p x b -> p a b
-dimap_colmap = (`dimap` (\b -> b))
+
+defaulting 'rmap [|dimap (\a -> a)|]
+defaulting 'colmap [|\f -> dimap f (\b -> b)|]
 {-dimap_comap :: forall p a x b. Dimap p => (a -> x) -> Flipped p b x -> Flipped p b a-}
 {-dimap_comap f p = coerce# (dimap f (\b -> b) (coerce# @(p x b) p))-}
 

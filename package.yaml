@@ -42,12 +42,14 @@ default-extensions:
 - PatternSynonyms
 - PolyKinds
 - RankNTypes
+- QuasiQuotes
 - RecordWildCards
 - RecursiveDo
 - RoleAnnotations
 - ScopedTypeVariables
 - StandaloneDeriving
 - StrictData
+- TemplateHaskell
 - TupleSections
 - TypeApplications
 - TypeFamilyDependencies
@@ -60,6 +62,7 @@ dependencies:
 - template-haskell
 - containers
 - integer-gmp
+- intrinsic-superclasses
 library:
   source-dirs: src
   ghc-options: -Wall
