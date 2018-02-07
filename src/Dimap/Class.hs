@@ -2,6 +2,7 @@ module Dimap.Class (Dimap(..), module X) where
 import CoLMap.Class as X
 import RMap.Class as X
 import K.Type
+import Re.Type
 import Star.Type
 import Flip
 
@@ -12,3 +13,7 @@ class (CoLMap p, RMap p) => Dimap p where
 instance Dimap (->) where dimap f g p = \a -> g (p (f a))
 instance Dimap (Flipped K) where dimap _ g (Flip (K b)) = Flip (K (g b))
 instance Map f => Dimap (Star f) where dimap ax yb (Star xfy) = Star (\a -> yb `map` xfy (ax a))
+instance Dimap p => Dimap (Re p s t) where
+  dimap f g (Re l) = Re (\p -> l (dimap g f p))
+instance CoLMap p => RMap (Re p s t) where rmap f (Re l) = Re (\p -> l (colmap f p))
+instance RMap p => CoLMap (Re p s t) where colmap f (Re l) = Re (\p -> l (rmap f p))
