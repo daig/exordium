@@ -2,7 +2,6 @@
 {-# language NoMonomorphismRestriction #-}
 {-# language QuasiQuotes #-}
 module FromLabel where
-import MapM
 import qualified Data.Map as M
 import Symbol.Type as X
 import Int.I

@@ -106,29 +106,31 @@ filterLenses cmap lmap =
 collectFromList :: (P.Ord k, FoldMap t) => (a -> as) -> (a -> as -> as) -> M.Map k as -> t (k,a) -> M.Map k as
 collectFromList f0 f m0 x = foldr (\(k,a) -> M.alter (f' a) k) m0 x where
   f' a' = \case
-    Nothing -> Just (f0 a')
-    Just as -> Just (f a' as)
+    P.Nothing -> P.Just (f0 a')
+    P.Just as -> P.Just (f a' as)
     
 
 type DataName = Name
 type ConstrName = Name
 type Label = Name
-dataInfo :: DataName -> Q (M.Map ConstrName Int, M.Map Label [(ConstrName,Int)])
+{-dataInfo :: DataName -> Q (M.Map ConstrName Int, M.Map Label [(ConstrName,Int)])-}
 dataInfo n = do
   TyConI (DataD _cxt _name _tyVarsBndrs _kind' (map con'args -> conargs) _deriv) <- reify n
   let
     constrMap = M.fromList (map (\(c,args) -> (c,P.length args)) conargs)
-    labelMap = collectFromList pure (:) M.empty
-           P.$ mapM (\(arg,con) -> P.fmap (,con) arg)
-           P.$ P.concatMap labelInfo conargs
+    labelMap = collectFromList P.pure (:) M.empty
+           {-P.$ P.mapM (\(arg,con) -> P.fmap (,con) arg)-}
+           P.$ (P.concatMap labelInfo conargs :: [(P.Maybe Name, (Name, Int))])
   P.pure (constrMap,labelMap)
   where
+    labelInfo :: (Name,[P.Maybe Name]) -> [(P.Maybe Name,(Name,Int))]
     labelInfo (con,args) = imap (\i lab -> (lab,(con,i))) args
     name'unpack (Name oc flav,_,_) = (oc,flav)
+    con'args :: Con -> (Name,[P.Maybe Name])
     con'args = \case
-      NormalC con args -> (con, Nothing P.<$ args)
-      RecC con labs -> (con,map (\(label,_,_) -> Just label) labs)
-      InfixC _ con _ -> (con, [Nothing,Nothing])
+      NormalC con args -> (con, P.Nothing P.<$ args)
+      RecC con labs -> (con,map (\(label,_,_) -> P.Just label) labs)
+      InfixC _ con _ -> (con, [P.Nothing,P.Nothing])
       ForallC{} -> P.error "getConstrs:ForallC"
       GadtC{} -> P.error "getConstrs:GadtC"
       RecGadtC{} -> P.error "getConstrs:RecGadtC"
@@ -138,7 +140,7 @@ mkPrisms :: Name -> DecsQ
 mkPrisms n = do
   (M.assocs -> cmap,_) <- dataInfo n
   let
-   cmapMissing l = filter (\(l',_) -> l P./= l') cmap
+   cmapMissing l = P.filter (\(l',_) -> l P./= l') cmap
    prismDecl (l,arity) = [d|$(lensName l) = $(mkPrism (l,arity) (cmapMissing l))|]
   P.concat P.<$> P.mapM prismDecl cmap
   
@@ -148,7 +150,7 @@ mkLenses n = do
   (cmap,lmap) <- dataInfo n
   let
    clist = M.assocs cmap
-   clistMissing l = filter (\(l',_) -> P.all (P./= l') l) clist
+   clistMissing l = P.filter (\(l',_) -> P.all (P./= l') l) clist
    (labels,affLabels) = filterLenses cmap lmap
    lensDecl l = [d|$(lensName l) = $(mkLens l)|]
    affDecl l =
