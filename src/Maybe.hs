@@ -1,5 +1,5 @@
-module Maybe (module Maybe, module X) where
-import Maybe.Type as X
+module Maybe (Maybe(..),maybe'map) where
+import GHC.Base
 
 maybe'map :: (a -> b) -> Maybe a -> Maybe b
 maybe'map f = \case

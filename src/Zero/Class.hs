@@ -1,5 +1,5 @@
 module Zero.Class where
-import Maybe.Type
+import {-# source #-} Maybe
 import K.Type
 import Int
 

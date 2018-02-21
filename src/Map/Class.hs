@@ -6,7 +6,7 @@ import List
 import Where
 import E
 import Tuple
-import Maybe.Type
+import {-# source #-} Maybe
 
 class MapIso f => Map f where
   {-# minimal map #-}
@@ -19,7 +19,6 @@ instance Map ((->) x) where map f p = \a -> f (p a)
 instance Map (K a) where map _ = k'absurd
 instance Map [] where map = list'map
 instance Map (Where a) where map = where'map
-instance (Map f,Map g) => Map (O f g) where map f (O fg) = O (map (map f) fg)
 instance Map (E a) where map = e'map
 instance Map ((,) x) where map = tuple'map
 instance Map Maybe where map f = \case {Nothing -> Nothing; Just a -> Just (f a)}

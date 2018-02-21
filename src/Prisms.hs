@@ -3,7 +3,7 @@ module Prisms
   ,module X) where
 import APrism.Type as X (APrism)
 import APrism.Type
-import Maybe.Type as X
+import {-# source #-} Maybe as X
 import K.Type as X (K)
 import K.Type
 import Flip as X

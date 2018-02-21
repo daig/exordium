@@ -2,7 +2,7 @@ module AFold (module AFold, module X) where
 import Dimap
 import Forget as X
 import qualified Prelude as P
-import Maybe.Type
+import {-# source #-} Maybe
 import Pure.Class
 
 

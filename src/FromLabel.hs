@@ -10,7 +10,7 @@ import Traversal0.Class as X
 import Prism.Class as X
 import Language.Haskell.TH.Syntax
 import Language.Haskell.TH
-import Maybe.Type
+import {-# source #-} Maybe
 import qualified Prelude as P
 import qualified Data.List as P
 import qualified Control.Monad as P

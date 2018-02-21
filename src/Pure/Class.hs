@@ -6,7 +6,6 @@ import E.Type as X
 import E
 import Any
 import K.Type
-import {-# source #-} O
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E
@@ -37,4 +36,3 @@ instance Pure (E x) where pure = R
 instance Pure [] where pure a = [a]
 
 instance Zero a => Pure (K a) where pure _ = zero
-instance (Pure f, Pure g) => Pure (O f g) where pure a = O (pure (pure a))

@@ -2,7 +2,7 @@ module Empty.Class (module Empty.Class, module X) where
 import Map.Class as X
 import Zero.Class as X
 import Forall as X
-import Maybe.Type
+import {-# source #-} Maybe
 import Any as X
 
 class (Map f,ForallF Zero f) => Empty f where

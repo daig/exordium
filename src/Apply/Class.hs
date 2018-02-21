@@ -18,5 +18,3 @@ class Map f => Apply f where
 instance Apply ((->) x) where f `ap` g = \x -> f x (g x)
 instance Apply [] where fs `ap` as = [f a | f <- fs, a <- as]
 instance Plus a => Apply (K a) where K a `ap` K b = K (a `plus` b)
-instance (Apply f, Apply g) => Apply (O f g) where
-  O fgf `ap` O fga = O (ap `map` fgf `ap` fga)
