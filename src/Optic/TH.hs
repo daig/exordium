@@ -7,7 +7,6 @@ import qualified Prelude as P
 import qualified Control.Monad as P
 import qualified Data.List as P
 import Int.I
-import E.Type
 import MapM.Class
 import FoldMap.Class
 import Traversal0.Class

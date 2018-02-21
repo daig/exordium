@@ -1,6 +1,6 @@
 module Prism.Class (module Prism.Class, module X) where
 import Dimap.Class as X
-import E.Type as X
+import {-# source #-} E as X
 import E
 import Traverse0.Class
 import Traverse.Class
