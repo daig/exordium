@@ -109,6 +109,13 @@ collectFromList f0 f m0 x = foldr (\(k,a) -> M.alter (f' a) k) m0 x where
     P.Nothing -> P.Just (f0 a')
     P.Just as -> P.Just (f a' as)
     
+mapMaybe :: (a -> P.Maybe b) -> [a] -> [b]
+mapMaybe f = go where
+  go = \case
+    [] -> [] 
+    a:as -> case f a of
+      P.Nothing -> go as
+      P.Just b -> b:go as
 
 type DataName = Name
 type ConstrName = Name
@@ -119,7 +126,7 @@ dataInfo n = do
   let
     constrMap = M.fromList (map (\(c,args) -> (c,P.length args)) conargs)
     labelMap = collectFromList P.pure (:) M.empty
-           {-P.$ P.mapM (\(arg,con) -> P.fmap (,con) arg)-}
+           P.$ mapMaybe (\(arg,con) -> P.fmap (,con) arg)
            P.$ (P.concatMap labelInfo conargs :: [(P.Maybe Name, (Name, Int))])
   P.pure (constrMap,labelMap)
   where

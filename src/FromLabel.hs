@@ -5,7 +5,6 @@ module FromLabel where
 import qualified Data.Map as M
 import Symbol.Type as X
 import Int.I
-import I.Type
 import Lens.Class as X
 import Traversal0.Class as X
 import Prism.Class as X

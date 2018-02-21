@@ -3,7 +3,7 @@ import Lens.Class as X
 import Apply.Class as X
 import Traverse1.Class as X
 import Traversal.Internal
-import I.Type
+import {-# source #-} I
 import O.Type
 import Star.Type
 

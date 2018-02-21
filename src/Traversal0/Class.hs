@@ -5,7 +5,7 @@ import Lens.Class as X
 import Pure.Class as X
 import Traverse0.Class as X
 import Traversal.Internal
-import I.Type
+import {-# source #-} I
 import E
 import Tuple
 import Star.Type

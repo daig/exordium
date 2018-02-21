@@ -4,7 +4,6 @@ import Pure.Class as X
 import Apply.Class as X
 import PlusZero.Class
 import K.Type
-import I.Type
 import O.Type
 
 class (Pure f, Apply f) => Applicative f
@@ -12,6 +11,4 @@ class (Pure f, Apply f) => Applicative f
 instance Applicative []
 instance Applicative ((->) x)
 instance PlusZero a => Applicative (K a)
-instance Applicative I
 instance (Applicative f, Applicative g) => Applicative (O f g)
-

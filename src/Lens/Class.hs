@@ -3,7 +3,7 @@ import Dimap.Class as X
 import Map.Class as X
 import Traverse_.Class as X
 import K.Type
-import I.Type
+import {-# source #-} I
 import Tuple
 import Fun
 import Star.Type

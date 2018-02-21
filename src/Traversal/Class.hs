@@ -4,7 +4,7 @@ import Traversal1.Class as X
 import Applicative.Class as X
 import Traverse.Class as X
 import Traversal.Internal
-import I.Type
+import {-# source #-} I
 import Star.Type
 
 class (Traversal0 p, Traversal1 p) => Traversal p where

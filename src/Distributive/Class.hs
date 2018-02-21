@@ -2,7 +2,7 @@
 module Distributive.Class (module Distributive.Class, module X) where
 import Applicative.Class as X
 import FoldMap_.Class -- TODO: factor into applicative?
-import I.Type
+import {-# source #-} I
 import K.Type
 import Coerce
 import Prelude (($)) -- TODO: reexport

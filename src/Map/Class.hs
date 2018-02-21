@@ -6,7 +6,6 @@ import List
 import Where
 import E
 import Tuple
-import I
 import Maybe.Type
 
 class MapIso f => Map f where
@@ -24,4 +23,3 @@ instance (Map f,Map g) => Map (O f g) where map f (O fg) = O (map (map f) fg)
 instance Map (E a) where map = e'map
 instance Map ((,) x) where map = tuple'map
 instance Map Maybe where map f = \case {Nothing -> Nothing; Just a -> Just (f a)}
-instance Map I where map = i'map

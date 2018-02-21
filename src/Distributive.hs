@@ -3,7 +3,7 @@ module Distributive (module Distributive, module X) where
 import Distributive.Class as X
 import Distributive.Internal
 import Map
-import I.Type
+import {-# source #-} I
 import K.Type
 
 -- TODO: merge into data family

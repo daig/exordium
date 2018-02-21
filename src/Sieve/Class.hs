@@ -1,7 +1,8 @@
 module Sieve.Class (module Sieve.Class, module X) where
 import Dimap.Class as X
 import Rep.Type as X
-import I.Type
+import {-# source #-} I
+import Star.Type
 
 class (Dimap p, Map (Rep p)) => Sieve p where sieve :: p a b -> a -> Rep p b
 

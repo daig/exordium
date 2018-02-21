@@ -8,7 +8,6 @@ import K
 import E
 import Tuple
 import Maybe
-import I
 
 class MapIso f where mapIso :: (b -> a) -> (a -> b) -> f a -> f b
 
@@ -21,4 +20,3 @@ instance (MapIso f,MapIso g) => MapIso (O f g) where
 instance MapIso (E a) where mapIso _ = e'map
 instance MapIso ((,) x) where mapIso _ = tuple'map
 instance MapIso Maybe where mapIso _ = maybe'map
-instance MapIso I where mapIso _ = i'map

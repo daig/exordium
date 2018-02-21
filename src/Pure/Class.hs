@@ -6,7 +6,6 @@ import E.Type as X
 import E
 import Any
 import K.Type
-import I.Type
 import O.Type
 
 -- http://r6research.livejournal.com/28338.html
@@ -38,5 +37,4 @@ instance Pure (E x) where pure = R
 instance Pure [] where pure a = [a]
 
 instance Zero a => Pure (K a) where pure _ = zero
-instance Pure I where pure = I
 instance (Pure f, Pure g) => Pure (O f g) where pure a = O (pure (pure a))

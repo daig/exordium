@@ -5,7 +5,6 @@ import Bind.Class
 import Tuple
 import List
 import O.Type
-import I.Type
 
 class (Map t,FoldMap t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}
