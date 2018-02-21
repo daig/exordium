@@ -3,7 +3,7 @@
 {-# language QuasiQuotes #-}
 module FromLabel where
 import qualified Data.Map as M
-import Symbol.Type as X
+import Symbol as X
 import Int.I
 import Lens.Class as X
 import Traversal0.Class as X

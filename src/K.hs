@@ -1,10 +1,9 @@
 module K where
 import Bimap.Class
-import CoRMap.Class
-import Comap.Class
-import Applicative.Class
-import PlusZero.Class
-import FoldMap.Class
+import CoRMap.Class as X
+import Applicative.Class as X
+import PlusZero.Class as X
+import FoldMap.Class as X
 import Traverse0.Class as X
 
 newtype K a (b :: *) = K a

@@ -1,4 +1,5 @@
-module CoRMap.Class where
+module CoRMap.Class (CoRMap(..), module X) where
+import Comap.Class as X
 
 class CoRMap p where
   cormap :: (b -> x) -> p a x -> p a b
