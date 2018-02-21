@@ -1,5 +1,6 @@
-module Where (module Where, module X) where
-import Where.Type as X
+module Where where
+
+data Where a b = Here a | There b | Nowhere
 
 where'bimap :: (x -> a) -> (y -> b) -> Where x y -> Where a b
 where'bimap f g = \case
