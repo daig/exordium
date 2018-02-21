@@ -1,7 +1,7 @@
 module Traverse (module Traverse, module X) where
 import Traverse.Class as X
-import K.Type
-import {-# source #-} I
+import K
+import I
 
 traverse_map :: Traverse t => (a -> b) -> t a -> t b
 traverse_map f ta = case traverse (\a -> I (f a)) ta of I tb -> tb

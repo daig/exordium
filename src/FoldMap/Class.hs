@@ -1,9 +1,7 @@
 module FoldMap.Class (FoldMap(..), module X) where
 import PlusZero.Class as X
-import K
 import List
 import Tuple
-import I
 
 class FoldMap t where
   {-# minimal foldMap | foldr #-}
@@ -15,5 +13,3 @@ class FoldMap t where
 
 instance FoldMap ((,) x) where foldMap f (_,a) = f a
 instance FoldMap [] where foldMap = list'foldMap zero plus
-instance FoldMap (K x) where foldMap = \_ _ -> zero
-instance FoldMap I where foldMap = i'foldMap_

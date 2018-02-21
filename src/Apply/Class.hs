@@ -1,6 +1,5 @@
 module Apply.Class (Apply(..),module X) where
 import Map.Class as X
-import K
 import Fun
 import List
 import {-# source #-} O
@@ -17,4 +16,3 @@ class Map f => Apply f where
 
 instance Apply ((->) x) where f `ap` g = \x -> f x (g x)
 instance Apply [] where fs `ap` as = [f a | f <- fs, a <- as]
-instance Plus a => Apply (K a) where K a `ap` K b = K (a `plus` b)

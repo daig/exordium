@@ -1,6 +1,5 @@
 module LMap.Class where
 import Tuple
-import K
 import E
 
 class LMap p where
@@ -9,5 +8,4 @@ class LMap p where
   {-lmap = coerce# (map @(Flip p b))-}
 
 instance LMap (,) where lmap = tuple'lmap
-instance LMap K where lmap = k'lmap
 instance LMap E where lmap = e'lmap

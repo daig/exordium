@@ -4,8 +4,7 @@ module Prisms
 import APrism.Type as X (APrism)
 import APrism.Type
 import {-# source #-} Maybe as X
-import K.Type as X (K)
-import K.Type
+import {-# source #-} K as X
 import Flip as X
 import Prism.Class as X
 

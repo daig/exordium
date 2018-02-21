@@ -2,8 +2,6 @@
 module Distributive.Class (module Distributive.Class, module X) where
 import Applicative.Class as X
 import FoldMap_.Class -- TODO: factor into applicative?
-import {-# source #-} I
-import K.Type
 import Coerce
 import Prelude (($)) -- TODO: reexport
 
@@ -22,4 +20,3 @@ instance Distributive ((->) x) where
   collect axb fa = \x -> (\a -> axb a x) `map` fa
   distribute fxa = \x -> (\f -> f x) `map` fxa
 
-instance Distributive I where distribute a = I (map fold_ a)

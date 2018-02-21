@@ -1,6 +1,5 @@
 module Zero.Class where
 import {-# source #-} Maybe
-import K.Type
 import Int
 
 class Zero a where zero :: a
@@ -16,6 +15,5 @@ instance Zero Int where zero = 0
 {-instance Zero Word64 where zero = 0-}
 {-instance Zero Bool where zero = False-}
 
-instance Zero a => Zero (K a b) where zero = K zero
 instance Zero (Maybe a) where zero = Nothing
 instance Zero [a] where zero = []

@@ -4,7 +4,7 @@ import FoldMap0.Class as X
 import Pure.Class as X
 import Traverse.Class as X
 import E.Type
-import K.Type
+import K
 
 class (Traverse t,FoldMap0 t) => Traverse0 t where
   traverse0 :: Pure f => (a -> f b) -> t a -> f (t b)

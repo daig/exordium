@@ -1,7 +1,6 @@
 module Map.Class (module Map.Class, module X) where
 import MapIso.Class as X
 import {-# source #-} O
-import K
 import List
 import E
 import Tuple
@@ -15,7 +14,6 @@ class MapIso f => Map f where
 
 
 instance Map ((->) x) where map f p = \a -> f (p a)
-instance Map (K a) where map _ = k'absurd
 instance Map [] where map = list'map
 instance Map (E a) where map = e'map
 instance Map ((,) x) where map = tuple'map

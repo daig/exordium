@@ -4,7 +4,7 @@ import Distributive.Class as X
 import Distributive.Internal
 import Map
 import {-# source #-} I
-import K.Type
+import {-# source #-} K
 
 -- TODO: merge into data family
 zip' :: Distributive t => (a -> a -> b) -> t a -> t a -> t b

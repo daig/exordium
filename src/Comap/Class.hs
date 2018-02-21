@@ -1,6 +1,5 @@
 {-# language MagicHash #-}
 module Comap.Class where
-import K.Type
 import Coerce
 import Map.Class
 
