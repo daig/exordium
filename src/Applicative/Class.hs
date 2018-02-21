@@ -4,7 +4,7 @@ import Pure.Class as X
 import Apply.Class as X
 import PlusZero.Class
 import K.Type
-import O.Type
+import {-# source #-} O
 
 class (Pure f, Apply f) => Applicative f
 

@@ -1,5 +1,5 @@
 module MapIso.Class where
-import O.Type
+import {-# source #-} O
 import K.Type
 import These.Type
 import Where

@@ -4,7 +4,7 @@ import Apply.Class as X
 import Traverse1.Class as X
 import Traversal.Internal
 import {-# source #-} I
-import O.Type
+import {-# source #-} O
 import Star.Type
 
 {-ff :: (s -> FunList a b t) -> (forall f. Apply f => (a -> f b) -> s -> f t)-}

@@ -3,7 +3,7 @@ import Map.Class as X
 import K
 import Fun
 import List
-import O.Type
+import {-# source #-} O
 import Plus.Class as X
 
 

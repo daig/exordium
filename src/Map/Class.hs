@@ -1,6 +1,6 @@
 module Map.Class (module Map.Class, module X) where
 import MapIso.Class as X
-import O.Type
+import {-# source #-} O
 import K
 import List
 import Where
