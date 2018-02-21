@@ -2,8 +2,6 @@ module LMap.Class where
 import Tuple
 import K
 import E
-import These
-import Where
 
 class LMap p where
   lmap :: (x -> a) -> p x b -> p a b
@@ -12,6 +10,4 @@ class LMap p where
 
 instance LMap (,) where lmap = tuple'lmap
 instance LMap K where lmap = k'lmap
-instance LMap These where lmap = these'lmap
-instance LMap Where where lmap = where'lmap
 instance LMap E where lmap = e'lmap

@@ -4,8 +4,6 @@ import Tuple
 import Star.Type
 import K
 import E
-import These
-import Where
 import Flip
 
 class RMap p where
@@ -17,8 +15,6 @@ class RMap p where
 instance RMap (->) where rmap g p = \a -> g (p a)
 instance RMap (,) where rmap = tuple'map
 instance RMap K where rmap = k'map
-instance RMap These where rmap = these'map
-instance RMap Where where rmap = where'map
 instance RMap E where rmap = e'map
 instance RMap (Flipped K) where rmap g (Flip (K b)) = Flip (K (g b))
 instance Map f => RMap (Star f) where rmap yb (Star afy) = Star (\a -> yb `map` afy a)

@@ -3,8 +3,6 @@ import LMap.Class as X
 import RMap.Class as X
 import Tuple
 import K
-import These
-import Where
 import E
 
 -- | Independently Map each on both sides
@@ -16,6 +14,4 @@ class (LMap p, RMap p) => Bimap p where
 
 instance Bimap (,) where bimap = tuple'bimap
 instance Bimap K where bimap = k'bimap
-instance Bimap These where bimap = these'bimap
-instance Bimap Where where bimap = where'bimap
 instance Bimap E where bimap = e'bimap

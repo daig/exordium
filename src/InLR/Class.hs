@@ -8,6 +8,3 @@ class Bimap p => InLR p where
 -- bimap f _ (inL a) = inL (f a)
 -- bimap _ g (inR b) = inR (g a)
 
-instance InLR Where where
-  inL = Here
-  inR = There
