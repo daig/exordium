@@ -9,6 +9,8 @@ import Prelude as X (Num)
 import qualified GHC.Exts as P
 import GHC.Classes (Eq(..))
 import Forall
+import Lifts.Class
+import Forall2.Class
 {-import Map.Class-}
 {-import Bimap.Class-}
 {-import Dimap.Class-}
@@ -27,12 +29,34 @@ type f ##= g = Forall (CoerceF f g)
 {-instance p a b #= q a b => CoerceP p q a b-}
 {-type p ###= q = Forall2 (CoerceP p q)-}
 
+{-class (a #= b, f a #= f b) => Parametric' f a b-}
+{-instance (a #= b, f a #= f b) => Parametric' f a b-}
+{-type Parametric f = Forall2 (Parametric' f)-}
+type Parametric f = Forall2 (Parametric' f)
+class Lifting (a #= b) (f a #= f b) => Parametric' f a b
+instance Lifting (a #= b) (f a #= f b) => Parametric' f a b
+
+{-ff :: forall a b f. (a #= b, Parametric f) => f a -> f b-}
+{-ff fa = (lifting @(a #= b) @(f a #= f b) coerce) fa-}
+
 
 coerceF :: forall g f a. f a #= g a => f a -> g a
 coerceF = C.coerce
 
 coerceF# :: forall g f a. f a -> g a
 coerceF# = unsafeCoerce
+
+wrap :: forall f a. a #= f a => a -> f a
+wrap = C.coerce
+
+unwrap :: forall a f. f a #= a => f a -> a
+unwrap = C.coerce
+
+wrap# :: forall f a. a -> f a
+wrap# = unsafeCoerce
+
+unwrap# :: forall a f. f a -> a
+unwrap# = unsafeCoerce
 
 coerce :: forall b a. a #= b => a -> b
 coerce = C.coerce

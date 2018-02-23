@@ -30,7 +30,6 @@ instance Forall (Q p t) => ForallT p t
 class Forall (Q p t) => ForallP (p :: k'' -> Constraint) (t :: k -> k' -> k'')
 instance Forall (Q p t) => ForallP p t
 
-
 class Uncurry p x => Uncurry p x
 instance Uncurry p x => Uncurry p x
 
