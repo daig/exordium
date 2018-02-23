@@ -1,4 +1,4 @@
-module MapIso.Class where
+module Map.Iso where
 import List
 import Tuple
 import {-# source #-} K

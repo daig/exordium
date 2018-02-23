@@ -1,6 +1,6 @@
 module Dimap (module Dimap, module X) where
 import Dimap.Class as X
-import RMap as X
+import Map.R as X
 import NatTrans as X
 {-import Dimap.Class as X-}
 {-import AnIso as X (AnIso)-}

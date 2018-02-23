@@ -16,12 +16,12 @@ e'swap = e'bifoldMap_ R L
 instance Bimap E where bimap = e'bimap
 e'bimap f g = e'bifoldMap_ (\a -> L (f a)) (\b -> R (g b))
 
-instance RMap E where rmap = e'map
+instance MapR E where rmap = e'map
 instance MapIso (E a) where mapIso _ = e'map
 instance Map (E a) where map = e'map
 e'map = e'bimap (\a -> a)
 
-instance LMap E where lmap = e'lmap
+instance MapL E where lmap = e'lmap
 e'lmap = (`e'bimap` (\b -> b))
 
 {-data a + b = L' ~a | R' ~b-}

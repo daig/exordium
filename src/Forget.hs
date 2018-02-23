@@ -17,14 +17,14 @@ instance Traversed_ (Forget r) where
   traversal_ l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Dimap (Forget r) where
   dimap f _ (Forget z) = Forget (colmap f z)
-instance CoLMap (Forget r) where colmap f (Forget z) = Forget (colmap f z)
-instance RMap (Forget r) where rmap _ (Forget z) = Forget z
+instance ComapL (Forget r) where colmap f (Forget z) = Forget (colmap f z)
+instance MapR (Forget r) where rmap _ (Forget z) = Forget z
 instance MapIso (Forget r a) where mapIso = map_mapIso
 instance Map (Forget r a) where map = rmap_map
 instance BiComap (Forget r) where
   bicomap f _ (Forget z) = Forget (colmap f z)
 instance Comap (Forget r a) where comap = cormap
-instance CoRMap (Forget r) where cormap _ (Forget z) = Forget z
+instance ComapR (Forget r) where cormap _ (Forget z) = Forget z
 
 instance Zero r => Prism (Forget r) where
   left (Forget z) = Forget (e'bifoldMap_ z (\_ -> zero))

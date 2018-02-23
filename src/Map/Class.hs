@@ -1,5 +1,5 @@
 module Map.Class (module Map.Class, module X) where
-import MapIso.Class as X
+import Map.Iso as X
 import {-# source #-} K
 import List
 import Tuple

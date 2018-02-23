@@ -9,10 +9,10 @@ these'bimap f g = \case
   That b -> That (g b)
   These a b -> These (f a) (g b)
 
-instance LMap These where lmap = these'lmap
+instance MapL These where lmap = these'lmap
 these'lmap = (`these'bimap` (\b -> b))
 
-instance RMap These where rmap = these'map
+instance MapR These where rmap = these'map
 these'map = these'bimap (\a -> a)
 these'swap = \case
   This a -> That a

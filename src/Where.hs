@@ -13,12 +13,12 @@ where'bimap f g = \case
     Nowhere -> Nowhere
 
 instance MapIso (Where a) where mapIso _ = where'map
-instance RMap Where where rmap = where'map
+instance MapR Where where rmap = where'map
 instance Map (Where a) where map = where'map
 where'map :: (x -> b) -> Where a x -> Where a b
 where'map = where'bimap (\a -> a)
 
-instance LMap Where where lmap = where'lmap
+instance MapL Where where lmap = where'lmap
 where'lmap :: _
 where'lmap = (`where'bimap` (\b -> b))
 

@@ -7,8 +7,8 @@ import Dimap.Class
 newtype Flipped f b a = Flip (f a b) 
 
 instance Dimap (Flipped K) where dimap _ g (Flip (K b)) = Flip (K (g b))
-instance RMap (Flipped K) where rmap g (Flip (K b)) = Flip (K (g b))
-instance CoLMap (Flipped K) where colmap _ (Flip (K b)) = Flip (K b)
+instance MapR (Flipped K) where rmap g (Flip (K b)) = Flip (K (g b))
+instance ComapL (Flipped K) where colmap _ (Flip (K b)) = Flip (K b)
 
 type family Flip (f :: k -> k' -> *) :: k' -> k -> * where
   Flip (Flipped f) = f
