@@ -34,6 +34,11 @@ pattern Node3 :: Measured a => a -> a -> a -> Node a
 pattern Node3 a b c <- Node3# _ a b c where
   Node3 a b c = Node3# (measure a `plus` measure b `plus` measure c) a b c
 
+{-# complete Node2, Node3 #-}
+{-# complete Node2#, Node3 #-}
+{-# complete Node2, Node3# #-}
+
+
 instance Map (Unsafe Node) where
   map f (Unsafe (Node2# v a b))   = Unsafe (Node2# (coerce# v) (f a) (f b))
   map f (Unsafe (Node3# v a b c)) = Unsafe (Node3# (coerce# v) (f a) (f b) (f c))

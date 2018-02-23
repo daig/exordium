@@ -1,4 +1,4 @@
-module Maybe (Maybe(..),maybe'map,module X) where
+module Maybe (Maybe(..),maybe, maybe'map,module X) where
 import GHC.Base (Maybe(..))
 import Traverse0 as X
 import Map.Class as X
@@ -31,3 +31,8 @@ instance Align Maybe where
     go Nothing (Just b) = Just (br b)
     go (Just a) Nothing = Just (ar a)
     go (Just a) (Just b) = Just (abr a b)
+
+maybe :: r -> (a -> r) -> Maybe a -> r
+maybe z f = \case
+  Nothing -> z
+  Just x -> f x

@@ -9,6 +9,7 @@ import Eq
 import Unsafe
 import Cons.Class
 import Prisms
+import Bool.Type
 
 data FingerTree a
   = FT0
@@ -144,3 +145,50 @@ rotR :: Measured a => Digit a -> FingerTree (Node a) -> FingerTree a
 rotR pr m = case viewr m of
     EmptyR  ->  review _Digit pr
     ViewR m' a ->  FTN# (measure pr `plus` measure m) pr m' (nodeToDigit a)
+
+
+splitNode :: Measured a => (Measure a -> Bool) -> Measure a -> Node a
+          -> (Maybe (Digit a), a, Maybe (Digit a))
+splitNode p i = \case
+  Node2 a b | p va -> (Nothing, a, Just (Digit1 b))
+            | True -> (Just (Digit1 a), b, Nothing)
+    where va = i `plus` measure a
+  Node3 a b c | p va -> (Nothing, a, Just (Digit2 b c))
+              | p vab -> (Just (Digit1 a), b, Just (Digit1 c))
+              | True -> (Just (Digit2 a b), c, Nothing)
+    where (va,vab) = (i `plus` measure a, va `plus` measure b)
+
+
+
+splitTree :: forall a. Measured a => (Measure a -> Bool) -> Measure a -> FingerTree a
+          -> (FingerTree a, a, FingerTree a)
+splitTree p i = \case
+  FT0 -> error "splitTree FT0"
+  FT1 x -> (FT0,x,FT0)
+  FTN pr m sf | p vpr -> let (l, x, r) = splitDigit p i pr
+                         in (maybe FT0 (review _Digit) l, x, ftL r m sf)
+              | p vm -> let  (ml, xs, mr)  =  splitTree p vpr m
+                             (l, x, r)     =  splitNode p (vpr `plus` measure ml) xs
+                        in   (ftR pr ml l, x, ftL r mr sf)
+              | True -> let (l,x,r) = splitDigit p vm sf
+                        in (ftR pr m l, x, maybe FT0 (review _Digit) r)
+    where (vpr,vm) = (i `plus` measure pr, vpr `plus` measure m)
+
+-- | Rotate if nothing on the left
+ftL :: Measured a => Maybe (Digit a) -> FingerTree (Node a) -> Digit a -> FingerTree a
+ftL pr' m sf = maybe (rotL m sf) (\pr -> FTN pr m sf) pr'
+
+-- | Rotate if nothing on the right
+ftR :: Measured a => Digit a -> FingerTree (Node a) -> Maybe (Digit a) -> FingerTree a
+ftR pr m = maybe (rotR pr m) (FTN pr m)
+
+-- | /O(log(min(i,n-i)))/. Split a sequence at a point where the predicate
+-- on the accumulated measure of the prefix changes from 'False' to 'True'.
+--
+-- For predictable results, one should ensure that there is only one such
+-- point, i.e. that the predicate is /monotonic/.
+split ::  Measured a => (Measure a -> Bool) -> FingerTree a -> (FingerTree a, FingerTree a)
+split p = \case
+  FT0 -> (FT0,FT0)
+  xs | p (measure xs) -> let (l,x,r) = splitTree p zero xs in (l, x :< r)
+  xs -> (xs,FT0)
