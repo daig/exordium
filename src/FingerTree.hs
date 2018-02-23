@@ -6,6 +6,7 @@ import FingerTree.Digit as X
 import FingerTree.Node as X
 import Prelude (Show,error)
 import Eq
+import Unsafe
 
 data FingerTree a
   = FT0
@@ -61,3 +62,12 @@ ftCons a = \case
         {-Digit3 b c d -> Digit4 b c d a-}
         {-Digit4{} -> error "consDigit#"-}
 
+-- | Only safe if function preserves measure.
+instance Map (Unsafe FingerTree) where
+  map f (Unsafe ft) = Unsafe (go ft) where
+    go FT0 = FT0
+    go (FT1 x) = FT1 (f x)
+    go (FTN# v pr m sf) =
+        FTN# (coerce# v) (map f pr) (mapAs# @(Unsafe FingerTree) (mapAs# @(Unsafe Node) f) m) (map f sf)
+-- | Only safe if function preserves measure.
+instance MapIso (Unsafe FingerTree) where mapIso _ = map

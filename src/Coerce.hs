@@ -17,20 +17,32 @@ import Forall
 -- | Representational type equality. Contrast with nominal equality `~`
 type (#=) = C.Coercible
 
-class f a #= f g => CoerceF f g a
-instance f a #= f g => CoerceF f g a
-type f ##= g = ForallF (CoerceF f g)
+class f a #= g a => CoerceF f g a
+instance f a #= g a => CoerceF f g a
+{-class Forall (CoerceF f g) => f ##= g-}
+{-instance Forall (CoerceF f g) => f ##= g-}
+type f ##= g = Forall (CoerceF f g)
 
 {-class p a b #= q a b => CoerceP p q a b-}
 {-instance p a b #= q a b => CoerceP p q a b-}
 {-type p ###= q = Forall2 (CoerceP p q)-}
 
 
+coerceF :: forall g f a. f a #= g a => f a -> g a
+coerceF = C.coerce
+
+coerceF# :: forall g f a. f a -> g a
+coerceF# = unsafeCoerce
+
 coerce :: forall b a. a #= b => a -> b
 coerce = C.coerce
 
 coerce# :: forall b a. a -> b
 coerce# = unsafeCoerce
+
+mapCoerce# :: forall b f a. f a -> f b
+mapCoerce# = unsafeCoerce
+
 
 {-map# :: forall b a f. (Map f, a #= b) => (a -> b) -> f a -> f b-}
 {-map# _ = coerce#-}

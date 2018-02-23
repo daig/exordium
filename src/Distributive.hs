@@ -5,6 +5,7 @@ import Distributive.Internal
 import Map
 import {-# source #-} I
 import {-# source #-} K
+import Coerce (mapCoerce#)
 
 -- TODO: merge into data family
 zip' :: Distributive t => (a -> a -> b) -> t a -> t a -> t b
@@ -24,4 +25,4 @@ distribute_distR :: Distributive t => E x (t a) -> t (E x a)
 distribute_distR = distribute
 
 distribute_pure :: forall t a. Distributive t => a -> t a
-distribute_pure a = map# @a (distribute (K a))
+distribute_pure a = mapCoerce# @a (distribute (K a))

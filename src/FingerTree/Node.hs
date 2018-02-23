@@ -2,8 +2,10 @@
 {-# language MagicHash #-}
 module FingerTree.Node (Node(Node2,Node2#,Node3,Node3#), module X) where
 import Prelude (Show)
+import Map as X
 import Measured.Class as X
 import FoldMap1.Class as X
+import Unsafe
 
 data Node a = Node2# (Measure a) ~a ~a | Node3# (Measure a) ~a ~a ~a
 
@@ -31,3 +33,8 @@ pattern Node2 a b <- Node2# _ a b where
 pattern Node3 :: Measured a => a -> a -> a -> Node a
 pattern Node3 a b c <- Node3# _ a b c where
   Node3 a b c = Node3# (measure a `plus` measure b `plus` measure c) a b c
+
+instance Map (Unsafe Node) where
+  map f (Unsafe (Node2# v a b))   = Unsafe (Node2# (coerce# v) (f a) (f b))
+  map f (Unsafe (Node3# v a b c)) = Unsafe (Node3# (coerce# v) (f a) (f b) (f c))
+instance MapIso (Unsafe Node) where mapIso _ = map
