@@ -1,5 +1,5 @@
 module Traversal1.Class (module Traversal1.Class, module X) where
-import Lens.Class as X
+import Traversed_.Class as X
 import Apply.Class as X
 import Traverse1.Class as X
 import Traversal.Internal
@@ -10,7 +10,7 @@ import Star.Type
 {-ff :: (s -> FunList a b t) -> (forall f. Apply f => (a -> f b) -> s -> f t)-}
 {-ff sabt afb s = case sabt s of-}
   {-Done t -> gt-}
-class Lens p => Traversal1 p where
+class Traversed_ p => Traversal1 p where
   {-# minimal traversal1 | traversed1 #-}
   {-funList :: (s -> FunList a b t) -> p a b -> p s t-}
   traversal1 :: (forall f. Apply f => (a -> f b) -> s -> f t) -> p a b -> p s t

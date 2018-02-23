@@ -1,7 +1,7 @@
 module Traversal0.Class (module Traversal0.Class, module X) where
 {-import Traversal.Class as X-}
 import Prism.Class as X
-import Lens.Class as X
+import Traversed_.Class as X
 import Pure.Class as X
 import Traverse0.Class as X
 import Traversal.Internal
@@ -11,7 +11,7 @@ import Tuple
 import Star.Type
 
 -- TODO: merge with Choice??
-class (Prism p, Lens p) => Traversal0 p where
+class (Prism p, Traversed_ p) => Traversal0 p where
   traversal0 :: (forall f. Pure f => (a -> f b) -> s -> f t) -> p a b -> p s t
   {-traversal0 f pab = dimap (\s -> Baz (\afb -> f afb s)) (sold @Pure) (traversed0 pab)-}
   traversed0 :: Traverse0 t => p a b -> p (t a) (t b)

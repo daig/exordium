@@ -19,4 +19,3 @@ class Applicative t => Distributive t where
 instance Distributive ((->) x) where
   collect axb fa = \x -> (\a -> axb a x) `map` fa
   distribute fxa = \x -> (\f -> f x) `map` fxa
-

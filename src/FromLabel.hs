@@ -5,7 +5,7 @@ module FromLabel where
 import qualified Data.Map as M
 import Symbol as X
 import Int.I
-import Lens.Class as X
+import Traversed_.Class as X
 import Traversal0.Class as X
 import Prism.Class as X
 import Language.Haskell.TH.Syntax
@@ -21,7 +21,7 @@ class FromLabel (x :: Symbol) c s t a b | x s -> c, x t -> c, s -> a, t -> b, s 
   type FromLabelC x s :: (* -> *) -> Constraint
   fromLabel :: c p => p a b -> p s t
 
-instance FromLabel "fst" Lens (a,x,y) (b,x,y) a b where
+instance FromLabel "fst" Traversed_ (a,x,y) (b,x,y) a b where
   fromLabel = lens (\(a,x,y) -> a) (\(a,x,y) b -> (b,x,y))
 
 mkClass' x s t a b =

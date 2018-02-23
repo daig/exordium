@@ -1,6 +1,6 @@
 module Zipping where
 import Prism.Class as X
-import Lens.Class as X
+import Traversed_.Class as X
 import Closed.Class as X
 import Distributive.Class
 import Map.Class

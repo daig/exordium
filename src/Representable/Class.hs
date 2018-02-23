@@ -3,7 +3,7 @@ import Sieve.Class as X
 import Tabulated.Class as X
 import {-# source #-} I
 
-class (Sieve p, Tabulated p, Lens p) => Representable p where
+class (Sieve p, Tabulated p, Traversed_ p) => Representable p where
   {-tabulatedP :: Iso' (a -> Rep p b) (p a b)-}
 
 {-traversal_Default :: Representable p => (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t-}

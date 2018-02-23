@@ -1,6 +1,6 @@
 module Forget where
 import PlusZero.Class as X
-import Lens.Class as X
+import Traversed_.Class as X
 import Map.Class as X
 import Traversal.Class as X
 import BiComap.Class as X
@@ -12,7 +12,7 @@ import Dimap
 newtype Forget r a b = Forget {runForget :: (a -> r)}
 _Forget :: Dimap p => p (a -> r) (a' -> r') -> p (Forget r a b) (Forget r' a' b')
 _Forget = dimap runForget Forget
-instance Lens (Forget r) where
+instance Traversed_ (Forget r) where
   first (Forget z) = Forget (\(a,_) -> z a)
   traversal_ l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Dimap (Forget r) where

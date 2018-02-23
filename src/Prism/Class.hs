@@ -1,16 +1,25 @@
+{-# language MagicHash #-}
 module Prism.Class (module Prism.Class, module X) where
+import Coerce
 import Dimap.Class as X
 import {-# source #-} E as X
 import E
 import Traverse0.Class
 import Traverse.Class
 import Star.Type
+import Maybe
+import K
+import Comap.Class
 
 {-type Prismoid s a b t = forall f. X f => (f a -> b) -> f s -> t-}
-prismoid :: Traverse0 f => (s -> E t a) -> (b -> t) -> (f a -> b) -> f s -> t
-prismoid seta bt fab fs = case traverse0 seta fs of
-  L t -> t
-  R fa -> bt (fab fa)
+prismoid :: (Pure g, Traverse0 f) => (s -> E t a) -> (b -> t) -> (f a -> g b) -> f s -> g t
+prismoid seta bt fagb fs = case traverse0 seta fs of
+  L t -> pure t
+  R fa -> bt `map` fagb fa
+{-prismoid' :: Traverse0 f => (s -> E t a) -> (b -> t) -> (f a -> b) -> s -> (forall r. (t -> r) -> r)-}
+{-prismoid' seta bt fab fs = case seta s of-}
+  {-L t -> pure t-}
+  {-R fa -> bt (fab fa)-}
 
 {-data List t a = Done t | More a (List t a)-}
 {-instance Map (List t) where-}
@@ -42,3 +51,22 @@ instance Pure f => Prism (Star f) where
     L t -> pure t
     R a -> constr `map` afb a)
   
+
+{-class Choose t where-}
+  {-choose :: Empty f => (f a -> f b) -> s -> t-}
+
+unprismoid :: (forall f. Traverse0 f => (f a -> b) -> f s -> t) -> b -> t
+unprismoid fabfst b = fabfst (\_ -> b) (K ())
+
+{-ff :: ((Maybe a -> E a t) -> s -> E a t) -> s -> E a t-}
+{-ff l s = (`l` s) (\case-}
+  {-L a -> L a-}
+  {-x@R{} -> coerce# x)-}
+
+
+
+_Just :: (Pure g, Traverse0 f) => (f a -> g b) -> f (Maybe a) -> g (Maybe b)
+_Just = (`prismoid` Just) (\case
+  Just a -> R a
+  Nothing -> L Nothing)
+

@@ -25,5 +25,7 @@ instance Plus a => Apply (K a) where K a `ap` K b = K (a `plus` b)
 instance PlusZero a => Applicative (K a)
 
 instance FoldMap (K x) where foldMap = \_ _ -> zero
+instance FoldMap0 (K x) where foldMap0 = \_ _ -> zero
 
 instance Traverse (K x) where traverse f (K x) = pure (K x)
+instance Traverse0 (K x) where traverse0 f (K x) = pure (K x)

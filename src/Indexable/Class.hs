@@ -31,7 +31,7 @@ instance (i ~ j) => IndexedP i (IFun f j) where
 instance Map f => Dimap (IFun f i) where dimap f g (IFun iafb) = IFun (\i x -> g `map` iafb i (f x))
 instance Map f => RMap (IFun f i) where rmap f (IFun iafb) = IFun (\i a -> f `map` iafb i a)
 instance CoLMap (IFun f i) where colmap f (IFun iafb) = IFun (\i x -> iafb i (f x))
-instance Map f => Lens (IFun f i) where traversal_ afbsft (IFun iafb) = IFun (\i s -> afbsft (iafb i) s)
+instance Map f => Traversed_ (IFun f i) where traversal_ afbsft (IFun iafb) = IFun (\i s -> afbsft (iafb i) s)
 instance Applicative f => Traversal (IFun f i) where traversal afbsft (IFun iafb) = IFun (\i s -> afbsft (iafb i) s)
 instance Pure f => Traversal0 (IFun f i) where traversal0 afbsft (IFun iafb) = IFun (\i s -> afbsft (iafb i) s)
 instance Apply f => Traversal1 (IFun f i) where traversal1 afbsft (IFun iafb) = IFun (\i s -> afbsft (iafb i) s)
@@ -54,7 +54,7 @@ liftingP f (IndexingP iipab) = IndexingP (\(iipab -> (i,pab)) -> (i `plus` 1,f p
 instance Dimap p => Dimap (IndexingP p) where dimap f g = liftingP (dimap f g)
 instance CoLMap p => CoLMap (IndexingP p) where colmap f = liftingP (colmap f)
 instance RMap p => RMap (IndexingP p) where rmap f = liftingP (rmap f)
-instance Lens p => Lens (IndexingP p) where traversal_ = itraversal @Map traversal_
+instance Traversed_ p => Traversed_ (IndexingP p) where traversal_ = itraversal @Map traversal_
 instance Prism p => Prism (IndexingP p) where prism pat constr = liftingP (prism pat constr)
 instance Traversal1 p => Traversal1 (IndexingP p) where traversal1 = itraversal @Apply traversal1
 instance Traversal0 p => Traversal0 (IndexingP p) where traversal0 = itraversal @Pure traversal0

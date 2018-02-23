@@ -38,3 +38,4 @@ instance Traverse0 (E x) where
 instance Traverse (E x) where traverse = traverse0
 instance FoldMap0 (E x)
 instance FoldMap (E x)
+

@@ -1,5 +1,5 @@
 {-# language TemplateHaskell #-}
-module Optic.TH (mkLenses,mkPrisms,mkOptics) where
+module Optic.TH (mkTraversed_es,mkPrisms,mkOptics) where
 import Language.Haskell.TH
 import Language.Haskell.TH.Syntax
 import qualified Data.Map as M
@@ -11,8 +11,8 @@ import MapM.Class
 import FoldMap.Class
 import Traversal0.Class
 
-mkLens :: Name -> Q Exp
-mkLens label = do
+mkTraversed_ :: Name -> Q Exp
+mkTraversed_ label = do
   s <- newName "s"
   b <- newName "b"
   P.pure P.$
@@ -55,8 +55,8 @@ passMatch constr arity = do
                    []
 
 
-mkAffLens :: ([Name],Name) -> [(Name,Int)] -> Q Exp
-mkAffLens (constrs,label) otherConstrs = do
+mkAffTraversed_ :: ([Name],Name) -> [(Name,Int)] -> Q Exp
+mkAffTraversed_ (constrs,label) otherConstrs = do
   passMatches <- P.mapM (\(n,i) -> passMatch n i) otherConstrs
   s <- newName "s"
   t <- newName "t"
@@ -89,8 +89,8 @@ imap iab = go 0 where
     a:as -> iab i a : go (plus 1 i) as
 
 type Set a = M.Map a ()
-{-filterLenses :: M.Map ConstrName Int -> M.Map Label (ConstrName,Int) -> [Label]-}
-filterLenses cmap lmap =
+{-filterTraversed_es :: M.Map ConstrName Int -> M.Map Label (ConstrName,Int) -> [Label]-}
+filterTraversed_es cmap lmap =
   let
     labels = M.keys lmap
     cmap'size = M.size cmap
@@ -151,27 +151,27 @@ mkPrisms n = do
   P.concat P.<$> P.mapM prismDecl cmap
   
 
-mkLenses :: Name -> DecsQ
-mkLenses n = do
+mkTraversed_es :: Name -> DecsQ
+mkTraversed_es n = do
   (cmap,lmap) <- dataInfo n
   let
    clist = M.assocs cmap
    clistMissing l = P.filter (\(l',_) -> P.all (P./= l') l) clist
-   (labels,affLabels) = filterLenses cmap lmap
-   lensDecl l = [d|$(lensName l) = $(mkLens l)|]
+   (labels,affLabels) = filterTraversed_es cmap lmap
+   lensDecl l = [d|$(lensName l) = $(mkTraversed_ l)|]
    affDecl l =
      let
        constrs = map (\case (c,_) -> c) ( lmap M.! l)
-       expr = mkAffLens (constrs,l) (clistMissing constrs)
+       expr = mkAffTraversed_ (constrs,l) (clistMissing constrs)
      in 
        [d|$(lensName l) = $expr|]
        
   lenses <- P.concat P.<$> P.mapM lensDecl labels
-  affLenses <- P.concat P.<$> P.mapM affDecl affLabels
-  P.pure (lenses P.++ affLenses)
+  affTraversed_es <- P.concat P.<$> P.mapM affDecl affLabels
+  P.pure (lenses P.++ affTraversed_es)
 
 mkOptics :: Name -> DecsQ
-mkOptics n = (P.++) P.<$> mkLenses n P.<*> mkPrisms n
+mkOptics n = (P.++) P.<$> mkTraversed_es n P.<*> mkPrisms n
 
 lensName :: Name -> PatQ
 lensName (Name (OccName o) _) = varP (Name (OccName ('_':o)) NameS)

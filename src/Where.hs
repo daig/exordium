@@ -1,5 +1,7 @@
 module Where where
 import InLR.Class
+import Align
+import Pure.Class
 
 data Where a b = Here a | There b | Nowhere
 
@@ -23,3 +25,10 @@ where'lmap = (`where'bimap` (\b -> b))
 instance InLR Where where
   inL = Here
   inR = There
+
+instance Choose (Where a) where
+  choose bfc = \case
+    Here a -> pure (Here a)
+    There b -> There `map` bfc b
+    Nowhere -> pure Nowhere
+class Choose t where choose :: (Align f,Pure f) => (a -> f b) -> t a -> f (t b)
