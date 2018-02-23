@@ -1,5 +1,5 @@
-module FingerTree.Digit (Digit(..), module X) where
-import Prelude (Show)
+module FingerTree.Digit (Digit(..), lheadDigit,ltailDigit, rheadDigit,rtailDigit,module X) where
+import Prelude (Show,error)
 import FoldMap1.Class as X
 import Measured.Class as X
 import Traverse1.Class as X
@@ -32,3 +32,28 @@ instance Traverse Digit where traverse = traverse1
 instance Measured a => Measured (Digit a) where
   type Measure (Digit a) = Measure a
   measure = foldMap1 measure
+
+lheadDigit :: Digit a -> a
+lheadDigit (Digit1 a) = a
+lheadDigit (Digit2 a _) = a
+lheadDigit (Digit3 a _ _) = a
+lheadDigit (Digit4 a _ _ _) = a
+
+ltailDigit :: Digit a -> Digit a
+ltailDigit (Digit1 _) = error "ltailDigit"
+ltailDigit (Digit2 _ b) = Digit1 b
+ltailDigit (Digit3 _ b c) = Digit2 b c
+ltailDigit (Digit4 _ b c d) = Digit3 b c d
+
+
+rheadDigit :: Digit a -> a
+rheadDigit (Digit1 a) = a
+rheadDigit (Digit2 _ b) = b
+rheadDigit (Digit3 _ _ c) = c
+rheadDigit (Digit4 _ _ _ d) = d
+
+rtailDigit :: Digit a -> Digit a
+rtailDigit (Digit1 _) = error "rtailDigit"
+rtailDigit (Digit2 a _) = Digit1 a
+rtailDigit (Digit3 a b _) = Digit2 a b
+rtailDigit (Digit4 a b c _) = Digit3 a b c
