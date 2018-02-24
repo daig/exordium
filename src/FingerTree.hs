@@ -7,7 +7,8 @@ import FingerTree.Node as X
 import Prelude (Show,error)
 import Eq
 import Unsafe
-import Cons.Class
+import Cons
+import Snoc
 import Prisms
 import Bool.Type
 

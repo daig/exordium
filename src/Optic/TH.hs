@@ -1,15 +1,17 @@
 {-# language TemplateHaskell #-}
-module Optic.TH (mkTraversed_es,mkPrisms,mkOptics) where
+module Optic.TH (mkTraversals_,mkPrisms,mkOptics) where
 import Language.Haskell.TH
 import Language.Haskell.TH.Syntax
 import qualified Data.Map as M
 import qualified Prelude as P
 import qualified Control.Monad as P
 import qualified Data.List as P
+import FPlus.Class
 import Int.I
 import MapM.Class
 import FoldMap.Class
 import Traversal0.Class
+import Debug.Trace
 
 mkTraversed_ :: Name -> Q Exp
 mkTraversed_ label = do
@@ -89,8 +91,8 @@ imap iab = go 0 where
     a:as -> iab i a : go (plus 1 i) as
 
 type Set a = M.Map a ()
-{-filterTraversed_es :: M.Map ConstrName Int -> M.Map Label (ConstrName,Int) -> [Label]-}
-filterTraversed_es cmap lmap =
+{-filterTraversals_ :: M.Map ConstrName Int -> M.Map Label (ConstrName,Int) -> [Label]-}
+filterTraversals_ cmap lmap =
   let
     labels = M.keys lmap
     cmap'size = M.size cmap
@@ -119,7 +121,7 @@ mapMaybe f = go where
 type DataName = Name
 type ConstrName = Name
 type Label = Name
-{-dataInfo :: DataName -> Q (M.Map ConstrName Int, M.Map Label [(ConstrName,Int)])-}
+dataInfo :: DataName -> Q (M.Map ConstrName Int, M.Map Label [(ConstrName,Int)])
 dataInfo n = do
   TyConI (DataD _cxt _name _tyVarsBndrs _kind' (map con'args -> conargs) _deriv) <- reify n
   let
@@ -137,9 +139,13 @@ dataInfo n = do
       NormalC con args -> (con, P.Nothing P.<$ args)
       RecC con labs -> (con,map (\(label,_,_) -> P.Just label) labs)
       InfixC _ con _ -> (con, [P.Nothing,P.Nothing])
-      ForallC{} -> P.error "getConstrs:ForallC"
-      GadtC{} -> P.error "getConstrs:GadtC"
-      RecGadtC{} -> P.error "getConstrs:RecGadtC"
+      ForallC _tyvarbndrs _cxt c -> con'args c -- P.error "getConstrs:ForallC"
+      GadtC cs args _type -> case cs of
+        [con] -> con'args (NormalC con args)
+        _ -> P.error ("getConstrs:GadtC expecting one constructor but got " `fplus` P.show cs)
+      RecGadtC cs labs _type -> case cs of
+        [con] -> con'args (RecC con labs)
+        _ -> P.error ("getConstrs:RecGadtC expecting one constructor but got " `fplus` P.show cs)
     varBangType'nameType (name,_,t) = (name,t)
 
 mkPrisms :: Name -> DecsQ
@@ -151,13 +157,13 @@ mkPrisms n = do
   P.concat P.<$> P.mapM prismDecl cmap
   
 
-mkTraversed_es :: Name -> DecsQ
-mkTraversed_es n = do
+mkTraversals_ :: Name -> DecsQ
+mkTraversals_ n = do
   (cmap,lmap) <- dataInfo n
   let
    clist = M.assocs cmap
    clistMissing l = P.filter (\(l',_) -> P.all (P./= l') l) clist
-   (labels,affLabels) = filterTraversed_es cmap lmap
+   (labels,affLabels) = filterTraversals_ cmap lmap
    lensDecl l = [d|$(lensName l) = $(mkTraversed_ l)|]
    affDecl l =
      let
@@ -167,11 +173,11 @@ mkTraversed_es n = do
        [d|$(lensName l) = $expr|]
        
   lenses <- P.concat P.<$> P.mapM lensDecl labels
-  affTraversed_es <- P.concat P.<$> P.mapM affDecl affLabels
-  P.pure (lenses P.++ affTraversed_es)
+  affTraversals_ <- P.concat P.<$> P.mapM affDecl affLabels
+  P.pure (lenses P.++ affTraversals_)
 
 mkOptics :: Name -> DecsQ
-mkOptics n = (P.++) P.<$> mkTraversed_es n P.<*> mkPrisms n
+mkOptics n = (P.++) P.<$> mkTraversals_ n P.<*> mkPrisms n
 
 lensName :: Name -> PatQ
 lensName (Name (OccName o) _) = varP (Name (OccName ('_':o)) NameS)

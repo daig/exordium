@@ -19,5 +19,3 @@ class (Closed p, Traversal p) => Mapping p where
   mapped = distribution collect
 
 instance Mapping (->) where mapping l = l
-
-ff f = \p -> dimap (Context (\x -> x)) (\(Context g s) -> f g s) (distribution collect)
