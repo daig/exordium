@@ -2,7 +2,7 @@ module Indexed
   (module Indexed
   ,module X) where
 import Dimap as X
-import Distributive.Class as X
+import Distribute.Class as X
 import AFold (foldOf)
 import Prisms (review)
 import Dimap

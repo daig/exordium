@@ -1,16 +1,14 @@
 {-# language UndecidableSuperClasses #-}
-module Indexable.Class where
+module Indexable.Class (module Indexable.Class, module X) where
 import Traversal.Class
 import Int
 import Category.Class
+import Mapped.Class as X
 import Star.Type
 
-{-_Cons :: Prism p => p (a,[a]) (b,[b]) -> p [a] [b]-}
-{-_Cons = prism (\(a,as) -> a:as) (\case {[] -> L []; a:as -> R (a,as)})-}
-{-_Nil :: Prism p => p () () -> p [a] [a]-}
-{-_Nil = prism (\() -> []) (\case {[] -> R (); as -> L as})-}
-
-class (Unindexed (Unindexed p) ~ Unindexed p, IndexedP i (Unindexed p)) => IndexedP i p where
+class (
+  {-Mapping p, Mapping (Unindexed p),-}
+  Unindexed (Unindexed p) ~ Unindexed p, IndexedP i (Unindexed p)) => IndexedP i p where
   type Unindexed p :: * -> * -> *
   type Unindexed p = p
   indexP :: p a b -> i -> Unindexed p a b
@@ -59,6 +57,8 @@ instance Prism p => Prism (IndexingP p) where prism pat constr = liftingP (prism
 instance Traversal1 p => Traversal1 (IndexingP p) where traversal1 = itraversal @Apply traversal1
 instance Traversal0 p => Traversal0 (IndexingP p) where traversal0 = itraversal @Pure traversal0
 instance Traversal p => Traversal (IndexingP p) where traversal = itraversal @Applicative traversal
+{-instance Mapping p => Mapping (IndexedP p) where-}
+  {-mapping abst (IndexedP i p) = IndexedP -}
 indexing :: (IndexedP Int p, Unindexed p ~ p) => (IndexingP p a b -> IndexingP p s t) -> p a b -> p s t
 indexing l ip = indexP (l (IndexingP (\(!i) -> (i `plus` 1,indexP ip i)))) (0::Int)
 
@@ -69,3 +69,7 @@ list'itraverse f = go 0 where
   go i = \case
     [] -> pure []
     a:as -> (:) `map` f i a `ap` go (i `plus` 1) as
+
+
+{-foo :: IndexedP Int p => p a b -> Uninedexed p [a] [b]-}
+{-foo p = indexP i p-}

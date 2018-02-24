@@ -14,7 +14,7 @@ toListOf l s = foldMapOf l (:) s []
 
 foldMapOf :: (Forget m a a -> Forget n s s) -> (a -> m) -> s -> n
 {-foldMapOf :: (s ^~. a) m n -> (a -> m) -> s -> n-}
-foldMapOf = re _Forget
+foldMapOf = _Forget
 
 foldOf :: (Forget a a a -> Forget a s s) -> s -> a
 {-foldOf :: s ^~~. a -> s -> a-}

@@ -10,6 +10,7 @@ import Star.Type
 import Maybe
 import K
 import Comap.Class
+import Re.Type
 
 {-type Prismoid s a b t = forall f. X f => (f a -> b) -> f s -> t-}
 prismoid :: (Pure g, Traverse0 f) => (s -> E t a) -> (b -> t) -> (f a -> g b) -> f s -> g t
@@ -70,3 +71,12 @@ _Just = (`prismoid` Just) (\case
   Just a -> R a
   Nothing -> L Nothing)
 
+class Dimap p => Cochoice p where
+  {-# minimal unleft | unright #-}
+  unleft :: p (E a y) (E b y) -> p a b
+  unleft p = unright (dimap e'swap e'swap p)
+  unright :: p (E x a) (E x b) -> p a b
+  unright p = unleft (dimap e'swap e'swap p)
+{-instance Prism p -}
+instance Cochoice p => Prism (Re p s t) where
+  left (Re l) = Re (\p -> l (unleft p))

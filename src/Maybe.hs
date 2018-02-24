@@ -2,7 +2,7 @@ module Maybe (Maybe(..),maybe, maybe'map,module X) where
 import GHC.Base (Maybe(..))
 import Traverse0 as X
 import Map.Class as X
-import Distributive as X
+import Distribute as X
 import Align.Class
 
 instance Traverse0 Maybe where

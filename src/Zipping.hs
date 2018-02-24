@@ -2,7 +2,7 @@ module Zipping where
 import Prism.Class as X
 import Traversed_.Class as X
 import Closed.Class as X
-import Distributive.Class
+import Distribute.Class
 import Map.Class
 import Dimap
 

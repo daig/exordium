@@ -1,9 +1,12 @@
-module Grates.Grating (Grating(..), module X) where
+module Closed.Internal (Grating(..),_Grating, module X) where
 import Closed.Class as X
 import Dimap
 import Category.Class
 
-newtype Grating a b s t = Grating (((s -> a) -> b) -> t)
+newtype Grating a b s t = Grating {runGrating :: (((s -> a) -> b) -> t)}
+_Grating = dimap runGrating Grating
+{-collectOf :: (Star f a b -> Star f s t) -> (a -> f b) -> s -> f t-}
+{-collectOf g f = case g (Star f) of Star f' -> f'-}
 
 instance Closed (Grating a b) where
   closed (Grating z) = Grating (\f x -> z (\k -> f (\g -> k (g x))))

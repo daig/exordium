@@ -10,6 +10,7 @@ import Dimap.Internal
 import Dimap.Internal as X (AnIso)
 import Re.Type as X (Re)
 import Re.Type
+import Star.Type
 
 dimap_rmap :: Dimap p => (x -> b) -> p a x -> p a b
 dimap_rmap = dimap (\a -> a)
@@ -91,3 +92,5 @@ withIso :: (s ~=. a) b t -> ((s -> a) -> (b -> t) -> r) -> r
 withIso ai k = case ai (AnIso (\x -> x) (\x -> x)) of {AnIso sa bt -> k sa bt}
 under :: (s ~=. a) b t -> (t -> s) -> b -> a
 under k = withIso k (\sa bt ts x -> sa (ts (bt x)))
+
+_Star = dimap Star runStar

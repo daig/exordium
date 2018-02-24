@@ -1,6 +1,6 @@
 module I where
 import Applicative.Class
-import Distributive.Class
+import Distribute.Class
 import FoldMap_.Class
 
 -- | Identity type
@@ -17,7 +17,7 @@ instance Pure I where pure = I
 instance Map I where map = i'map
 instance MapIso I where mapIso _ = i'map
 
-instance Distributive I where distribute a = I (map fold_ a)
+instance Distribute I where distribute a = I (map fold_ a)
 instance FoldMap_ I where foldMap_ = i'foldMap_
 instance FoldMap0 I where foldMap0 = i'foldMap_
 instance FoldMap1 I where foldMap1 = i'foldMap_
