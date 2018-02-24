@@ -1,6 +1,7 @@
-module E where
+module E (module E, module X) where
 import Pure.Class as X
 import Bimap.Class as X
+import BifoldMap.Class as X
 
 import Traverse0.Class as X
 
@@ -39,3 +40,4 @@ instance Traverse (E x) where traverse = traverse0
 instance FoldMap0 (E x)
 instance FoldMap (E x)
 
+instance BifoldMap E where bifoldMap f g = \case {L a -> f a; R b -> g b}
