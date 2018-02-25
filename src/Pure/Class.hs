@@ -4,7 +4,6 @@ import Lifts.Class as X
 import Zero.Class
 import One.Class as X
 import {-# source #-} E as X
-import {-# source #-} Bitraverse.Boot
 import E.Utils
 import {-# source #-} K
 import Any

@@ -1,17 +1,17 @@
 module IndexedP (module IndexedP, module X) where
 import Witness.Type as X
-import Traversal.Class as X
+import Traversed.Class as X
 import Applicative.Class as X
 
 class IndexedP p where ixmap :: (i -> j) -> p j a b -> p i a b
 
-class IndexedP p => ITraversal p where
+class IndexedP p => ITraversed p where
   {-# minimal itraversing | iwander #-}
   itraversing :: p (i,o) a b -> p o (t a) (t b)
   iwander :: (forall f. Applicative f => (i -> a -> f b) -> (s -> f t)) -> p (i,o) a b -> p o s t
 
-  traversingIWitness :: W (Traversal (p i))
-  default traversingIWitness :: Traversal (p i) => W (Traversal (p i))
+  traversingIWitness :: W (Traversed (p i))
+  default traversingIWitness :: Traversed (p i) => W (Traversed (p i))
   traversingIWitness = W
 
 newtype StarI f i a b = StarI {runStarI :: i -> a -> f b}

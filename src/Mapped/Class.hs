@@ -1,12 +1,12 @@
 module Mapped.Class (Mapped(..), module X) where
-import Traversal.Class as X
+import Traversed.Class as X
 import Closed.Class as X
 import Distribute.Class as X
 import {-# source #-} I
 import Mapped.Internal
 import Star.Type
 
-class (Closed p, Traversal p) => Mapped p where
+class (Closed p, Traversed p) => Mapped p where
   {-# minimal mapping | mapped | distribution #-}
   mapping :: ((a -> b) -> s -> t) -> p a b -> p s t
   mapping f = \p -> dimap (Context (\x -> x)) (\(Context g s) -> f g s) (mapped p)

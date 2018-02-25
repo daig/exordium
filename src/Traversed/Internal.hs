@@ -1,4 +1,4 @@
-module Traversal.Internal where
+module Traversed.Internal where
 import Traverse_
 import Dimap
 import {-# source #-} I

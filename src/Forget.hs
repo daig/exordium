@@ -2,7 +2,7 @@ module Forget where
 import PlusZero.Class as X
 import Traversed_.Class as X
 import Map.Class as X
-import Traversal.Class as X
+import Traversed.Class as X
 import BiComap.Class as X
 import Comap.Class as X
 import {-# source #-} K
@@ -31,11 +31,11 @@ instance ComapR (Forget r) where cormap _ (Forget z) = Forget z
 instance Zero r => Prism (Forget r) where
   left (Forget z) = Forget (e'bifoldMap z (\_ -> zero))
 
-instance PlusZero r => Traversal (Forget r) where
+instance PlusZero r => Traversed (Forget r) where
   traversal l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
-instance Zero r => Traversal0 (Forget r) where
+instance Zero r => Traversed0 (Forget r) where
   traversal0 l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
-instance Plus r => Traversal1 (Forget r) where
+instance Plus r => Traversed1 (Forget r) where
   traversal1 l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 
 instance Cochoice (Forget r) where

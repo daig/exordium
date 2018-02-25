@@ -1,10 +1,10 @@
-module Traversal (module Traversal, module X) where
-import Traversal.Class as X
+module Traversed (module Traversed, module X) where
+import Traversed.Class as X
 import Int
 import Star.Type
 import Indexable.Class
 
-traversed_dimap :: Traversal p => (a -> x) -> (y -> b) -> p x y -> p a b
+traversed_dimap :: Traversed p => (a -> x) -> (y -> b) -> p x y -> p a b
 traversed_dimap f g = traversal (\xfy a -> map g (xfy (f a)))
 
 traverseOf :: Applicative f => (Star f a b -> Star f s t) -> (a -> f b) -> s -> f t

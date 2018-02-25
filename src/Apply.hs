@@ -16,3 +16,6 @@ f $| fb = f fb
 
 apply_plus :: (Apply f, Plus a) => f a -> f a -> f a
 apply_plus = liftA2 plus
+
+constAp :: Apply f => f a -> f b -> f a
+fa `constAp` fb = (\a _ -> a) `map` fa `ap` fb
