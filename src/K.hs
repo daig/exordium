@@ -1,6 +1,6 @@
 module K where
 import Bimap.Class
-import BifoldMap_.Class
+import Bitraverse_.Class
 import Comap.R as X
 import Applicative.Class as X
 import PlusZero.Class as X
@@ -35,3 +35,7 @@ instance BifoldMap K where bifoldMap f _ (K a) = f a
 instance BifoldMap0 K where bifoldMap0 f _ (K a) = f a
 instance BifoldMap1 K where bifoldMap1 f _ (K a) = f a
 instance BifoldMap_ K where bifoldMap_ f _ (K a) = f a
+
+instance Bitraverse K where bitraverse f _ (K a) = K `map` f a
+instance Bitraverse0 K where bitraverse0 f _ (K a) = K `map` f a
+instance Bitraverse1 K where bitraverse1 f _ (K a) = K `map` f a
