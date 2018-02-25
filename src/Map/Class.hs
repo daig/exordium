@@ -9,8 +9,7 @@ import FPlus.Class
 import Coerce
 import Prelude (error,String)
 
-class MapIso f => Map f where
-  {-# minimal map #-}
+class MapIso f => Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
   -- | Try to coerce if @f@ is parametric.
   map# :: a #= b => (a -> b) -> f a -> f b

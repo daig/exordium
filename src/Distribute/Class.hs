@@ -14,7 +14,6 @@ class Applicative t => Distribute t where
   zipF f = \fta -> map f (distribute fta)
   collect :: Map f => (a -> t b) -> f a -> t (f b)
   collect f a  = zipF (\x -> x) (map f a)
-  -- TODO: is collect (\x -> x) === cotraverse (\x -> x)
 
 instance Distribute ((->) x) where
   collect axb fa = \x -> (\a -> axb a x) `map` fa

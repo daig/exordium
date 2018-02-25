@@ -21,6 +21,8 @@ instance ComapR K where cormap _ = k'absurd
 k'absurd :: K a x -> K a y
 k'absurd (K a) = K a
 
+instance Zero a => Zero (K a b) where zero = K zero
+instance Zero a => One (K a b) where one = K zero
 
 instance Plus a => Apply (K a) where K a `ap` K b = K (a `plus` b)
 instance PlusZero a => Applicative (K a)

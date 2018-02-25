@@ -1,6 +1,6 @@
 module APrism (module APrism, module X) where
 import APrism.Type as X
-import E as X
+import E.Utils as X
 import Prelude ((.))
 
 type APrism' a = APrism a a
@@ -24,9 +24,9 @@ aprism'right (APrism seta bt) = (`APrism` (R . bt)) (\case
     L t -> L (R t)
     R a -> R a)
 {-# inline aprism'right #-}
-aprism'dimap f g (APrism seta bt) = APrism (e'bifoldMap_ (L . g) R . seta . f) (g . bt)
+aprism'dimap f g (APrism seta bt) = APrism (e'bifoldMap (L . g) R . seta . f) (g . bt)
 aprism'premap f (APrism seta bt) = APrism (seta . f) bt
-aprism'postmap f (APrism seta bt) = APrism (e'bifoldMap_ (L . f) R . seta) (f . bt)
+aprism'postmap f (APrism seta bt) = APrism (e'bifoldMap (L . f) R . seta) (f . bt)
 aprism'map = aprism'postmap
 aprism'mapIso = aprism'map
 aprism'pure t = APrism (\_ -> L t) (\_ -> t)

@@ -93,4 +93,4 @@ withIso ai k = case ai (AnIso (\x -> x) (\x -> x)) of {AnIso sa bt -> k sa bt}
 under :: (s ~=. a) b t -> (t -> s) -> b -> a
 under k = withIso k (\sa bt ts x -> sa (ts (bt x)))
 
-_Star = dimap Star runStar
+{-_Star = dimap Star runStar-}

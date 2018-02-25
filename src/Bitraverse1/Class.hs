@@ -1,12 +1,11 @@
 module Bitraverse1.Class (module Bitraverse1.Class, module X) where
-import Bitraverse1.Internal
+{-import Bitraverse1.Internal-}
 import Bitraverse.Class as X
 import BifoldMap1.Class as X
 import Bind.Class
 import Coerce
 import Tuple
 import List
-import {-# source #-} O
 
 class (BifoldMap1 t, Bitraverse t) => Bitraverse1 t where
 --  {-# minimal traverse | cocollect | sequence #-}
@@ -17,8 +16,8 @@ class (BifoldMap1 t, Bitraverse t) => Bitraverse1 t where
   bisequence1 :: Apply f => t (f a) (f b) -> f (t a b)
   bisequence1 = bitraverse1 (\fa -> fa) (\fb -> fb)
 
-bitraverse1_bifoldMap1 :: (Plus m, Bitraverse1 t) => (a -> m) -> (b -> m) -> t a b -> m
-bitraverse1_bifoldMap1 f g t = thesek'biextract (bitraverse1 (\x -> ThisK (f x)) (\y -> ThatK (g y)) t)
+{-bitraverse1_bifoldMap1 :: (Plus m, Bitraverse1 t) => (a -> m) -> (b -> m) -> t a b -> m-}
+{-bitraverse1_bifoldMap1 f g t = thesek'biextract (bitraverse1 (\x -> ThisK (f x)) (\y -> ThatK (g y)) t)-}
     
 
 {-foldMapDefault :: (Bitraverse1 t, Zero m) => (a -> m) -> t a -> m-}

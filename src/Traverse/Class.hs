@@ -4,7 +4,6 @@ import Applicative.Class as X
 import Bind.Class
 import Tuple
 import List
-import {-# source #-} O
 
 class (Map t,FoldMap t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}

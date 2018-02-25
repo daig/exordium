@@ -11,6 +11,7 @@ i'traverse_ map = \f (I a) -> I `map` f a
 f `i'foldMap_` I a = f a
 I f `i'apply` I a = I (f a)
 
+instance One a => One (I a) where one = I one
 instance Applicative I
 instance Apply I where I f `ap` I a = I (f a)
 instance Pure I where pure = I

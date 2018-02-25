@@ -1,29 +1,23 @@
 module E (module E, module X) where
 import Pure.Class as X
 import Bimap.Class as X
-import BifoldMap.Class as X
+import Bitraverse_.Class as X
+import E.Utils
 
 import Traverse0.Class as X
 
 data E a b = L ~a | R ~b
 
+instance One a => One (E x a) where one = R one
 instance Pure (E x) where pure = R
-e'bifoldMap_ f g = \case
-  L a -> f a
-  R b -> g b
-
-e'swap = e'bifoldMap_ R L
 
 instance Bimap E where bimap = e'bimap
-e'bimap f g = e'bifoldMap_ (\a -> L (f a)) (\b -> R (g b))
 
 instance MapR E where rmap = e'map
 instance MapIso (E a) where mapIso _ = e'map
 instance Map (E a) where map = e'map
-e'map = e'bimap (\a -> a)
 
 instance MapL E where lmap = e'lmap
-e'lmap = (`e'bimap` (\b -> b))
 
 {-data a + b = L' ~a | R' ~b-}
 -- Waiting on GHC bug --
@@ -37,7 +31,14 @@ instance Traverse0 (E x) where
     L x -> pure (L x)
     R a -> map R (afb a)
 instance Traverse (E x) where traverse = traverse0
-instance FoldMap0 (E x)
+instance FoldMap0 (E x) 
 instance FoldMap (E x)
 
-instance BifoldMap E where bifoldMap f g = \case {L a -> f a; R b -> g b}
+instance BifoldMap E where bifoldMap = e'bifoldMap
+instance BifoldMap0 E where bifoldMap0 = e'bifoldMap
+instance BifoldMap1 E where bifoldMap1 = e'bifoldMap
+instance BifoldMap_ E where bifoldMap_ = e'bifoldMap
+instance Bitraverse E where bitraverse = e'bitraverse
+instance Bitraverse0 E where bitraverse0 = e'bitraverse
+instance Bitraverse1 E where bitraverse1 = e'bitraverse
+instance Bitraverse_ E where bitraverse_ = e'bitraverse

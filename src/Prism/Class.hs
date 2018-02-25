@@ -3,7 +3,7 @@ module Prism.Class (module Prism.Class, module X) where
 import Coerce
 import Dimap.Class as X
 import {-# source #-} E as X
-import E
+import E.Utils
 import Traverse0.Class
 import Traverse.Class
 import Star.Type
@@ -34,9 +34,9 @@ prismoid seta bt fagb fs = case traverse0 seta fs of
 class Dimap p => Prism p where
   {-# minimal prism | left | right #-}
   prism :: (s -> E t a) -> (b -> t) -> p a b -> p s t
-  prism pat constr = \p -> dimap pat (e'bifoldMap_ (\x -> x) constr) (right p)
+  prism pat constr = \p -> dimap pat (e'bifoldMap (\x -> x) constr) (right p)
   left :: p a b -> p (E a y) (E b y)
-  left = prism (e'bifoldMap_ R (\x -> L (R x))) L
+  left = prism (e'bifoldMap R (\x -> L (R x))) L
   right :: p a b -> p (E x a) (E x b)
   right = \p -> dimap e'swap e'swap (left p)
 

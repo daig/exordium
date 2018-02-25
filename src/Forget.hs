@@ -6,7 +6,7 @@ import Traversal.Class as X
 import BiComap.Class as X
 import Comap.Class as X
 import {-# source #-} K
-import E
+import E.Utils
 import Dimap
 
 newtype Forget r a b = Forget {runForget :: (a -> r)}
@@ -29,7 +29,7 @@ instance Comap (Forget r a) where comap = cormap
 instance ComapR (Forget r) where cormap _ (Forget z) = Forget z
 
 instance Zero r => Prism (Forget r) where
-  left (Forget z) = Forget (e'bifoldMap_ z (\_ -> zero))
+  left (Forget z) = Forget (e'bifoldMap z (\_ -> zero))
 
 instance PlusZero r => Traversal (Forget r) where
   traversal l (Forget ar) = Forget (\s -> case (l (\a -> K (ar a))) s of {K r -> r})

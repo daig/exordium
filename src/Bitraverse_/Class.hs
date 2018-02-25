@@ -5,7 +5,6 @@ import BifoldMap_.Class as X
 import Bind.Class
 import Tuple
 import List
-import {-# source #-} O
 
 class (BifoldMap_ t, Bitraverse0 t, Bitraverse1 t) => Bitraverse_ t where
 --  {-# minimal traverse | cocollect | sequence #-}
@@ -15,6 +14,3 @@ class (BifoldMap_ t, Bitraverse0 t, Bitraverse1 t) => Bitraverse_ t where
   {-cocollect tab tfa = map tab (sequence tfa)-}
   bisequence_ :: Map f => t (f a) (f b) -> f (t a b)
   bisequence_ = bitraverse_ (\fa -> fa) (\fb -> fb)
-
-{-foldMapDefault :: (Bitraverse_ t, Zero m) => (a -> m) -> t a -> m-}
-{-foldMapDefault f t = case traverse (\x -> K (f x)) t of {K m -> m}-}

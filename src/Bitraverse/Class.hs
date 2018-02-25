@@ -6,7 +6,6 @@ import Applicative.Class as X
 import Bind.Class
 import Tuple
 import List
-import {-# source #-} O
 
 class (Bimap t,BifoldMap t) => Bitraverse t where
 --  {-# minimal traverse | cocollect | sequence #-}
@@ -17,10 +16,7 @@ class (Bimap t,BifoldMap t) => Bitraverse t where
   bisequence :: Applicative f => t (f a) (f b) -> f (t a b)
   bisequence = bitraverse (\fa -> fa) (\fb -> fb)
 
-bitraverse_bifoldMap :: (PlusZero m, Bitraverse t) => (a -> m) -> (b -> m) -> t a b -> m
+bitraverse_bifoldMap :: (TimesOne m, Bitraverse t) => (a -> m) -> (b -> m) -> t a b -> m
 bitraverse_bifoldMap f g t = thesek'biextract (bitraverse (\x -> ThisK (f x)) (\y -> ThatK (g y)) t)
 
 instance Bitraverse (,) where bitraverse f g (a,b) = (,) `map` f a `ap` g b
-
-{-bitraverse_bifoldMap :: (Applicative m, Bitraverse t) => (a -> m) -> (b -> m) -> t a b -> m-}
-{-bitraverse_bifoldMap f g t = thesek'biextract (bitraverse1 (\x -> ThisK (f x)) (\y -> ThatK (g y)) t)-}
