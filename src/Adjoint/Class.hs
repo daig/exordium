@@ -7,7 +7,6 @@ import Star.Type as X
 import Costar as X
 import Indexed as X hiding (mapDefault)
 import Coerce
-import Fun
 import AFold
 import Prism (review)
 import Dimap

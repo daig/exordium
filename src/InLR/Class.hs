@@ -1,6 +1,5 @@
 module InLR.Class (module InLR.Class, module X) where
 import Bimap.Class as X
-import {-# source #-} Where
 
 class Bimap p => InLR p where
   inL :: a -> p a b

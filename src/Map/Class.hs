@@ -4,10 +4,6 @@ import Coerce
 import Map.Iso as X
 import {-# source #-} K
 import List
-import Tuple
-import FPlus.Class
-import Coerce
-import Prelude (error,String)
 
 class MapIso f => Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
@@ -22,10 +18,6 @@ class MapIso f => Map (f :: * -> *) where
   constMap :: b -> f a -> f b
   constMap b = map (\_ -> b)
 
-{-map# :: (a #= b, Map f) => (a -> b) -> f a -> f b-}
-{-map# f = para coerce (map f)-}
-map_map# f !x = map f x
-
 para'map## :: (Map f, Map g, f a #= f b, a #= b) => (a -> b) -> g (f a) -> g (f b)
 para'map## _ = map# coerce
 
@@ -34,5 +26,5 @@ instance Map ((->) x) where
   map# _ = coerce
   map## _ = map# coerce
 instance Map [] where map = list'map
-instance Map ((,) x) where map = tuple'map
+instance Map ((,) x) where map f (x,y) = (x,f y)
 instance Map (K a) where map _ = coerce

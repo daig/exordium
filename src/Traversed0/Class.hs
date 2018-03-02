@@ -1,5 +1,4 @@
-module Traversed0.Class (module Traversed0.Class, module X) where
-{-import Traversed.Class as X-}
+module Traversed0.Class where
 import Prism.Class as X
 import Traversed_.Class as X
 import Pure.Class as X
@@ -7,7 +6,6 @@ import Traverse0.Class as X
 import Traversed.Internal
 import I
 import E.Utils
-import Tuple
 import Star.Type
 
 class (Prism p, Traversed_ p) => Traversed0 p where

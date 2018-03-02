@@ -1,7 +1,6 @@
 module FoldMap_.Class (module X, FoldMap_(..)) where
 import FoldMap0.Class as X
 import FoldMap1.Class as X
-import Tuple
 
 class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}
@@ -28,4 +27,4 @@ class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-sequenceSnd :: t (a,b) -> (a,t b)-}
   {-sequenceSnd t = (fold_ $ (\(a,_) -> a) $@ t, (\(_,b) -> b) $@ t)-}
 
-instance FoldMap_ ((,) x) where foldMap_ = tuple'foldMap
+instance FoldMap_ ((,) x) where foldMap_ f (_,y) = f y

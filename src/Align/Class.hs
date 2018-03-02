@@ -16,6 +16,3 @@ class Map f => Align f where
       That y -> g y
       These x y -> h x y
   {-both :: (a -> b -> c) -> -}
-
-
-

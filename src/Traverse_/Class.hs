@@ -4,7 +4,6 @@ import FoldMap_.Class as X
 import Apply.Class as X
 import Traverse0.Class as X
 import Traverse1.Class as X
-import Tuple
 
 class (Traverse0 t, Traverse1 t,FoldMap_ t) => Traverse_ t where
   traverse_ :: Map f => (a -> f b) -> t a -> f (t b)
@@ -15,4 +14,4 @@ class (Traverse0 t, Traverse1 t,FoldMap_ t) => Traverse_ t where
 {-foldMap_Default :: Traverse_ t => (a -> m) -> t a -> m-}
 {-foldMap_Default f t = case traverse_ (\x -> K (f x)) t of {K m -> m}-}
 
-instance Traverse_ ((,) x) where traverse_ = tuple'traverse_ map
+instance Traverse_ ((,) x) where traverse_ f (x,a) = (x,) `map` f a

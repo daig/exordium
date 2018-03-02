@@ -1,7 +1,5 @@
 module BifoldMap.Class (BifoldMap(..), module X) where
 import PlusZero.Class as X
-import List
-import Tuple
 
 class BifoldMap t where
   {-# minimal bifoldMap | bifoldr #-}

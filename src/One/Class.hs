@@ -1,5 +1,4 @@
 module One.Class where
-import Zero.Class
 
 class One a where one :: a
 

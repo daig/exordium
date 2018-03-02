@@ -1,6 +1,4 @@
 module List where
-import Prelude (undefined)
-import Coerce
 
 list'map :: (a -> b) -> [a] -> [b]
 list'map f = go where
@@ -9,6 +7,7 @@ list'map f = go where
     a:as -> f a : go as
 {-# noinline list'map #-}
 
+list'foldMap :: acc -> (x -> acc -> acc) -> (a -> x) -> [a] -> acc
 list'foldMap zero plus = go' where
   go' f = go where
     go = \case

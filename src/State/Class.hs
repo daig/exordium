@@ -1,6 +1,5 @@
 module State.Class (State(..), module X) where
 import Monad.Class as X
-import Bind
 
 -- | get >> get = get
 --   put s >> get = pure s

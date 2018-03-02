@@ -1,8 +1,6 @@
 module Traverse.Class (module Traverse.Class, module X) where
 import FoldMap.Class as X
 import Applicative.Class as X
-import Bind.Class
-import Tuple
 import List
 
 class (Map t,FoldMap t) => Traverse t where
@@ -17,6 +15,6 @@ class (Map t,FoldMap t) => Traverse t where
 {-foldMapDefault :: (Traverse t, Zero m) => (a -> m) -> t a -> m-}
 {-foldMapDefault f t = case traverse (\x -> K (f x)) t of {K m -> m}-}
 
-instance Traverse ((,) x) where traverse = tuple'traverse_ map
+instance Traverse ((,) x) where traverse f (x,a) = (x,) `map` f a
 instance Traverse [] where traverse = list'traverse map pure ap
 

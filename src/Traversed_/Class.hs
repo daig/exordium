@@ -4,9 +4,8 @@ import Map.Class as X
 import Traverse_.Class as X
 import K
 import I
-import Tuple
-import Fun
 import Star.Type
+import Swap
 
 class Dimap p => Traversed_ p where
   {-# minimal lens | traversal_ | traversed_ | first | second #-}
@@ -23,15 +22,15 @@ class Dimap p => Traversed_ p where
   first :: p a b -> p (a,y) (b,y)
   {-first = lens (\(a,_) -> a) (\(_,c) b -> (b,c))-}
   {-first = traversal_ (\afb (a,y) -> (,y) `map` afb a)-}
-  first = \p -> dimap tuple'swap tuple'swap (second p)
+  first = \p -> dimap swap swap (second p)
 
 traversal__dimap :: Traversed_ p => (a -> x) -> (y -> b) -> p x y -> p a b
 traversal__dimap f g = traversal_ (\xfy a -> map g (xfy (f a)))
 
 instance Traversed_ (->) where
-  lens = fun'lens
-  first = fun'first
-  second = fun'second
+  lens sa sbt ab = \s -> sbt s (ab (sa s))
+  first f (a,x) = (f a,x)
+  second f (x,a) = (x, f a)
 
 instance Map f => Traversed_ (Star f) where traversal_ afbsft (Star afb) = Star (\s -> afbsft afb s)
 {-instance Optic Traversed_ where data A Traversed_ a b s t = Traversed_ (s -> a) (s -> b -> t)-}

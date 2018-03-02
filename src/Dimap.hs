@@ -1,6 +1,5 @@
 module Dimap (module Dimap, module X) where
 import Dimap.Class as X
-import Map.R as X
 import NatTrans as X
 {-import Dimap.Class as X-}
 {-import AnIso as X (AnIso)-}
@@ -10,7 +9,6 @@ import Dimap.Internal
 import Dimap.Internal as X (AnIso)
 import Re.Type as X (Re)
 import Re.Type
-import Star.Type
 
 dimap_rmap :: Dimap p => (x -> b) -> p a x -> p a b
 dimap_rmap = dimap (\a -> a)

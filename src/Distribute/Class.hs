@@ -1,9 +1,6 @@
 {-# language MagicHash #-}
 module Distribute.Class (module Distribute.Class, module X) where
 import Applicative.Class as X
-import FoldMap_.Class -- TODO: factor into applicative?
-import Coerce
-import Prelude (($)) -- TODO: reexport
 
 class Applicative t => Distribute t where
   {-# minimal distribute | collect | zipF #-}

@@ -4,7 +4,6 @@ import BifoldMap.Class as X
 import Bimap.Class as X
 import Applicative.Class as X
 import Bind.Class
-import Tuple
 import List
 
 class (Bimap t,BifoldMap t) => Bitraverse t where

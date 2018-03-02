@@ -1,7 +1,6 @@
 module Bimap.Class (module Bimap.Class, module X) where
 import Map.L as X
 import Map.R as X
-import Tuple
 
 -- | Independently Map each on both sides
 class (MapL p, MapR p) => Bimap p where
@@ -10,4 +9,4 @@ class (MapL p, MapR p) => Bimap p where
   {-bimap f g p = case map f (Flip (map g p)) of Flip fab -> fab -}
 
 
-instance Bimap (,) where bimap = tuple'bimap
+instance Bimap (,) where bimap f g (x,y) = (f x, g y)

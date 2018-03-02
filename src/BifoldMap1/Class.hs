@@ -1,11 +1,8 @@
 module BifoldMap1.Class (BifoldMap1(..), module X) where
 import PlusZero.Class as X
 import BifoldMap.Class as X
-import Bimap.Class
-import List
-import Tuple
 
-class (BifoldMap t) => BifoldMap1 t where
+class BifoldMap t => BifoldMap1 t where
   bifoldMap1 :: Plus m => (a -> m) -> (b -> m) -> t a b -> m
   {-default bifoldMap1 :: (Bimap t, Plus m) => (a -> m) -> (b -> m) -> t a b -> m-}
   {-bifoldMap1 f g t = biextract1 (bimap f g t)-}

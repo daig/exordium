@@ -3,7 +3,6 @@ import Bitraverse0.Class as X
 import Bitraverse1.Class as X
 import BifoldMap_.Class as X
 import Bind.Class
-import Tuple
 import List
 
 class (BifoldMap_ t, Bitraverse0 t, Bitraverse1 t) => Bitraverse_ t where

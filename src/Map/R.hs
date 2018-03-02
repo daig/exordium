@@ -1,7 +1,5 @@
 module Map.R (module Map.R, module X) where
 import Map as X
-import Tuple
-import Star.Type
 
 class MapR p where
   rmap :: (x -> b) -> p a x -> p a b
@@ -10,8 +8,7 @@ class MapR p where
 
 
 instance MapR (->) where rmap g p = \a -> g (p a)
-instance MapR (,) where rmap = tuple'map
-instance Map f => MapR (Star f) where rmap yb (Star afy) = Star (\a -> yb `map` afy a)
+instance MapR (,) where rmap f (x,y) = (x, f y)
 
 rmap_map :: MapR p => (x -> b) -> p a x -> p a b
 rmap_map = rmap

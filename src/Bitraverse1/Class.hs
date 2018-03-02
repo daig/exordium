@@ -4,7 +4,6 @@ import Bitraverse.Class as X
 import BifoldMap1.Class as X
 import Bind.Class
 import Coerce
-import Tuple
 import List
 
 class (BifoldMap1 t, Bitraverse t) => Bitraverse1 t where

@@ -1,7 +1,6 @@
 module Bind.Class (module Bind.Class, module X) where
 import Map.Class as X
 import Apply.Class as X
-import Fun
 import List
 
 -- | Associativity of join:

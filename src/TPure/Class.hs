@@ -1,8 +1,6 @@
 module TPure.Class (module TPure.Class, module X) where
 import TMap.Class as X
 import Monad.Class as X
-import Lifts.Class as X
-import Constraint.Type as X
 
 {-instance Lifts Monad II-}
 {-instance Lifts Map II-}

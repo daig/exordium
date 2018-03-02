@@ -1,7 +1,5 @@
 module Apply.Class (Apply(..),module X) where
 import Map.Class as X
-import Fun
-import List
 import Plus.Class as X
 
 

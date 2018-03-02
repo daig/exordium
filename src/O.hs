@@ -2,7 +2,6 @@
 module O (module O, module X) where
 import I as X
 import Applicative.Class as X
-import Coerce
 
 newtype O f g a = O (f (g a))
 unO :: O f g a -> f (g a)
@@ -20,7 +19,7 @@ instance (Map f,Map g) => Map (O f g) where
   map# f (O fg) = O ((map## f) fg)
   map## f hofg = map# O (unO (map## f (O (map# unO hofg)))) -- Yikes
 instance (MapIso f,MapIso g) => MapIso (O f g) where
-
-{-mapIso f g (O fg) = O (mapIso (mapIso g f) (mapIso f g) fg)-}
+  -- TODO: make fast like #
+  mapIso f g (O fg) = O (mapIso (mapIso g f) (mapIso f g) fg)
 
 instance One (f (g a)) => One (O f g a) where one = O one

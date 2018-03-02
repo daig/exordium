@@ -1,6 +1,5 @@
 module Adjoint (module Adjoint, module X) where
 import Adjoint.Class as X
-import Fun
 
 leftAdjunct_pure :: f -| g => a -> O g f a
 leftAdjunct_pure = O < leftAdjunct id

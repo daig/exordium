@@ -1,7 +1,6 @@
 module FoldMap.Class (FoldMap(..), module X) where
 import PlusZero.Class as X
 import List
-import Tuple
 
 class FoldMap t where
   {-# minimal foldMap | foldr #-}

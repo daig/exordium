@@ -1,6 +1,5 @@
 module Distribute.Internal where
 import Distribute.Class
-import Map
 
 data V2 a = V2 {v2a :: ~a, v2b :: ~a} 
 instance MapIso V2 where mapIso = map_mapIso

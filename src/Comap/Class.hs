@@ -1,6 +1,5 @@
 {-# language MagicHash #-}
 module Comap.Class where
-import Coerce
 import Map.Class
 
 class MapIso f => Comap f where comap :: (b -> a) -> f a -> f b

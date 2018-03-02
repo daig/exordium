@@ -4,10 +4,7 @@ import Lifts.Class as X
 import Zero.Class
 import One.Class as X
 import {-# source #-} E as X
-import E.Utils
 import {-# source #-} K
-import Any
-import Bimap.Class
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E

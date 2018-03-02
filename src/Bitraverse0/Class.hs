@@ -2,7 +2,6 @@ module Bitraverse0.Class (module Bitraverse0.Class, module X) where
 import Bitraverse.Class as X
 import BifoldMap0.Class as X
 import Bind.Class
-import Tuple
 import List
 
 class (BifoldMap0 t, Bitraverse t) => Bitraverse0 t where

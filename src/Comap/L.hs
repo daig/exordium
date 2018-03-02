@@ -1,5 +1,4 @@
 module Comap.L where
-import Star.Type
 
 class ComapL p where
   colmap :: (a -> x) -> p x b -> p a b
@@ -7,4 +6,3 @@ class ComapL p where
   {-colmap = coerce# (comap @(Flip p b))-}
 
 instance ComapL (->) where colmap f p = \a -> p (f a)
-instance ComapL (Star f) where colmap ax (Star xfb) = Star (\a -> xfb (ax a))

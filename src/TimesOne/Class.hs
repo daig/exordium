@@ -1,4 +1,4 @@
-module TimesOne.Class (TimesOne(..),module X) where
+module TimesOne.Class (TimesOne,module X) where
 import Times.Class as X
 import One.Class as X
 
