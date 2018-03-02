@@ -5,7 +5,7 @@ import Traversed_.Class as X
 import Pure.Class as X
 import Traverse0.Class as X
 import Traversed.Internal
-import {-# source #-} I
+import I
 import E.Utils
 import Tuple
 import Star.Type

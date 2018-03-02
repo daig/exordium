@@ -1,11 +1,15 @@
 module Ord 
-  (module X
+  (Ord(compare)
+  ,Ordering(..)
   ,(||),(&&)
   ,gt,ge,lt,le
   ) where
-import Data.Ord as X (Ord(compare),Ordering(..))
 import Data.Ord
 import Data.Bool (Bool)
+
+-- Ord is the type of primitive total orderings
+-- The instance should exactly match that which would be derived.
+-- ie: Constructor order and left-to-right nesting priority.
 
 (||) :: Ord a => a -> a -> a
 (||) = max

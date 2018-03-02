@@ -3,8 +3,8 @@ module Prisms
   ,module X) where
 import APrism.Type as X (APrism)
 import APrism.Type
-import {-# source #-} Maybe as X
-import {-# source #-} K as X
+import Maybe as X
+import K as X
 import Flip as X
 import Prism.Class as X
 

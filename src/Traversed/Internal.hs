@@ -1,8 +1,8 @@
 module Traversed.Internal where
 import Traverse_
 import Dimap
-import {-# source #-} I
-import {-# source #-} O
+import I
+import O
 
 newtype Baz c t b a = Baz {runBaz :: forall f. c f => (a -> f b) -> f t}
 

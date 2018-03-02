@@ -1,9 +1,8 @@
 module Closed (module Closed, module X) where
 import Closed.Class as X
 import Closed.Internal as X
-import Costar as X hiding (mapDefault)
+import Costar as X
 import Star.Type as X
-import Distribute.Class as X
 import Zipping as X
 
 -- | curry

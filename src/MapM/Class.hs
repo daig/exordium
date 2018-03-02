@@ -2,7 +2,7 @@
 module MapM.Class (module MapM.Class, module X) where
 import Map.Class as X
 import Bool.Type as X
-import {-# source #-} Maybe
+import Maybe
 import Pure.Class
 import Empty.Class
 import List

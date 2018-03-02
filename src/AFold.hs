@@ -3,7 +3,7 @@ import Coerce
 import Dimap
 import Forget as X
 import qualified Prelude as P
-import {-# source #-} Maybe
+import Maybe
 import Pure.Class
 import Zero.Class
 

@@ -2,7 +2,7 @@ module Mapped.Class (Mapped(..), module X) where
 import Traversed.Class as X
 import Closed.Class as X
 import Distribute.Class as X
-import {-# source #-} I
+import I
 import Mapped.Internal
 import Star.Type
 

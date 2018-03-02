@@ -10,11 +10,10 @@ import Traversed0.Class as X
 import Prism.Class as X
 import Language.Haskell.TH.Syntax
 import Language.Haskell.TH
-import {-# source #-} Maybe
+import Maybe
 import qualified Prelude as P
 import qualified Data.List as P
 import qualified Control.Monad as P
-{-import Language.Haskell.TH.Lib (DecsQ)-}
 import qualified Language.Haskell.TH.Ppr as P
 
 class FromLabel (x :: Symbol) c s t a b | x s -> c, x t -> c, s -> a, t -> b, s b -> t, t a -> s where

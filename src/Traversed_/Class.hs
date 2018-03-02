@@ -2,8 +2,8 @@ module Traversed_.Class (module Traversed_.Class, module X) where
 import Dimap.Class as X
 import Map.Class as X
 import Traverse_.Class as X
-import {-# source #-} K
-import {-# source #-} I
+import K
+import I
 import Tuple
 import Fun
 import Star.Type

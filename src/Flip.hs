@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module Flip where
 import Coerce
-import {-# source #-} K
+import K
 import Prism.Class
 
 newtype Flipped f b a = Flip (f a b) 

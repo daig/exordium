@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module O (module O, module X) where
-import {-# source #-} I as X
+import I as X
 import Applicative.Class as X
 import Coerce
 

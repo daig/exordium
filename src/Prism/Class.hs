@@ -2,7 +2,7 @@
 module Prism.Class (module Prism.Class, module X) where
 import Coerce
 import Dimap.Class as X
-import {-# source #-} E as X
+import E as X
 import E.Utils
 import Traverse0.Class
 import Traverse.Class

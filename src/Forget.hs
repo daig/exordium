@@ -5,7 +5,7 @@ import Map.Class as X
 import Traversed.Class as X
 import BiComap.Class as X
 import Comap.Class as X
-import {-# source #-} K
+import K
 import E.Utils
 import Dimap
 
