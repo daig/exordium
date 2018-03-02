@@ -9,7 +9,7 @@ import Eq
 import Unsafe
 import Cons
 import Snoc
-import Prisms
+import Prism
 import Bool.Type
 
 data FingerTree a

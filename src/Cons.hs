@@ -4,7 +4,7 @@ import Zero.Class as X
 import Forget as X
 import Maybe
 import AFold
-import Prisms
+import Prism
 import Optic.TH
 
 pattern (:<) :: Cons s a a s => a -> s -> s

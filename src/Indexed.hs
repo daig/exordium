@@ -4,7 +4,7 @@ module Indexed
 import Dimap as X
 import Distribute.Class as X
 import AFold (foldOf)
-import Prisms (review)
+import Prism (review)
 import Dimap
 import Apply.Class
 

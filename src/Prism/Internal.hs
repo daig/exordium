@@ -1,5 +1,4 @@
-module APrism (module APrism, module X) where
-import APrism.Type as X
+module Prism.Internal (module Prism.Internal, module X) where
 import E.Utils as X
 import Prelude ((.))
 
@@ -31,3 +30,4 @@ aprism'map = aprism'postmap
 aprism'mapIso = aprism'map
 aprism'pure t = APrism (\_ -> L t) (\_ -> t)
 
+data APrism a b s t = APrism (s -> E t a) (b -> t)

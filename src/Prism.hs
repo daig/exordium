@@ -1,8 +1,6 @@
-module Prisms
-  (module Prisms
-  ,module X) where
-import APrism.Type as X (APrism)
-import APrism.Type
+module Prism (module Prism ,module X) where
+import Prism.Internal as X (APrism)
+import Prism.Internal
 import Maybe as X
 import K as X
 import Flip as X

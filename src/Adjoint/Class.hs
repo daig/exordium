@@ -9,7 +9,7 @@ import Indexed as X hiding (mapDefault)
 import Coerce
 import Fun
 import AFold
-import Prisms (review)
+import Prism (review)
 import Dimap
 
 class (Monad (f `O` g), Comonad (g `O` f),FoldMap_ f, Indexed g) => f -| g | f -> g, g -> f where

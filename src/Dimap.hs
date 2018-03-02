@@ -5,7 +5,7 @@ import NatTrans as X
 {-import Dimap.Class as X-}
 {-import AnIso as X (AnIso)-}
 {-import AFold as X -- TODO: move to Folds.hs-}
-{-import Prisms as X-}
+{-import Prism as X-}
 import Dimap.Internal
 import Dimap.Internal as X (AnIso)
 import Re.Type as X (Re)
