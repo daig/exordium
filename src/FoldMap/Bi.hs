@@ -1,5 +1,5 @@
 module FoldMap.Bi (module FoldMap.Bi, module X) where
-import PlusZero.Class as X
+import PlusZero as X
 
 class BifoldMap t where
   {-# minimal bifoldMap | bifoldr #-}

@@ -1,5 +1,5 @@
 module Traverse.Bi.Internal (module Traverse.Bi.Internal, module X) where
-import Applicative.Class as X
+import Applicative as X
 import FoldMap.Bi as X
 import Coerce
 

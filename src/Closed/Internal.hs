@@ -1,6 +1,6 @@
 module Closed.Internal (Grating(..),module X) where
 import Closed.Class as X
-import Dimap
+import Map.Di
 import Category.Class
 
 newtype Grating a b s t = Grating {runGrating :: (((s -> a) -> b) -> t)}

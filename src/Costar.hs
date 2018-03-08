@@ -2,7 +2,7 @@ module Costar (Costar(..),module X) where
 import Comonad.Class as X
 import Category.Class as X
 import Closed.Class as X
-import Dimap
+import Map.Di
 
 newtype Costar f a b = Costar {runCostar :: f a -> b}
 

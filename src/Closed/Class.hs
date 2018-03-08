@@ -1,5 +1,5 @@
 module Closed.Class (Closed(..), module X) where
-import Dimap.Class as X
+import Map.Di as X
 import Distribute.Class as X
 import Star.Type
 

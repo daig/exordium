@@ -1,5 +1,5 @@
 module Align.Class (module Align.Class, module X) where
-import Map.Class as X
+import Map as X
 import {-# source #-} These as X
 
 -- | fa |&| fb = map swap (fb |&| fa) TODO: Is this always useful?

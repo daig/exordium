@@ -1,6 +1,6 @@
 module I where
-import Applicative.Class
-import Distribute.Class
+import Applicative
+import Distribute
 import FoldMap
 
 -- | Identity type

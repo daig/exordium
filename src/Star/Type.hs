@@ -1,5 +1,5 @@
 module Star.Type where
-import Dimap.Class as X
+import Map.Di as X
 
 newtype Star f a b = Star {runStar :: a -> f b}
 

@@ -1,5 +1,5 @@
 module Swap where
-import Dimap as X
+import Map.Di as X
 
 -- | swap < swap = id
 class Swap f where

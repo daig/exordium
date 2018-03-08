@@ -1,5 +1,5 @@
 module FoldMap (module FoldMap, module X) where
-import PlusZero.Class as X
+import PlusZero as X
 import List
 import {-# source #-} K
 

@@ -6,10 +6,10 @@ import qualified Data.Coerce as C
 import Unsafe.Coerce
 import Forall
 import Lifts.Class
-import Forall2.Class
+import Forall2
 {-import Map.Class-}
 {-import Map.Bi-}
-{-import Dimap.Class-}
+{-import Map.Di-}
 
 
 -- | Representational type equality. Contrast with nominal equality `~`

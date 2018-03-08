@@ -1,5 +1,5 @@
 module I where
-import Map.Class
+import Map
 newtype I a = I a
 
 instance Map I

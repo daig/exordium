@@ -4,7 +4,7 @@ import Traversed as X
 import Closed.Class as X
 import Distribute.Class
 import Map.Class
-import Dimap
+import Map.Di
 
 newtype Zipping a b = Zipping {runZipping :: a -> a -> b}
 instance Closed Zipping where closed (Zipping z) = Zipping (\xa xa' x -> z (xa x) (xa' x))

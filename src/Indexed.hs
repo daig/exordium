@@ -1,11 +1,11 @@
 module Indexed
   (module Indexed
   ,module X) where
-import Dimap as X
+import Map.Di as X
 import Distribute.Class as X
 import AFold (foldOf)
 import Prism (review)
-import Dimap
+import Map.Di
 import Apply.Class
 
 class Indexed f where

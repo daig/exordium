@@ -1,5 +1,5 @@
 module HList (module HList,module X) where
-import Dimap as X
+import Map.Di as X
 
 data HList (xs :: [*]) where
   HNil :: HList '[]

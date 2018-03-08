@@ -8,7 +8,7 @@ import Comap.Class as X
 import Prism.Class as X
 import K
 import E.Utils
-import Dimap
+import Map.Di
 
 newtype Forget r a b = Forget {runForget :: (a -> r)}
 {-_Forget :: Dimap p => p (a -> r) (a' -> r') -> p (Forget r a b) (Forget r' a' b')-}

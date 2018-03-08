@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f871df3da7a2659701342fc376d13c03d152bbd1820f3fb7ba174a7f11f150ab
+-- hash: 1c4e6b9cbbb589cca347fc1dd8075f3ac01ee315ca94464e5ea7edbc9e975393
 
 name:           exordium
 version:        0.1.0.0
@@ -45,79 +45,63 @@ library
       AnEquality
       AnEquality.Identical
       Any
-      Applicative.Class
+      Applicative
       Apply
       Apply.Class
-      BiComap.Class
       BigNat
       Bimap
       Bimap.Class
       Bind
       Bind.Class
       Bool.Type
-      Category.Class
+      Category
       Char.Prim
       Closed
       Closed.Class
       Closed.Internal
-      Coapplicative.Class
       Coerce
-      Comap.Class
-      Comap.L
-      Comap.R
-      Comonad.Class
+      Comonad
       Compact.Prim
-      Compose.Class
+      Compose
       Cons
       Cons.Class
       Constraint.Type
       ContT.Type
       Costar
-      Dimap
-      Dimap.Class
-      Dimap.Internal
       Distribute
-      Distribute.Class
       Distribute.Internal
-      Divide.Class
+      Divide
       Double.Prim
-      Duplicate.Class
+      Duplicate
       E
       E.Utils
       Empty
       Empty.Class
-      Env.Class
+      Env
       Eq
       Exception.Prim
-      FApply.Class
       FingerTree
       FingerTree.Digit
       FingerTree.Node
       Flip
       Float.Prim
-      FMap.Class
       FoldMap
       FoldMap.Bi
+      FoldMap.I
       Forall
-      Forall2.Class
+      Forall2
       Forget
-      FPlus.Class
-      FPure.Class
       FromInteger.Int
       FromInteger.Integer
       FromLabel
       HList
       I
-      IFoldMap.Class
-      IFoldMap0.Class
-      IFoldMap1.Class
       IForget
-      IMap
-      Implies.Class
+      Implies
       Indexable.Class
       Indexed
       IndexedP
-      InLR.Class
+      InLR
       Int
       Int.I
       Int.I16
@@ -136,12 +120,19 @@ library
       Map
       Map.Bi
       Map.Class
+      Map.Co
+      Map.Co.Bi
+      Map.Co.L
+      Map.Co.R
+      Map.Di
+      Map.I
       Map.Iso
       Map.L
       Map.R
+      Map.T
       MapM
       MapM.Class
-      Mapped.Class
+      Mapped
       Mapped.Internal
       Maybe
       Measured.Class
@@ -149,49 +140,48 @@ library
       Minus
       Monad
       Monad.Class
+      Monad.T
       MutVar.Prim
       MVar.Prim
       Nat
       NatTrans
       O
-      One.Class
-      Optic.Class
+      One
       Optic.TH
       Ord
-      Plus.Class
-      PlusZero.Class
+      Plus
+      Plus.F
+      PlusZero
       Prism
       Prism.Class
       Prism.Internal
       Proxy
       Proxy.Prim
-      Pure.Class
+      Pure
+      Pure.T
       Pure.Utils
       Re.Type
       Rep.Type
-      Representable.Class
-      Sieve.Class
+      Representable
+      Sieve
       Snoc
       Snoc.Class
       StablePtr.Prim
       Star.Type
-      State.Class
+      State
       Swap
       Symbol
-      Tabulated.Class
+      Tabulated
       These
-      Times.Class
+      Times
       Times.WrapTimes
-      TimesOne.Class
-      TMap.Class
-      TMonad.Class
-      TPure.Class
+      TimesOne
       Traverse
       Traverse.Bi
       Traverse.Bi.Internal
+      Traverse.T
       Traversed
       Traversed.Internal
-      TraverseT.Class
       Trivial
       TyCon.Type
       Type.Prim
@@ -208,7 +198,7 @@ library
       Word.W64
       Word.W8
       X
-      Zero.Class
+      Zero
       Zipping
   other-modules:
       Paths_exordium

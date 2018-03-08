@@ -1,6 +1,6 @@
 module AFold (module AFold, module X) where
 import Coerce
-import Dimap
+import Map.Di
 import Forget as X
 import IForget as X
 import qualified Prelude as P

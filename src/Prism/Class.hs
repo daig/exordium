@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module Prism.Class (module Prism.Class, module X) where
 import Coerce
-import Dimap.Class as X
+import Map.Di as X
 import E as X
 import E.Utils
 import Traverse
