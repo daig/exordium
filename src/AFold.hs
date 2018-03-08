@@ -2,11 +2,11 @@ module AFold (module AFold, module X) where
 import Coerce
 import Dimap
 import Forget as X
+import IForget as X
 import qualified Prelude as P
 import Maybe
 import Pure.Class
 import Zero.Class
-
 
 toListOf :: (Forget ([a] -> [a]) a a -> Forget ([a] -> [a]) s s) -> s -> [a]
 {-toListOf :: (s ^~.. a) ([a] -> [a]) -> s -> [a]-}
@@ -22,14 +22,13 @@ foldOf = view
 
 -- | Synonym for foldOf
 view :: (Forget a a b -> Forget m s t) -> s -> m
-view = viewWith' (\x -> x)
+view = viewWith (\x -> x)
 
 view' :: Pure f => (Forget (f a) a a -> Forget n s s) -> s -> n
 view' = viewWith pure
 
+viewWith :: (a -> m) -> (Forget m a b -> Forget n s t) -> s -> n
+viewWith f l = case l (Forget f) of Forget g -> g
 
-viewWith :: (a -> m) -> (Forget m a a -> Forget n s s) -> s -> n
-viewWith f l = foldMapOf l f
-
-viewWith' :: (a -> m) -> (Forget m a b -> Forget n s t) -> s -> n
-viewWith' f l = case l (Forget f) of Forget g -> g
+iviewWith :: (i -> a -> m) -> (IForget i m a b -> Forget n s t) -> s -> n
+iviewWith iam l = case l (IForget iam) of Forget sn -> sn

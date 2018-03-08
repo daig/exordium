@@ -1,6 +1,7 @@
 {-# language MagicHash #-}
 module Map.Class (module Map.Class, module X) where
 import Coerce
+import IMap as X
 import Map.Iso as X
 import {-# source #-} K
 import List

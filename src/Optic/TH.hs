@@ -9,8 +9,10 @@ import qualified Data.List as P
 import FPlus.Class
 import Int.I
 import MapM.Class
+import Prism.Class
 import FoldMap.Class
 import Traversed0.Class
+import Traversed_.Class
 import Debug.Trace
 
 mkTraversed_ :: Name -> Q Exp
@@ -83,12 +85,6 @@ mkAffTraversed_ (constrs,label) otherConstrs = do
 
 {-getLabel1 name = P.fmap (\(P.head -> (_,P.head -> Just n)) -> n) (getConstrs name)-}
 {-getLabel2 name = P.fmap (\(P.head -> (_,(_:Just n:_))) -> n) (getConstrs name)-}
-
-imap :: (Int -> a -> b) -> [a] -> [b]
-imap iab = go 0 where
-  go i = \case
-    [] -> []
-    a:as -> iab i a : go (plus 1 i) as
 
 type Set a = M.Map a ()
 {-filterTraverseds_ :: M.Map ConstrName Int -> M.Map Label (ConstrName,Int) -> [Label]-}

@@ -14,6 +14,4 @@ pattern a :< s <- (foldMapOf _Cons Just -> Just (a,s))
 view_ :: (Cons x a a x, Zero x0)
         => (Forget (x -> x) a a -> Forget (x0 -> t) s s) -> s -> t
 {-toListOf :: (s ^~.. a) ([a] -> [a]) -> s -> [a]-}
-view_ l s = viewWith' (:<) l s zero
-
-
+view_ l s = viewWith (:<) l s zero

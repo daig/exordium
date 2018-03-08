@@ -1,10 +1,11 @@
-module Forget where
+module Forget (Forget(..),_Forget,module X) where
 import PlusZero.Class as X
 import Traversed_.Class as X
 import Map.Class as X
 import Traversed.Class as X
 import BiComap.Class as X
 import Comap.Class as X
+import Prism.Class as X
 import K
 import E.Utils
 import Dimap
@@ -41,5 +42,3 @@ instance Plus r => Traversed1 (Forget r) where
 instance Cochoice (Forget r) where
   unleft (Forget r) = Forget (\a -> r (L a))
   unright (Forget r) = Forget (\a -> r (R a))
-
-

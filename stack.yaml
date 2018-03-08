@@ -5,4 +5,4 @@ extra-deps: []
 flags: {}
 extra-package-dbs: []
 
-resolver: nightly-2018-01-24
+resolver: nightly-2018-03-07
