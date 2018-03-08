@@ -1,8 +1,8 @@
 module Forget (Forget(..),_Forget,module X) where
 import PlusZero.Class as X
-import Traversed_.Class as X
+import Traversed as X
 import Map.Class as X
-import Traversed.Class as X
+import Traversed as X
 import BiComap.Class as X
 import Comap.Class as X
 import Prism.Class as X

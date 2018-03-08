@@ -11,8 +11,8 @@ import Int.I
 import MapM.Class
 import Prism.Class
 import FoldMap
-import Traversed0.Class
-import Traversed_.Class
+import Traversed
+import Traversed
 import Debug.Trace
 
 mkTraversed_ :: Name -> Q Exp

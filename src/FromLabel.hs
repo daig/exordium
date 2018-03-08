@@ -5,8 +5,8 @@ module FromLabel where
 import qualified Data.Map as M
 import Symbol as X
 import Int.I
-import Traversed_.Class as X
-import Traversed0.Class as X
+import Traversed as X
+import Traversed as X
 import Prism.Class as X
 import Language.Haskell.TH.Syntax
 import Language.Haskell.TH

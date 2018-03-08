@@ -1,0 +1,220 @@
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 06325632051dbbafd30df4b99368143a6782cf081544d1306e468ad6c9be602e
+
+name:           exordium
+version:        0.1.0.0
+category:       Prelude
+homepage:       https://github.com/daig/exordium#readme
+bug-reports:    https://github.com/daig/exordium/issues
+author:         Dai
+maintainer:     dailectic@gmail.com
+copyright:      2017 Dai
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/daig/exordium
+
+library
+  hs-source-dirs:
+      src
+  default-extensions: NoImplicitPrelude AllowAmbiguousTypes BangPatterns BinaryLiterals ConstraintKinds DataKinds DefaultSignatures DeriveAnyClass DeriveDataTypeable DeriveGeneric DeriveLift DerivingStrategies EmptyCase FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals OverloadedLabels OverloadedStrings ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving StrictData TupleSections TypeApplications TypeFamilyDependencies TypeOperators ViewPatterns
+  ghc-options: -Wall
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , ghc-prim
+    , integer-gmp
+    , template-haskell
+  exposed-modules:
+      Addr.Prim
+      Adjoint
+      Adjoint.Class
+      AFold
+      Align
+      Align.Class
+      AnEquality
+      AnEquality.Identical
+      Any
+      Applicative.Class
+      Apply
+      Apply.Class
+      BiComap.Class
+      BifoldMap.Class
+      BifoldMap0.Class
+      BifoldMap1.Class
+      BifoldMap_.Class
+      BigNat
+      Bimap
+      Bimap.Class
+      Bind
+      Bind.Class
+      Bitraverse.Class
+      Bitraverse0.Class
+      Bitraverse1.Class
+      Bitraverse1.Internal
+      Bitraverse_.Class
+      Bool.Type
+      Category.Class
+      Char.Prim
+      Closed
+      Closed.Class
+      Closed.Internal
+      Coapplicative.Class
+      Coerce
+      Comap.Class
+      Comap.L
+      Comap.R
+      Comonad.Class
+      Compact.Prim
+      Compose.Class
+      Cons
+      Cons.Class
+      Constraint.Type
+      ContT.Type
+      Costar
+      Dimap
+      Dimap.Class
+      Dimap.Internal
+      Distribute
+      Distribute.Class
+      Distribute.Internal
+      Divide.Class
+      Double.Prim
+      Duplicate.Class
+      E
+      E.Utils
+      Empty
+      Empty.Class
+      Env.Class
+      Eq
+      Exception.Prim
+      FApply.Class
+      FingerTree
+      FingerTree.Digit
+      FingerTree.Node
+      Flip
+      Float.Prim
+      FMap.Class
+      FoldMap
+      Forall
+      Forall2.Class
+      Forget
+      FPlus.Class
+      FPure.Class
+      FromInteger.Int
+      FromInteger.Integer
+      FromLabel
+      HList
+      I
+      IFoldMap.Class
+      IFoldMap0.Class
+      IFoldMap1.Class
+      IForget
+      IMap
+      Implies.Class
+      Indexable.Class
+      Indexed
+      IndexedP
+      InLR.Class
+      Int
+      Int.I
+      Int.I16
+      Int.I32
+      Int.I64
+      Int.I8
+      Int.Prim
+      Integer.Type
+      IO
+      IO.Prim
+      IStar
+      K
+      Lifts.Class
+      List
+      Log
+      Map
+      Map.Class
+      Map.Iso
+      Map.L
+      Map.R
+      MapM
+      MapM.Class
+      Mapped.Class
+      Mapped.Internal
+      Maybe
+      Measured.Class
+      MFix.Class
+      Minus
+      Monad
+      Monad.Class
+      MutVar.Prim
+      MVar.Prim
+      Nat
+      NatTrans
+      O
+      One.Class
+      Optic.Class
+      Optic.TH
+      Ord
+      Plus.Class
+      PlusZero.Class
+      Prism
+      Prism.Class
+      Prism.Internal
+      Proxy
+      Proxy.Prim
+      Pure.Class
+      Pure.Utils
+      Re.Type
+      Rep.Type
+      Representable.Class
+      Sieve.Class
+      Snoc
+      Snoc.Class
+      StablePtr.Prim
+      Star.Type
+      State.Class
+      Swap
+      Symbol
+      Tabulated.Class
+      These
+      Times.Class
+      Times.WrapTimes
+      TimesOne.Class
+      TMap.Class
+      TMonad.Class
+      TPure.Class
+      Traverse
+      Traversed
+      Traversed.Internal
+      TraverseT.Class
+      Trivial
+      TyCon.Type
+      Type.Prim
+      Typeable
+      TypeRep
+      Unsafe
+      Where
+      Witness.Type
+      Word
+      Word.Prim
+      Word.W
+      Word.W16
+      Word.W32
+      Word.W64
+      Word.W8
+      X
+      Zero.Class
+      Zipping
+  other-modules:
+      Paths_exordium
+  default-language: Haskell2010

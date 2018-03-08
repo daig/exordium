@@ -1,6 +1,6 @@
 {-# language UndecidableSuperClasses #-}
 module Indexable.Class (module Indexable.Class, module X) where
-import Traversed.Class
+import Traversed
 import Forget
 import Int
 import Prism.Class

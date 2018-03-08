@@ -1,5 +1,5 @@
 module Mapped.Class (Mapped(..), module X) where
-import Traversed.Class as X
+import Traversed as X
 import Closed.Class as X
 import Distribute.Class as X
 import I
