@@ -1,8 +1,8 @@
 module FingerTree.Digit (module FingerTree.Digit,module X) where
 import Prelude (Show,error)
-import FoldMap1.Class as X
+import FoldMap as X
 import Measured.Class as X
-import Traverse1.Class as X
+import Traverse as X
 import Maybe
 import Bool.Type
 import Map

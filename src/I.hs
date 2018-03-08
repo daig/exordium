@@ -1,7 +1,7 @@
 module I where
 import Applicative.Class
 import Distribute.Class
-import FoldMap_.Class
+import FoldMap
 
 -- | Identity type
 newtype I a = I a

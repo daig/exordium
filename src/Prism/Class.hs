@@ -4,8 +4,7 @@ import Coerce
 import Dimap.Class as X
 import E as X
 import E.Utils
-import Traverse0.Class
-import Traverse.Class
+import Traverse
 import Star.Type
 import Maybe
 import K

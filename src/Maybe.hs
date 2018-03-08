@@ -1,7 +1,7 @@
 {-# GHC_OPTIONS -wno-orphans #-}
 module Maybe (Maybe(..),maybe, maybe'map,module X) where
 import GHC.Base (Maybe(..))
-import Traverse0 as X
+import Traverse as X
 import Distribute as X
 import Align.Class
 

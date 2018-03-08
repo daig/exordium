@@ -1,5 +1,5 @@
 module Traversed.Internal where
-import Traverse_
+import Traverse
 import Dimap
 import I
 import O

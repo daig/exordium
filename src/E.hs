@@ -4,7 +4,7 @@ import Bimap.Class as X
 import Bitraverse_.Class as X
 import E.Utils
 
-import Traverse0.Class as X
+import Traverse as X
 
 data E a b = L ~a | R ~b
 

@@ -2,7 +2,7 @@ module Traversed.Class (Traversed(..), module X) where
 import Traversed0.Class as X
 import Traversed1.Class as X
 import Applicative.Class as X
-import Traverse.Class as X
+import Traverse as X
 import Traversed.Internal
 import I
 import Star.Type

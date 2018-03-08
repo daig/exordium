@@ -4,7 +4,7 @@ module FingerTree.Node (Node(Node2,Node2#,Node3,Node3#), module X) where
 import Prelude (Show)
 import Map as X
 import Measured.Class as X
-import FoldMap1.Class as X
+import FoldMap as X
 import Unsafe
 
 data Node a = Node2# (Measure a) ~a ~a | Node3# (Measure a) ~a ~a ~a

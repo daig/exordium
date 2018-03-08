@@ -10,7 +10,7 @@ import FPlus.Class
 import Int.I
 import MapM.Class
 import Prism.Class
-import FoldMap.Class
+import FoldMap
 import Traversed0.Class
 import Traversed_.Class
 import Debug.Trace

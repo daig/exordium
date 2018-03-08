@@ -1,6 +1,21 @@
-module FoldMap_.Class (module X, FoldMap_(..)) where
-import FoldMap0.Class as X
-import FoldMap1.Class as X
+module FoldMap (module FoldMap, module X) where
+import PlusZero.Class as X
+import List
+import {-# source #-} K
+
+class FoldMap t where
+  {-# minimal foldMap | foldr #-}
+  foldMap :: PlusZero m => (a -> m) -> t a -> m
+  foldMap f t = foldr (\a m -> f a `plus` m) zero t -- TODO: check the order
+  foldr :: (a -> b -> b) -> b -> t a -> b
+  foldr c z t = foldMap c t z
+  {-foldl :: (b -> a -> b) -> b -> t a -> b-}
+
+class FoldMap t => FoldMap0 t where
+  foldMap0 :: Zero m => (a -> m) -> t a -> m
+
+class FoldMap t => FoldMap1 t where
+  foldMap1 :: Plus s => (a -> s) -> t a -> s
 
 class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}
@@ -27,4 +42,13 @@ class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-sequenceSnd :: t (a,b) -> (a,t b)-}
   {-sequenceSnd t = (fold_ $ (\(a,_) -> a) $@ t, (\(_,b) -> b) $@ t)-}
 
+
+instance FoldMap0 (K x) where foldMap0 = \_ _ -> zero
+instance FoldMap (K x) where foldMap = foldMap0
+
 instance FoldMap_ ((,) x) where foldMap_ f (_,y) = f y
+instance FoldMap0 ((,) x) where foldMap0 = foldMap_
+instance FoldMap1 ((,) x) where foldMap1 = foldMap_
+instance FoldMap ((,) x) where foldMap = foldMap_
+
+instance FoldMap [] where foldMap = list'foldMap zero plus

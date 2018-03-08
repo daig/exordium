@@ -2,7 +2,7 @@ module Traversed0.Class where
 import Prism.Class as X
 import Traversed_.Class as X
 import Pure.Class as X
-import Traverse0.Class as X
+import Traverse as X
 import Traversed.Internal
 import I
 import E.Utils
