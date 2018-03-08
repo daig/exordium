@@ -1,7 +1,7 @@
 module Pure.Utils where
 import X
 import Pure.Class
-import Bitraverse_.Class
+import Traverse.Bi
 import E
 
 distL :: (Bitraverse_ t, Pure f) => t (f a) b -> f (t a b)

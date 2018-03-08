@@ -1,5 +1,5 @@
 module These where
-import Bimap.Class
+import Map.Bi
 import Swap as X
 
 data These a b = This a | That b | These a b

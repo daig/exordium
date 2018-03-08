@@ -8,7 +8,7 @@ import Forall
 import Lifts.Class
 import Forall2.Class
 {-import Map.Class-}
-{-import Bimap.Class-}
+{-import Map.Bi-}
 {-import Dimap.Class-}
 
 

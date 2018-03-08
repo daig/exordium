@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 06325632051dbbafd30df4b99368143a6782cf081544d1306e468ad6c9be602e
+-- hash: f871df3da7a2659701342fc376d13c03d152bbd1820f3fb7ba174a7f11f150ab
 
 name:           exordium
 version:        0.1.0.0
@@ -49,20 +49,11 @@ library
       Apply
       Apply.Class
       BiComap.Class
-      BifoldMap.Class
-      BifoldMap0.Class
-      BifoldMap1.Class
-      BifoldMap_.Class
       BigNat
       Bimap
       Bimap.Class
       Bind
       Bind.Class
-      Bitraverse.Class
-      Bitraverse0.Class
-      Bitraverse1.Class
-      Bitraverse1.Internal
-      Bitraverse_.Class
       Bool.Type
       Category.Class
       Char.Prim
@@ -106,6 +97,7 @@ library
       Float.Prim
       FMap.Class
       FoldMap
+      FoldMap.Bi
       Forall
       Forall2.Class
       Forget
@@ -142,6 +134,7 @@ library
       List
       Log
       Map
+      Map.Bi
       Map.Class
       Map.Iso
       Map.L
@@ -194,6 +187,8 @@ library
       TMonad.Class
       TPure.Class
       Traverse
+      Traverse.Bi
+      Traverse.Bi.Internal
       Traversed
       Traversed.Internal
       TraverseT.Class

@@ -1,7 +1,7 @@
 module E (module E, module X) where
 import Pure.Class as X
-import Bimap.Class as X
-import Bitraverse_.Class as X
+import Map.Bi as X
+import Traverse.Bi as X
 import E.Utils
 
 import Traverse as X

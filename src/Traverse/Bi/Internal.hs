@@ -1,6 +1,6 @@
-module Bitraverse1.Internal (module Bitraverse1.Internal, module X) where
+module Traverse.Bi.Internal (module Traverse.Bi.Internal, module X) where
 import Applicative.Class as X
-import BifoldMap.Class as X
+import FoldMap.Bi as X
 import Coerce
 
 data TheseK a b x = ThisK a | ThatK b | TheseK a b

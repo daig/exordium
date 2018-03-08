@@ -1,6 +1,6 @@
 module K where
-import Bimap.Class
-import Bitraverse_.Class
+import Map.Bi
+import Traverse.Bi
 import Comap.R as X
 import Applicative.Class as X
 import PlusZero.Class as X
