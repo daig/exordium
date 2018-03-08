@@ -1,4 +1,4 @@
-module Comonad.Class (module Comonad.Class, module X) where
+module Comonad (Comonad, module X) where
 import FoldMap as X
 import Duplicate as X
 

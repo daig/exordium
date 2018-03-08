@@ -5,7 +5,7 @@ import Control.Monad.ST as X (RealWorld) -- fix
 import GHC.Prim as X (State#)
 
 {-import Traverse.Class_ as X-}
-{-import Monad.Class-}
+{-import Monad-}
 
 {-instance MapIso IO where mapIso = map_mapIso-}
 {-instance Map IO where-}

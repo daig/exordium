@@ -6,12 +6,12 @@ import qualified Data.Map as M
 import qualified Prelude as P
 import qualified Control.Monad as P
 import qualified Data.List as P
-import FPlus.Class
+import Plus.F
 import Int.I
 import MapM.Class
+import Map.I
 import Prism.Class
 import FoldMap
-import Traversed
 import Traversed
 import Debug.Trace
 

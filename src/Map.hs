@@ -4,6 +4,7 @@ import Map.Iso as X
 import Coerce as X (type (#=))
 import Coerce (coerce,coerceF,coerceF#)
 import {-# source #-} K
+import {-# source #-} I
 
 class MapIso f => Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
@@ -21,6 +22,16 @@ class MapIso f => Map (f :: * -> *) where
 para'map## :: (Map f, Map g, f a #= f b, a #= b) => (a -> b) -> g (f a) -> g (f b)
 para'map## _ = map# coerce
 
+
+map_mapIso :: Map f => (b -> a) -> (a -> b) -> f a -> f b
+map_mapIso _ = map
+
+mapAs :: forall g f a b. (Map g, f a #= g a, g b #= f b) => (a -> b) -> f a -> f b
+mapAs f fa = coerceF @f (map f (coerceF @g fa))
+
+mapAs# :: forall g f a b. Map g => (a -> b) -> f a -> f b
+mapAs# f fa = coerceF# @f (map f (coerceF# @g fa))
+
 instance Map ((->) x) where
   map f p = \a -> f (p a)
   map# _ = coerce
@@ -32,12 +43,4 @@ instance Map [] where
       a:as -> f a : go as
 instance Map ((,) x) where map f (x,y) = (x,f y)
 instance Map (K a) where map _ = coerce
-
-map_mapIso :: Map f => (b -> a) -> (a -> b) -> f a -> f b
-map_mapIso _ = map
-
-mapAs :: forall g f a b. (Map g, f a #= g a, g b #= f b) => (a -> b) -> f a -> f b
-mapAs f fa = coerceF @f (map f (coerceF @g fa))
-
-mapAs# :: forall g f a b. Map g => (a -> b) -> f a -> f b
-mapAs# f fa = coerceF# @f (map f (coerceF# @g fa))
+instance Map I where map f (I a) = I (f a)

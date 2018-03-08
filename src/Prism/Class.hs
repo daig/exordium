@@ -8,7 +8,7 @@ import Traverse
 import Star.Type
 import Maybe
 import K
-import Comap.Class
+import Map.Co
 import Re.Type
 
 {-type Prismoid s a b t = forall f. X f => (f a -> b) -> f s -> t-}

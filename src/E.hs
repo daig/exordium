@@ -1,5 +1,5 @@
 module E (module E, module X) where
-import Pure.Class as X
+import Pure as X
 import Map.Bi as X
 import Traverse.Bi as X
 import E.Utils

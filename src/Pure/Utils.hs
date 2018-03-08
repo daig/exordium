@@ -1,6 +1,6 @@
 module Pure.Utils where
 import X
-import Pure.Class
+import Pure
 import Traverse.Bi
 import E
 

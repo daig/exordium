@@ -4,8 +4,8 @@ import Traversed
 import Forget
 import Int
 import Prism.Class
-import Category.Class
-import Mapped.Class as X
+import Category
+import Mapped as X
 import Star.Type
 import Prelude (($))
 

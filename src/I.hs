@@ -1,7 +1,7 @@
-module I where
-import Applicative
-import Distribute
-import FoldMap
+module I (I(..), module X) where
+import Applicative as X
+import Distribute as X
+import FoldMap as X
 
 -- | Identity type
 newtype I a = I a
@@ -16,16 +16,3 @@ i'foldMap_ :: (a -> b) -> I a -> b
 f `i'foldMap_` I a = f a
 i'apply :: I (a -> b) -> I a -> I b
 I f `i'apply` I a = I (f a)
-
-instance One a => One (I a) where one = I one
-instance Applicative I
-instance Apply I where I f `ap` I a = I (f a)
-instance Pure I where pure = I
-instance Map I where map = i'map
-instance MapIso I where mapIso _ = i'map
-
-instance Distribute I where distribute a = I (map fold_ a)
-instance FoldMap_ I where foldMap_ = i'foldMap_
-instance FoldMap0 I where foldMap0 = i'foldMap_
-instance FoldMap1 I where foldMap1 = i'foldMap_
-instance FoldMap I where foldMap = i'foldMap_

@@ -1,9 +1,9 @@
 module K where
 import Map.Bi
 import Traverse.Bi
-import Comap.R as X
-import Applicative.Class as X
-import PlusZero.Class as X
+import Map.Co.R as X
+import Applicative as X
+import PlusZero as X
 
 newtype K a (b :: *) = K a
 
@@ -14,8 +14,6 @@ instance MapL K where lmap = k'lmap
 k'lmap f = \case K a -> K (f a)
 
 instance MapR K where rmap _ = k'absurd
-instance Comap (K a) where comap _ = k'absurd
-instance ComapR K where cormap _ = k'absurd
 k'absurd :: K a x -> K a y
 k'absurd (K a) = K a
 

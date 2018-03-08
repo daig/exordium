@@ -1,6 +1,6 @@
 module Empty.Class (module Empty.Class, module X) where
-import Map.Class as X
-import Zero.Class as X
+import Map as X
+import Zero as X
 import Forall as X
 import Maybe
 import Any as X

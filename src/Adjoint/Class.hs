@@ -1,6 +1,6 @@
 module Adjoint.Class (module Adjoint.Class, module X) where
-import Monad.Class as X
-import Comonad.Class as X hiding (mapDefault)
+import Monad as X
+import Comonad as X hiding (mapDefault)
 import O as X
 import Map.Di as X
 import Star.Type as X

@@ -6,7 +6,7 @@ import Traversed.Internal
 import Prism.Class as X
 import Swap
 import E.Utils
-import Applicative.Class as X
+import Applicative as X
 import Star.Type
 
 class (Traversed0 p, Traversed1 p) => Traversed p where

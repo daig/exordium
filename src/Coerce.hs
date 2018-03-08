@@ -7,7 +7,7 @@ import Unsafe.Coerce
 import Forall
 import Lifts.Class
 import Forall2
-{-import Map.Class-}
+{-import Map-}
 {-import Map.Bi-}
 {-import Map.Di-}
 

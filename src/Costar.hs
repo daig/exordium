@@ -1,7 +1,7 @@
 module Costar (Costar(..),module X) where
-import Comonad.Class as X
-import Category.Class as X
-import Closed.Class as X
+import Comonad as X
+import Category as X
+import Closed as X
 import Map.Di
 
 newtype Costar f a b = Costar {runCostar :: f a -> b}
@@ -16,3 +16,6 @@ instance MapIso (Costar f a) where mapIso = map_mapIso
 instance Map (Costar f a) where map = rmap_map
 instance Duplicate w => Compose (Costar w) where Costar f > Costar g = Costar (g < extend f)
 instance Comonad w => Category (Costar w) where id = Costar fold_
+
+zipFOf :: (Costar f a b -> Costar f s t) -> (f a -> b) -> f s -> t
+zipFOf g f = case g (Costar f) of Costar f' -> f'

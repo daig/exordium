@@ -1,6 +1,6 @@
 module Traverse (module Traverse, module X) where
 import FoldMap as X
-import Applicative.Class as X
+import Applicative as X
 import {-# source #-} K
 import I
 

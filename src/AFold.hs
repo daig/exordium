@@ -5,8 +5,8 @@ import Forget as X
 import IForget as X
 import qualified Prelude as P
 import Maybe
-import Pure.Class
-import Zero.Class
+import Pure
+import Zero
 
 toListOf :: (Forget ([a] -> [a]) a a -> Forget ([a] -> [a]) s s) -> s -> [a]
 {-toListOf :: (s ^~.. a) ([a] -> [a]) -> s -> [a]-}

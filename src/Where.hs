@@ -1,7 +1,7 @@
 module Where where
-import InLR.Class
+import InLR
 import Align
-import Pure.Class
+import Pure
 
 data Where a b = Here a | There b | Nowhere
 

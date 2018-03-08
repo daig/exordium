@@ -1,6 +1,6 @@
 module Cons (module Cons, module X) where
 import Cons.Class as X
-import Zero.Class as X
+import Zero as X
 import Forget as X
 import Maybe
 import AFold

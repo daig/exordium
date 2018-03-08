@@ -1,7 +1,7 @@
 module Prism.Internal (module Prism.Internal, module X) where
 import E.Utils as X
 import Prelude ((.))
-import Pure.Class as X
+import Pure as X
 import Prism.Class
 
 data APrism a b s t = APrism (s -> E t a) (b -> t)

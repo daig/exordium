@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1c4e6b9cbbb589cca347fc1dd8075f3ac01ee315ca94464e5ea7edbc9e975393
+-- hash: 0777283db217fcc56628cd7b15ae2c7a34a8d7d9452b7ea1067c2afb9480725d
 
 name:           exordium
 version:        0.1.0.0
@@ -41,23 +41,19 @@ library
       Adjoint.Class
       AFold
       Align
-      Align.Class
       AnEquality
       AnEquality.Identical
       Any
       Applicative
       Apply
-      Apply.Class
       BigNat
       Bimap
       Bimap.Class
       Bind
-      Bind.Class
       Bool.Type
       Category
       Char.Prim
       Closed
-      Closed.Class
       Closed.Internal
       Coerce
       Comonad
@@ -77,7 +73,6 @@ library
       E.Utils
       Empty
       Empty.Class
-      Env
       Eq
       Exception.Prim
       FingerTree
@@ -116,10 +111,8 @@ library
       K
       Lifts.Class
       List
-      Log
       Map
       Map.Bi
-      Map.Class
       Map.Co
       Map.Co.Bi
       Map.Co.L
@@ -136,10 +129,10 @@ library
       Mapped.Internal
       Maybe
       Measured.Class
-      MFix.Class
       Minus
       Monad
-      Monad.Class
+      Monad.Env
+      Monad.Log
       Monad.T
       MutVar.Prim
       MVar.Prim

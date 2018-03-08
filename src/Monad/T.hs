@@ -1,4 +1,4 @@
-module Monad.T (TMonad(..), module X) where
+module Monad.T (MonadT(..), module X) where
 import Map.T as X
 import Monad as X
 

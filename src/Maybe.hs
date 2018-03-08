@@ -3,7 +3,7 @@ module Maybe (Maybe(..),maybe, maybe'map,module X) where
 import GHC.Base (Maybe(..))
 import Traverse as X
 import Distribute as X
-import Align.Class
+import Align
 
 instance Traverse0 Maybe where
   traverse0 afb = \case

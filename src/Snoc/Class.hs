@@ -1,7 +1,7 @@
 module Snoc.Class (Snoc(..), module X) where
 import Prism.Class as X
 import Maybe
-import FPlus.Class
+import Plus.F
 
 class Snoc s a b t | s -> a, t -> b, s b -> t, t a -> s where
   _Snoc :: Prism p => p (s,a) (t,b) -> p s t

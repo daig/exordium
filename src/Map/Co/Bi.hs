@@ -1,4 +1,4 @@
-module Map.Co.Bi where
+module Map.Co.Bi (BiComap(..),module X) where
 import Map.Co.L as X
 import Map.Co.R as X
 

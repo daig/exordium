@@ -1,11 +1,23 @@
 {-# language MagicHash #-}
 module Distribute (module Distribute, module X) where
-import Distribute.Class as X
 import Distribute.Internal
 import Map
 import {-# source #-} I
 import {-# source #-} K
 import Coerce (mapCoerce#)
+import FoldMap
+import Applicative as X
+
+class Applicative t => Distribute t where
+  {-# minimal distribute | collect | zipF #-}
+  distribute :: Map f => f (t a) -> t (f a)
+  distribute = collect (\x -> x)
+  -- aka cotraverse
+  zipF :: Map f => (f a -> b) -> f (t a) -> t b
+  zipF f = \fta -> map f (distribute fta)
+  collect :: Map f => (a -> t b) -> f a -> t (f b)
+  collect f a  = zipF (\x -> x) (map f a)
+
 
 -- TODO: merge into data family
 zip' :: Distribute t => (a -> a -> b) -> t a -> t a -> t b
@@ -26,3 +38,8 @@ distribute_distR = distribute
 
 distribute_pure :: forall t a. Distribute t => a -> t a
 distribute_pure a = mapCoerce# @a (distribute (K a))
+
+instance Distribute I where distribute a = I (map fold_ a)
+instance Distribute ((->) x) where
+  collect axb fa = \x -> (\a -> axb a x) `map` fa
+  distribute fxa = \x -> (\f -> f x) `map` fxa

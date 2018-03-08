@@ -2,6 +2,7 @@ module FoldMap (module FoldMap, module X) where
 import PlusZero as X
 import List
 import {-# source #-} K
+import {-# source #-} I
 
 class FoldMap t where
   {-# minimal foldMap | foldr #-}
@@ -52,3 +53,8 @@ instance FoldMap1 ((,) x) where foldMap1 = foldMap_
 instance FoldMap ((,) x) where foldMap = foldMap_
 
 instance FoldMap [] where foldMap = list'foldMap zero plus
+
+instance FoldMap_ I where foldMap_ f (I a) = f a
+instance FoldMap0 I where foldMap0 = foldMap_
+instance FoldMap1 I where foldMap1 = foldMap_
+instance FoldMap  I where foldMap = foldMap_
