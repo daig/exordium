@@ -5,7 +5,7 @@ import Optic.View
 import Int
 import Category
 import Mapped as X
-import Star.Type
+import Star
 import Prelude (($))
 
 class (

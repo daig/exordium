@@ -7,7 +7,7 @@ import Map.Pro as X
 import Traversed.Internal
 import Swap
 import E.Utils
-import Star.Type
+import Star
 import Coerce
 
 class (Traversed0 p, Traversed1 p) => Traversed p where

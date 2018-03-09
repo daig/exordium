@@ -1,5 +1,5 @@
-module Costar (Costar(..),module X) where
-import Comonad as X
+module Star.Co (Costar(..),module X) where
+import Monad.Co as X
 import Category as X
 import Closed as X
 import Map.Pro

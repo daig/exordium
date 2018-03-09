@@ -1,4 +1,4 @@
-module Star.Type where
+module Star where
 import Map.Pro as X
 import Closed as X
 

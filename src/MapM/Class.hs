@@ -4,7 +4,7 @@ import Map as X
 import Bool.Type as X
 import Maybe
 import Pure
-import Empty.Class
+import Empty
 import List
 
 true _ t = t

@@ -4,7 +4,7 @@ import Traversed as X
 import Closed as X
 import Distribute as X
 import I
-import Star.Type
+import Star
 
 class (Closed p, Traversed p) => Mapped p where
   {-# minimal mapping | mapped | setter #-}

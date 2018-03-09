@@ -1,10 +1,10 @@
 module Adjoint.Class (module Adjoint.Class, module X) where
 import Monad as X
-import Comonad as X hiding (mapDefault)
+import Monad.Co as X hiding (mapDefault)
 import O as X
 import Map.Pro as X
-import Star.Type as X
-import Costar as X
+import Star as X
+import Star.Co as X
 import Indexed as X hiding (mapDefault)
 import Coerce
 import Optic.Review

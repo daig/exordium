@@ -1,4 +1,4 @@
-module Comonad (Comonad, module X) where
+module Monad.Co (Comonad, module X) where
 import FoldMap as X
 import Duplicate as X
 

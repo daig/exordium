@@ -1,5 +1,5 @@
 module IStar where
-import Star.Type
+import Star
 import Traversed as X
 import Indexable.Class as X
 
