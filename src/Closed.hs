@@ -9,7 +9,7 @@ class Promap p => Closed p where
   closed :: p a b -> p (x -> a) (x -> b)
   closed = zipped -- grate (\g x -> g (\f -> f x))
   grate :: (((s -> a) -> b) -> t) -> p a b -> p s t
-  grate f = \p -> dimap (\a g -> g a) f (closed p)
+  grate f = \p -> promap (\a g -> g a) f (closed p)
   collection :: (forall f. Map f => (f a -> b) -> f s -> t) -> p a b -> p s t
   collection sabsst = grate (`sabsst` (\x -> x))
 

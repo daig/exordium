@@ -4,18 +4,18 @@ import Map.Co.L as X
 import Map.R as X
 
 class (ComapL p, MapR p) => Promap p where
-  dimap :: (a -> x) -> (y -> b) -> p x y -> p a b
-  dimap f g = \p -> rmap g (colmap f p)
+  promap :: (a -> x) -> (y -> b) -> p x y -> p a b
+  promap f g = \p -> rmap g (colmap f p)
 
-instance Promap (->) where dimap f g p = \a -> g (p (f a))
+instance Promap (->) where promap f g p = \a -> g (p (f a))
 
 
-dimap_rmap :: Promap p => (x -> b) -> p a x -> p a b
-dimap_rmap = dimap (\a -> a)
-dimap_colmap :: Promap p => (a -> x) -> p x b -> p a b
-dimap_colmap = (`dimap` (\b -> b))
-{-dimap_comap :: forall p a x b. Promap p => (a -> x) -> Flipped p b x -> Flipped p b a-}
-{-dimap_comap f p = coerce# (dimap f (\b -> b) (coerce# @(p x b) p))-}
+promap_rmap :: Promap p => (x -> b) -> p a x -> p a b
+promap_rmap = promap (\a -> a)
+promap_colmap :: Promap p => (a -> x) -> p x b -> p a b
+promap_colmap = (`promap` (\b -> b))
+{-promap_comap :: forall p a x b. Promap p => (a -> x) -> Flipped p b x -> Flipped p b a-}
+{-promap_comap f p = coerce# (promap f (\b -> b) (coerce# @(p x b) p))-}
 
 {-(!<) :: Promap p => b -> p a y -> p a b-}
 {-(!<) = constpostmap-}
@@ -46,16 +46,16 @@ dimap_colmap = (`dimap` (\b -> b))
 {-p @> f = postmap f p-}
 
 (>@>) :: Promap p => (a -> x) -> (y -> b) -> p x y -> p a b
-(>@>) = dimap
+(>@>) = promap
 
 (>|) :: Promap p => (a -> x) -> p x y -> (y -> b) -> p a b
 (|>) :: ((y -> b) -> p a b) -> (y -> b) -> p a b
-(f >| p) g = dimap f g p
+(f >| p) g = promap f g p
 k |> f = k f
 
 (<|) :: Promap p => (y -> b) -> p x y -> (a -> x) -> p a b
 (|<) :: ((a -> x) -> p a b) -> (a -> x) -> p a b
-(g <| p) f = dimap f g p
+(g <| p) f = promap f g p
 k |< f = k f
 
 (^!) :: ((x -> a) -> r) -> a -> r
@@ -63,22 +63,22 @@ l ^! a = l (\_ -> a)
 
 type (s ~= a) b t = forall p. Promap p => p a b -> p s t
 iso :: (s -> a) -> (b -> t) -> (s ~= a) b t
-iso = dimap
+iso = promap
 {-# inline iso #-}
 
 type a ~== b = forall p. Promap p => p a a -> p b b
 iso' :: (b -> a) -> (a -> b) -> a~==b
-iso' = dimap
+iso' = promap
 {-# inline iso' #-}
 
 type f ~~= g = forall p x y. Promap p => p (g x) (g y) -> p (f x) (f y)
 isoF :: f-->g -> g-->f -> f~~=g
-isoF = dimap
+isoF = promap
 {-# inline isoF #-}
 
 type p ~~~= q = forall i a b x y. Promap i => i (q x y) (q a b) -> i (p x y) (p a b)
 isoP :: p--->q -> q--->p -> p~~~=q
-isoP = dimap
+isoP = promap
 {-# inline isoP #-}
 
 
@@ -89,4 +89,4 @@ isoP = dimap
 --under :: (s ~=. a) b t -> (t -> s) -> b -> a
 --under k = withIso k (\sa bt ts x -> sa (ts (bt x)))
 
-{-_Star = dimap Star runStar-}
+{-_Star = promap Star runStar-}

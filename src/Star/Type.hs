@@ -8,7 +8,7 @@ newtype Star f a b = Star {runStar :: a -> f b}
 {-instance Monad m => Category (Star m) where id = Star pure-}
 instance Distribute f => Closed (Star f) where
   closed (Star afb) = Star (\xa -> distribute (\x -> afb (xa x)))
-instance Map f => Promap (Star f) where dimap f g (Star s) = Star (dimap f (map g) s)
+instance Map f => Promap (Star f) where promap f g (Star s) = Star (promap f (map g) s)
 instance Map f => Map (Star f a) where map f (Star s) = Star (\a -> map f (s a))
 instance Map f => MapR (Star f) where rmap yb (Star afy) = Star (\a -> yb `map` afy a)
 instance ComapL (Star f) where colmap ax (Star xfb) = Star (\a -> xfb (ax a))

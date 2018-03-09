@@ -8,7 +8,7 @@ data W c = c => W
   {-premap' p (WithCtx cr) = WithCtx (comapEnv p cr)-}
   {-type Postcat (|=>) = (->)-}
   {-postmap' f (WithCtx cr) = WithCtx (f cr)-}
-  {-dimap' p f (WithCtx cr) = WithCtx (comapEnv p (f cr))-}
+  {-promap' p f (WithCtx cr) = WithCtx (comapEnv p (f cr))-}
 
 {-runWitness :: W c -> (c => r) -> r-}
 {-runWitness W = \r -> r-}

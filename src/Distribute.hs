@@ -8,6 +8,7 @@ import Coerce (mapCoerce#)
 import FoldMap
 import Applicative as X
 
+-- TODO: is Applicative right? or should we have a distinct Zip class that handles day convolution
 class Applicative t => Distribute t where
   {-# minimal distribute | collect | zipF #-}
   distribute :: Map f => f (t a) -> t (f a)
@@ -37,7 +38,11 @@ distribute_distR :: Distribute t => E x (t a) -> t (E x a)
 distribute_distR = distribute
 
 distribute_pure :: forall t a. Distribute t => a -> t a
-distribute_pure a = mapCoerce# @a (distribute (K a))
+distribute_pure a = map (\(K x) -> x) (distribute (K a))
+
+{-distribute_empty :: forall t a. Distribute t => t a-}
+{-distribute_empty = map (\(K x) -> absurd x) (distribute loop)-}
+  {-where loop = loop-}
 
 instance Distribute I where distribute a = I (map fold_ a)
 instance Distribute ((->) x) where
