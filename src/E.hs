@@ -3,6 +3,7 @@ import Pure as X
 import Map.Bi as X
 import Traverse.Bi as X
 import E.Utils
+import Swap as X
 
 import Traverse as X
 

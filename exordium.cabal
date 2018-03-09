@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 38759b71ab782b8d84cb545bb48c5dff0542f543f5c6e605069dcea4509aa1d2
+-- hash: a73e932fda84efd0193da2f69ed2810f8f850c97a601c2e148c09847b2e975b9
 
 name:           exordium
 version:        0.1.0.0
@@ -139,6 +139,8 @@ library
       NatTrans
       O
       One
+      Optic.Iso
+      Optic.Prism
       Optic.Re
       Optic.Review
       Optic.TH
@@ -149,9 +151,6 @@ library
       Plus.F
       PlusZero
       Pred
-      Prism
-      Prism.Class
-      Prism.Internal
       Proxy
       Proxy.Prim
       Pure
@@ -179,6 +178,7 @@ library
       Traverse.Bi.Internal
       Traverse.T
       Traversed
+      Traversed.Co
       Traversed.Internal
       Trivial
       TyCon.Type

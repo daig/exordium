@@ -1,11 +1,9 @@
 module Cons (module Cons, module X) where
 import Cons.Class as X
 import Zero as X
-import Optic.Review
-import Optic.View
+import Optic.Prism
 import Maybe
-import Prism
-import Optic.TH
+import Traversed
 
 pattern (:<) :: Cons s a a s => a -> s -> s
 pattern a :< s <- (_View _Cons Just -> Just (a,s))

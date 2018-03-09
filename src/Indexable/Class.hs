@@ -3,7 +3,6 @@ module Indexable.Class (module Indexable.Class, module X) where
 import Traversed
 import Optic.View
 import Int
-import Prism.Class
 import Category
 import Mapped as X
 import Star.Type

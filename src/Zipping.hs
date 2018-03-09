@@ -1,5 +1,4 @@
 module Zipping where
-import Prism.Class as X
 import Traversed as X
 import Closed as X
 import Map

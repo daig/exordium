@@ -9,7 +9,8 @@ import Eq
 import Unsafe
 import Cons
 import Snoc
-import Prism
+import Traversed
+import Maybe
 import Optic.Review
 import Bool.Type
 
@@ -61,7 +62,7 @@ instance MapIso (Unsafe FingerTree) where mapIso _ = map
 
 -- Views
 
-_Digit :: (Measured a, Prism p) => p (Digit a) (Digit a) -> p (FingerTree a) (FingerTree a)
+_Digit :: (Measured a, Traversed' p) => p (Digit a) (Digit a) -> p (FingerTree a) (FingerTree a)
 _Digit = prism treeToDigit digitToTree where
   digitToTree = \case
     Digit1 a -> FT1 a

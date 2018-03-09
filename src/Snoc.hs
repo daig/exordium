@@ -1,7 +1,6 @@
 module Snoc (module Snoc, module X) where
 import Snoc.Class as X
 import Maybe
-import Prism
 import Optic.Review
 import Optic.View
 

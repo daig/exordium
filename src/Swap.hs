@@ -1,6 +1,6 @@
 module Swap where
 import Map.Di as X
-import E
+import {-# source #-} E
 
 -- | swap < swap = id
 class Swap f where

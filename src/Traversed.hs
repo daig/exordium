@@ -155,8 +155,8 @@ instance Pure f => Traversed' (Star f) where
     L t -> pure t
     R a -> constr `map` afb a)
 instance Apply f => Traversed1 (Star f) where traversal1 afbsft (Star afb) = Star (\s -> afbsft afb s)
-{-instance Pure f => Traversed0 (Star f) where traversal0 afbsft (Star afb) = Star (\s -> afbsft afb s)-}
-{-instance Applicative f => Traversed (Star f) where traversal afbsft (Star afb) = Star (\s -> afbsft afb s)-}
+instance Pure f => Traversed0 (Star f) where traversal0 afbsft (Star afb) = Star (\s -> afbsft afb s)
+instance Applicative f => Traversed (Star f) where traversal afbsft (Star afb) = Star (\s -> afbsft afb s)
 class Dimap p => Cochoice p where
   {-# minimal unleft | unright #-}
   unleft :: p (E a y) (E b y) -> p a b

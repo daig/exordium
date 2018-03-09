@@ -1,4 +1,6 @@
-module Traversed.Co where
+module Traversed.Co (module Traversed.Co, module X) where
+import Map.Di as X
+import E
 
 class Dimap p => CoTraversed' p where
   {-# minimal unleft | unright #-}

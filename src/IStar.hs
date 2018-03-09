@@ -1,6 +1,6 @@
 module IStar where
 import Star.Type
-import Prism.Class as X
+import Traversed as X
 import Indexable.Class as X
 
 newtype IStar i f a b = IStar {runIStar :: i -> a -> f b}
@@ -21,7 +21,7 @@ instance Applicative f => Traversed (IStar i f) where traversal afbsft (IStar ia
 instance Pure f => Traversed0 (IStar i f) where traversal0 afbsft (IStar iafb) = IStar (\i s -> afbsft (iafb i) s)
 instance Apply f => Traversed1 (IStar i f) where traversal1 afbsft (IStar iafb) = IStar (\i s -> afbsft (iafb i) s)
 instance Map f => Traversed_ (IStar i f) where traversal_ afbsft (IStar iafb) = IStar (\i s -> afbsft (iafb i) s)
-instance Pure f => Prism (IStar i f) where
+instance Pure f => Traversed' (IStar i f) where
   prism pat constr (IStar iafb) = IStar (\i s -> case pat s of
     L t -> pure t
     R a -> constr `map` iafb i a)
