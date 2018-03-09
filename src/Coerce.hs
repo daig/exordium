@@ -9,7 +9,7 @@ import Lifts.Class
 import Forall2
 {-import Map-}
 {-import Map.Bi-}
-{-import Map.Di-}
+{-import Map.Pro-}
 
 
 -- | Representational type equality. Contrast with nominal equality `~`
@@ -72,9 +72,9 @@ mapCoerce# = unsafeCoerce
 {-lmap# :: forall a x p b. (Bimap p, x #= a) => (x -> a) -> p x b -> p a b-}
 {-lmap# _ = coerce#-}
 
-{-postmap# :: forall b y p a. (Dimap p, y #= b) => (y -> b) -> p a y -> p a b-}
+{-postmap# :: forall b y p a. (Promap p, y #= b) => (y -> b) -> p a y -> p a b-}
 {-postmap# _ = coerce#-}
-{-premap# :: forall a x p b. (Dimap p, a #= x) => (a -> x) -> p x b -> p a b-}
+{-premap# :: forall a x p b. (Promap p, a #= x) => (a -> x) -> p x b -> p a b-}
 {-premap# _ = coerce#-}
 
 {-{-coerced :: forall s t a b. (s #= a, t #= b) => Iso s t a b-}-}

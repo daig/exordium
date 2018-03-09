@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a73e932fda84efd0193da2f69ed2810f8f850c97a601c2e148c09847b2e975b9
+-- hash: c4e56a3d25784cf804e836b62965fde3ba3e71a684adc5f92ceb54a0eec42a9a
 
 name:           exordium
 version:        0.1.0.0
@@ -116,10 +116,10 @@ library
       Map.Co.Bi
       Map.Co.L
       Map.Co.R
-      Map.Di
       Map.I
       Map.Iso
       Map.L
+      Map.Pro
       Map.R
       Map.T
       MapM

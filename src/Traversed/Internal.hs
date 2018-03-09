@@ -1,6 +1,6 @@
 module Traversed.Internal where
 import Traverse
-import Map.Di
+import Map.Pro
 import I
 import O
 
@@ -55,21 +55,21 @@ instance MapIso (Bazaar Map a b) where mapIso = map_mapIso
 instance ComapL (Bazaar Map a) where colmap = dimap_colmap
 instance MapR (Bazaar Map a) where rmap = dimap_rmap
 instance Map (Bazaar Map a b) where map = rmap_map
-instance Dimap (Bazaar Map a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
+instance Promap (Bazaar Map a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
 
 instance Map (Bazaar Pure a b) where map = rmap_map
 instance ComapL (Bazaar Pure a) where colmap = dimap_colmap
 instance MapR (Bazaar Pure a) where rmap = dimap_rmap
 instance MapIso (Bazaar Pure a b) where mapIso = map_mapIso
 instance Pure (Bazaar Pure a b) where pure a = Bazaar (\_ -> pure a)
-instance Dimap (Bazaar Pure a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
+instance Promap (Bazaar Pure a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
 
 instance Map (Bazaar Apply a b) where map = rmap_map
 instance ComapL (Bazaar Apply a) where colmap = dimap_colmap
 instance MapR (Bazaar Apply a) where rmap = dimap_rmap
 instance MapIso (Bazaar Apply a b) where mapIso = map_mapIso
 instance Apply (Bazaar Apply a b) where (Bazaar mf) `ap` (Bazaar ma) = Bazaar (\k -> mf k `ap` ma k)
-instance Dimap (Bazaar Apply a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f  `map` k x))
+instance Promap (Bazaar Apply a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f  `map` k x))
 
 instance Map (Bazaar Applicative a b) where map = rmap_map
 instance MapIso (Bazaar Applicative a b) where mapIso = map_mapIso
@@ -78,7 +78,7 @@ instance Apply (Bazaar Applicative a b) where (Bazaar mf) `ap` (Bazaar ma) = Baz
 instance Applicative (Bazaar Applicative a b)
 instance ComapL (Bazaar Applicative a) where colmap = dimap_colmap
 instance MapR (Bazaar Applicative a) where rmap = dimap_rmap
-instance Dimap (Bazaar Applicative a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
+instance Promap (Bazaar Applicative a) where dimap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
 {-traverse_foldMap :: (forall x y. (x -> K m y) -> t x -> K m (t y)) -> (a -> m) -> t a -> m-}
 {-traverse_foldMap traverse = \am ta -> case traverse (\a -> K (am a)) ta of K m' -> m'-}
 {-baz'traverse :: forall c f a a' t b. (forall g x y. c g => (x -> y) -> g x -> g y)-}

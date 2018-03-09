@@ -1,11 +1,11 @@
 module Indexed
   (module Indexed
   ,module X) where
-import Map.Di as X
+import Map.Pro as X
 import Distribute as X
 import Optic.Review
 import Optic.View
-import Map.Di
+import Map.Pro
 import Apply
 
 class Indexed f where

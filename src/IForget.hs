@@ -5,14 +5,14 @@ import K
 import E.Utils
 
 newtype IForget i r a b = IForget {runIForget :: i -> a -> r}
-{-_IForget :: Dimap p => p (a -> r) (a' -> r') -> p (IForget r a b) (IForget r' a' b')-}
+{-_IForget :: Promap p => p (a -> r) (a' -> r') -> p (IForget r a b) (IForget r' a' b')-}
 {-_IForget = dimap runIForget IForget-}
--- _IForget :: Dimap p => p (IForget r a b) (IForget r' a' b') -> p (a -> r) (a' -> r')
+-- _IForget :: Promap p => p (IForget r a b) (IForget r' a' b') -> p (a -> r) (a' -> r')
 -- _IForget = dimap IForget runIForget
 instance Traversed_ (IForget i r) where
   first (IForget iz) = IForget (\i (a,_) -> iz i a)
   traversal_ l (IForget iar) = IForget (\i s -> case (l (\a -> K (iar i a))) s of {K r -> r})
-instance Dimap (IForget i r) where
+instance Promap (IForget i r) where
   dimap f _ (IForget iz) = IForget (\i -> colmap f (iz i))
 instance ComapL (IForget i r) where colmap f (IForget iz) = IForget (\i -> colmap f (iz i))
 instance MapR (IForget i r) where rmap _ (IForget iz) = IForget iz

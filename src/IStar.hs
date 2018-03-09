@@ -7,11 +7,11 @@ newtype IStar i f a b = IStar {runIStar :: i -> a -> f b}
 
 {-instance Bind m => Compose (Star m) where Star f > Star g = Star (g <=< f)-}
 {-instance Monad m => Category (Star m) where id = Star pure-}
-instance Map f => Dimap (IStar i f) where dimap f g (IStar is) = IStar (\i -> dimap f (map g) (is i))
+instance Map f => Promap (IStar i f) where dimap f g (IStar is) = IStar (\i -> dimap f (map g) (is i))
 instance Map f => Map (IStar i f a) where map f (IStar is) = IStar (\i a -> map f (is i a))
 instance Map f => MapR (IStar i f) where rmap yb (IStar iafy) = IStar (\i a -> yb `map` iafy i a)
 instance ComapL (IStar i f) where colmap ax (IStar ixfb) = IStar (\i a -> ixfb i (ax a))
-{--- TODO: move to DimapIso class-}
+{--- TODO: move to PromapIso class-}
 instance MapIso f => MapIso (IStar i f a) where mapIso f g (IStar ip) = IStar (\i a -> mapIso f g (ip i a))
 
 instance Indexed i (IStar i f) where

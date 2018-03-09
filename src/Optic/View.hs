@@ -7,17 +7,17 @@ import Map.Co.Bi as X
 import Map.Co as X
 import K
 import E.Utils
-import Map.Di
+import Map.Pro
 
 newtype View r a b = View {runView :: (a -> r)}
-_View :: Dimap p => p (View n a a) (View m s s) -> p (a -> n) (s -> m)
+_View :: Promap p => p (View n a a) (View m s s) -> p (a -> n) (s -> m)
 _View = dimap View runView
 view :: (View a a a -> View m s s) -> s -> m
 view = (`_View` \x -> x)
 instance Traversed_ (View r) where
   first (View z) = View (\(a,_) -> z a)
   traversal_ l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
-instance Dimap (View r) where
+instance Promap (View r) where
   dimap f _ (View z) = View (colmap f z)
 instance ComapL (View r) where colmap f (View z) = View (colmap f z)
 instance MapR (View r) where rmap _ (View z) = View z

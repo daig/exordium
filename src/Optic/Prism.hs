@@ -44,7 +44,7 @@ instance Traversed' (Prism a b) where
       L t -> L (L t)
       R a -> R a
     R c -> L (R c))
-instance Dimap (Prism a b) where
+instance Promap (Prism a b) where
   dimap f g (Prism seta bt) = Prism (e'bifoldMap (L . g) R . seta . f) (g . bt)
 instance ComapL (Prism a b) where
   colmap f (Prism seta bt) = Prism (seta . f) bt

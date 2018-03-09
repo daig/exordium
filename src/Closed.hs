@@ -1,8 +1,8 @@
 module Closed (module Closed, module X) where
-import Map.Di as X
+import Map.Pro as X
 import Distribute as X
 
-class Dimap p => Closed p where
+class Promap p => Closed p where
   {-# minimal zipped | closed | grate | collection #-}
   zipped :: Distribute f => p a b -> p (f a) (f b)
   zipped = collection zipF -- grate (\f -> zipF f (\x -> x))

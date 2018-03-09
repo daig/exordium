@@ -3,7 +3,7 @@ module Traversed (module Traversed, module X) where
 import {-# source #-} I
 import {-# source #-} K
 import Traverse as X
-import Map.Di as X
+import Map.Pro as X
 import Traversed.Internal
 import Swap
 import E.Utils
@@ -83,9 +83,9 @@ class (Traversed' p, Traversed_ p) => Traversed0 p where
 {-type s @?~~ a       = forall f. Pure f => (a -> f a) -> s -> f s-}
 
 
-{-choose :: (Traverse0 f, Pure f, Dimap p) => p (E x a) (E x b) -> p (f a) (f b)-}
+{-choose :: (Traverse0 f, Pure f, Promap p) => p (E x a) (E x b) -> p (f a) (f b)-}
 {-choose p = dimap __ (foldMap0 pure) p-}
-class Dimap p => Traversed' p where
+class Promap p => Traversed' p where
   {-# minimal prism | traversed' | right | left #-}
   prism :: (s -> E t a) -> (b -> t) -> p a b -> p s t
   prism pat constr = \p -> dimap (\s -> swap (pat s)) (e'bifoldMap constr (\x -> x)) (left p)
@@ -110,7 +110,7 @@ instance Traversed' (->) where
     L t -> t
     R a -> constr (f a)
 
-class Dimap p => Traversed_ p where
+class Promap p => Traversed_ p where
   {-# minimal lens | traversal_ | traversed_ | first | second #-}
   lens :: (s -> a) -> (s -> b -> t) -> p a b -> p s t
   lens get set = \p -> dimap (\x -> (x,get x)) (\(s,b) -> set s b) (second p)
@@ -135,7 +135,7 @@ instance Map f => Traversed_ (Star f) where traversal_ afbsft (Star afb) = Star 
 {-instance Optic Traversed_ where data A Traversed_ a b s t = Traversed_ (s -> a) (s -> b -> t)-}
 {-instance Traversed_ (A Traversed_ a b) where-}
   {-first (Traversed_ x y) = Traversed_ (\(a,_) -> x a) (\(s,c) b -> (y s b,c))-}
-{-instance Dimap (A Traversed_ a b) where-}
+{-instance Promap (A Traversed_ a b) where-}
   {-dimap f g (Traversed_ x y) = Traversed_ (\s -> x (f s)) (\s b -> g (y (f s) b))-}
 
 {-data A Traversed_ p a b t = Pretext {runPretext :: forall f. Map f => p a (f b) -> f t}-}
@@ -157,7 +157,7 @@ instance Pure f => Traversed' (Star f) where
 instance Apply f => Traversed1 (Star f) where traversal1 afbsft (Star afb) = Star (\s -> afbsft afb s)
 instance Pure f => Traversed0 (Star f) where traversal0 afbsft (Star afb) = Star (\s -> afbsft afb s)
 instance Applicative f => Traversed (Star f) where traversal afbsft (Star afb) = Star (\s -> afbsft afb s)
-class Dimap p => Cochoice p where
+class Promap p => Cochoice p where
   {-# minimal unleft | unright #-}
   unleft :: p (E a y) (E b y) -> p a b
   unleft p = unright (dimap e'swap e'swap p)
