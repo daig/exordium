@@ -1,7 +1,6 @@
 module Cons.Class (Cons(..), module X) where
 import Prism.Class as X
 import Maybe
-import AFold
 import Plus.F
 
 class Cons s a b t | s -> a, t -> b, s b -> t, t a -> s where

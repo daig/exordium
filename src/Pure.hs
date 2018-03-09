@@ -24,3 +24,5 @@ instance Pure ((->) x) where pure a = \_ -> a
 instance Pure [] where pure a = [a]
 instance (Zero a) => Pure (K a) where pure _ = K zero
 instance Pure I where pure = I
+instance Pure (E x) where pure = R
+instance Zero x => Pure ((,) x) where pure a = (zero,a)

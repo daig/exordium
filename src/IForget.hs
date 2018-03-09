@@ -1,6 +1,6 @@
 module IForget where
 import Indexable.Class
-import Forget
+import Optic.View
 import K
 import E.Utils
 
@@ -38,6 +38,6 @@ instance Cochoice (IForget i r) where
   unright (IForget ir) = IForget (\i a -> ir i (R a))
 
 instance (j ~ i) => Indexed j (IForget i r) where
-  type Unindexed (IForget i r) = Forget r
-  indexed (IForget iar) i = Forget (iar i)
-instance Indexed i (Forget r)
+  type Unindexed (IForget i r) = View r
+  indexed (IForget iar) i = View (iar i)
+instance Indexed i (View r)

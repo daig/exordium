@@ -3,6 +3,10 @@ import PlusZero as X
 import List
 import {-# source #-} K
 import {-# source #-} I
+import {-# source #-} E
+import X
+import Coerce
+import Pure as X
 
 class FoldMap t where
   {-# minimal foldMap | foldr #-}
@@ -14,6 +18,23 @@ class FoldMap t where
 
 class FoldMap t => FoldMap0 t where
   foldMap0 :: Zero m => (a -> m) -> t a -> m
+  foldMap0 = fold0 zero
+  fold0 :: m -> (a -> m) -> t a -> m
+  {-fold0 = foldMap0 zero-} -- TODO: use reflection
+
+-- | like @FoldMap0@ but can use the context if there is no @a@.
+--
+--   like @BifoldMap_@ with an implicit first component
+--
+--   law: foldMap' coerce# pure = id.
+--   law: foldMap' coerce# (pure . f) = map f.
+--   The above only makes sense when @t@ is representational/parametric.
+class (FoldMap0 t, Pure t) => FoldMap' t where
+  foldMap' :: (forall x. t x -> b) -> (a -> b) -> t a -> b
+instance FoldMap' (E x) where
+  foldMap' txb ab = \case {l@L{} -> txb l; R a -> ab a}
+instance Zero x => FoldMap' ((,) x) where
+  foldMap' txb ab (x,a) = ab a
 
 class FoldMap t => FoldMap1 t where
   foldMap1 :: Plus s => (a -> s) -> t a -> s
@@ -58,3 +79,9 @@ instance FoldMap_ I where foldMap_ f (I a) = f a
 instance FoldMap0 I where foldMap0 = foldMap_
 instance FoldMap1 I where foldMap1 = foldMap_
 instance FoldMap  I where foldMap = foldMap_
+
+instance FoldMap (E x) where foldMap = foldMap0
+instance FoldMap0 (E x) where
+  foldMap0 f = \case
+    L{} -> zero
+    R a -> f a

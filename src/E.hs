@@ -9,7 +9,6 @@ import Traverse as X
 data E a b = L ~a | R ~b
 
 instance One a => One (E x a) where one = R one
-instance Pure (E x) where pure = R
 
 instance Bimap E where bimap = e'bimap
 
@@ -25,14 +24,6 @@ instance MapL E where lmap = e'lmap
 {-pattern L :: forall b a. a -> E a b-}
 {-pattern L a = L' a-}
 {-{-# COMPLETE L , R #-}-}
-
-instance Traverse0 (E x) where
-  traverse0 afb = \case
-    L x -> pure (L x)
-    R a -> map R (afb a)
-instance Traverse (E x) where traverse = traverse0
-instance FoldMap0 (E x) 
-instance FoldMap (E x)
 
 instance BifoldMap E where bifoldMap = e'bifoldMap
 instance BifoldMap0 E where bifoldMap0 = e'bifoldMap

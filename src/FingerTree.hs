@@ -10,6 +10,7 @@ import Unsafe
 import Cons
 import Snoc
 import Prism
+import Optic.Review
 import Bool.Type
 
 data FingerTree a

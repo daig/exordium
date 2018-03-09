@@ -3,8 +3,8 @@ module Indexed
   ,module X) where
 import Map.Di as X
 import Distribute as X
-import AFold (foldOf)
-import Prism (review)
+import Optic.Review
+import Optic.View
 import Map.Di
 import Apply
 
@@ -14,9 +14,9 @@ class Indexed f where
   indexed :: f ~~= ((->) (Ix f))
   indexed = isoF index tabulate
   index :: f a -> Ix f -> a
-  index = foldOf indexed
+  index = view indexed
   tabulate :: (Ix f -> a) -> f a
-  tabulate = review indexed
+  tabulate = _Review indexed
 
 indexed_map :: Indexed f => (a -> b) -> f a -> f b
 indexed_map f = indexed (map f)

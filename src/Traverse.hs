@@ -26,6 +26,14 @@ class (Traverse t,FoldMap0 t) => Traverse0 t where
   sequence0 :: Pure f => t (f a) -> f (t a)
   sequence0 = traverse0 (\x -> x)
 
+class (Traverse0 t, FoldMap' t) => Traverse' t where
+  traverse' :: Map f => (forall x. t x -> f x) -> (a -> f b) -> t a -> f (t b)
+  sequence' :: Map f => (forall x. t x -> f x) -> t (f a) -> f (t a)
+  {-traverse' x a ta = map foldMap' x a ta-}
+instance Traverse' (E x) where
+  traverse' txfx afb = \case {L x -> txfx (L x); R a -> R `map` afb a}
+  sequence' txfx = \case {L x -> txfx (L x); R fa -> R `map` fa}
+
 
 traverse0_foldMap0 :: (Traverse0 t,Zero m) => (a -> m) -> t a -> m
 traverse0_foldMap0 f ta = case traverse0 (\a -> K (f a)) ta of K m -> m
@@ -63,3 +71,9 @@ instance Traverse [] where
 	(x:xs) -> (:) `map` f x  `ap` go xs
 instance Traverse (K x) where traverse f (K x) = pure (K x)
 instance Traverse0 (K x) where traverse0 f (K x) = pure (K x)
+
+instance Traverse (E x) where traverse = traverse0
+instance Traverse0 (E x) where
+  traverse0 f = \case
+    L x -> pure (L x)
+    R a -> R `map` f a

@@ -7,8 +7,8 @@ import Star.Type as X
 import Costar as X
 import Indexed as X hiding (mapDefault)
 import Coerce
-import AFold
-import Prism (review)
+import Optic.Review
+import Optic.View
 import Map.Di
 
 class (Monad (f `O` g), Comonad (g `O` f),FoldMap_ f, Indexed g) => f -| g | f -> g, g -> f where

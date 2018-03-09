@@ -1,5 +1,6 @@
 module Swap where
 import Map.Di as X
+import E
 
 -- | swap < swap = id
 class Swap f where
@@ -8,3 +9,4 @@ class Swap f where
   swapped :: Dimap p => p (f b a) (f b' a') -> p (f a b) (f a' b')
   swapped = dimap swap swap
 instance Swap (,) where swap (a,b) = (b,a)
+instance Swap E where swap = \case {L a -> R a; R b -> L b}

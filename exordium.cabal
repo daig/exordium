@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0777283db217fcc56628cd7b15ae2c7a34a8d7d9452b7ea1067c2afb9480725d
+-- hash: 38759b71ab782b8d84cb545bb48c5dff0542f543f5c6e605069dcea4509aa1d2
 
 name:           exordium
 version:        0.1.0.0
@@ -39,7 +39,6 @@ library
       Addr.Prim
       Adjoint
       Adjoint.Class
-      AFold
       Align
       AnEquality
       AnEquality.Identical
@@ -55,6 +54,7 @@ library
       Char.Prim
       Closed
       Closed.Internal
+      CoChoice
       Coerce
       Comonad
       Compact.Prim
@@ -85,7 +85,6 @@ library
       FoldMap.I
       Forall
       Forall2
-      Forget
       FromInteger.Int
       FromInteger.Integer
       FromLabel
@@ -140,11 +139,16 @@ library
       NatTrans
       O
       One
+      Optic.Re
+      Optic.Review
       Optic.TH
+      Optic.View
       Ord
+      Parametric.Class
       Plus
       Plus.F
       PlusZero
+      Pred
       Prism
       Prism.Class
       Prism.Internal
@@ -159,6 +163,7 @@ library
       Sieve
       Snoc
       Snoc.Class
+      Split.Class
       StablePtr.Prim
       Star.Type
       State

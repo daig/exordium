@@ -13,5 +13,3 @@ withPrism l k = case l (APrism R (\x -> x)) of APrism h g -> k h g
 prism' :: (s -> Maybe a) -> (b -> s) -> (s ~+ a) b s
 prism' sma bs = prism (\s -> case sma s of {Just a -> R a; Nothing -> L s}) bs
 
-review :: (Flip K b b -> Flip K t t) -> b -> t
-review l = \b -> case l (Flip (K b)) of Flip (K t) -> t
