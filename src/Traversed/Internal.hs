@@ -14,6 +14,8 @@ instance Traverse0 (Baz Map t b) where traverse0 = traverse_
 instance Traverse1 (Baz Map t b) where traverse1 = traverse_
 instance Traverse_ (Baz Map t b) where
   traverse_ f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))
+instance Comonad (Baz Map t b)
+instance Duplicate (Baz Map t b) where duplicate = traverse__duplicate
 instance FoldMap  (Baz Map t b) where foldMap  = traverse__foldMap_
 instance FoldMap0 (Baz Map t b) where foldMap0 = traverse__foldMap_
 instance FoldMap1 (Baz Map t b) where foldMap1 = traverse__foldMap_

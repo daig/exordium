@@ -1,6 +1,7 @@
 module Traverse (module Traverse, module X) where
 import FoldMap as X
 import Applicative as X
+import Monad.Co as X
 import {-# source #-} K
 import I
 
@@ -49,11 +50,15 @@ class (Traverse t,FoldMap1 t) => Traverse1 t where
 traverse1_foldMap1 :: (Traverse1 t,Plus m) => (a -> m) -> t a -> m
 traverse1_foldMap1 f ta = case traverse1 (\a -> K (f a)) ta of K m -> m
 
-class (Traverse0 t, Traverse1 t,FoldMap_ t) => Traverse_ t where
+class (Traverse0 t, Traverse1 t,FoldMap_ t, Comonad t) => Traverse_ t where
   traverse_ :: Map f => (a -> f b) -> t a -> f (t b)
   traverse_ f t = sequence_ (map f t)
   sequence_ :: Map f => t (f a) -> f (t a)
   sequence_ = traverse_ (\x -> x)
+
+traverse__duplicate :: Traverse_ w => w a -> w (w a)
+traverse__duplicate w = w `constMap` w
+traverse__extend wab wa = wab wa `constMap` wa
 
 
 traverse__foldMap_ :: Traverse_ t => (a -> m) -> t a -> m

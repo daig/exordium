@@ -10,3 +10,5 @@ module Float.Prim
   ,float2Int#, decodeFloat_Int#) where
 import GHC.Prim
 import Int.Prim as X (Int#)
+
+-- | Float literals are written like @3.0#@

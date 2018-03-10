@@ -1,6 +1,7 @@
 module Bind (module Bind, module X) where
 import Apply as X
 import List
+import {-# source #-} E
 
 -- | Associativity of join:
 --  join < join = join < map join
@@ -44,3 +45,9 @@ a >>! b = b !<< a
 
 bind_ap :: Bind m => m (a -> b) -> m a -> m b
 bind_ap mf ma = (`map` ma) `bind` mf
+instance Bind (E x) where
+  join = \case
+    L x -> L x
+    R (L x) -> L x
+    R (R x) -> R x
+instance Apply (E x) where

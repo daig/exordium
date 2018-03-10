@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module Word.Prim
-  (Word#, module X
+  (Word#, module X -- | Word literals are written like @3##@
   ,plusWord#, minusWord#, timesWord#
   ,plusWord2#, subWordC#, timesWord2#
   ,quotWord#, remWord#, quotRemWord#, quotRemWord2#
@@ -15,3 +15,4 @@ module Word.Prim
   ,narrow8Word#, narrow16Word#, narrow32Word#) where
 import GHC.Prim
 import GHC.Prim as X (Int#,Float#,Double#)
+

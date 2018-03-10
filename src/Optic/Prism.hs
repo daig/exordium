@@ -21,6 +21,12 @@ match l kt ka = _Prism l (\pat _ -> \s -> case pat s of {L t -> kt t; R a -> ka 
 match' :: (Prism a b a b -> Prism a b s t) -> r -> (a -> r) -> s -> r
 match' l r ka = _Prism l (\pat _ -> \s -> case pat s of {L _ -> r; R a -> ka a})
 
+view' :: (Prism a b a b -> Prism a b s t) -> a -> s -> a
+view' l def = match' l def (\a -> a)
+
+preview :: (Prism a b a b -> Prism a b s t) -> s -> Maybe a
+preview l = match' l Nothing Just
+
 _Just :: Traversed' p => p a b -> p (Maybe a) (Maybe b)
 _Just = prism (\s -> case s of {Nothing -> L Nothing; Just a -> R a}) Just
 

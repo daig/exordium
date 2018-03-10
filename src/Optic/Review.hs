@@ -13,5 +13,5 @@ instance MapIso (Review a ) where mapIso _ = map
 _Review :: Promap p => p (Review b b) (Review t t) -> p b t
 _Review = promap Review runReview
 
-review :: (Review b b -> Review t t) -> b -> t
+review :: forall t b. (Review b b -> Review t t) -> b -> t
 review = _Review

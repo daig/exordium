@@ -12,7 +12,7 @@ import Snoc
 import Traversed
 import Maybe
 import Optic.Review
-import Bool.Type
+import Bool
 
 data FingerTree a
   = FT0
@@ -154,11 +154,11 @@ splitNode :: Measured a => (Measure a -> Bool) -> Measure a -> Node a
           -> (Maybe (Digit a), a, Maybe (Digit a))
 splitNode p i = \case
   Node2 a b | p va -> (Nothing, a, Just (Digit1 b))
-            | True -> (Just (Digit1 a), b, Nothing)
+            | T -> (Just (Digit1 a), b, Nothing)
     where va = i `plus` measure a
   Node3 a b c | p va -> (Nothing, a, Just (Digit2 b c))
               | p vab -> (Just (Digit1 a), b, Just (Digit1 c))
-              | True -> (Just (Digit2 a b), c, Nothing)
+              | T -> (Just (Digit2 a b), c, Nothing)
     where (va,vab) = (i `plus` measure a, va `plus` measure b)
 
 
@@ -173,7 +173,7 @@ splitTree p i = \case
               | p vm -> let  (ml, xs, mr)  =  splitTree p vpr m
                              (l, x, r)     =  splitNode p (vpr `plus` measure ml) xs
                         in   (ftR pr ml l, x, ftL r mr sf)
-              | True -> let (l,x,r) = splitDigit p vm sf
+              | T -> let (l,x,r) = splitDigit p vm sf
                         in (ftR pr m l, x, maybe FT0 (review _Digit) r)
     where (vpr,vm) = (i `plus` measure pr, vpr `plus` measure m)
 
@@ -186,7 +186,7 @@ ftR :: Measured a => Digit a -> FingerTree (Node a) -> Maybe (Digit a) -> Finger
 ftR pr m = maybe (rotR pr m) (FTN pr m)
 
 -- | /O(log(min(i,n-i)))/. Split a sequence at a point where the predicate
--- on the accumulated measure of the prefix changes from 'False' to 'True'.
+-- on the accumulated measure of the prefix changes from 'F' to 'T'.
 --
 -- For predictable results, one should ensure that there is only one such
 -- point, i.e. that the predicate is /monotonic/.

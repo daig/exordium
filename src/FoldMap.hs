@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module FoldMap (module FoldMap, module X) where
 import PlusZero as X
 import List
@@ -31,6 +32,11 @@ class FoldMap t => FoldMap0 t where
 --   The above only makes sense when @t@ is representational/parametric.
 class (FoldMap0 t, Pure t) => FoldMap' t where
   foldMap' :: (forall x. t x -> b) -> (a -> b) -> t a -> b
+  foldMap' l r ta = case fold' ta of
+    L tx -> l tx
+    R a -> r a
+  fold' :: forall a x. t a -> E (t x) a
+  fold' = foldMap' (\tx -> L (mapCoerce# tx)) R
 instance FoldMap' (E x) where
   foldMap' txb ab = \case {l@L{} -> txb l; R a -> ab a}
 instance Zero x => FoldMap' ((,) x) where

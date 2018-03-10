@@ -38,6 +38,10 @@ instance Zero r => Traversed0 (View r) where
 instance Plus r => Traversed1 (View r) where
   traversal1 l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 
+instance Cochoice (View r) where
+  unright (View exar) = View (\a -> exar (R a))
+  unleft (View eaxr) = View (\a -> eaxr (L a))
+
 {-instance Cochoice (View r) where-}
   {-unleft (View r) = View (\a -> r (L a))-}
   {-unright (View r) = View (\a -> r (R a))-}

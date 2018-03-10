@@ -8,7 +8,7 @@ import Optic.View
 import Map.Pro
 import Apply
 
-class Indexed f where
+class Distribute f => Indexed f where
   {-# minimal indexed | index,tabulate #-}
   type Ix f :: *
   indexed :: f ~~= ((->) (Ix f))

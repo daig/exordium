@@ -11,3 +11,5 @@ module Int.Prim
   ,uncheckedIShiftL#, uncheckedIShiftRA#, uncheckedIShiftRL#
   ,narrow8Int#, narrow16Int#, narrow32Int#) where
 import GHC.Prim
+
+-- | Int literals are written like @3#@

@@ -103,8 +103,7 @@ class Promap p => Traversed' p where
   left :: p a b -> p (E a y) (E b y)
   left = \p -> promap e'swap e'swap (right p)
   {-left = traversal' (\tfx afb -> \case {R x -> R `map` tfx (R x); L a -> L `map` afb a})-}
-qq :: (t -> f b) -> (a -> f b) -> s -> f t
-qq = __
+
 instance Traversed' (->) where
   prism pat constr f s = case pat s of
     L t -> t

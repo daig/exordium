@@ -13,3 +13,7 @@ module Double.Prim
   ,decodeDouble_2Int#, decodeDouble_Int64#) where
 import GHC.Prim 
 import GHC.Prim as X (Int#,Word#,Float#)
+
+-- | Double literals are written like @3.0##@
+
+-- TODO: put documentation for cstring litrals "wow"# somewhere...

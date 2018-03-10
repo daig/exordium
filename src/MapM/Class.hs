@@ -1,7 +1,7 @@
 {-# language UnboxedSums #-}
 module MapM.Class (module MapM.Class, module X) where
 import Map as X
-import Bool.Type as X
+import Bool as X
 import Maybe
 import Pure
 import Empty
@@ -19,7 +19,7 @@ class Map f => MapM f where
     (filter (\case {Nothing -> false; _ -> true}) 
     ( map (\a -> f a Nothing Just) x))
   {-mapM f x = map (\case Some a -> a)-}
-                {-( filter (\case {None -> False; _ -> True})-}
+                {-( filter (\case {None -> F; _ -> T})-}
                 {-( map f x))-}
   filter :: (forall r. a -> r -> r -> r) -> f a -> f a
   filter p =  map' (\a r ar -> p a r (ar a))
@@ -34,7 +34,7 @@ map'_map :: MapM f => (a -> b) -> f a -> f b
 map'_map f = map' (\a _ br -> br (f a))
 
 test :: [Bool] -> [Bool]
-test = map' (\x a b -> case x of {True -> b True; False -> a})
-{-list'mapM = mapM @[] (\case {True -> Some True; False -> None})-}
+test = map' (\x a b -> case x of {T -> b T; F -> a})
+{-list'mapM = mapM @[] (\case {T -> Some T; F -> None})-}
 
 {-data Option a = None | Some a-}

@@ -4,7 +4,7 @@ import FoldMap as X
 import Measured.Class as X
 import Traverse as X
 import Maybe
-import Bool.Type
+import Bool
 import Map
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show
@@ -65,14 +65,14 @@ splitDigit :: Measured a => (Measure a -> Bool) -> Measure a -> Digit a
 splitDigit p !i = \case
   Digit1 a                -> (Nothing, a, Nothing)
   Digit2 a b     | p va   -> (Nothing, a, Just (Digit1 b))
-                 | True   -> (Just (Digit1 a), b, Nothing)
+                 | T   -> (Just (Digit1 a), b, Nothing)
    where va = i `plus` measure a
   Digit3 a b c   | p va   -> (Nothing, a, Just (Digit2 b c))
                  | p vab  -> (Just (Digit1 a), b, Just (Digit1 c))
-                 | True   -> (Just (Digit2 a b), c, Nothing)
+                 | T   -> (Just (Digit2 a b), c, Nothing)
    where (va,vab) = (i `plus` measure a, va `plus` measure b)
   Digit4 a b c d | p va   -> (Nothing, a, Just (Digit3 a b c))
                  | p vab  -> (Just (Digit1 a), b, Just (Digit2 c d))
                  | p vabc -> (Just (Digit2 a b), c, Just (Digit1 d))
-                 | True   -> (Just (Digit3 a b c), c, Nothing)
+                 | T   -> (Just (Digit3 a b c), c, Nothing)
    where (va,vab,vabc) = (i `plus` measure a, va `plus` measure b,vab `plus` measure c)
