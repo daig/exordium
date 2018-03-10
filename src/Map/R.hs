@@ -1,5 +1,6 @@
 module Map.R (module Map.R, module X) where
 import Map as X
+import {-# source #-} E
 
 class MapR p where
   rmap :: (x -> b) -> p a x -> p a b
@@ -12,3 +13,8 @@ instance MapR (,) where rmap f (x,y) = (x, f y)
 
 rmap_map :: MapR p => (x -> b) -> p a x -> p a b
 rmap_map = rmap
+
+instance MapR E where
+  rmap g = \case
+    L a -> L a
+    R b -> R (g b)

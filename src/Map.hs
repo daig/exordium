@@ -5,6 +5,7 @@ import Coerce as X (type (#=))
 import Coerce (coerce,coerceF,coerceF#)
 import {-# source #-} K
 import {-# source #-} I
+import {-# source #-} E
 
 class MapIso f => Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
@@ -44,3 +45,8 @@ instance Map [] where
 instance Map ((,) x) where map f (x,y) = (x,f y)
 instance Map (K a) where map _ = coerce
 instance Map I where map f (I a) = I (f a)
+
+instance Map (E x) where
+  map f = \case
+    L a -> L a
+    R b -> R (f b)

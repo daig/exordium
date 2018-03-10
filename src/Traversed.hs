@@ -5,8 +5,8 @@ import {-# source #-} K
 import Traverse as X
 import Map.Pro as X
 import Traversed.Internal
+import E
 import Swap
-import E.Utils
 import Star
 import Coerce
 
@@ -25,7 +25,7 @@ traverseOf :: Applicative f => (Star f a b -> Star f s t) -> (a -> f b) -> s -> 
 traverseOf l afb s = case l (Star afb) of Star sft -> sft s
 
 traversed0_left :: Traversed0 p => p a b -> p (E a y) (E b y)
-traversed0_left = \p -> promap e'swap e'swap (traversed0 p)
+traversed0_left = \p -> promap swap swap (traversed0 p)
 traversed0_right :: Traversed0 p => p a b -> p (E x a) (E x b)
 traversed0_right = traversed0
 
@@ -77,7 +77,7 @@ class (Traversed' p, Traversed_ p) => Traversed0 p where
   traversed0 :: Traverse0 t => p a b -> p (t a) (t b)
   traversed0 = traversal0 traverse0
   lens0 :: (s -> E t a) -> (s -> b -> t) -> p a b -> p s t
-  lens0 get set pab = promap (\s -> (get s, s)) (\(bt, s) -> e'bifoldMap (\x -> x) (set s) bt) (first (right pab))
+  lens0 get set pab = promap (\s -> (get s, s)) (\(bt, s) -> bifoldMap_ (\x -> x) (set s) bt) (first (right pab))
 
 {-type (s @?~ a) b t  = forall f. Pure f => (a -> f b) -> s -> f t-}
 {-type s @?~~ a       = forall f. Pure f => (a -> f a) -> s -> f s-}
@@ -88,7 +88,7 @@ class (Traversed' p, Traversed_ p) => Traversed0 p where
 class Promap p => Traversed' p where
   {-# minimal prism | traversed' | right | left #-}
   prism :: (s -> E t a) -> (b -> t) -> p a b -> p s t
-  prism pat constr = \p -> promap (\s -> swap (pat s)) (e'bifoldMap constr (\x -> x)) (left p)
+  prism pat constr = \p -> promap (\s -> swap (pat s)) (bifoldMap_ constr (\x -> x)) (left p)
   {-traversal' :: forall s t b a. (forall f. Map f => (forall x. t -> f x) -> (a -> f b) -> s -> f t) -> p a b -> p s t-}
   {-traversal' tfxafbsft = prism (\s -> swap (tfxafbsft (\t -> R (coerce# t))  L s))-}
                                {-(\b -> case tfxafbsft (\t -> I (coerce# t)) (\_ -> I b) __ of I t -> t)-}
@@ -101,7 +101,7 @@ class Promap p => Traversed' p where
 
   {-((forall x. g b -> f x) -> (a -> f b) -> g a -> f (g b)) -> p a b -> p (g a) (g b)-}
   left :: p a b -> p (E a y) (E b y)
-  left = \p -> promap e'swap e'swap (right p)
+  left = \p -> promap swap swap (right p)
   {-left = traversal' (\tfx afb -> \case {R x -> R `map` tfx (R x); L a -> L `map` afb a})-}
 
 instance Traversed' (->) where
@@ -159,7 +159,7 @@ instance Applicative f => Traversed (Star f) where traversal afbsft (Star afb) =
 class Promap p => Cochoice p where
   {-# minimal unleft | unright #-}
   unleft :: p (E a y) (E b y) -> p a b
-  unleft p = unright (promap e'swap e'swap p)
+  unleft p = unright (promap swap swap p)
   unright :: p (E x a) (E x b) -> p a b
-  unright p = unleft (promap e'swap e'swap p)
+  unright p = unleft (promap swap swap p)
 {-instance Prism p -}

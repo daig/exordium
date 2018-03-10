@@ -1,11 +1,11 @@
 module Optic.Prism (module Optic.Prism, module X) where
-import E.Utils as X
 import Prelude ((.))
 import Pure as X
 import Traversed
 import Maybe as X
 import Optic.View as X
 import Optic.Review as X
+import FoldMap.Bi
 
 data Prism a b s t = Prism (s -> E t a) (b -> t)
 type Prism' a = Prism a a
@@ -51,11 +51,11 @@ instance Traversed' (Prism a b) where
       R a -> R a
     R c -> L (R c))
 instance Promap (Prism a b) where
-  promap f g (Prism seta bt) = Prism (e'bifoldMap (L . g) R . seta . f) (g . bt)
+  promap f g (Prism seta bt) = Prism (bifoldMap_ (L . g) R . seta . f) (g . bt)
 instance ComapL (Prism a b) where
   colmap f (Prism seta bt) = Prism (seta . f) bt
 instance MapR (Prism a b) where rmap = map
 instance Map (Prism a b s) where
- map f (Prism seta bt) = Prism (e'bifoldMap (L . f) R . seta) (f . bt)
+ map f (Prism seta bt) = Prism (bifoldMap_ (L . f) R . seta) (f . bt)
 instance MapIso (Prism a b s) where mapIso _ = map
 instance Pure (Prism a b s) where pure t = Prism (\_ -> L t) (\_ -> t)

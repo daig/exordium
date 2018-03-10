@@ -6,8 +6,8 @@ import Traversed as X
 import Map.Co.Bi as X
 import Map.Co as X
 import K
-import E.Utils
 import Map.Pro
+import FoldMap.Bi
 
 newtype View r a b = View {runView :: (a -> r)}
 _View :: Promap p => p (View n a a) (View m s s) -> p (a -> n) (s -> m)
@@ -29,7 +29,7 @@ instance Comap (View r a) where comap = cormap
 instance ComapR (View r) where cormap _ (View z) = View z
 
 instance Zero r => Traversed' (View r) where
-  right (View z) = View (e'bifoldMap (\_ -> zero) z)
+  right (View z) = View (bifoldMap_ (\_ -> zero) z)
 
 instance PlusZero r => Traversed (View r) where
   traversal l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})

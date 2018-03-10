@@ -2,7 +2,7 @@ module IForget where
 import Indexable.Class
 import Optic.View
 import K
-import E.Utils
+import FoldMap.Bi
 
 newtype IForget i r a b = IForget {runIForget :: i -> a -> r}
 {-_IForget :: Promap p => p (a -> r) (a' -> r') -> p (IForget r a b) (IForget r' a' b')-}
@@ -24,7 +24,7 @@ instance Comap (IForget i r a) where comap = cormap
 instance ComapR (IForget i r) where cormap _ (IForget iz) = IForget iz
 
 instance Zero r => Traversed' (IForget i r) where
-  left (IForget iz) = IForget (\i -> e'bifoldMap (iz i) (\_ -> zero))
+  left (IForget iz) = IForget (\i -> bifoldMap_ (iz i) (\_ -> zero))
 
 instance PlusZero r => Traversed (IForget i r) where
   traversal l (IForget iar) = IForget (\i s -> case (l (\a -> K (iar i a))) s of {K r -> r})

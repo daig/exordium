@@ -1,5 +1,6 @@
 module FoldMap.Bi (module FoldMap.Bi, module X) where
 import PlusZero as X
+import {-# source #-} E
 
 class BifoldMap t where
   {-# minimal bifoldMap | bifoldr #-}
@@ -28,3 +29,11 @@ class (BifoldMap0 t, BifoldMap1 t) => BifoldMap_ t where
 
 instance BifoldMap1 (,) where bifoldMap1 f g (a,b) = f a `plus` g b
 instance BifoldMap (,) where bifoldMap f g (a,b) = f a `plus` g b
+
+instance BifoldMap E where bifoldMap = bifoldMap_
+instance BifoldMap0 E where bifoldMap0 = bifoldMap_
+instance BifoldMap1 E where bifoldMap1 = bifoldMap_
+instance BifoldMap_ E where
+  bifoldMap_ f g = \case
+    L a -> f a
+    R b -> g b

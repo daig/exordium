@@ -48,3 +48,11 @@ class (BifoldMap_ t, Bitraverse0 t, Bitraverse1 t) => Bitraverse_ t where
 
 instance Bitraverse1 (,) where bitraverse1 f g (a,b) = (,) `map` f a `ap` g b
 instance Bitraverse (,) where bitraverse f g (a,b) = (,) `map` f a `ap` g b
+
+instance Bitraverse E where bitraverse = bitraverse_
+instance Bitraverse0 E where bitraverse0 = bitraverse_
+instance Bitraverse1 E where bitraverse1 = bitraverse_
+instance Bitraverse_ E where
+  bitraverse_ f g = \case
+    L a -> map L (f a)
+    R b -> map R (g b)
