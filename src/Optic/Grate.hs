@@ -4,8 +4,6 @@ import Distribute.Internal
 
 newtype Grate a b s t = Grate {runGrate :: (((s -> a) -> b) -> t)}
 {-_Grate = promap runGrate Grate-}
-{-collectOf :: (Star f a b -> Star f s t) -> (a -> f b) -> s -> f t-}
-{-collectOf g f = case g (Star f) of Star f' -> f'-}
 
 instance Closed (Grate a b) where
   closed (Grate z) = Grate (\f x -> z (\k -> f (\g -> k (g x))))
