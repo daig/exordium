@@ -4,7 +4,7 @@ import Monad.Co as X hiding (mapDefault)
 import O as X
 import Map.Pro as X
 {-import Star as X-}
-import Star.Co as X
+import Optic.Grate as X (FZip(..))
 import Indexed as X hiding (mapDefault)
 import Coerce
 import Optic.Review

@@ -4,7 +4,6 @@ module Constraint.Pred where
 import Maybe
 import Prelude
 import Constraint.Witness
-import Constraint
 import Coerce
 
 class Pred' c ~ flag => Test (c :: Constraint) (flag :: Bool) where tt :: (c => r) -> r -> r
