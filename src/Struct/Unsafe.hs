@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Unsafe (Unsafe(..),map#,module X) where
+module Struct.Unsafe (Unsafe(..),map#,module X) where
 import Coerce as X (coerce#)
 import Map as X hiding (map#)
 

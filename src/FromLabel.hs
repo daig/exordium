@@ -13,6 +13,7 @@ import qualified Prelude as P
 import qualified Data.List as P
 import qualified Control.Monad as P
 import qualified Language.Haskell.TH.Ppr as P
+import Constraint
 
 class FromLabel (x :: Symbol) c s t a b | x s -> c, x t -> c, s -> a, t -> b, s b -> t, t a -> s where
   type FromLabelC x s :: (* -> *) -> Constraint

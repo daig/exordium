@@ -1,6 +1,5 @@
 module Pure (Pure(..), module X) where
 import Map as X
-import Lifts.Class as X
 import Zero
 import One as X
 import {-# source #-} E as X

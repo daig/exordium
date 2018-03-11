@@ -1,12 +1,12 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
-module FingerTree (FingerTree(..,FTN), module X) where
+module Struct.FingerTree (FingerTree(..,FTN), module X) where
 import Measured.Class as X
-import FingerTree.Digit as X
-import FingerTree.Node as X
+import Struct.FingerTree.Digit as X
+import Struct.FingerTree.Node as X
 import Prelude (Show,error)
 import Eq
-import Unsafe
+import Struct.Unsafe
 import Cons
 import Snoc
 import Traversed

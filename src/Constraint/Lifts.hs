@@ -1,7 +1,7 @@
 {-# language UndecidableInstances #-}
 {-# language UndecidableSuperClasses #-}
-module Lifts.Class (module Lifts.Class, module X) where
-import Witness.Type as X
+module Constraint.Lifts (module Constraint.Lifts, module X) where
+import Constraint.Witness as X
 
 type Lifts c = LiftsTo c c
 class LiftsTo (c :: k -> Constraint) (c' :: k' -> Constraint) (t :: k -> k') where

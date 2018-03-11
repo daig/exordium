@@ -1,5 +1,5 @@
-module Witness.Type (module Witness.Type, module X) where
-import Constraint.Type as X
+module Constraint.Witness (module Constraint.Witness, module X) where
+import Constraint as X
 
 data W c = c => W
 {-newtype c |=> r = WithCtx (c => r)-}

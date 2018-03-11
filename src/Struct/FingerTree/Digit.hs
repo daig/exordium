@@ -1,4 +1,4 @@
-module FingerTree.Digit (module FingerTree.Digit,module X) where
+module Struct.FingerTree.Digit (module Struct.FingerTree.Digit,module X) where
 import Prelude (Show,error)
 import FoldMap as X
 import Measured.Class as X

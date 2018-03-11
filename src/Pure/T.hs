@@ -1,6 +1,7 @@
 module Pure.T (TPure(..), module X) where
 import Map.T as X
 import Monad as X
+import Constraint.Lifts
 
 {-instance Lifts Monad II-}
 {-instance Lifts Map II-}

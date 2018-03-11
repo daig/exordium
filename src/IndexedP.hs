@@ -1,5 +1,5 @@
 module IndexedP (module IndexedP, module X) where
-import Witness.Type as X
+import Constraint.Witness as X
 import Traversed as X
 import Applicative as X
 
