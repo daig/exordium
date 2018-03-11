@@ -55,3 +55,17 @@ _ZipF = promap ZipF runZipF
 
 _Zip2 :: (ZipF V2 a b -> ZipF V2 s t) -> (a -> a -> b) -> s -> s -> t
 _Zip2 z aab s s' = _ZipF z (\(V2 a a') -> aab a a') (V2 s s')
+
+
+{-newtype Zip2 a b = Zip2 {runZip2 :: a -> a -> b}-}
+{-instance Closed Zip2 where closed (Zip2 z) = Zip2 (\xa xa' x -> z (xa x) (xa' x))-}
+{-instance Promap Zip2 where promap f g (Zip2 z) = Zip2 (\a a' -> g (z (f a) (f a')))-}
+{-instance ComapL Zip2 where colmap = promap_colmap-}
+{-instance MapR Zip2 where rmap = promap_rmap-}
+{-instance MapIso (Zip2 a) where mapIso = map_mapIso-}
+{-instance Map (Zip2 a) where map = rmap_map-}
+
+{-_Zip2 :: Promap p => p (Zip2 a b) (Zip2 s t) -> p (a -> a -> b) (s -> s -> t)-}
+{-_Zip2 = promap Zip2 runZip2-}
+{-zipWithOf :: (Zip2 a b -> Zip2 s t) -> (a -> a -> b) -> s -> s -> t-}
+{-zipWithOf l z = case l (Zip2 z) of Zip2 z' -> z'-}

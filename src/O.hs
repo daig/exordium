@@ -3,13 +3,7 @@ module O (module O, module X) where
 import I as X
 import Applicative as X
 
-newtype O f g a = O (f (g a))
-unO :: O f g a -> f (g a)
-unO (O fg) = fg
-
-type family O_ (fs :: [* -> *]) = (f :: * -> *) | f -> fs where
-  O_ '[] = I
-  O_ (f ': fs) = O f (O_ fs)
+newtype O f g a = O {unO :: f (g a)}
 
 instance (Pure f,Pure g) => Pure (O f g) where pure a = O (pure (pure a))
 instance (Apply f,Apply g) => Apply (O f g) where O fgf `ap`O fga = O (map ap fgf `ap` fga)
@@ -21,5 +15,3 @@ instance (Map f,Map g) => Map (O f g) where
 instance (MapIso f,MapIso g) => MapIso (O f g) where
   -- TODO: make fast like #
   mapIso f g (O fg) = O (mapIso (mapIso g f) (mapIso f g) fg)
-
-instance One (f (g a)) => One (O f g a) where one = O one
