@@ -1,11 +1,13 @@
-module Map.Pro (module Map.Pro, module X) where
+module Map.Pro (module Map.Pro) where
 import NatTrans
-import Map.Co.L as X
-import Map.R as X
 
-class (ComapL p, MapR p) => Promap p where
+class Promap p where
   promap :: (a -> x) -> (y -> b) -> p x y -> p a b
-  promap f g = \p -> rmap g (colmap f p)
+  promap f g = \p -> postmap g (premap f p)
+  premap :: (a -> x) -> p x b -> p a b
+  premap = (`promap` \b -> b)
+  postmap :: (y -> b) -> p a y -> p a b
+  postmap = promap (\a -> a)
 
 instance Promap (->) where promap f g p = \a -> g (p (f a))
 

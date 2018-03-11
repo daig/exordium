@@ -1,4 +1,4 @@
-module Where where
+module Where (Where(..)) where
 import InLR
 import Align
 import Pure
@@ -12,15 +12,10 @@ where'bimap f g = \case
     There b -> There (g b)
     Nowhere -> Nowhere
 
-instance MapIso (Where a) where mapIso _ = where'map
-instance MapR Where where rmap = where'map
 instance Map (Where a) where map = where'map
 where'map :: (x -> b) -> Where a x -> Where a b
 where'map = where'bimap (\a -> a)
 
-instance MapL Where where lmap = where'lmap
-where'lmap :: _
-where'lmap = (`where'bimap` (\b -> b))
 
 instance InLR Where where
   inL = Here

@@ -53,7 +53,7 @@ traversed0_right = traversed0
 type (s ~*  a) b t = forall p. Traversed_ p => p a b -> p s t
 
 ($:) :: Traversed_ p => p a (b -> c) -> p (a,b) c
-($:) = \p -> (\(f,x) -> f x) `rmap` first p
+($:) = \p -> (\(f,x) -> f x) `postmap` first p
 
 
 {-ff :: (s -> FunList a b t) -> (forall f. Apply f => (a -> f b) -> s -> f t)-}

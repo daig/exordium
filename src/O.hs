@@ -12,6 +12,3 @@ instance (Map f,Map g) => Map (O f g) where
   map f (O fg) = O (map (map f) fg)
   map# f (O fg) = O ((map## f) fg)
   map## f hofg = map# O (unO (map## f (O (map# unO hofg)))) -- Yikes
-instance (MapIso f,MapIso g) => MapIso (O f g) where
-  -- TODO: make fast like #
-  mapIso f g (O fg) = O (mapIso (mapIso g f) (mapIso f g) fg)

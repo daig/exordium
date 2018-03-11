@@ -1,19 +1,14 @@
 module K where
 import Map.Bi
 import Traverse.Bi
-import Map.Co.R as X
 import Applicative as X
 import PlusZero as X
 
 newtype K a (b :: *) = K a
 
 instance Bimap K where bimap = k'bimap
-k'bimap f _ = k'lmap f
+k'bimap f _ = \case K a -> K (f a)
 
-instance MapL K where lmap = k'lmap
-k'lmap f = \case K a -> K (f a)
-
-instance MapR K where rmap _ = k'absurd
 k'absurd :: K a x -> K a y
 k'absurd (K a) = K a
 

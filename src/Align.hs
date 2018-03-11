@@ -47,7 +47,6 @@ data List a where
   Cons :: a -> List a -> List a
   Mu :: Never => List a
 instance Map List where map f = \case {Nil -> Nil; Cons a as -> Cons (f a) (map f as); Mu -> Mu}
-instance MapIso List where mapIso _ = map
 instance Align List where
   align (Cons a as) (Cons b bs) = Cons (These a b) (align as bs)
   align as Nil = map This as

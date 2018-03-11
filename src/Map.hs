@@ -1,13 +1,12 @@
 {-# language MagicHash #-}
 module Map (module Map, module X) where
-import Map.Iso as X
 import Coerce as X (type (#=))
 import Coerce (coerce,coerceF,coerceF#)
 import {-# source #-} K
 import {-# source #-} I
 import {-# source #-} E
 
-class MapIso f => Map (f :: * -> *) where
+class Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
   -- | Try to coerce if @f@ is parametric.
   map# :: a #= b => (a -> b) -> f a -> f b

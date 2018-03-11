@@ -55,9 +55,6 @@ instance Map (Unsafe FingerTree) where
     go (FT1 x) = FT1 (f x)
     go (FTN# v pr m sf) =
         FTN# (coerce# v) (map f pr) (mapAs# @(Unsafe FingerTree) (mapAs# @(Unsafe Node) f) m) (map f sf)
--- | Only safe if function preserves measure.
-instance MapIso (Unsafe FingerTree) where mapIso _ = map
-
 
 
 -- Views

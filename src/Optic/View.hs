@@ -18,15 +18,11 @@ instance Traversed_ (View r) where
   first (View z) = View (\(a,_) -> z a)
   traversal_ l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Promap (View r) where
-  promap f _ (View z) = View (colmap f z)
-instance ComapL (View r) where colmap f (View z) = View (colmap f z)
-instance MapR (View r) where rmap _ (View z) = View z
-instance MapIso (View r a) where mapIso = map_mapIso
-instance Map (View r a) where map = rmap_map
+  promap f _ (View z) = View (premap f z)
+instance Map (View r a) where map = postmap
 instance BiComap (View r) where
-  bicomap f _ (View z) = View (colmap f z)
+  bicomap f _ (View z) = View (premap f z)
 instance Comap (View r a) where comap = cormap
-instance ComapR (View r) where cormap _ (View z) = View z
 
 instance Zero r => Traversed' (View r) where
   right (View z) = View (bifoldMap_ (\_ -> zero) z)

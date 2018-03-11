@@ -12,8 +12,6 @@ instance Closed (Grate a b) where
 
 instance Promap (Grate a b) where
   promap f g (Grate z) = Grate (\d -> g (z (\k -> d (\x -> k (f x)))))
-instance ComapL (Grate a b) where colmap = promap_colmap
-instance MapR (Grate a b) where rmap = promap_rmap
 
 withGrate :: (Grate a b a b -> Grate a b s t) -> ((s -> a) -> b) -> t
 withGrate g = case g (Grate (\f -> f (\x -> x))) of Grate z -> z
@@ -48,8 +46,6 @@ zipFOf g reduce fs = g grate0 `runGrate` \get -> reduce (map get fs)
 newtype ZipF f a b  = ZipF {runZipF :: f a -> b}
 instance Map f => Closed (ZipF f) where closed (ZipF fab) = ZipF (\fxa x -> fab (map (\f -> f x) fxa))
 instance Map f => Promap (ZipF f) where promap f g (ZipF z) = ZipF (promap (map f) g z)
-instance Map f => ComapL (ZipF f) where colmap f = promap f (\b -> b)
-instance MapR (ZipF f) where rmap g (ZipF z) = ZipF (\fa -> g (z fa)) 
 _ZipF :: (ZipF f a b -> ZipF f s t) -> (f a -> b) -> f s -> t
 _ZipF = promap ZipF runZipF
 
@@ -60,9 +56,6 @@ _Zip2 z aab s s' = _ZipF z (\(V2 a a') -> aab a a') (V2 s s')
 {-newtype Zip2 a b = Zip2 {runZip2 :: a -> a -> b}-}
 {-instance Closed Zip2 where closed (Zip2 z) = Zip2 (\xa xa' x -> z (xa x) (xa' x))-}
 {-instance Promap Zip2 where promap f g (Zip2 z) = Zip2 (\a a' -> g (z (f a) (f a')))-}
-{-instance ComapL Zip2 where colmap = promap_colmap-}
-{-instance MapR Zip2 where rmap = promap_rmap-}
-{-instance MapIso (Zip2 a) where mapIso = map_mapIso-}
 {-instance Map (Zip2 a) where map = rmap_map-}
 
 {-_Zip2 :: Promap p => p (Zip2 a b) (Zip2 s t) -> p (a -> a -> b) (s -> s -> t)-}

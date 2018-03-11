@@ -13,15 +13,11 @@ instance Traversed_ (IForget i r) where
   first (IForget iz) = IForget (\i (a,_) -> iz i a)
   traversal_ l (IForget iar) = IForget (\i s -> case (l (\a -> K (iar i a))) s of {K r -> r})
 instance Promap (IForget i r) where
-  promap f _ (IForget iz) = IForget (\i -> colmap f (iz i))
-instance ComapL (IForget i r) where colmap f (IForget iz) = IForget (\i -> colmap f (iz i))
-instance MapR (IForget i r) where rmap _ (IForget iz) = IForget iz
-instance MapIso (IForget i r a) where mapIso = map_mapIso
-instance Map (IForget i r a) where map = rmap_map
+  promap f _ (IForget iz) = IForget (\i -> premap f (iz i))
+instance Map (IForget i r a) where map = postmap
 instance BiComap (IForget i r) where
-  bicomap f _ (IForget iz) = IForget (\i -> colmap f (iz i))
+  bicomap f _ (IForget iz) = IForget (\i -> premap f (iz i))
 instance Comap (IForget i r a) where comap = cormap
-instance ComapR (IForget i r) where cormap _ (IForget iz) = IForget iz
 
 instance Zero r => Traversed' (IForget i r) where
   left (IForget iz) = IForget (\i -> bifoldMap_ (iz i) (\_ -> zero))

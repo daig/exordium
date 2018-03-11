@@ -9,10 +9,6 @@ newtype IStar i f a b = IStar {runIStar :: i -> a -> f b}
 {-instance Monad m => Category (Star m) where id = Star pure-}
 instance Map f => Promap (IStar i f) where promap f g (IStar is) = IStar (\i -> promap f (map g) (is i))
 instance Map f => Map (IStar i f a) where map f (IStar is) = IStar (\i a -> map f (is i a))
-instance Map f => MapR (IStar i f) where rmap yb (IStar iafy) = IStar (\i a -> yb `map` iafy i a)
-instance ComapL (IStar i f) where colmap ax (IStar ixfb) = IStar (\i a -> ixfb i (ax a))
-{--- TODO: move to PromapIso class-}
-instance MapIso f => MapIso (IStar i f a) where mapIso f g (IStar ip) = IStar (\i a -> mapIso f g (ip i a))
 
 instance Indexed i (IStar i f) where
   type Unindexed (IStar i f) = Star f

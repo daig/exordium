@@ -1,21 +1,20 @@
-module Map.Bi (module Map.Bi, module X) where
-import Map.L as X
-import Map.R as X
+module Map.Bi (Bimap(..), module X) where
+import Map as X
 import {-# source #-} E
 
 -- | Independently Map each on both sides
-class (MapL p, MapR p) => Bimap p where
+class Bimap p where
+  {-# minimal bimap | lmap | rmap #-}
   bimap :: (x -> a) -> (y -> b) -> p x y -> p a b
   bimap f g p = lmap f (rmap g p)
+  lmap :: (x -> a) -> p x b -> p a b
+  lmap = (`bimap` \x -> x)
+  rmap :: (y -> b) -> p a y -> p a b
+  rmap = bimap (\x -> x)
   {-bimap f g p = case map f (Flip (map g p)) of Flip fab -> fab -}
 
 
 instance Bimap (,) where bimap f g (x,y) = (f x, g y)
-
-bimap_lmap :: Bimap p => (x -> a) -> p x b -> p a b
-bimap_lmap = (`bimap` (\b -> b))
-bimap_rmap :: Bimap p => (x -> b) -> p a x -> p a b
-bimap_rmap = bimap (\a -> a)
 
 instance Bimap E where
   bimap f g = \case

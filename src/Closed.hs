@@ -22,6 +22,6 @@ instance Closed (->) where
 
 -- | curry
 ($.) :: Closed p => p (a,b) c -> p a (b -> c)
-($.) = \p -> (,) `colmap` closed p
+($.) = \p -> (,) `premap` closed p
 
 

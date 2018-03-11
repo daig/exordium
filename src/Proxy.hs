@@ -1,2 +1,2 @@
-module Proxy (module X) where
-import Data.Proxy as X
+module Proxy (Proxy(..)) where
+import Data.Proxy

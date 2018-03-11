@@ -11,7 +11,6 @@ thesek'biextract = \case
   ThatK b -> b
   TheseK a b -> a `times` b
 instance Map (TheseK a b) where map _ = coerce
-instance MapIso (TheseK a b) where mapIso _ _ = coerce
 instance (Times a, Times b) => Apply (TheseK a b) where
   ap (TheseK a b) = \case
     ThisK a' -> TheseK (times a a') b
