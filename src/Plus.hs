@@ -22,3 +22,4 @@ instance Plus Int where plus = (P.+)
 {-instance Plus Word64 where (+) = (P.+)-}
 {-instance Plus Bool where (+) = (P./=)-}
 
+
