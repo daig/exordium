@@ -7,7 +7,6 @@ import Map.Pro as X
 import Traversed.Internal
 import E
 import Swap
-import Star
 import Coerce
 
 class (Traversed0 p, Traversed1 p) => Traversed p where
@@ -21,16 +20,10 @@ class (Traversed0 p, Traversed1 p) => Traversed p where
 traversed_promap :: Traversed p => (a -> x) -> (y -> b) -> p x y -> p a b
 traversed_promap f g = traversal (\xfy a -> map g (xfy (f a)))
 
-traverseOf :: Applicative f => (Star f a b -> Star f s t) -> (a -> f b) -> s -> f t
-traverseOf l afb s = case l (Star afb) of Star sft -> sft s
-
 traversed0_left :: Traversed0 p => p a b -> p (E a y) (E b y)
 traversed0_left = \p -> promap swap swap (traversed0 p)
 traversed0_right :: Traversed0 p => p a b -> p (E x a) (E x b)
 traversed0_right = traversed0
-
---itraverseOf :: Applicative f => (IndexingP (Star f) a b -> IndexingP (Star f) s t) -> (Int -> a -> f b) -> s -> f t
---itraverseOf l iafb = runStar (indexP (l (IndexingP (\i -> (i `plus` (1::Int),Star (iafb i))))) (0::Int))
 
 --itraverseOf' :: (IFun f Int a b -> IFun f Int s t) -> (Int -> a -> f b) -> s -> f t
 --itraverseOf' l iafb = case l (IFun iafb) of IFun isft -> isft 0
@@ -130,7 +123,6 @@ traversal__promap :: Traversed_ p => (a -> x) -> (y -> b) -> p x y -> p a b
 traversal__promap f g = traversal_ (\xfy a -> map g (xfy (f a)))
 
 
-instance Map f => Traversed_ (Star f) where traversal_ afbsft (Star afb) = Star (\s -> afbsft afb s)
 {-instance Optic Traversed_ where data A Traversed_ a b s t = Traversed_ (s -> a) (s -> b -> t)-}
 {-instance Traversed_ (A Traversed_ a b) where-}
   {-first (Traversed_ x y) = Traversed_ (\(a,_) -> x a) (\(s,c) b -> (y s b,c))-}
@@ -149,13 +141,6 @@ instance Traversed1 (->) where traversal1 l f s = case l (\a -> I (f a)) s of {I
 instance Traversed0 (->) where traversal0 l f s = case l (\a -> I (f a)) s of {I t -> t}
 instance Traversed (->) where traversal l f s = case l (\a -> I (f a)) s of {I t -> t}
 
-instance Pure f => Traversed' (Star f) where
-  prism pat constr (Star afb) = Star (\s -> case pat s of
-    L t -> pure t
-    R a -> constr `map` afb a)
-instance Apply f => Traversed1 (Star f) where traversal1 afbsft (Star afb) = Star (\s -> afbsft afb s)
-instance Pure f => Traversed0 (Star f) where traversal0 afbsft (Star afb) = Star (\s -> afbsft afb s)
-instance Applicative f => Traversed (Star f) where traversal afbsft (Star afb) = Star (\s -> afbsft afb s)
 class Promap p => Cochoice p where
   {-# minimal unleft | unright #-}
   unleft :: p (E a y) (E b y) -> p a b

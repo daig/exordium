@@ -3,7 +3,7 @@ import Monad as X
 import Monad.Co as X hiding (mapDefault)
 import O as X
 import Map.Pro as X
-import Star as X
+{-import Star as X-}
 import Star.Co as X
 import Indexed as X hiding (mapDefault)
 import Coerce

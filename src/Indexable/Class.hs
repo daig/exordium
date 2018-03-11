@@ -5,7 +5,6 @@ import Optic.View
 import Int
 import Category
 import Mapped as X
-import Star
 import Prelude (($))
 
 class (
@@ -21,7 +20,6 @@ at :: i -> IndexedTraversed i a a b b
 at i = (`indexed` i)
 
 instance Indexed i (->) where indexed = \a _ -> a
-instance Indexed i (Star f) where indexed s _ = s
 
 type IndexedTraversed i s a b t = forall p. (Indexed i p, Traversed p, Traversed (Unindexed p))
                                => p a b -> Unindexed p s t

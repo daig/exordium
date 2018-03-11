@@ -4,7 +4,6 @@ import Traversed as X
 import Closed as X
 import Distribute as X
 import I
-import Star
 
 class (Closed p, Traversed p) => Mapped p where
   {-# minimal mapping | mapped | setter #-}
@@ -20,5 +19,3 @@ class (Closed p, Traversed p) => Mapped p where
   mapped = mapping collect
 
 instance Mapped (->) where setter l = l
-instance (Distribute f) => Mapped (Star f) where
-   mapped (Star f) = Star (collect f)
