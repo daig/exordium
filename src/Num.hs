@@ -34,24 +34,24 @@ class (Succ a, Pred a) => Enum a where
   offset' n = offsetp (P.fromIntegral n)
   
 -- | a + (b + c) = (a + b) + c
-class Plus a where
-  plus :: a -> a -> a
+class Add a where
+  add :: a -> a -> a
   scale1 :: Natural -> a -> a
   scale1 n = scale1# (n P.+ 1) 
   {-sumWith1 :: FoldMap1 f => (x -> a) -> f x -> a-} -- why is this needed?
 
 class Zero a where zero :: a
-class Times a where
-  times :: a -> a -> a
+class Mul a where
+  mul :: a -> a -> a
   -- | Raise to the @n+1@ power
   pow1 :: Natural -> a -> a
   pow1 n = pow1# (n P.+1)
 
 -- | Scale by a non-zero @Natural@, this is not checked and will loop on 0.
-scale1# :: Plus a => Natural -> a -> a
-scale1# = rep1# plus
+scale1# :: Add a => Natural -> a -> a
+scale1# = rep1# add
 
--- | Combine a value with itself n times for positive n. This is not checked and will loop on 0.
+-- | Combine a value with itself n mul for positive n. This is not checked and will loop on 0.
 rep1# :: (a -> a -> a) -> Natural -> a -> a
 rep1# op y0 x0 = f x0 y0 where
   f x y 
@@ -64,30 +64,30 @@ rep1# op y0 x0 = f x0 y0 where
     | P.otherwise = g (x `op` x) ((y P.- 1) `P.quot` 2) (x `op` z)
 
 -- | Raise to a non-zero @Natural@ power, this is not checked and will loop on 0.
-pow1# :: Times a => Natural -> a -> a
-pow1# = rep1# times
+pow1# :: Mul a => Natural -> a -> a
+pow1# = rep1# mul
 
 class One a where one :: a
 -- | one * a = a * one = a
-class (Times m, One m) => TimesOne m where
+class (Mul m, One m) => MulOne m where
   pow0 :: Natural -> m -> m
   pow0 0 = \_ -> one
   pow0 n = pow1# n
 
-pow0_pow1 :: TimesOne a => Natural -> a -> a
+pow0_pow1 :: MulOne a => Natural -> a -> a
 pow0_pow1 n = pow0 (n P.+ 1)
 -- | zero + a = a + zero = a
-class (Plus a, Zero a) => PlusZero a where
+class (Add a, Zero a) => AddZero a where
   scale0 :: Natural -> a -> a
   scale0 0 = \_ -> zero
   scale0 n = scale1# n
 
 -- a - a = zero
 -- (a - b) - c = a - (b + c)
-class PlusZero a => Minus a where
+class AddZero a => Minus a where
   {-# minimal minus | negate #-}
   minus :: a -> a -> a
-  a `minus` b = a `plus` negate b
+  a `minus` b = a `add` negate b
   negate :: a -> a
   negate = minus zero
   scalei :: Integer -> a -> a
@@ -97,24 +97,24 @@ class PlusZero a => Minus a where
     GT -> scale1# (P.fromInteger n) a
 
 
--- | offset (plus m n) s = offset m (offset n s)
+-- | offset (add m n) s = offset m (offset n s)
 -- | offset zero s = s
-class PlusZero m => Offset m s where offset :: m -> s -> s
+class AddZero m => Offset m s where offset :: m -> s -> s
 
 -- | diff a b `offset` a = b.
 --
---  implied: (diff b c `plus` diff a b) * s = diff b c * diff a b * a = c
+--  implied: (diff b c `add` diff a b) * s = diff b c * diff a b * a = c
 --
 --   diff a a = zero -- TODO: is this implied by above?
 class Offset m s => Diff m s where diff :: s -> s -> m
 
 -- | (m*n) `scale` s = m `scale` n `scale` s
--- | (m+n) `scale` s = scale m s `plus` scale n s
-class Times m => Scale m s | s -> m where scale :: m -> s -> s
+-- | (m+n) `scale` s = scale m s `add` scale n s
+class Mul m => Scale m s | s -> m where scale :: m -> s -> s
 
--- | pow m (pow n s) = pow (times m n) s
---   pow (plus m n) = pow m s `times` pow n s
-class (PlusTimes m, Times s) => Pow m s | s -> m where pow :: m -> s -> s
+-- | pow m (pow n s) = pow (mul m n) s
+--   pow (add m n) = pow m s `mul` pow n s
+class (AddMul m, Mul s) => Pow m s | s -> m where pow :: m -> s -> s
 
 class Zero a => Zero' a where zero' :: a -> Bool
 
@@ -123,12 +123,12 @@ pattern Zero <- (zero' -> T) where Zero = zero
 
 
 
-class TimesOne m => Recip m where
+class MulOne m => Recip m where
   {-# minimal recip | divide #-}
   recip :: m -> m
   recip = divide one
   divide :: m -> m -> m
-  divide m n = m `times` recip n
+  divide m n = m `mul` recip n
   powi :: Integer -> m -> m
   powi n m = case P.compare n 0 of
     EQ -> one 
@@ -136,45 +136,45 @@ class TimesOne m => Recip m where
     GT -> pow1# (P.fromInteger n) m
 
 
-{-class (Offset m s, Plus m) => Quotient m s where quot :: s -> s -> (m,s)-}
+{-class (Offset m s, Add m) => Quotient m s where quot :: s -> s -> (m,s)-}
 
 
 -- | Near Semiring
 -- a(b + c) = ab + ac
 -- (a + b)c = ac + bc
-class (Plus m, Times m) => PlusTimes m
+class (Add m, Mul m) => AddMul m
 
 
 -- | s + s = s
-class Plus s => IdempotentPlus s
+class Add s => IdempotentAdd s
 
 -- | s * s = s
-class Times s => IdempotentTimes s
+class Mul s => IdempotentMul s
 
 -- | a + b = b + a
-class Plus s => CommutePlus s
+class Add s => CommuteAdd s
 
 -- | a * b = b * a
-class Times s => CommuteTimes s
+class Mul s => CommuteMul s
 
 
 -- Instances --
 instance Zero Natural where zero = 0
 instance One Natural where one = 1
-instance Plus Natural where plus = (P.+)
-instance PlusZero Natural
-instance Times Natural where times = (P.*)
-instance TimesOne Natural
-instance PlusTimes Natural
+instance Add Natural where add = (P.+)
+instance AddZero Natural
+instance Mul Natural where mul = (P.*)
+instance MulOne Natural
+instance AddMul Natural
 
-{-instance Plus (a -> a) where f `plus` g = \a -> f (g a)-}
+{-instance Add (a -> a) where f `add` g = \a -> f (g a)-}
 {-instance Scale Natural (a -> a) where-}
   {-scale 0 _ = \a -> a-}
   {-scale n f = \a -> scale (n `minus` 1) f (f a)-}
-{-instance (Plus a, Plus b) => Plus (a,b) where (a,b) `plus` (x,y) = (plus a x,plus b y)-}
-{-instance Plus Int where plus = (P.+)-}
+{-instance (Add a, Add b) => Add (a,b) where (a,b) `add` (x,y) = (add a x,add b y)-}
+{-instance Add Int where add = (P.+)-}
 {-instance Scale Natural Int where-}
-  {-scale n m = P.fromIntegral n `plus` m-}
+  {-scale n m = P.fromIntegral n `add` m-}
 
 {-instance Zero (a -> a) where zero = \a -> a-}
 {-instance (Zero a, Zero b) => Zero (a,b) where zero = (zero,zero)-}
@@ -187,7 +187,7 @@ instance Zero Word32 where zero = 0
 instance Zero Word64 where zero = 0
 {-instance Zero Bool where zero = False-}
 
-{-instance Times Int where times = (P.*)-}
+{-instance Mul Int where mul = (P.*)-}
 
 {-instance One a => One (x -> a) where one = \_ -> one-}
 {-instance One () where one = ()-}
@@ -204,34 +204,34 @@ instance Zero Word64 where zero = 0
 {-instance Top (a -> b) where  -- Never halt-}
 {-instance Bottom (a -> b) where -- Error immediately-}
 instance Zero (a -> a) where zero = \a -> a
-instance Plus (a -> a) where plus f g = \x -> f (g x)
-instance PlusZero (a -> a)
+instance Add (a -> a) where add f g = \x -> f (g x)
+instance AddZero (a -> a)
 
-{-instance Plus b => Times (a -> b) where times f g = \x -> f x `plus` g x-}
+{-instance Add b => Mul (a -> b) where mul f g = \x -> f x `add` g x-}
 {-instance Zero b => One (a -> b) where one = \_ -> zero-}
-{-instance PlusZero b => TimesOne (a -> b)-}
-{-instance (Plus a) => PlusTimes (a -> a)-}
+{-instance AddZero b => MulOne (a -> b)-}
+{-instance (Add a) => AddMul (a -> a)-}
 {-instance Scale (a -> b -> b) (a -> b) where scale f g = \a -> f a (g a)-}
-ff f g a = f a `times` g a
-xx x as = plus 10 x : as
-yy y as = times 2 y : as
+ff f g a = f a `mul` g a
+xx x as = add 10 x : as
+yy y as = mul 2 y : as
 hh = (:[])
-{-instance Plus a => Pow (a -> a -> a) (a -> a) where pow f g = \x -> f x (g x)-}
-{-instance PlusZero (a -> a)-}
-{-instance (PlusZero a, PlusZero b) => PlusZero (a,b)-}
-{-instance PlusZero Int-}
+{-instance Add a => Pow (a -> a -> a) (a -> a) where pow f g = \x -> f x (g x)-}
+{-instance AddZero (a -> a)-}
+{-instance (AddZero a, AddZero b) => AddZero (a,b)-}
+{-instance AddZero Int-}
 
 {-class FMin f where fmin :: (m -> s -> s) -> f m -> f s -> f s-}
 {-class FMin f => FTop f where ftop :: a -> f a-}
 
-{-class FPlus f where fplus :: f a -> f a -> f a-}
-{-class FPlus f => FEmpty f where fempty :: f a-}
+{-class FAdd f where fadd :: f a -> f a -> f a-}
+{-class FAdd f => FEmpty f where fempty :: f a-}
 
 {-class FMax f where fmax :: s -> (m -> s -> s) -> f m -> f s -> f s-}
 {-class FMax f => FBottom f where fbottom :: f a-}
 
-{-class FTimes f where ftimes :: (m -> s -> s) -> f m -> f s -> f s-}
-{-class FTimes f => Pure f where pure :: a -> f a-}
+{-class FMul f where fmul :: (m -> s -> s) -> f m -> f s -> f s-}
+{-class FMul f => Pure f where pure :: a -> f a-}
 
 {-instance Offset (a -> a) a where offset f a = f a-}
 {-instance FMin ((->) a) where fmin op am as = \a -> am a `op` as a-}
@@ -242,11 +242,11 @@ hh = (:[])
 
 -- | Left Near Semiring.
 --   a(b + c) = ab + ac
-{-class (Plus m, Times m) => LeftPlusTimes m-}
+{-class (Add m, Mul m) => LeftAddMul m-}
 
 -- | Right Near Semiring.
 -- (a + b)c = ac + b
-{-class (Plus m, Times m) => RightPlusTimes m-}
+{-class (Add m, Mul m) => RightAddMul m-}
 
 instance Enum Natural
 instance Succ Natural where succ = P.succ
