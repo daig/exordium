@@ -22,6 +22,7 @@ class FromLabel (x :: Symbol) c s t a b | x s -> c, x t -> c, s -> a, t -> b, s 
 instance FromLabel "fst" Traversed_ (a,x,y) (b,x,y) a b where
   fromLabel = lens (\(a,x,y) -> a) (\(a,x,y) b -> (b,x,y))
 
+mkClass' :: P.String -> Type -> Type -> Type -> Type -> [Dec] -> Dec
 mkClass' x s t a b =
   InstanceD
     Nothing

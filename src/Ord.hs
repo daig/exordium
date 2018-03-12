@@ -3,9 +3,10 @@ module Ord
   ,Ordering(..)
   ,(||),(&&)
   ,gt,ge,lt,le
+  ,module X
   ) where
 import Data.Ord
-import Data.Bool (Bool)
+import Bool as X
 
 -- Ord is the type of primitive total orderings
 -- The instance should exactly match that which would be derived.

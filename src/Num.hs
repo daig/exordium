@@ -8,7 +8,11 @@ import Maybe (Maybe(..))
 import I (I(..))
 {-import FoldMap -}
 import GHC.Natural
+import Ord
 import Map.Pro
+import GHC.Integer
+import Optic.Prism (lens0,Traversed0)
+import E (E(..))
 
 import Word
 
@@ -86,6 +90,11 @@ class PlusZero a => Minus a where
   a `minus` b = a `plus` negate b
   negate :: a -> a
   negate = minus zero
+  scalei :: Integer -> a -> a
+  scalei n a = case compare n 0 of
+    EQ -> zero
+    LT -> scale1# (P.fromInteger (P.abs n)) (negate a)
+    GT -> scale1# (P.fromInteger n) a
 
 
 -- | offset (plus m n) s = offset m (offset n s)
@@ -107,6 +116,25 @@ class Times m => Scale m s | s -> m where scale :: m -> s -> s
 --   pow (plus m n) = pow m s `times` pow n s
 class (PlusTimes m, Times s) => Pow m s | s -> m where pow :: m -> s -> s
 
+class Zero a => Zero' a where zero' :: a -> Bool
+
+pattern Zero :: Zero' a => a
+pattern Zero <- (zero' -> T) where Zero = zero
+
+
+
+class TimesOne m => Recip m where
+  {-# minimal recip | divide #-}
+  recip :: m -> m
+  recip = divide one
+  divide :: m -> m -> m
+  divide m n = m `times` recip n
+  powi :: Integer -> m -> m
+  powi n m = case P.compare n 0 of
+    EQ -> one 
+    LT -> pow1# (P.fromInteger (P.abs n)) (recip m)
+    GT -> pow1# (P.fromInteger n) m
+
 
 {-class (Offset m s, Plus m) => Quotient m s where quot :: s -> s -> (m,s)-}
 
@@ -118,10 +146,16 @@ class (Plus m, Times m) => PlusTimes m
 
 
 -- | s + s = s
-class Plus s => Idempotent s
+class Plus s => IdempotentPlus s
+
+-- | s * s = s
+class Times s => IdempotentTimes s
 
 -- | a + b = b + a
-class Plus s => Abelian s
+class Plus s => CommutePlus s
+
+-- | a * b = b * a
+class Times s => CommuteTimes s
 
 
 -- Instances --
@@ -187,22 +221,22 @@ hh = (:[])
 {-instance (PlusZero a, PlusZero b) => PlusZero (a,b)-}
 {-instance PlusZero Int-}
 
-class FMin f where fmin :: (m -> s -> s) -> f m -> f s -> f s
-class FMin f => FTop f where ftop :: a -> f a
+{-class FMin f where fmin :: (m -> s -> s) -> f m -> f s -> f s-}
+{-class FMin f => FTop f where ftop :: a -> f a-}
 
-class FPlus f where fplus :: f a -> f a -> f a
-class FPlus f => FEmpty f where fempty :: f a
+{-class FPlus f where fplus :: f a -> f a -> f a-}
+{-class FPlus f => FEmpty f where fempty :: f a-}
 
-class FMax f where fmax :: s -> (m -> s -> s) -> f m -> f s -> f s
-class FMax f => FBottom f where fbottom :: f a
+{-class FMax f where fmax :: s -> (m -> s -> s) -> f m -> f s -> f s-}
+{-class FMax f => FBottom f where fbottom :: f a-}
 
-class FTimes f where ftimes :: (m -> s -> s) -> f m -> f s -> f s
-class FTimes f => Pure f where pure :: a -> f a
+{-class FTimes f where ftimes :: (m -> s -> s) -> f m -> f s -> f s-}
+{-class FTimes f => Pure f where pure :: a -> f a-}
 
-instance Offset (a -> a) a where offset f a = f a
-instance FMin ((->) a) where fmin op am as = \a -> am a `op` as a
-instance FMax ((->) a) where fmin op am as = \a -> am a `op` as a
-instance FScale ((->) a) where fscale am as = \a -> am a `scale` as a
+{-instance Offset (a -> a) a where offset f a = f a-}
+{-instance FMin ((->) a) where fmin op am as = \a -> am a `op` as a-}
+{-instance FMax ((->) a) where fmin op am as = \a -> am a `op` as a-}
+{-instance FScale ((->) a) where fscale am as = \a -> am a `scale` as a-}
 
 
 
@@ -217,3 +251,5 @@ instance FScale ((->) a) where fscale am as = \a -> am a `scale` as a
 instance Enum Natural
 instance Succ Natural where succ = P.succ
 instance Pred Natural where pred = P.pred
+
+instance Zero' Natural where zero' = (P.== 0)
