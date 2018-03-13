@@ -5,6 +5,7 @@ import Monad.Co as X
 import Map.Co
 
 import Distribute.Internal
+import Adjoint
 
 newtype Grate a b s t = Grate {runGrate :: (((s -> a) -> b) -> t)}
 {-_Grate = promap runGrate Grate-}
@@ -12,7 +13,8 @@ newtype Grate a b s t = Grate {runGrate :: (((s -> a) -> b) -> t)}
 instance Traversed (Grate a b)
 instance Traversed1 (Grate a b)
 instance Traversed0 (Grate a b)
-instance Traversed_ (Grate a b) 
+instance Traversed_ (Grate a b) where
+  {-lens sa sbt = Grate (\sa'b -> sa'b't (\-}
 instance Traversed' (Grate a b)
 instance Mapped (Grate a b)
 
@@ -72,6 +74,8 @@ instance Map (Zip2 a) where map = postmap
 _Zip2 :: (Zip2 a b -> Zip2 s t) -> (a -> a -> b) -> s -> s -> t
 _Zip2 = promap Zip2 runZip2
 
+
+
 newtype FZip f a b = FZip {runFZip :: f a -> b}
 
 instance Map f => Closed (FZip f) where
@@ -106,12 +110,28 @@ instance Traversed' Zip2 where
   {-promap ax yb (Z fstfxy) = Z (\fst fa -> -}
   {-promap ax yb (Z fxyfst) = Z (\fab fs -> fxyfst (\fx -> yb (fab (comap ax fx))) fs)-}
   
-
-
 instance Traverse V2 where traverse = traverse1
 instance Traverse1 V2 where traverse1 afb (V2 a b) = V2 `map` afb a `ap` afb b
 instance FoldMap V2 where foldMap = traverse_foldMap
 instance FoldMap1 V2 where foldMap1 = traverse1_foldMap1
 
 
-newtype Optic f g a b = Optic {runOptic :: f a -> f b}
+newtype Optic f g a b = Optic {runOptic :: f a -> g b}
+instance (Map f, Map g) => Promap (Optic f g) where
+  promap f g (Optic fagb) = Optic (promap (map f) (map g) fagb)
+
+{-instance (Pure f, Map g) => Traversed_ (Optic f g) where traversal_ afbsft (Optic fagb)-}
+  {-= Optic (\fs -> afbsft (\a -> fagb (pure a)) fs)-}
+
+
+{-instance Pure f => Traversed' (Traversing f) where-}
+  {-prism pat constr (Traversing afb) = Traversing (\s -> case pat s of-}
+    {-L t -> pure t-}
+    {-R a -> constr `map` afb a)-}
+{-instance Apply f => Traversed1 (Traversing f) where-}
+  {-traversal1 afbsft (Traversing afb) = Traversing (\s -> afbsft afb s)-}
+{-instance Pure f => Traversed0 (Traversing f) where-}
+  {-traversal0 afbsft (Traversing afb) = Traversing (\s -> afbsft afb s)-}
+{-instance Applicative f => Traversed (Traversing f) where-}
+  {-traversal afbsft (Traversing afb) = Traversing (\s -> afbsft afb s)-}
+

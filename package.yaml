@@ -27,6 +27,7 @@ default-extensions:
 - FunctionalDependencies
 - GADTs
 - GeneralizedNewtypeDeriving
+- HexFloatLiterals
 - InstanceSigs
 - LambdaCase
 - MultiWayIf

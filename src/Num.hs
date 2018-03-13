@@ -233,10 +233,10 @@ instance RModule Natural (a -> a)
 {-instance AddZero b => MulOne (a -> b)-}
 {-instance (Add a) => Rg (a -> a)-}
 {-instance Scale (a -> b -> b) (a -> b) where scale f g = \a -> f a (g a)-}
-ff f g a = f a `mul` g a
-xx x as = add 10 x : as
-yy y as = mul 2 y : as
-hh = (:[])
+{-ff f g a = f a `mul` g a-}
+{-xx x as = add 10 x : as-}
+{-yy y as = mul 2 y : as-}
+{-hh = (:[])-}
 {-instance Add a => Pow (a -> a -> a) (a -> a) where pow f g = \x -> f x (g x)-}
 {-instance AddZero (a -> a)-}
 {-instance (AddZero a, AddZero b) => AddZero (a,b)-}
