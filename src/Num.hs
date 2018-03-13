@@ -1,4 +1,5 @@
 {-# language MagicHash #-}
+{-# language TypeInType #-}
 {-# language UndecidableInstances #-}
 {-# language UndecidableSuperClasses #-}
 module Num where
@@ -15,24 +16,17 @@ import Optic.Prism (lens0,Traversed0)
 import E (E(..))
 
 import Word
+import Prim.Word
+import Kind.Type
+
+data family B (t :: TYPE k) :: *
+data instance B Word# = Word Word#
+data instance B Int# = Int Int#
+data instance B Float# = Float Float#
+data instance B Double# = Double Double#
 
 
-class Succ a where
-  succ :: a -> a
-  offsetp :: Natural -> a -> a
-  offsetp 0 a = a
-  offsetp n a = succ (offsetp (pred n) a)
-class Pred a where
-  pred :: a -> a
-  offsetn :: Natural -> a -> a
-  offsetn 0 a = a
-  offsetn n a = pred (offsetn (pred n) a)
--- | succ < pred = pred < succ = id
-class (Succ a, Pred a) => Enum a where
-  offset' :: P.Integer -> a -> a
-  offset' n | n P.< 0 = offsetn (P.fromIntegral (P.abs n))
-  offset' n = offsetp (P.fromIntegral n)
-  
+
 -- | a + (b + c) = (a + b) + c
 class Add a where
   add :: a -> a -> a
@@ -41,11 +35,10 @@ class Add a where
   {-sumWith1 :: FoldMap1 f => (x -> a) -> f x -> a-} -- why is this needed?
 
 class Zero a where zero :: a
-class Mul a where
-  mul :: a -> a -> a
-  -- | Raise to the @n+1@ power
-  pow1 :: Natural -> a -> a
-  pow1 n = pow1# (n P.+1)
+class Pow Natural1 m => Mul m where mul :: m -> m -> m
+  -- Raise to the @n+1@ power
+  {-pow1 :: Natural -> a -> a-}
+  {-pow1 n = pow1# (n P.+1)-}
 
 -- | Scale by a non-zero @Natural@, this is not checked and will loop on 0.
 scale1# :: Add a => Natural -> a -> a
@@ -69,52 +62,42 @@ pow1# = rep1# mul
 
 class One a where one :: a
 -- | one * a = a * one = a
-class (Mul m, One m) => MulOne m where
-  pow0 :: Natural -> m -> m
-  pow0 0 = \_ -> one
-  pow0 n = pow1# n
+class (Pow Natural m, Mul m, One m) => MulOne m
+  {-pow0 :: Natural -> m -> m-}
+  {-pow0 0 = \_ -> one-}
+  {-pow0 n = pow1# n-}
 
-pow0_pow1 :: MulOne a => Natural -> a -> a
-pow0_pow1 n = pow0 (n P.+ 1)
+{-pow0_pow1 :: MulOne a => Natural -> a -> a-}
+{-pow0_pow1 n = pow0 (n P.+ 1)-}
 -- | zero + a = a + zero = a
-class (Add a, Zero a) => AddZero a where
-  scale0 :: Natural -> a -> a
-  scale0 0 = \_ -> zero
-  scale0 n = scale1# n
+class (Module Natural a, Add a, Zero a) => AddZero a where
 
+scale0 :: (Add a, Zero a) => Natural -> a -> a
+scale0 0 = \_ -> zero
+scale0 n = scale1# n
+
+--  | act (diff x y) x = y
+class Act a x => Diff a x where diff :: x -> x -> a
 -- a - a = zero
 -- (a - b) - c = a - (b + c)
-class AddZero a => Minus a where
-  {-# minimal minus | negate #-}
-  minus :: a -> a -> a
-  a `minus` b = a `add` negate b
-  negate :: a -> a
-  negate = minus zero
-  scalei :: Integer -> a -> a
-  scalei n a = case compare n 0 of
-    EQ -> zero
-    LT -> scale1# (P.fromInteger (P.abs n)) (negate a)
-    GT -> scale1# (P.fromInteger n) a
+class (Module Integer s, Diff s s, AddZero s) => Sub s where
+  {-# minimal sub | negate #-}
+  sub :: s -> s -> s
+  a `sub` b = a `add` negate b
+  negate :: s -> s
+  negate = sub zero
+  {-scalei :: Integer -> a -> a-}
+  {-scalei n a = case compare n 0 of-}
+    {-EQ -> zero-}
+    {-LT -> scale1# (P.fromInteger (P.abs n)) (negate a)-}
+    {-GT -> scale1# (P.fromInteger n) a-}
 
-
--- | offset (add m n) s = offset m (offset n s)
--- | offset zero s = s
-class AddZero m => Offset m s where offset :: m -> s -> s
 
 -- | diff a b `offset` a = b.
 --
 --  implied: (diff b c `add` diff a b) * s = diff b c * diff a b * a = c
 --
---   diff a a = zero -- TODO: is this implied by above?
-class Offset m s => Diff m s where diff :: s -> s -> m
 
--- | (m*n) `scale` s = m `scale` n `scale` s
--- | (m+n) `scale` s = scale m s `add` scale n s
-class Mul m => Scale m s | s -> m where scale :: m -> s -> s
-
--- | pow m (pow n s) = pow (mul m n) s
---   pow (add m n) = pow m s `mul` pow n s
-class (AddMul m, Mul s) => Pow m s | s -> m where pow :: m -> s -> s
 
 class Zero a => Zero' a where zero' :: a -> Bool
 
@@ -123,7 +106,7 @@ pattern Zero <- (zero' -> T) where Zero = zero
 
 
 
-class MulOne m => Recip m where
+class (Pow Integer m, MulOne m) => Recip m where
   {-# minimal recip | divide #-}
   recip :: m -> m
   recip = divide one
@@ -138,24 +121,56 @@ class MulOne m => Recip m where
 
 {-class (Offset m s, Add m) => Quotient m s where quot :: s -> s -> (m,s)-}
 
+-- | A (Left) module over multiplication
+-- | r(x*y) = rx * ry
+--   (r+s)x = rx * sx
+--   (r*s)x = r(sx)
+class (Rg r, Mul m) => Pow r m where pow :: r -> m -> m
 
--- | Near Semiring
+
+class (Rg r, Sub r) => Rng r
+
+-- | Near Semiring. Ie a "Ring" without the Identity and Negation
 -- a(b + c) = ab + ac
 -- (a + b)c = ac + bc
-class (Add m, Mul m) => AddMul m
+-- so that: (x+y)(s+t) := xs + ys + xt + yt = xs + xt + ys + yt
+class (Module r r, Add r, Mul r) => Rg r
+-- | (Left) Module:
+-- `
+--   r(x+y) = rx + ry
+--
+--  (r + s)x = rx + sx
+--
+--  (r*s)x = r(sx).
+class (Rg r, Add a) => LModule r a where
+  scalel :: r -> a -> a
+  default scalel :: Module r a => r -> a -> a
+  scalel = scale
+
+-- | (Right) Module:
+-- `
+--   (x+y)r = xr + yr
+--
+--  x(r + s) = xr + xs
+--
+--  x(r*s) = (xr)s
+class (Rg r, Add a) => RModule r a where
+  scaler :: a -> r -> a
+  default scaler :: Module r a => a -> r -> a
+  scaler a = (`scale` a)
 
 
--- | s + s = s
-class Add s => IdempotentAdd s
+-- | r(as) = (ra)s
+class (RModule r a, LModule r a) => Module r a where scale :: r -> a -> a
 
--- | s * s = s
-class Mul s => IdempotentMul s
+-- | (a+b)s = a(bs)
+class Add a => OffsetL a s where offsetl :: a -> s -> s
+-- | s(a+b) = (sa)b
+class Add a => OffsetR a s where offsetr :: s -> a -> s
 
--- | a + b = b + a
-class Add s => CommuteAdd s
-
--- | a * b = b * a
-class Mul s => CommuteMul s
+-- | A semigroup action: (m+n)s = m(ns)
+--  Acts like scalar offset
+class Add a => Act a s where act :: a -> s -> s
 
 
 -- Instances --
@@ -165,12 +180,15 @@ instance Add Natural where add = (P.+)
 instance AddZero Natural
 instance Mul Natural where mul = (P.*)
 instance MulOne Natural
-instance AddMul Natural
+instance Rg Natural
+instance LModule Natural Natural where scalel = (P.*)
+instance RModule Natural Natural where scaler = (P.*)
+instance Module Natural Natural
 
 {-instance Add (a -> a) where f `add` g = \a -> f (g a)-}
 {-instance Scale Natural (a -> a) where-}
   {-scale 0 _ = \a -> a-}
-  {-scale n f = \a -> scale (n `minus` 1) f (f a)-}
+  {-scale n f = \a -> scale (n `sub` 1) f (f a)-}
 {-instance (Add a, Add b) => Add (a,b) where (a,b) `add` (x,y) = (add a x,add b y)-}
 {-instance Add Int where add = (P.+)-}
 {-instance Scale Natural Int where-}
@@ -206,11 +224,14 @@ instance Zero Word64 where zero = 0
 instance Zero (a -> a) where zero = \a -> a
 instance Add (a -> a) where add f g = \x -> f (g x)
 instance AddZero (a -> a)
+instance Module Natural (a -> a) where scale = scale0
+instance LModule Natural (a -> a)
+instance RModule Natural (a -> a)
 
 {-instance Add b => Mul (a -> b) where mul f g = \x -> f x `add` g x-}
 {-instance Zero b => One (a -> b) where one = \_ -> zero-}
 {-instance AddZero b => MulOne (a -> b)-}
-{-instance (Add a) => AddMul (a -> a)-}
+{-instance (Add a) => Rg (a -> a)-}
 {-instance Scale (a -> b -> b) (a -> b) where scale f g = \a -> f a (g a)-}
 ff f g a = f a `mul` g a
 xx x as = add 10 x : as
@@ -238,18 +259,20 @@ hh = (:[])
 {-instance FMax ((->) a) where fmin op am as = \a -> am a `op` as a-}
 {-instance FScale ((->) a) where fscale am as = \a -> am a `scale` as a-}
 
+-- | Positive naturals
+newtype Natural1 = Natural1# Natural
+  deriving newtype (Pow Natural,Pow Natural1, Rg, Module Natural1, LModule Natural1, RModule Natural1, Mul ,Add,P.Show)
+-- | Construct a positive natural from a regular natural offset by 1
+pattern Natural1 :: Natural -> Natural1
+pattern Natural1 n <- (Natural1# ((\x -> x P.- 1) -> n)) where
+  Natural1 n = Natural1# (add 1 n)
+instance Pow Natural1 Natural where pow (Natural1# n) = pow n
+instance RModule Natural1 Natural
+instance LModule Natural1 Natural 
+instance Module Natural1 Natural where scale (Natural1# n) = scalel n
+instance Pow Natural Natural where pow n m = m P.^ n
 
 
--- | Left Near Semiring.
---   a(b + c) = ab + ac
-{-class (Add m, Mul m) => LeftAddMul m-}
 
--- | Right Near Semiring.
--- (a + b)c = ac + b
-{-class (Add m, Mul m) => RightAddMul m-}
-
-instance Enum Natural
-instance Succ Natural where succ = P.succ
-instance Pred Natural where pred = P.pred
 
 instance Zero' Natural where zero' = (P.== 0)

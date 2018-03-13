@@ -1,8 +1,6 @@
 module Optic.View (module Optic.View,module X) where
 import PlusZero as X
-import Traversed as X
-import Map as X
-import Traversed as X
+import Mapped as X
 import Map.Co.Bi as X
 import Map.Co as X
 import K
@@ -14,9 +12,6 @@ _View :: Promap p => p (View n a a) (View m s s) -> p (a -> n) (s -> m)
 _View = promap View runView
 view :: (View a a a -> View m s s) -> s -> m
 view = (`_View` \x -> x)
-instance Traversed_ (View r) where
-  first (View z) = View (\(a,_) -> z a)
-  traversal_ l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Promap (View r) where
   promap f _ (View z) = View (premap f z)
 instance Map (View r a) where map = postmap
@@ -33,10 +28,20 @@ instance Zero r => Traversed0 (View r) where
   traversal0 l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Plus r => Traversed1 (View r) where
   traversal1 l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
+instance Traversed_ (View r) where
+  first (View z) = View (\(a,_) -> z a)
+  traversal_ l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 
 instance Cochoice (View r) where
   unright (View exar) = View (\a -> exar (R a))
   unleft (View eaxr) = View (\a -> eaxr (L a))
+
+instance Zero r => Closed (View r) where
+  closed (View ar) = View (\_ -> zero)
+
+instance PlusZero r => Mapped (View r) where
+  setter abst (View ar) = View (\_ -> zero)
+  
 
 {-instance Cochoice (View r) where-}
   {-unleft (View r) = View (\a -> r (L a))-}

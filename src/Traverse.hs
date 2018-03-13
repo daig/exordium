@@ -64,6 +64,13 @@ traverse__extend wab wa = wab wa `constMap` wa
 traverse__foldMap_ :: Traverse_ t => (a -> m) -> t a -> m
 traverse__foldMap_ f ta = case traverse_ (\a -> K (f a)) ta of K m -> m
 
+instance Duplicate I where duplicate = I
+instance Comonad I
+instance Traverse I where traverse = traverse_
+instance Traverse0 I where traverse0 = traverse_
+instance Traverse1 I where traverse1 = traverse_
+instance Traverse_ I where traverse_ afb (I a) = I `map` afb a
+
 instance Traverse0 ((,) x) where traverse0 f (x,a) = (x,) `map` f a
 instance Traverse1 ((,) x) where traverse1 f (x,a) = (x,) `map` f a
 instance Traverse_ ((,) x) where traverse_ f (x,a) = (x,) `map` f a
@@ -82,3 +89,4 @@ instance Traverse0 (E x) where
   traverse0 f = \case
     L x -> pure (L x)
     R a -> R `map` f a
+

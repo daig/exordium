@@ -1,16 +1,27 @@
 module Optic.Grate (module Optic.Grate, module X) where
-import Closed as X
+import Mapped as X
 import Category as X
 import Monad.Co as X
+import Map.Co
+
+import Distribute.Internal
 
 newtype Grate a b s t = Grate {runGrate :: (((s -> a) -> b) -> t)}
 {-_Grate = promap runGrate Grate-}
+
+instance Traversed (Grate a b)
+instance Traversed1 (Grate a b)
+instance Traversed0 (Grate a b)
+instance Traversed_ (Grate a b) 
+instance Traversed' (Grate a b)
+instance Mapped (Grate a b)
+
 
 instance Closed (Grate a b) where
   closed (Grate z) = Grate (\f x -> z (\k -> f (\g -> k (g x))))
 
 instance Promap (Grate a b) where
-  promap f g (Grate z) = Grate (\d -> g (z (\k -> d (\x -> k (f x)))))
+  promap sa bt (Grate aabb) = Grate (\sab -> bt (aabb  (\aa -> sab (\s -> aa (sa s)))))
 
 withGrate :: (Grate a b a b -> Grate a b s t) -> ((s -> a) -> b) -> t
 withGrate g = case g (Grate (\f -> f (\x -> x))) of Grate z -> z
@@ -48,7 +59,13 @@ zipFOf' (Grate g) reduce fs = g (\get -> reduce (map get fs))
 
 
 newtype Zip2 a b = Zip2 {runZip2 :: a -> a -> b}
+instance Pure (Zip2 a) where pure x = Zip2 (\_ _ -> x)
+instance Apply (Zip2 a) where ap = zipF_ap
+instance Applicative (Zip2 a) 
+instance Distribute (Zip2 a) where zipF fab faab = Zip2 (\a b -> fab (map (\(Zip2 f) -> f a b) faab))
 instance Closed Zip2 where closed (Zip2 z) = Zip2 (\xa xa' x -> z (xa x) (xa' x))
+{-instance Traversed Zip2 where traversal afbsft (Zip2 z) = Zip2 (\s s' -> -}
+{-instance Mapped Zip2 where setter abst (Zip2 z) = Zip2 (\s s' -> abst (\x -> z x x) s)-}
 instance Promap Zip2 where promap f g (Zip2 z) = Zip2 (\a a' -> g (z (f a) (f a')))
 instance Map (Zip2 a) where map = postmap
 
@@ -67,3 +84,34 @@ instance Comonad w => Category (FZip w) where id = FZip fold_
 
 _FZip :: (FZip f a b -> FZip f s t) -> (f a -> b) -> f s -> t
 _FZip = promap FZip runFZip
+
+
+instance Mapped Zip2 where mapping afbsft (Zip2 aab) = Zip2 (\s _ -> afbsft (\a _ -> aab a a) s s)
+instance Traversed Zip2 where traversal afbsft (Zip2 aab) = Zip2 (\s _ -> afbsft (\a _ -> aab a a) s s)
+instance Traversed1 Zip2 where traversal1 = traversal
+instance Traversed0 Zip2 where traversal0 = traversal
+instance Traversed_ Zip2 where
+  lens sa sbt (Zip2 aab) = Zip2 (\s s' -> sbt s (aab (sa s) (sa s')))
+instance Traversed' Zip2 where
+  prism seta bt (Zip2 aab) = Zip2 ff where
+    ff s s' = case (seta s,seta s') of
+      (L t, _) -> t
+      (_,L t) -> t
+      (R a, R a') -> bt (aab a a')
+
+
+
+{-newtype Z f s t a b = Z {runZ :: (f s -> t) -> f a -> b}-}
+{-instance Comap f => Promap (Z f s t) where-}
+  {-promap ax yb (Z fstfxy) = Z (\fst fa -> -}
+  {-promap ax yb (Z fxyfst) = Z (\fab fs -> fxyfst (\fx -> yb (fab (comap ax fx))) fs)-}
+  
+
+
+instance Traverse V2 where traverse = traverse1
+instance Traverse1 V2 where traverse1 afb (V2 a b) = V2 `map` afb a `ap` afb b
+instance FoldMap V2 where foldMap = traverse_foldMap
+instance FoldMap1 V2 where foldMap1 = traverse1_foldMap1
+
+
+newtype Optic f g a b = Optic {runOptic :: f a -> f b}

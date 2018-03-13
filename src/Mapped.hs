@@ -10,7 +10,7 @@ class (Closed p, Traversed p) => Mapped p where
   setter :: ((a -> b) -> s -> t) -> p a b -> p s t
   setter f = \p -> promap (Context (\x -> x)) (\(Context g s) -> f g s) (mapped p)
   -- I think this Distribute is equivalent to ((a -> b) -> s -> t). TODO: prove it
-  mapping :: (forall f. (Applicative f,Distribute f) => (a -> f b) -> s -> f t) -> p a b -> p s t
+  mapping :: (forall f. Distribute f => (a -> f b) -> s -> f t) -> p a b -> p s t
   mapping afbsft = setter (\ab s -> case afbsft (\a -> I (ab a)) s of I t -> t)
   {-distribution f = \p -> promap (\s -> Bar (\afb -> f afb s))-}
                           {-(\(Bar k) -> (\(I x) -> x) (k I))-}
