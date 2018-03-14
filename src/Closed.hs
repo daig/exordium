@@ -23,5 +23,3 @@ instance Closed (->) where
 -- | curry
 ($.) :: Closed p => p (a,b) c -> p a (b -> c)
 ($.) = \p -> (,) `premap` closed p
-
-

@@ -36,11 +36,11 @@ instance Cochoice (View r) where
   unright (View exar) = View (\a -> exar (R a))
   unleft (View eaxr) = View (\a -> eaxr (L a))
 
-instance Zero r => Closed (View r) where
-  closed (View ar) = View (\_ -> zero)
+{-instance Zero r => Closed (View r) where-} -- bad
+  {-closed (View ar) = View (\_ -> zero)-}
 
-instance PlusZero r => Mapped (View r) where
-  setter abst (View ar) = View (\_ -> zero)
+{-instance PlusZero r => Mapped (View r) where-}
+  {-setter abst (View ar) = View (\_ -> zero)-}
   
 
 {-instance Cochoice (View r) where-}

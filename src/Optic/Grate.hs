@@ -90,12 +90,13 @@ _FZip :: (FZip f a b -> FZip f s t) -> (f a -> b) -> f s -> t
 _FZip = promap FZip runFZip
 
 
-instance Mapped Zip2 where mapping afbsft (Zip2 aab) = Zip2 (\s _ -> afbsft (\a _ -> aab a a) s s)
-instance Traversed Zip2 where traversal afbsft (Zip2 aab) = Zip2 (\s _ -> afbsft (\a _ -> aab a a) s s)
-instance Traversed1 Zip2 where traversal1 = traversal
-instance Traversed0 Zip2 where traversal0 = traversal
-instance Traversed_ Zip2 where
-  lens sa sbt (Zip2 aab) = Zip2 (\s s' -> sbt s (aab (sa s) (sa s')))
+-- Bad
+{-instance Mapped Zip2 where mapping afbsft (Zip2 aab) = Zip2 (\s _ -> afbsft (\a _ -> aab a a) s s)-}
+{-instance Traversed Zip2 where traversal afbsft (Zip2 aab) = Zip2 (\s _ -> afbsft (\a _ -> aab a a) s s)-}
+{-instance Traversed1 Zip2 where traversal1 = traversal-}
+{-instance Traversed0 Zip2 where traversal0 = traversal-}
+{-instance Traversed_ Zip2 where-}
+  {-lens sa sbt (Zip2 aab) = Zip2 (\s s' -> sbt s (aab (sa s) (sa s')))-}
 instance Traversed' Zip2 where
   prism seta bt (Zip2 aab) = Zip2 ff where
     ff s s' = case (seta s,seta s') of
