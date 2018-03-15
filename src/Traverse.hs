@@ -18,7 +18,7 @@ class (Map t,FoldMap t) => Traverse t where
 traverse_map :: Traverse t => (a -> b) -> t a -> t b
 traverse_map f ta = case traverse (\a -> I (f a)) ta of I tb -> tb
 
-traverse_foldMap :: (Traverse t,PlusZero m) => (a -> m) -> t a -> m
+traverse_foldMap :: (Traverse t,Add0 m) => (a -> m) -> t a -> m
 traverse_foldMap f ta = case traverse (\a -> K (f a)) ta of K m -> m
 
 class (Traverse t,FoldMap0 t) => Traverse0 t where
@@ -47,7 +47,7 @@ class (Traverse t,FoldMap1 t) => Traverse1 t where
   sequence1 = traverse1 (\x -> x)
 
 
-traverse1_foldMap1 :: (Traverse1 t,Plus m) => (a -> m) -> t a -> m
+traverse1_foldMap1 :: (Traverse1 t,Add m) => (a -> m) -> t a -> m
 traverse1_foldMap1 f ta = case traverse1 (\a -> K (f a)) ta of K m -> m
 
 class (Traverse0 t, Traverse1 t,FoldMap_ t, Comonad t) => Traverse_ t where

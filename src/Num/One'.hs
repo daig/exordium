@@ -1,6 +1,7 @@
 module Num.One' (module Num.One', module X) where
 import Num.One as X
 import Bool as X
+import GHC.Natural
 import GHC.Integer
 import Int
 import Word

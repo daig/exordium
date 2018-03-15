@@ -1,6 +1,6 @@
 module Optic.Iso (module Optic.Iso, module X) where
 import Map.Pro
-import Zero
+import Num.Zero
 import Closed
 import Optic.Prism as X
 

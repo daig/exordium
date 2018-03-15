@@ -1,17 +1,13 @@
 {-# language MagicHash #-}
-module Num.One (One(..), module X) where
-import Num.Mul as X
+module Num.One where
+import GHC.Natural
 import GHC.Integer
 import Word
 import Bool
 import Int
 
 -- | one * a = a * one = a
-class Mul m => One m where
-  one :: m
-  pow0 :: Natural -> m -> m
-  pow0 0 = \_ -> one
-  pow0 n = pow1# n
+class One m where one :: m
 
 instance One Natural where one = 1
 instance One Integer where one = 1

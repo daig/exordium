@@ -1,5 +1,5 @@
 module Map.I where
-import Zero
+import Num.Zero
 import Prelude (Enum(..))
 
 class IMap i f where imap :: (i -> a -> b) -> f a -> f b

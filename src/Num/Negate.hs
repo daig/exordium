@@ -1,13 +1,13 @@
 {-# language MagicHash #-}
-module Num.Sub (Sub(..), module X) where
-import Num.Zero as X
+module Num.Negate (Negate(..), module X) where
+import Num.Add0 as X
 import GHC.Integer as X
 import Ord
 import qualified Prelude as P
 
 -- a - a = zero
 -- (a - b) - c = a - (b + c)
-class Zero s => Sub s where
+class Add0 s => Negate s where
   {-# minimal sub | negate #-}
   sub :: s -> s -> s
   a `sub` b = a `add` negate b
@@ -19,4 +19,4 @@ class Zero s => Sub s where
     LT -> scale1# (P.fromInteger (P.abs n)) (negate a)
     GT -> scale1# (P.fromInteger n) a
 
-instance Sub Natural where sub n m = m P.- n
+instance Negate Natural where sub n m = m P.- n

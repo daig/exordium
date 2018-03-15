@@ -35,13 +35,13 @@ list'itraverse :: Applicative f => (Int -> a -> f b) -> [a] -> f [b]
 list'itraverse f = go 0 where
   go i = \case
     [] -> pure []
-    a:as -> (:) `map` f i a `ap` go (i `plus` 1) as
+    a:as -> (:) `map` f i a `ap` go (i `add` 1) as
 
-list'ifoldMap :: PlusZero m => (Int -> a -> m) -> [a] -> m
+list'ifoldMap :: Add0 m => (Int -> a -> m) -> [a] -> m
 list'ifoldMap f = go 0 where
   go i = \case
     [] -> zero
-    a:as -> f i a `plus` go (i `plus` 1) as
+    a:as -> f i a `add` go (i `add` 1) as
 
 --tt :: Indexed Int p => p a m -> Unindexed p [a] m
 -- tt p = go 0 where

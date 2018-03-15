@@ -13,7 +13,7 @@ class (Bimap t,BifoldMap t) => Bitraverse t where
   bisequence :: Applicative f => t (f a) (f b) -> f (t a b)
   bisequence = bitraverse (\fa -> fa) (\fb -> fb)
 
-bitraverse_bifoldMap :: (TimesOne m, Bitraverse t) => (a -> m) -> (b -> m) -> t a b -> m
+bitraverse_bifoldMap :: (Mul1 m, Bitraverse t) => (a -> m) -> (b -> m) -> t a b -> m
 bitraverse_bifoldMap f g t = thesek'biextract (bitraverse (\x -> ThisK (f x)) (\y -> ThatK (g y)) t)
 
 class (BifoldMap0 t, Bitraverse t) => Bitraverse0 t where
@@ -34,7 +34,7 @@ class (BifoldMap1 t, Bitraverse t) => Bitraverse1 t where
   bisequence1 :: Apply f => t (f a) (f b) -> f (t a b)
   bisequence1 = bitraverse1 (\fa -> fa) (\fb -> fb)
 
-{-bitraverse1_bifoldMap1 :: (Plus m, Bitraverse1 t) => (a -> m) -> (b -> m) -> t a b -> m-}
+{-bitraverse1_bifoldMap1 :: (Add m, Bitraverse1 t) => (a -> m) -> (b -> m) -> t a b -> m-}
 {-bitraverse1_bifoldMap1 f g t = thesek'biextract (bitraverse1 (\x -> ThisK (f x)) (\y -> ThatK (g y)) t)-}
 
 class (BifoldMap_ t, Bitraverse0 t, Bitraverse1 t) => Bitraverse_ t where

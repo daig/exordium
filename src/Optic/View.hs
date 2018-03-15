@@ -1,5 +1,5 @@
 module Optic.View (module Optic.View,module X) where
-import PlusZero as X
+import Num.Add0 as X
 import Mapped as X
 import Map.Co.Bi as X
 import Map.Co as X
@@ -22,11 +22,11 @@ instance Comap (View r a) where comap = cormap
 instance Zero r => Traversed' (View r) where
   right (View z) = View (bifoldMap_ (\_ -> zero) z)
 
-instance PlusZero r => Traversed (View r) where
+instance Add0 r => Traversed (View r) where
   traversal l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Zero r => Traversed0 (View r) where
   traversal0 l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
-instance Plus r => Traversed1 (View r) where
+instance Add r => Traversed1 (View r) where
   traversal1 l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Traversed_ (View r) where
   first (View z) = View (\(a,_) -> z a)
@@ -39,7 +39,7 @@ instance Cochoice (View r) where
 {-instance Zero r => Closed (View r) where-} -- bad
   {-closed (View ar) = View (\_ -> zero)-}
 
-{-instance PlusZero r => Mapped (View r) where-}
+{-instance Add0 r => Mapped (View r) where-}
   {-setter abst (View ar) = View (\_ -> zero)-}
   
 

@@ -1,7 +1,7 @@
 module Pure (Pure(..), module X) where
 import Map as X
-import Zero
-import One as X
+import Num.Zero
+import Num.One as X
 import {-# source #-} E as X
 import {-# source #-} K
 import {-# source #-} I

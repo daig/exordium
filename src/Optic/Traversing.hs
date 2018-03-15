@@ -35,7 +35,7 @@ instance Distribute f => Mapped (Traversing f) where
 
 
 --itraverseOf :: Applicative f => (IndexingP (Traversing f) a b -> IndexingP (Traversing f) s t) -> (Int -> a -> f b) -> s -> f t
---itraverseOf l iafb = runTraversing (indexP (l (IndexingP (\i -> (i `plus` (1::Int),Traversing (iafb i))))) (0::Int))
+--itraverseOf l iafb = runTraversing (indexP (l (IndexingP (\i -> (i `add` (1::Int),Traversing (iafb i))))) (0::Int))
 
 {-collectOf :: (Traversing f a b -> Traversing f s t) -> (a -> f b) -> s -> f t-}
 {-collectOf g f = case g (Traversing f) of Traversing f' -> f'-}

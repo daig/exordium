@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module FoldMap (module FoldMap, module X) where
-import PlusZero as X
+import Num.Add0 as X
 import List
 import {-# source #-} K
 import {-# source #-} I
@@ -11,10 +11,10 @@ import Pure as X
 
 class FoldMap t where
   {-# minimal foldMap | foldr #-}
-  foldMap :: PlusZero m => (a -> m) -> t a -> m
-  foldMap f t = foldr (\a m -> f a `plus` m) zero t -- TODO: check the order
+  foldMap :: Add0 m => (a -> m) -> t a -> m
+  foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order
   foldr :: (a -> b -> b) -> b -> t a -> b
-  foldr c z t = foldMap c t z
+  {-foldr c z t = foldMap c t z-} -- TODO: need an Add instances for (->)
   {-foldl :: (b -> a -> b) -> b -> t a -> b-}
 
 class FoldMap t => FoldMap0 t where
@@ -43,7 +43,7 @@ instance Zero x => FoldMap' ((,) x) where
   foldMap' txb ab (x,a) = ab a
 
 class FoldMap t => FoldMap1 t where
-  foldMap1 :: Plus s => (a -> s) -> t a -> s
+  foldMap1 :: Add s => (a -> s) -> t a -> s
 
 class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}
@@ -79,7 +79,7 @@ instance FoldMap0 ((,) x) where foldMap0 = foldMap_
 instance FoldMap1 ((,) x) where foldMap1 = foldMap_
 instance FoldMap ((,) x) where foldMap = foldMap_
 
-instance FoldMap [] where foldMap = list'foldMap zero plus
+instance FoldMap [] where foldMap = list'foldMap zero add
 
 instance FoldMap_ I where foldMap_ f (I a) = f a
 instance FoldMap0 I where foldMap0 = foldMap_

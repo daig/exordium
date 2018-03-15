@@ -2,7 +2,7 @@ module K where
 import Map.Bi
 import Traverse.Bi
 import Applicative as X
-import PlusZero as X
+import Num.Add0 as X
 
 newtype K a (b :: *) = K a
 

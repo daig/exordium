@@ -1,5 +1,5 @@
-module Align (module Align, Plus, module X) where
-import Plus
+module Align (module Align, Add, module X) where
+import Num.Add
 import Map as X
 import {-# source #-} These as X
 
@@ -19,14 +19,14 @@ class Map f => Align f where
   {-both :: (a -> b -> c) -> -}
 
 -- | Default definition for (+) @(f a)
-alignWith_plus :: (Align f, Plus a) => f a -> f a -> f a
-alignWith_plus = alignWith (\x -> x) (\x -> x) plus 
+alignWith_add :: (Align f, Add a) => f a -> f a -> f a
+alignWith_add = alignWith (\x -> x) (\x -> x) add 
 
 
 {-fmax :: f a -> f b -> f (These a b)-}
 {-fmin :: f a -> f b -> f (a,b)-}
-{-fplus :: f a -> f b -> f (E a b)-}
-{-ftimes :: f a -> f b -> f (a,b)-}
+{-fadd :: f a -> f b -> f (E a b)-}
+{-fmul :: f a -> f b -> f (a,b)-}
 
 
 prod as bs = [(a,b) | a <- as, b <- bs]

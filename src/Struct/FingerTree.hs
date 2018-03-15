@@ -30,12 +30,12 @@ instance FoldMap FingerTree where
   foldMap f = \case
     FT0 -> zero
     FT1 x -> f x
-    FTN# _ l t r -> foldMap f l `plus` foldMap (foldMap f) t `plus` foldMap f r
+    FTN# _ l t r -> foldMap f l `add` foldMap (foldMap f) t `add` foldMap f r
 
 
 pattern FTN :: Measured a => Digit a -> FingerTree (Node a) -> Digit a -> FingerTree a
 pattern FTN l t r <- FTN# _ l t r where
-  FTN l t r = FTN# ((measure l `plus` measure t) `plus` measure r) l t r
+  FTN l t r = FTN# ((measure l `add` measure t) `add` measure r) l t r
 
 {-# complete FT0,FT1,FTN #-}
 
@@ -81,7 +81,7 @@ _Digit = prism treeToDigit digitToTree where
 rotL :: Measured a => FingerTree (Node a) -> Digit a -> FingerTree a
 rotL m sf      =   case viewl m of
     EmptyL  ->  review _Digit sf
-    ViewL a m' ->  FTN# (measure m `plus` measure sf) (nodeToDigit a) m' sf
+    ViewL a m' ->  FTN# (measure m `add` measure sf) (nodeToDigit a) m' sf
 
 data ViewL a = EmptyL | ViewL a (FingerTree a)
 
@@ -104,8 +104,8 @@ instance (Measured a,Measured b) => Cons (FingerTree a) a b (FingerTree b) where
       ftCons a = \case
         FT0 -> FT1 a
         FT1 b -> FTN (Digit1 a) FT0 (Digit1 b)
-        FTN# v (Digit4 b c d e) !t r -> FTN# (measure a `plus` v) (Digit2 a b) (Node3 c d e `ftCons` t) r
-        FTN# v l t r -> FTN# (measure a `plus` v) (consDigit# l) t r
+        FTN# v (Digit4 b c d e) !t r -> FTN# (measure a `add` v) (Digit2 a b) (Node3 c d e `ftCons` t) r
+        FTN# v l t r -> FTN# (measure a `add` v) (consDigit# l) t r
         where
           consDigit# = \case
             Digit1 b -> Digit2 a b
@@ -124,8 +124,8 @@ instance (Measured a, Measured b) => Snoc (FingerTree a) a b (FingerTree b) wher
       ftSnoc x a = case x of
           FT0 -> FT1 a
           FT1 b -> FTN (Digit1 b) FT0 (Digit1 a)
-          FTN# v l !t (Digit4 b c d e) -> FTN# (v `plus` measure a) l (t `ftSnoc` Node3 b c d) (Digit2 e a)
-          FTN# v l t r -> FTN# (v `plus` measure a) l t (snocDigit# r)
+          FTN# v l !t (Digit4 b c d e) -> FTN# (v `add` measure a) l (t `ftSnoc` Node3 b c d) (Digit2 e a)
+          FTN# v l t r -> FTN# (v `add` measure a) l t (snocDigit# r)
           where
             snocDigit# = \case
               Digit1 b -> Digit2 b a
@@ -144,7 +144,7 @@ viewr = \case
 rotR :: Measured a => Digit a -> FingerTree (Node a) -> FingerTree a
 rotR pr m = case viewr m of
     EmptyR  ->  review _Digit pr
-    ViewR m' a ->  FTN# (measure pr `plus` measure m) pr m' (nodeToDigit a)
+    ViewR m' a ->  FTN# (measure pr `add` measure m) pr m' (nodeToDigit a)
 
 
 splitNode :: Measured a => (Measure a -> Bool) -> Measure a -> Node a
@@ -152,11 +152,11 @@ splitNode :: Measured a => (Measure a -> Bool) -> Measure a -> Node a
 splitNode p i = \case
   Node2 a b | p va -> (Nothing, a, Just (Digit1 b))
             | T -> (Just (Digit1 a), b, Nothing)
-    where va = i `plus` measure a
+    where va = i `add` measure a
   Node3 a b c | p va -> (Nothing, a, Just (Digit2 b c))
               | p vab -> (Just (Digit1 a), b, Just (Digit1 c))
               | T -> (Just (Digit2 a b), c, Nothing)
-    where (va,vab) = (i `plus` measure a, va `plus` measure b)
+    where (va,vab) = (i `add` measure a, va `add` measure b)
 
 
 
@@ -168,11 +168,11 @@ splitTree p i = \case
   FTN pr m sf | p vpr -> let (l, x, r) = splitDigit p i pr
                          in (maybe FT0 (review _Digit) l, x, ftL r m sf)
               | p vm -> let  (ml, xs, mr)  =  splitTree p vpr m
-                             (l, x, r)     =  splitNode p (vpr `plus` measure ml) xs
+                             (l, x, r)     =  splitNode p (vpr `add` measure ml) xs
                         in   (ftR pr ml l, x, ftL r mr sf)
               | T -> let (l,x,r) = splitDigit p vm sf
                         in (ftR pr m l, x, maybe FT0 (review _Digit) r)
-    where (vpr,vm) = (i `plus` measure pr, vpr `plus` measure m)
+    where (vpr,vm) = (i `add` measure pr, vpr `add` measure m)
 
 -- | Rotate if nothing on the left
 ftL :: Measured a => Maybe (Digit a) -> FingerTree (Node a) -> Digit a -> FingerTree a

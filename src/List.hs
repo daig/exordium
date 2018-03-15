@@ -8,11 +8,11 @@ list'map f = go where
 {-# noinline list'map #-}
 
 list'foldMap :: acc -> (x -> acc -> acc) -> (a -> x) -> [a] -> acc
-list'foldMap zero plus = go' where
+list'foldMap zero add = go' where
   go' f = go where
     go = \case
       [] -> zero
-      a:as -> f a `plus` go as
+      a:as -> f a `add` go as
 
 list'traverse :: (forall a b. (a -> b) -> f a -> f b)
               -> (forall a. a -> f a)

@@ -22,11 +22,11 @@ instance Comap (IForget i r a) where comap = cormap
 instance Zero r => Traversed' (IForget i r) where
   left (IForget iz) = IForget (\i -> bifoldMap_ (iz i) (\_ -> zero))
 
-instance PlusZero r => Traversed (IForget i r) where
+instance Add0 r => Traversed (IForget i r) where
   traversal l (IForget iar) = IForget (\i s -> case (l (\a -> K (iar i a))) s of {K r -> r})
 instance Zero r => Traversed0 (IForget i r) where
   traversal0 l (IForget iar) = IForget (\i s -> case (l (\a -> K (iar i a))) s of {K r -> r})
-instance Plus r => Traversed1 (IForget i r) where
+instance Add r => Traversed1 (IForget i r) where
   traversal1 l (IForget iar) = IForget (\i s -> case (l (\a -> K (iar i a))) s of {K r -> r})
 
 instance Cochoice (IForget i r) where

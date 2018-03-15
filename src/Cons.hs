@@ -1,6 +1,6 @@
 module Cons (module Cons, module X) where
 import Cons.Class as X
-import Zero as X
+import Num.Zero as X
 import Optic.Prism
 import Maybe
 import Traversed

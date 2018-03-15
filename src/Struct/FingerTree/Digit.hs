@@ -11,9 +11,9 @@ data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a d
 
 instance FoldMap1 Digit where
   foldMap1 f (Digit1 a) = f a
-  foldMap1 f (Digit2 a b) = f a `plus` f b
-  foldMap1 f (Digit3 a b c) = f a `plus` f b `plus` f c
-  foldMap1 f (Digit4 a b c d) = f a `plus` f b `plus` f c `plus` f d
+  foldMap1 f (Digit2 a b) = f a `add` f b
+  foldMap1 f (Digit3 a b c) = f a `add` f b `add` f c
+  foldMap1 f (Digit4 a b c d) = f a `add` f b `add` f c `add` f d
 instance FoldMap Digit where foldMap = foldMap1
 
 instance Map Digit where
@@ -65,13 +65,13 @@ splitDigit p !i = \case
   Digit1 a                -> (Nothing, a, Nothing)
   Digit2 a b     | p va   -> (Nothing, a, Just (Digit1 b))
                  | T   -> (Just (Digit1 a), b, Nothing)
-   where va = i `plus` measure a
+   where va = i `add` measure a
   Digit3 a b c   | p va   -> (Nothing, a, Just (Digit2 b c))
                  | p vab  -> (Just (Digit1 a), b, Just (Digit1 c))
                  | T   -> (Just (Digit2 a b), c, Nothing)
-   where (va,vab) = (i `plus` measure a, va `plus` measure b)
+   where (va,vab) = (i `add` measure a, va `add` measure b)
   Digit4 a b c d | p va   -> (Nothing, a, Just (Digit3 a b c))
                  | p vab  -> (Just (Digit1 a), b, Just (Digit2 c d))
                  | p vabc -> (Just (Digit2 a b), c, Just (Digit1 d))
                  | T   -> (Just (Digit3 a b c), c, Nothing)
-   where (va,vab,vabc) = (i `plus` measure a, va `plus` measure b,vab `plus` measure c)
+   where (va,vab,vabc) = (i `add` measure a, va `add` measure b,vab `add` measure c)
