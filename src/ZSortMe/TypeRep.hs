@@ -1,4 +1,4 @@
-module TypeRep (module X) where
+module ZSortMe.TypeRep (module X) where
 
 import GHC.Fingerprint.Type as X
 
