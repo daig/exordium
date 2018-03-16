@@ -5,7 +5,7 @@ import Measured.Class as X
 import Struct.FingerTree.Digit as X
 import Struct.FingerTree.Node as X
 import Prelude (Show,error)
-import Eq
+import Num.Eq
 import Struct.Unsafe
 import Coerce
 import Cons

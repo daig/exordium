@@ -2,7 +2,7 @@
 module Free where
 import Kind.Constraint
 import Constraint.Trivial
-import NatTrans
+import Type.NatTrans
 import Kind.Type
 import Monad
 

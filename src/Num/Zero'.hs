@@ -5,7 +5,7 @@ import GHC.Natural
 import GHC.Integer
 import Int
 import Word
-import Eq
+import Num.Eq
 import qualified Prelude as P
 
 

@@ -2,7 +2,7 @@
 module Num.Negate (Negate(..), module X) where
 import Num.Add0 as X
 import GHC.Integer as X
-import Ord
+import Num.Ord
 import qualified Prelude as P
 
 -- a - a = zero

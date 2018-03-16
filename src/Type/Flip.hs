@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module Flip where
+module Type.Flip where
 import Coerce
 import Type.K
 import Traversed

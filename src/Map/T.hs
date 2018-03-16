@@ -1,5 +1,5 @@
 module Map.T (TMap(..), module X) where
-import NatTrans as X
+import Type.NatTrans as X
 
 --  mapt f > mapt g = mapt (f > g)
 class TMap t where

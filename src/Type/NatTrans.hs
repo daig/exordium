@@ -1,4 +1,4 @@
-module NatTrans where
+module Type.NatTrans where
 
 type f --> g = forall a. f a -> g a
 type p ---> q = forall a b. p a b -> q a b

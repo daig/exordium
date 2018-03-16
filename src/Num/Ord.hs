@@ -1,4 +1,4 @@
-module Ord 
+module Num.Ord 
   (Ord(compare)
   ,Ordering(..)
   ,(||),(&&)

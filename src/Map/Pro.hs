@@ -1,5 +1,5 @@
 module Map.Pro (module Map.Pro) where
-import NatTrans
+import Type.NatTrans
 
 class Promap p where
   promap :: (a -> x) -> (y -> b) -> p x y -> p a b
