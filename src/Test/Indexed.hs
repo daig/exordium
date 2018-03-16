@@ -1,6 +1,6 @@
 {-# language UndecidableSuperClasses #-}
 module Test.Indexed where
-import {-# source #-} I
+import {-# source #-} Type.I
 import Maybe
 import Prelude (Enum(..),(==))
 

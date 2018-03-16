@@ -1,4 +1,4 @@
-module K where
+module Type.K where
 import Map.Bi
 import Traverse.Bi
 import Applicative as X

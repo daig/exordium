@@ -3,8 +3,8 @@ import Map as X
 import Num.Zero
 import Num.One as X
 import {-# source #-} E as X
-import {-# source #-} K
-import {-# source #-} I
+import {-# source #-} Type.K
+import {-# source #-} Type.I
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E

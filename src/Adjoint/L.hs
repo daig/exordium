@@ -2,7 +2,7 @@
 module Adjoint.L (module X) where
 import Monad as X
 import Monad.Co as X hiding (mapDefault)
-import O as X
+import Type.O as X
 import Map.Pro as X
 {-import Star as X-}
 import Optic.Grate as X (FZip(..))

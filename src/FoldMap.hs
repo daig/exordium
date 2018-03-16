@@ -2,8 +2,8 @@
 module FoldMap (module FoldMap, module X) where
 import Num.Add0 as X
 import List
-import {-# source #-} K
-import {-# source #-} I
+import {-# source #-} Type.K
+import {-# source #-} Type.I
 import {-# source #-} E
 import X
 import Coerce

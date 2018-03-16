@@ -1,4 +1,4 @@
-module I (I(..), module X) where
+module Type.I (I(..), module X) where
 import Applicative as X
 import Distribute as X
 import FoldMap as X

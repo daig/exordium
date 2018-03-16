@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
-module O (module O, module X) where
-import I as X
+module Type.O (module Type.O, module X) where
+import Type.I as X
 import Applicative as X
 
 newtype O f g a = O {unO :: f (g a)}

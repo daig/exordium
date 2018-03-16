@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module Flip where
 import Coerce
-import K
+import Type.K
 import Traversed
 
 newtype Flipped f b a = Flip (f a b) 

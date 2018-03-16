@@ -1,8 +1,8 @@
 module Apply (module Apply, module X) where
 import Map as X
 import Num.Add
-import {-# source #-} K
-import {-# source #-} I
+import {-# source #-} Type.K
+import {-# source #-} Type.I
 import {-# source #-} E
 
 -- | (f |$(<)$| g) |$| w = f |$| (g |$| w)

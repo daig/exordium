@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module Traversed (module Traversed, module X) where
-import {-# source #-} I
-import {-# source #-} K
+import {-# source #-} Type.I
+import {-# source #-} Type.K
 import Traverse as X
 import Map.Pro as X
 import Traversed.Internal

@@ -3,7 +3,7 @@ import Mapped.Internal
 import Traversed as X
 import Closed as X
 import Distribute as X
-import I
+import Type.I
 
 class (Closed p, Traversed p) => Mapped p where
   {-# minimal mapping | mapped | setter #-}

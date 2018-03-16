@@ -2,8 +2,8 @@ module Traverse (module Traverse, module X) where
 import FoldMap as X
 import Applicative as X
 import Monad.Co as X
-import {-# source #-} K
-import I
+import {-# source #-} Type.K
+import Type.I
 
 class (Map t,FoldMap t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}

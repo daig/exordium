@@ -1,7 +1,7 @@
 module Representable (Representable(..), module X) where
 import Sieve as X
 import Tabulated as X
-import I
+import Type.I
 
 class (Sieve p, Tabulated p, Traversed_ p) => Representable p where
   {-tabulatedP :: Iso' (a -> Rep p b) (p a b)-}

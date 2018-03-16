@@ -4,8 +4,8 @@ import Pure as X
 import Apply as X
 import Num.Mul1 as X
 import Num.Add0 as X
-import {-# source #-} K
-import {-# source #-} I
+import {-# source #-} Type.K
+import {-# source #-} Type.I
 
 class (Pure f, Apply f) => Applicative f
 

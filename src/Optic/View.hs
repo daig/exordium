@@ -3,7 +3,7 @@ import Num.Add0 as X
 import Mapped as X
 import Map.Co.Bi as X
 import Map.Co as X
-import K
+import Type.K
 import Map.Pro
 import FoldMap.Bi
 

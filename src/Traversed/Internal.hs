@@ -1,8 +1,8 @@
 module Traversed.Internal where
 import Traverse
 import Map.Pro
-import I
-import O
+import Type.I
+import Type.O
 
 -- TODO: merge implementations if possible
 

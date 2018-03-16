@@ -1,7 +1,7 @@
 module IForget where
 import Indexable.Class
 import Optic.View
-import K
+import Type.K
 import FoldMap.Bi
 
 newtype IForget i r a b = IForget {runIForget :: i -> a -> r}

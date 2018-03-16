@@ -2,8 +2,8 @@
 module Map (module Map, module X) where
 import Coerce as X (type (#=))
 import Coerce (coerce,coerceF,coerceF#)
-import {-# source #-} K
-import {-# source #-} I
+import {-# source #-} Type.K
+import {-# source #-} Type.I
 import {-# source #-} E
 
 class Map (f :: * -> *) where

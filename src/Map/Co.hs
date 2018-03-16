@@ -1,5 +1,5 @@
 module Map.Co (Comap(..)) where
-import {-# source #-} K
+import {-# source #-} Type.K
 
 class Comap f where comap :: (b -> a) -> f a -> f b
 

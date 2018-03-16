@@ -1,5 +1,5 @@
 module Rep.Type where
-import I
+import Type.I
 
 type family Rep (p :: i -> j -> *) :: j -> *
 

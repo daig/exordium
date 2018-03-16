@@ -2,8 +2,8 @@
 module Distribute (module Distribute, module X) where
 import Distribute.Internal
 import Map
-import {-# source #-} I
-import {-# source #-} K
+import {-# source #-} Type.I
+import {-# source #-} Type.K
 import Coerce (mapCoerce#)
 import FoldMap
 import Applicative as X
