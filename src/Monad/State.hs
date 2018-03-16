@@ -1,14 +1,14 @@
-module State (State(..), module X) where
+module Monad.State (MonadState(..), module X) where
 import Monad as X
 
 -- | get >> get = get
 --   put s >> get = pure s
-class Monad m => State m where
+class Monad m => MonadState m where
   {-# minimal state | get,put #-}
-  type StateOf m :: *
-  state :: (StateOf m -> (a,StateOf m)) -> m a
+  type State m :: *
+  state :: (State m -> (a,State m)) -> m a
   state f = bind (\(f -> (a,s)) -> a `constMap` put s) get
-  get :: m (StateOf m)
+  get :: m (State m)
   get = state (\s -> (s,s))
-  put :: StateOf m -> m ()
+  put :: State m -> m ()
   put s = state (\_ -> ((),s))
