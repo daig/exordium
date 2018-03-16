@@ -1,6 +1,6 @@
 module Bind (module Bind, module X) where
 import Apply as X
-import List
+import Plus.F
 import {-# source #-} E
 
 -- | Associativity of join:
@@ -26,7 +26,7 @@ instance Bind ((->) r) where
 instance Bind [] where
   bind f = \case
     [] -> []
-    a:as -> f a `list'append` (f `bind` as)
+    a:as -> f a `fplus` (f `bind` as)
 
 (=<<) :: Bind m => (a -> m b) -> m a -> m b
 (=<<) = bind

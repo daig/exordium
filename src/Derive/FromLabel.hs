@@ -1,7 +1,7 @@
 {-# language TemplateHaskell #-}
 {-# language NoMonomorphismRestriction #-}
 {-# language QuasiQuotes #-}
-module FromLabel where
+module Derive.FromLabel where
 import qualified Data.Map as M
 import Kind.Symbol as X
 import Int.I

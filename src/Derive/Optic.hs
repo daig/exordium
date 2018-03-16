@@ -1,5 +1,5 @@
 {-# language TemplateHaskell #-}
-module Optic.TH (mkTraverseds_,mkPrisms,mkOptics) where
+module Derive.Optic (mkTraverseds_,mkPrisms,mkOptics) where
 import Language.Haskell.TH
 import Language.Haskell.TH.Syntax
 import qualified Data.Map as M

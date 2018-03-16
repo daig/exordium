@@ -1,7 +1,6 @@
 {-# language MagicHash #-}
 module Fold (module Fold, module X) where
 import Num.Add0 as X
-import List
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} E
@@ -81,6 +80,12 @@ instance Fold1 ((,) x) where foldMap1 = foldMap_
 instance Fold ((,) x) where foldMap = foldMap_
 
 instance Fold [] where foldMap = list'foldMap zero add
+list'foldMap :: acc -> (x -> acc -> acc) -> (a -> x) -> [a] -> acc
+list'foldMap zero add = go' where
+  go' f = go where
+    go = \case
+      [] -> zero
+      a:as -> f a `add` go as
 
 instance Fold_ I where foldMap_ f (I a) = f a
 instance Fold0 I where foldMap0 = foldMap_

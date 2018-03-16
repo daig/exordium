@@ -5,7 +5,6 @@ import Bool as X
 import Maybe
 import Pure
 import Empty
-import List
 
 true _ t = t
 false f _ = f
@@ -28,6 +27,13 @@ class Map f => MapM f where
 instance MapM [] where
   filter = list'filter
   {-map' = list'map'-}
+
+list'filter :: (forall r. a -> r -> r -> r) -> [a] -> [a]
+list'filter p = go where
+  go = \case
+    [] -> []
+    a:as -> p a as (a:as)
+{-# noinline[0] list'filter #-}
 
 
 map'_map :: MapM f => (a -> b) -> f a -> f b

@@ -1,6 +1,5 @@
 module Fold.I (module Fold.I, module X) where
 import Num.Add0 as X
-import List
 import Prelude (Enum(..))
 
 class IFold i t where
