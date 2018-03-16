@@ -10,8 +10,8 @@ instance Traverse0 Maybe where
     Nothing -> pure Nothing
     Just a -> Just `map` afb a
 instance Traverse Maybe where traverse = traverse0
-instance FoldMap Maybe where foldMap = foldMap0
-instance FoldMap0 Maybe where
+instance Fold Maybe where foldMap = foldMap0
+instance Fold0 Maybe where
   foldMap0 m = \case
     Nothing -> zero
     Just a -> m a

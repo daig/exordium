@@ -8,10 +8,10 @@ instance Pure (Review a) where pure = Review
 instance Map (Review a ) where map f (Review b) = Review (f b)
 
 
-instance FoldMap (Review x) where foldMap = foldMap_
-instance FoldMap0 (Review x) where foldMap0 = foldMap_
-instance FoldMap1 (Review x) where foldMap1 = foldMap_
-instance FoldMap_ (Review x) where foldMap_ = traverse__foldMap_
+instance Fold (Review x) where foldMap = foldMap_
+instance Fold0 (Review x) where foldMap0 = foldMap_
+instance Fold1 (Review x) where foldMap1 = foldMap_
+instance Fold_ (Review x) where foldMap_ = traverse__foldMap_
 instance Comonad (Review x)
 instance Duplicate (Review x) where duplicate = Review
 instance Traverse (Review x) where traverse = traverse_

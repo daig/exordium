@@ -27,7 +27,7 @@ instance (Measured a, Zero (Measure a)) => Measured (FingerTree a) where
     FT1 a -> measure a
     FTN# v _ _ _ -> v
 
-instance FoldMap FingerTree where
+instance Fold FingerTree where
   foldMap f = \case
     FT0 -> zero
     FT1 x -> f x

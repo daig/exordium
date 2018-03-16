@@ -12,7 +12,7 @@ class Add a where
   add :: a -> a -> a
   scale1 :: Natural -> a -> a
   scale1 n = scale1# (n P.+ 1) 
-  {-sumWith1 :: FoldMap1 f => (x -> a) -> f x -> a-} -- why is this needed?
+  {-sumWith1 :: Fold1 f => (x -> a) -> f x -> a-} -- why is this needed?
 
 -- | Scale by a non-zero @Natural@, this is not checked and will loop on 0.
 scale1# :: Add a => Natural -> a -> a

@@ -113,8 +113,8 @@ instance Traversed' Zip2 where
   
 instance Traverse V2 where traverse = traverse1
 instance Traverse1 V2 where traverse1 afb (V2 a b) = V2 `map` afb a `ap` afb b
-instance FoldMap V2 where foldMap = traverse_foldMap
-instance FoldMap1 V2 where foldMap1 = traverse1_foldMap1
+instance Fold V2 where foldMap = traverse_foldMap
+instance Fold1 V2 where foldMap1 = traverse1_foldMap1
 
 
 newtype Optic f g a b = Optic {runOptic :: f a -> g b}

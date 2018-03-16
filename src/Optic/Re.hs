@@ -3,7 +3,7 @@ import Closed as X
 import Traversed as X
 import Swap -- TODO: integrate into E
 import Prelude ((.))
-import FoldMap.Bi
+import Fold.Bi
 
 newtype Re p s t a b = Re {runRe :: p b a -> p t s}
 

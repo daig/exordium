@@ -1,6 +1,6 @@
 module Struct.FingerTree.Digit (module Struct.FingerTree.Digit,module X) where
 import Prelude (Show,error)
-import FoldMap as X
+import Fold as X
 import Measured.Class as X
 import Traverse as X
 import Maybe
@@ -11,12 +11,12 @@ import Snoc
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show
 
-instance FoldMap1 Digit where
+instance Fold1 Digit where
   foldMap1 f (Digit1 a) = f a
   foldMap1 f (Digit2 a b) = f a `add` f b
   foldMap1 f (Digit3 a b c) = f a `add` f b `add` f c
   foldMap1 f (Digit4 a b c d) = f a `add` f b `add` f c `add` f d
-instance FoldMap Digit where foldMap = foldMap1
+instance Fold Digit where foldMap = foldMap1
 
 instance Map Digit where
   map f (Digit1 a) = Digit1 (f a)

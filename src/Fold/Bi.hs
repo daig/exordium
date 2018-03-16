@@ -1,4 +1,4 @@
-module FoldMap.Bi (module FoldMap.Bi, module X) where
+module Fold.Bi (module Fold.Bi, module X) where
 import Num.Add0 as X
 import {-# source #-} E
 

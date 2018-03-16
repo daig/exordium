@@ -5,7 +5,7 @@ import Map.Co.Bi as X
 import Map.Co as X
 import Type.K
 import Map.Pro
-import FoldMap.Bi
+import Fold.Bi
 
 newtype View r a b = View {runView :: (a -> r)}
 _View :: Promap p => p (View n a a) (View m s s) -> p (a -> n) (s -> m)

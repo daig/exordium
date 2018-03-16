@@ -4,7 +4,7 @@ module Struct.FingerTree.Node (Node(Node2,Node2#,Node3,Node3#), module X) where
 import Prelude (Show)
 import Map as X
 import Measured.Class as X
-import FoldMap as X
+import Fold as X
 import Struct.Unsafe
 import Coerce
 
@@ -22,11 +22,11 @@ instance Measured a => Measured (Node a) where
   measure (Node2# v _ _) = v
   measure (Node3# v _ _ _) = v
 
-instance FoldMap1 Node where
+instance Fold1 Node where
   foldMap1 f = \case
     Node2# _ a b -> f a `add` f b
     Node3# _ a b c -> f a `add` f b `add` f c
-instance FoldMap Node where foldMap = foldMap1
+instance Fold Node where foldMap = foldMap1
 
 pattern Node2 :: Measured a => a -> a -> Node a
 pattern Node2 a b <- Node2# _ a b where

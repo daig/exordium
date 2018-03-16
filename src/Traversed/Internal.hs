@@ -18,29 +18,29 @@ instance Traverse_ (Baz Map t b) where
   traverse_ f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))
 instance Comonad (Baz Map t b)
 instance Duplicate (Baz Map t b) where duplicate = traverse__duplicate
-instance FoldMap  (Baz Map t b) where foldMap  = traverse__foldMap_
-instance FoldMap0 (Baz Map t b) where foldMap0 = traverse__foldMap_
-instance FoldMap1 (Baz Map t b) where foldMap1 = traverse__foldMap_
-instance FoldMap_ (Baz Map t b) where foldMap_ = traverse__foldMap_
+instance Fold  (Baz Map t b) where foldMap  = traverse__foldMap_
+instance Fold0 (Baz Map t b) where foldMap0 = traverse__foldMap_
+instance Fold1 (Baz Map t b) where foldMap1 = traverse__foldMap_
+instance Fold_ (Baz Map t b) where foldMap_ = traverse__foldMap_
 instance Map (Baz Map t b) where map = traverse_map
 
 instance Traverse (Baz Pure t b) where traverse = traverse0
 instance Traverse0 (Baz Pure t b) where
   traverse0 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Pure) (f x)))))
-instance FoldMap  (Baz Pure t b) where foldMap  = traverse0_foldMap0
-instance FoldMap0 (Baz Pure t b) where foldMap0 = traverse0_foldMap0
+instance Fold  (Baz Pure t b) where foldMap  = traverse0_foldMap0
+instance Fold0 (Baz Pure t b) where foldMap0 = traverse0_foldMap0
 instance Map (Baz Pure t b) where map = traverse_map
 
 instance Traverse (Baz Apply t b) where traverse = traverse1
 instance Traverse1 (Baz Apply t b) where
   traverse1 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Apply) (f x)))))
-instance FoldMap  (Baz Apply t b) where foldMap  = traverse1_foldMap1
-instance FoldMap1 (Baz Apply t b) where foldMap1 = traverse1_foldMap1
+instance Fold  (Baz Apply t b) where foldMap  = traverse1_foldMap1
+instance Fold1 (Baz Apply t b) where foldMap1 = traverse1_foldMap1
 instance Map (Baz Apply t b) where map = traverse_map
 
 instance Traverse (Baz Applicative t b) where
   traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Applicative) (f x)))))
-instance FoldMap  (Baz Applicative t b) where foldMap  = traverse_foldMap
+instance Fold  (Baz Applicative t b) where foldMap  = traverse_foldMap
 instance Map (Baz Applicative t b) where map = traverse_map
 
 

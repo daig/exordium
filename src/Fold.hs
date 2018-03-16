@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module FoldMap (module FoldMap, module X) where
+module Fold (module Fold, module X) where
 import Num.Add0 as X
 import List
 import {-# source #-} Type.K
@@ -9,7 +9,7 @@ import X
 import Coerce
 import Pure as X
 
-class FoldMap t where
+class Fold t where
   {-# minimal foldMap | foldr #-}
   foldMap :: Add0 m => (a -> m) -> t a -> m
   foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order
@@ -17,36 +17,36 @@ class FoldMap t where
   {-foldr c z t = foldMap c t z-} -- TODO: need an Add instances for (->)
   {-foldl :: (b -> a -> b) -> b -> t a -> b-}
 
-class FoldMap t => FoldMap0 t where
+class Fold t => Fold0 t where
   foldMap0 :: Zero m => (a -> m) -> t a -> m
   {-foldMap0 = fold0 zero-}
   {-fold0 :: m -> (a -> m) -> t a -> m-}
   {-fold0 = foldMap0 zero-} -- TODO: use reflection
 
--- | like @FoldMap0@ but can use the context if there is no @a@.
+-- | like @Fold0@ but can use the context if there is no @a@.
 --
 --   like @BifoldMap_@ with an implicit first component
 --
 --   law: foldMap' coerce# pure = id.
 --   law: foldMap' coerce# (pure . f) = map f.
 --   The above only makes sense when @t@ is representational/parametric.
-class (FoldMap0 t, Pure t) => FoldMap' t where
+class (Fold0 t, Pure t) => Fold' t where
   foldMap' :: (forall x. t x -> b) -> (a -> b) -> t a -> b
   foldMap' l r ta = case fold' ta of
     L tx -> l tx
     R a -> r a
   fold' :: forall a x. t a -> E (t x) a
   fold' = foldMap' (\tx -> L (mapCoerce# tx)) R
-instance FoldMap' (E x) where
+instance Fold' (E x) where
   foldMap' txb ab = \case {l@L{} -> txb l; R a -> ab a}
-instance Zero x => FoldMap' ((,) x) where
+instance Zero x => Fold' ((,) x) where
   foldMap' txb ab (x,a) = ab a
 
-class FoldMap t => FoldMap1 t where
+class Fold t => Fold1 t where
   foldMap1 :: Add s => (a -> s) -> t a -> s
   {-fold1 :: (a -> a -> a) -> t a -> a-}
 
-class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
+class (Fold0 t, Fold1 t) =>  Fold_ t where
   {-# minimal foldMap_ | fold_ #-}
   foldMap_ :: (a -> b) -> t a -> b
   foldMap_ f x = f (fold_ x)
@@ -72,23 +72,23 @@ class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-sequenceSnd t = (fold_ $ (\(a,_) -> a) $@ t, (\(_,b) -> b) $@ t)-}
 
 
-instance FoldMap0 (K x) where foldMap0 = \_ _ -> zero
-instance FoldMap (K x) where foldMap = foldMap0
+instance Fold0 (K x) where foldMap0 = \_ _ -> zero
+instance Fold (K x) where foldMap = foldMap0
 
-instance FoldMap_ ((,) x) where foldMap_ f (_,y) = f y
-instance FoldMap0 ((,) x) where foldMap0 = foldMap_
-instance FoldMap1 ((,) x) where foldMap1 = foldMap_
-instance FoldMap ((,) x) where foldMap = foldMap_
+instance Fold_ ((,) x) where foldMap_ f (_,y) = f y
+instance Fold0 ((,) x) where foldMap0 = foldMap_
+instance Fold1 ((,) x) where foldMap1 = foldMap_
+instance Fold ((,) x) where foldMap = foldMap_
 
-instance FoldMap [] where foldMap = list'foldMap zero add
+instance Fold [] where foldMap = list'foldMap zero add
 
-instance FoldMap_ I where foldMap_ f (I a) = f a
-instance FoldMap0 I where foldMap0 = foldMap_
-instance FoldMap1 I where foldMap1 = foldMap_
-instance FoldMap  I where foldMap = foldMap_
+instance Fold_ I where foldMap_ f (I a) = f a
+instance Fold0 I where foldMap0 = foldMap_
+instance Fold1 I where foldMap1 = foldMap_
+instance Fold  I where foldMap = foldMap_
 
-instance FoldMap (E x) where foldMap = foldMap0
-instance FoldMap0 (E x) where
+instance Fold (E x) where foldMap = foldMap0
+instance Fold0 (E x) where
   foldMap0 f = \case
     L{} -> zero
     R a -> f a

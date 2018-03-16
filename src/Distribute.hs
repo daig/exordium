@@ -5,7 +5,7 @@ import Map
 import {-# source #-} Type.I
 import {-# source #-} Type.K
 import Coerce (mapCoerce#)
-import FoldMap
+import Fold
 import Applicative as X
 
 -- TODO: is Applicative right? or should we have a distinct Zip class that handles day convolution

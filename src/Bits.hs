@@ -46,4 +46,4 @@ ttt = [F,T,T]
 
 
 {-class Traversed' p => Build p where-}
-  {-{-build :: FoldMap f => (s -> ) -> (forall f. FoldMap f => f b -> t)-}-}
+  {-{-build :: Fold f => (s -> ) -> (forall f. Fold f => f b -> t)-}-}

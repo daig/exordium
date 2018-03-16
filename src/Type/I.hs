@@ -1,7 +1,7 @@
 module Type.I (I(..), module X) where
 import Applicative as X
 import Distribute as X
-import FoldMap as X
+import Fold as X
 
 -- | Identity type
 newtype I a = I a

@@ -2,7 +2,7 @@ module IForget where
 import Indexable.Class
 import Optic.View
 import Type.K
-import FoldMap.Bi
+import Fold.Bi
 
 newtype IForget i r a b = IForget {runIForget :: i -> a -> r}
 {-_IForget :: Promap p => p (a -> r) (a' -> r') -> p (IForget r a b) (IForget r' a' b')-}

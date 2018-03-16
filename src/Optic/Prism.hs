@@ -5,7 +5,7 @@ import Traversed
 import Maybe as X
 import Optic.View as X
 import Optic.Review as X
-import FoldMap.Bi
+import Fold.Bi
 
 data Prism a b s t = Prism (s -> E t a) (b -> t)
 type Prism' a = Prism a a

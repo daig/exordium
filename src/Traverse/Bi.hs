@@ -1,7 +1,7 @@
 module Traverse.Bi (module Traverse.Bi, module X) where
 import Traverse.Bi.Internal
 import Map.Bi as X
-import FoldMap.Bi as X
+import Fold.Bi as X
 import Applicative as X
 
 class (Bimap t,BifoldMap t) => Bitraverse t where

@@ -10,7 +10,7 @@ import Plus.F
 import Int.I
 import MapM.Class
 import Map.I
-import FoldMap
+import Fold
 import Traversed
 import Debug.Trace
 
@@ -99,7 +99,7 @@ filterTraverseds_ cmap lmap =
       else labels'
     {-filter (\label -> -}
 
-collectFromList :: (P.Ord k, FoldMap t) => (a -> as) -> (a -> as -> as) -> M.Map k as -> t (k,a) -> M.Map k as
+collectFromList :: (P.Ord k, Fold t) => (a -> as) -> (a -> as -> as) -> M.Map k as -> t (k,a) -> M.Map k as
 collectFromList f0 f m0 x = foldr (\(k,a) -> M.alter (f' a) k) m0 x where
   f' a' = \case
     P.Nothing -> P.Just (f0 a')

@@ -11,7 +11,7 @@ import Coerce
 {-import Optic.View-}
 {-import Map.Pro-}
 
-class (Monad (f `O` g), Comonad (g `O` f),Map f, FoldMap_ f, Indexed g) => f -| g | f -> g, g -> f where
+class (Monad (f `O` g), Comonad (g `O` f),Map f, Fold_ f, Indexed g) => f -| g | f -> g, g -> f where
   {-adjuncted :: Costar f ~~~= Star g-}
   {-adjuncted = isoP (Star < leftAdjunct < runCostar) (Costar < rightAdjunct < runStar)-}
   leftAdjunct :: (f a ->   b) ->   a -> g b

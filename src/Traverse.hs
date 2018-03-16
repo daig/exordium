@@ -1,11 +1,11 @@
 module Traverse (module Traverse, module X) where
-import FoldMap as X
+import Fold as X
 import Applicative as X
 import Monad.Co as X
 import {-# source #-} Type.K
 import Type.I
 
-class (Map t,FoldMap t) => Traverse t where
+class (Map t,Fold t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}
   traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
   traverse f t = cocollect (\x -> x) (map f t)
@@ -21,13 +21,13 @@ traverse_map f ta = case traverse (\a -> I (f a)) ta of I tb -> tb
 traverse_foldMap :: (Traverse t,Add0 m) => (a -> m) -> t a -> m
 traverse_foldMap f ta = case traverse (\a -> K (f a)) ta of K m -> m
 
-class (Traverse t,FoldMap0 t) => Traverse0 t where
+class (Traverse t,Fold0 t) => Traverse0 t where
   traverse0 :: Pure f => (a -> f b) -> t a -> f (t b)
   traverse0 f t = sequence0 (map f t)
   sequence0 :: Pure f => t (f a) -> f (t a)
   sequence0 = traverse0 (\x -> x)
 
-class (Traverse0 t, FoldMap' t) => Traverse' t where
+class (Traverse0 t, Fold' t) => Traverse' t where
   traverse' :: Map f => (forall x. t x -> f x) -> (a -> f b) -> t a -> f (t b)
   sequence' :: Map f => (forall x. t x -> f x) -> t (f a) -> f (t a)
   {-traverse' x a ta = map foldMap' x a ta-}
@@ -39,7 +39,7 @@ instance Traverse' (E x) where
 traverse0_foldMap0 :: (Traverse0 t,Zero m) => (a -> m) -> t a -> m
 traverse0_foldMap0 f ta = case traverse0 (\a -> K (f a)) ta of K m -> m
 
-class (Traverse t,FoldMap1 t) => Traverse1 t where
+class (Traverse t,Fold1 t) => Traverse1 t where
   {-# minimal traverse1 | sequence1 #-}
   traverse1 :: Apply f => (a -> f b) -> t a -> f (t b)
   traverse1 f t = sequence1 (map f t)
@@ -50,7 +50,7 @@ class (Traverse t,FoldMap1 t) => Traverse1 t where
 traverse1_foldMap1 :: (Traverse1 t,Add m) => (a -> m) -> t a -> m
 traverse1_foldMap1 f ta = case traverse1 (\a -> K (f a)) ta of K m -> m
 
-class (Traverse0 t, Traverse1 t,FoldMap_ t, Comonad t) => Traverse_ t where
+class (Traverse0 t, Traverse1 t,Fold_ t, Comonad t) => Traverse_ t where
   traverse_ :: Map f => (a -> f b) -> t a -> f (t b)
   traverse_ f t = sequence_ (map f t)
   sequence_ :: Map f => t (f a) -> f (t a)
