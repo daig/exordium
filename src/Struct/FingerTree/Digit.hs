@@ -1,7 +1,7 @@
 module Struct.FingerTree.Digit (module Struct.FingerTree.Digit,module X) where
 import Prelude (Show,error)
 import Fold as X
-import Measured.Class as X
+import Num.Measured as X
 import Traverse as X
 import Maybe
 import Bool

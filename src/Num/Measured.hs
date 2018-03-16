@@ -1,7 +1,7 @@
 {-# language UndecidableSuperClasses #-}
-module Measured.Class (module Measured.Class, module X) where
-import Int
+module Num.Measured (Measured(..), module X) where
 import Num.Add0 as X
+import Int
 
 
 -- The measure should preserve all monoidlike structures
