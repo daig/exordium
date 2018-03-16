@@ -6,6 +6,7 @@ import Map as X
 import Measured.Class as X
 import FoldMap as X
 import Struct.Unsafe
+import Coerce
 
 data Node a = Node2# (Measure a) ~a ~a | Node3# (Measure a) ~a ~a ~a
 

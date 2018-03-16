@@ -3,7 +3,7 @@
 {-# language QuasiQuotes #-}
 module FromLabel where
 import qualified Data.Map as M
-import Symbol as X
+import Kind.Symbol as X
 import Int.I
 import Traversed as X
 import Language.Haskell.TH.Syntax

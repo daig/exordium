@@ -19,8 +19,8 @@ class FoldMap t where
 
 class FoldMap t => FoldMap0 t where
   foldMap0 :: Zero m => (a -> m) -> t a -> m
-  foldMap0 = fold0 zero
-  fold0 :: m -> (a -> m) -> t a -> m
+  {-foldMap0 = fold0 zero-}
+  {-fold0 :: m -> (a -> m) -> t a -> m-}
   {-fold0 = foldMap0 zero-} -- TODO: use reflection
 
 -- | like @FoldMap0@ but can use the context if there is no @a@.
@@ -44,6 +44,7 @@ instance Zero x => FoldMap' ((,) x) where
 
 class FoldMap t => FoldMap1 t where
   foldMap1 :: Add s => (a -> s) -> t a -> s
+  {-fold1 :: (a -> a -> a) -> t a -> a-}
 
 class (FoldMap0 t, FoldMap1 t) =>  FoldMap_ t where
   {-# minimal foldMap_ | fold_ #-}
