@@ -7,7 +7,7 @@ import qualified Prelude as P
 import qualified Control.Monad as P
 import qualified Data.List as P
 import Plus.F
-import Int.I
+import Type.Int.I
 import MapM.Class
 import Map.I
 import Fold

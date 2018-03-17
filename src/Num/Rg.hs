@@ -2,8 +2,8 @@ module Num.Rg (Rg, module X) where
 import Num.Add as X
 import Num.Mul as X
 import GHC.Integer
-import Int
-import Word
+import Type.Int
+import Type.Word
 import Bool
 
 -- | Near Semiring. Ie a "Ring" without the Identity and Negation

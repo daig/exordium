@@ -2,9 +2,9 @@
 module Num.One where
 import GHC.Natural
 import GHC.Integer
-import Word
+import Type.Word
 import Bool
-import Int
+import Type.Int
 
 -- | one * a = a * one = a
 class One m where one :: m

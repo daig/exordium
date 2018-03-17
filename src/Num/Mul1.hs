@@ -3,9 +3,9 @@ module Num.Mul1 (Mul1(..), module X) where
 import Num.Mul as X
 import Num.One as X
 import GHC.Integer
-import Word
+import Type.Word
 import Bool
-import Int
+import Type.Int
 
 -- | one * a = a * one = a
 class (Mul m, One m) => Mul1 m where

@@ -2,8 +2,8 @@
 module Num.Mul (module Num.Mul, module X) where
 import GHC.Natural as X
 import GHC.Integer
-import Word
-import Int
+import Type.Word
+import Type.Int
 import Bool
 import qualified Prelude as P
 

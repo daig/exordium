@@ -4,7 +4,7 @@
 module Derive.FromLabel where
 import qualified Data.Map as M
 import Kind.Symbol as X
-import Int.I
+import Type.Int.I
 import Traversed as X
 import Language.Haskell.TH.Syntax
 import Language.Haskell.TH

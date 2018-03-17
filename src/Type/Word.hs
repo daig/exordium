@@ -1,5 +1,5 @@
 {-# OPTIONS_HADDOCK not-home #-}
-module Word
+module Type.Word
  (Word(..)
  ,Word8(..)
  ,Word16(..)

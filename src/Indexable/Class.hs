@@ -2,7 +2,7 @@
 module Indexable.Class (module Indexable.Class, module X) where
 import Traversed
 import Optic.View
-import Int
+import Type.Int
 import Category
 import Mapped as X
 import Prelude (($))

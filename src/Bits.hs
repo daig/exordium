@@ -6,7 +6,7 @@ import Optic.Grate
 import Optic.View
 import Optic.Re
 import Optic.Iso
-import Word
+import Type.Word
 import qualified Data.Bits  as P
 import Cons
 

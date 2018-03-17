@@ -3,8 +3,8 @@ import Num.Zero as X
 import Bool as X
 import GHC.Natural
 import GHC.Integer
-import Int
-import Word
+import Type.Int
+import Type.Word
 import Num.Eq
 import qualified Prelude as P
 

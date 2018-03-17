@@ -4,8 +4,8 @@ import Num.Add as X
 import Num.Zero as X
 import GHC.Integer
 import Bool
-import Int
-import Word
+import Type.Int
+import Type.Word
 
 -- | zero + a = a + zero = a
 class (Add a,Zero a) => Add0 a where

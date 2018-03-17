@@ -1,5 +1,5 @@
 {-# OPTIONS_HADDOCK not-home #-}
-module Int
+module Type.Int
  (Int(..)
  ,Int8(..)
  ,Int16(..)

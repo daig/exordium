@@ -3,8 +3,8 @@ module Num.Add (Add(..), scale1#,module X) where
 import GHC.Natural as X
 import GHC.Integer
 import Bool
-import Int
-import Word
+import Type.Int
+import Type.Word
 import qualified Prelude as P
 
 -- | a + (b + c) = (a + b) + c

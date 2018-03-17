@@ -2,8 +2,8 @@ module Num.Zero where
 import GHC.Natural
 import GHC.Integer
 import Bool
-import Int
-import Word
+import Type.Int
+import Type.Word
 import {-# source #-} Maybe
 
 class Zero x where zero :: x
