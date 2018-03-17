@@ -1,5 +1,5 @@
 module Num.Zero where
-import GHC.Natural
+import Struct.Natural
 import GHC.Integer
 import Bool
 import Type.Int

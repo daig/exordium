@@ -1,11 +1,12 @@
 {-# language MagicHash #-}
 module Num.Add (Add(..), scale1#,module X) where
-import GHC.Natural as X
+import Struct.Natural as X
 import GHC.Integer
 import Bool
 import Type.Int
 import Type.Word
 import qualified Prelude as P
+import Struct.BigNat.Utils
 
 -- | a + (b + c) = (a + b) + c
 class Add a where
@@ -33,3 +34,5 @@ instance Add Word where add = (P.+)
 instance Add Integer where add = (P.+)
 instance Add Bool where add = (P./=)
 instance Add () where add _ _ = ()
+
+instance Add BigNat where add = plusBigNat 

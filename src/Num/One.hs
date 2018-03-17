@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module Num.One where
-import GHC.Natural
+import Struct.Natural
 import GHC.Integer
 import Type.Word
 import Bool

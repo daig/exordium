@@ -2,7 +2,7 @@ module Empty (module Empty, module X) where
 {-import Num.Zero as X-}
 {-import Map as X-}
 import Maybe
-import Any as X
+import Type.Any as X
 
 
 class Empty f where empty :: f a

@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module Num.Mul (module Num.Mul, module X) where
-import GHC.Natural as X
+import Struct.Natural as X
 import GHC.Integer
 import Type.Word
 import Type.Int
