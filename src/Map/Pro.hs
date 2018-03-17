@@ -2,7 +2,7 @@ module Map.Pro (module Map.Pro) where
 import Type.NatTrans
 
 class Promap p where
-  promap :: (a -> x) -> (y -> b) -> p x y -> p a b
+  promap :: (s -> a) -> (b -> t) -> p a b -> p s t
   promap f g = \p -> postmap g (premap f p)
   premap :: (a -> x) -> p x b -> p a b
   premap = (`promap` \b -> b)

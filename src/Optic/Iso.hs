@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module Optic.Iso (module Optic.Iso, module X) where
 import Map.Pro
 import Num.Zero
@@ -10,3 +11,4 @@ instance Promap (Iso a b) where
 
 repIso :: (forall p. Promap p => p a b -> p s t) -> Iso a b s t
 repIso p = p (Iso (\a -> a) (\b -> b))
+

@@ -30,7 +30,7 @@ preview l = match' l Nothing Just
 _Just :: Traversed' p => p a b -> p (Maybe a) (Maybe b)
 _Just = prism (\s -> case s of {Nothing -> L Nothing; Just a -> R a}) Just
 
-prism' :: (s -> Maybe a) -> (b -> s) -> Prism a b a b -> Prism a b s s
+prism' :: Traversed' p => (s -> Maybe a) -> (b -> s) -> p a b -> p s s
 prism' sma bs = prism (\s -> case sma s of {Just a -> R a; Nothing -> L s}) bs
 
 instance Traversed' (Prism a b) where
