@@ -16,3 +16,5 @@ instance Zero Bool where zero = F
 instance Zero () where zero = ()
 instance (Zero a, Zero b) => Zero (a,b) where zero = (zero,zero)
 instance Zero (Maybe a) where zero = Nothing
+instance Zero [a] where zero = []
+instance Zero (a -> a) where zero a = a

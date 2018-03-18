@@ -18,5 +18,6 @@ instance Add0 Integer
 instance Add0 Int
 instance Add0 Word
 instance Add0 ()
+instance Add0 (a -> a)
 
 instance (Add0 a, Add0 b) => Add0 (a,b)
