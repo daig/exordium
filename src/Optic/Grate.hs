@@ -83,8 +83,8 @@ instance Map f => Closed (FZip f) where
 instance Map f => Promap (FZip f) where
   promap f g (FZip fab) = FZip (promap (map f) g fab)
 instance Map (FZip f a) where map f (FZip fab) = FZip (\fa -> f (fab fa))
-instance Duplicate w => Compose (FZip w) where FZip f > FZip g = FZip (g < extend f)
-instance Comonad w => Category (FZip w) where id = FZip fold_
+instance Duplicate w => Compose (FZip w) where FZip f `precompose` FZip g = FZip (g `postcompose` extend f)
+instance Comonad w => Category (FZip w) where identity = FZip fold_
 
 _FZip :: (FZip f a b -> FZip f s t) -> (f a -> b) -> f s -> t
 _FZip = promap FZip runFZip

@@ -4,7 +4,6 @@ import Optic.Prism
 import Maybe
 import Traversed
 import Plus.F
-import Type.Endo
 
 class Cons s a b t | s -> a, t -> b, s b -> t, t a -> s where
   _Cons :: Traversed' p => p (a,s) (b,t) -> p s t
