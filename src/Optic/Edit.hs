@@ -1,5 +1,5 @@
 module Optic.Edit where
-import Mapped as X
+import Arrow.Mapped as X
 
 
 {-newtype Edit a b s t = Edit {runEdit :: (a -> b) -> s -> t}-}

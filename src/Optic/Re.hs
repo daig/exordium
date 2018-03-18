@@ -1,6 +1,6 @@
 module Optic.Re where
-import Closed as X
-import Traversed as X
+import Arrow.Closed as X
+import Arrow.Traversed as X
 import Swap -- TODO: integrate into E
 import Prelude ((.))
 import Fold.Bi

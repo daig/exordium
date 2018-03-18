@@ -3,14 +3,14 @@ module Adjoint.L (module X) where
 import Monad as X
 import Monad.Co as X hiding (mapDefault)
 import Type.O as X
-import Map.Pro as X
+import Arrow.Promap as X
 {-import Star as X-}
 import Optic.Grate as X (FZip(..))
 import Indexed as X hiding (mapDefault)
 import Coerce
 import Optic.Review
 import Optic.View
-import Map.Pro
+import Arrow.Promap
 
 {-class (Monad (f `O` RightAdjunct f)-}
       {-,Comonad (RightAdjunct f `O` f)-}

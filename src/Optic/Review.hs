@@ -1,5 +1,5 @@
 module Optic.Review where
-import Traversed
+import Arrow.Traversed
 
 newtype Review a b = Review {runReview :: b}
 instance Promap Review where promap _ g (Review b) = Review (g b)

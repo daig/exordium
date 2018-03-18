@@ -1,6 +1,6 @@
-module Representable (Representable(..), module X) where
-import Sieve as X
-import Tabulated as X
+module Arrow.Representable (Representable(..), module X) where
+import Arrow.Sieve as X
+import Arrow.Tabulated as X
 import Type.I
 
 class (Sieve p, Tabulated p, Traversed_ p) => Representable p where

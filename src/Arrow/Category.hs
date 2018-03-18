@@ -1,5 +1,5 @@
-module Category (Category(..), module X) where
-import Compose as X
+module Arrow.Category (Category(..), module X) where
+import Arrow.Compose as X
 
 class Compose p => Category p where identity :: p a a
 

@@ -11,7 +11,7 @@ import Type.Int.I
 import MapM.Class
 import Map.I
 import Fold
-import Traversed
+import Arrow.Traversed
 import Debug.Trace
 
 mkTraversed_ :: Name -> Q Exp

@@ -1,5 +1,5 @@
-module Closed (module Closed, module X) where
-import Map.Pro as X
+module Arrow.Closed (module Arrow.Closed, module X) where
+import Arrow.Promap as X
 import Distribute as X
 
 class Promap p => Closed p where

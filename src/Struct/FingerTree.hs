@@ -10,7 +10,7 @@ import Struct.Unsafe
 import Coerce
 import Mono.Cons
 import Mono.Snoc
-import Traversed
+import Arrow.Traversed
 import Maybe
 import Optic.Review
 import Bool

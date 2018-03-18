@@ -1,10 +1,10 @@
 {-# language UndecidableSuperClasses #-}
 module Indexable.Class (module Indexable.Class, module X) where
-import Traversed
+import Arrow.Traversed
 import Optic.View
 import Type.Int
-import Category
-import Mapped as X
+import Arrow.Category
+import Arrow.Mapped as X
 import Prelude (($))
 
 class (

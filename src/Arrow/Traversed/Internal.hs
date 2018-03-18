@@ -1,6 +1,6 @@
-module Traversed.Internal where
+module Arrow.Traversed.Internal where
 import Traverse
-import Map.Pro
+import Arrow.Promap
 import Type.I
 import Type.O
 

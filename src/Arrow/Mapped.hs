@@ -1,7 +1,7 @@
-module Mapped (Mapped(..), module X) where
-import Mapped.Internal
-import Traversed as X
-import Closed as X
+module Arrow.Mapped (Mapped(..), module X) where
+import Arrow.Mapped.Internal
+import Arrow.Traversed as X
+import Arrow.Closed as X
 import Distribute as X
 import Type.I
 

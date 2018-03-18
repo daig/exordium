@@ -1,5 +1,5 @@
 module Optic.Tuple where
-import Traversed
+import Arrow.Traversed
 
 class Field1 s a b t | s -> a, t -> b, s b -> t, t a -> s where _1 :: Traversed_ p => p a b -> p s t
 class Field2 s a b t | s -> a, t -> b, s b -> t, t a -> s where _2 :: Traversed_ p => p a b -> p s t

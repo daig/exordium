@@ -1,4 +1,4 @@
-module Map.Pro (module Map.Pro) where
+module Arrow.Promap (module Arrow.Promap) where
 import Type.NatTrans
 
 class Promap p where

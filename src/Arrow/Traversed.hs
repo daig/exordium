@@ -1,10 +1,10 @@
 {-# language MagicHash #-}
-module Traversed (module Traversed, module X) where
+module Arrow.Traversed (module Arrow.Traversed, module X) where
 import {-# source #-} Type.I
 import {-# source #-} Type.K
 import Traverse as X
-import Map.Pro as X
-import Traversed.Internal
+import Arrow.Promap as X
+import Arrow.Traversed.Internal
 import E
 import Swap
 import Coerce

@@ -1,5 +1,5 @@
-module Sieve (Sieve(..), module X) where
-import Map.Pro as X
+module Arrow.Sieve (Sieve(..), module X) where
+import Arrow.Promap as X
 import Rep.Type as X
 import Type.I
 

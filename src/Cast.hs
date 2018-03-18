@@ -11,7 +11,7 @@ import Maybe
 import Optic.View (view)
 import Optic.Review (review)
 import Optic.Re (re)
-import Traversed (Promap(..),Traversed'(..),E(..),Cochoice)
+import Arrow.Traversed (Promap(..),Traversed'(..),E(..),Cochoice)
 
 import qualified Prelude as P
 import Data.Coerce (Coercible)

@@ -1,8 +1,8 @@
 {-# language MagicHash #-}
 module Cast.Internal where
 import Type.Int.I
-import Map.Pro
-import Traversed
+import Arrow.Promap
+import Arrow.Traversed
 import Stock.Enum
 import GHC.Enum (Bounded(..))
 import qualified Prelude as P

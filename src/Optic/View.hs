@@ -1,10 +1,10 @@
 module Optic.View (module Optic.View,module X) where
 import Num.Add0 as X
-import Mapped as X
+import Arrow.Mapped as X
 import Map.Co.Bi as X
 import Map.Co as X
 import Type.K
-import Map.Pro
+import Arrow.Promap
 import Fold.Bi
 
 newtype View r a b = View {runView :: (a -> r)}

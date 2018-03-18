@@ -1,6 +1,6 @@
 module Num.Add.First (First(..), _First2, module X) where
 import Num.Add0 as X
-import Map.Pro as X
+import Arrow.Promap as X
 
 newtype First a = First {getFirst :: a}
   deriving anyclass Add0

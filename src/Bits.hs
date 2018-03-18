@@ -1,6 +1,6 @@
 module Bits where
 import Num
-import Mapped
+import Arrow.Mapped
 import Bool
 import Optic.Grate
 import Optic.View

@@ -1,5 +1,5 @@
 module Assoc where
-import Map.Pro as X
+import Arrow.Promap as X
 import Optic.Iso
 --
 class Assoc f where

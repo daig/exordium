@@ -1,5 +1,5 @@
 module HList (module HList,module X) where
-import Map.Pro as X
+import Arrow.Promap as X
 
 data HList (xs :: [*]) where
   HNil :: HList '[]

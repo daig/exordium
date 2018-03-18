@@ -2,7 +2,7 @@
 module Type.Flip where
 import Coerce
 import Type.K
-import Traversed
+import Arrow.Traversed
 
 newtype Flipped f b a = Flip (f a b) 
 

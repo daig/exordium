@@ -1,5 +1,5 @@
 module Swap where
-import Map.Pro as X
+import Arrow.Promap as X
 import {-# source #-} E
 
 -- | swap < swap = id

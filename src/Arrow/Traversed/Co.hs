@@ -1,5 +1,5 @@
-module Traversed.Co (module Traversed.Co, module X) where
-import Map.Pro as X
+module Arrow.Traversed.Co (module Arrow.Traversed.Co, module X) where
+import Arrow.Promap as X
 import E
 
 class Promap p => CoTraversed' p where

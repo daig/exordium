@@ -1,4 +1,4 @@
-module Mapped.Internal (Context(..),Bar(..), module X) where
+module Arrow.Mapped.Internal (Context(..),Bar(..), module X) where
 import Applicative as X
 import Distribute as X
 

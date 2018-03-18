@@ -2,7 +2,7 @@ module Mono.Cons (module Mono.Cons, module X) where
 import Num.Zero as X
 import Optic.Prism
 import Maybe
-import Traversed
+import Arrow.Traversed
 import Plus.F
 
 class Cons s a b t | s -> a, t -> b, s b -> t, t a -> s where

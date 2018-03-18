@@ -1,8 +1,8 @@
 {-# language MagicHash #-}
 module Optic.Iso (module Optic.Iso, module X) where
-import Map.Pro
+import Arrow.Promap
 import Num.Zero
-import Closed
+import Arrow.Closed
 import Optic.Prism as X
 
 data Iso a b s t = Iso (s -> a) (b -> t)

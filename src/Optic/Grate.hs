@@ -1,6 +1,6 @@
 module Optic.Grate (module Optic.Grate, module X) where
-import Mapped as X
-import Category as X
+import Arrow.Mapped as X
+import Arrow.Category as X
 import Monad.Co as X
 import Map.Co
 

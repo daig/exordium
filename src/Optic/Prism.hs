@@ -1,7 +1,7 @@
 module Optic.Prism (module Optic.Prism, module X) where
 import Prelude ((.))
 import Pure as X
-import Traversed
+import Arrow.Traversed
 import Maybe as X
 import Optic.View as X
 import Optic.Review as X

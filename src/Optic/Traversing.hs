@@ -1,7 +1,7 @@
 module Optic.Traversing (module Optic.Traversing, module X) where
 import Indexable.Class as X
-import Map.Pro as X
-import Closed as X
+import Arrow.Promap as X
+import Arrow.Closed as X
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
 
