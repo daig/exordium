@@ -4,7 +4,7 @@ import Coerce as X (type (#=))
 import Coerce (coerce,coerceF,coerceF#)
 import {-# source #-} Type.K
 import {-# source #-} Type.I
-import {-# source #-} E
+import {-# source #-} ADT.E
 
 class Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b

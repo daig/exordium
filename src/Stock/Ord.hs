@@ -8,7 +8,7 @@ module Stock.Ord
   ) where
 import GHC.Classes
 import GHC.Types
-import Bool as X
+import ADT.Bool as X
 
 -- Ord is the type of primitive total orderings.
 -- The instance should exactly match that which would be derived.

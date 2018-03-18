@@ -1,7 +1,7 @@
-module E (module E, module X) where
+module ADT.E (module ADT.E, module X) where
 import Functor.Pure as X
 import Functor.Bimap as X
-import Functor.Traverse.Bi as X
+import Functor.Bitraverse as X
 import Functor.Swap as X
 
 import Functor.Traverse as X

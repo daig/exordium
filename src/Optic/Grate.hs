@@ -1,7 +1,7 @@
 module Optic.Grate (module Optic.Grate, module X) where
 import Arrow.Mapped as X
 import Arrow.Category as X
-import Functor.Monad.Co as X
+import Functor.Comonad as X
 import Functor.Comap
 
 import Functor.Distribute.Internal

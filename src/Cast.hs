@@ -7,7 +7,7 @@ import Prelude (Enum(..),(>),(<),(||),fromInteger,minBound,maxBound,Bounded)
 import Type.Int.I
 import Type.Word.W8
 import Optic.Prism (prism',match,match',preview,view',_View)
-import Maybe
+import ADT.Maybe
 import Optic.View (view)
 import Optic.Review (review)
 import Optic.Re (re)

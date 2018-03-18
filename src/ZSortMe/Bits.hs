@@ -1,7 +1,7 @@
 module ZSortMe.Bits where
 import Num
 import Arrow.Mapped
-import Bool
+import ADT.Bool
 import Optic.Grate
 import Optic.View
 import Optic.Re

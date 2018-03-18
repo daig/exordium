@@ -1,7 +1,7 @@
 -- {-# language OverlappingInstances, IncoherentInstances #-}
 -- {-# language NoMonomorphismRestriction #-}
 module Constraint.Pred where
-import Maybe
+import ADT.Maybe
 import Prelude
 import Constraint.Witness
 import Coerce

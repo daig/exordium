@@ -3,7 +3,7 @@ import Functor.Map as X
 import Num.Add
 import {-# source #-} Type.K
 import {-# source #-} Type.I
-import {-# source #-} E
+import {-# source #-} ADT.E
 
 -- | (f |$(<)$| g) |$| w = f |$| (g |$| w)
 class Map f => Apply f where

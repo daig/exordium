@@ -1,4 +1,4 @@
-module Functor.Monad.Co (Comonad, module X) where
+module Functor.Comonad (Comonad, module X) where
 import Functor.Fold as X
 import Functor.Duplicate as X
 

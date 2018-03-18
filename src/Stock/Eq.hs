@@ -7,7 +7,7 @@ module Stock.Eq (
   ,module X
   ) where
 
-import Bool as X
+import ADT.Bool as X
 import Stock
 
 type Eq# = Eq

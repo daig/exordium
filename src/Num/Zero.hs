@@ -1,10 +1,10 @@
 module Num.Zero where
 import Struct.Natural
 import GHC.Integer
-import Bool
+import ADT.Bool
 import Type.Int
 import Type.Word
-import {-# source #-} Maybe
+import {-# source #-} ADT.Maybe
 
 class Zero x where zero :: x
 

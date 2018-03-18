@@ -1,7 +1,7 @@
 module Mono.Cons (module Mono.Cons, module X) where
 import Num.Zero as X
 import Optic.Prism
-import Maybe
+import ADT.Maybe
 import Arrow.Traversed
 import Functor.Plus
 

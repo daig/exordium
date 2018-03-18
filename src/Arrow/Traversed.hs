@@ -5,7 +5,7 @@ import {-# source #-} Type.K
 import Functor.Traverse as X
 import Arrow.Promap as X
 import Arrow.Traversed.Internal
-import E
+import ADT.E
 import Functor.Swap
 import Coerce
 

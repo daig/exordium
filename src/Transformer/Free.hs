@@ -1,5 +1,5 @@
 {-# language TypeInType #-}
-module Free where
+module Transformer.Free where
 import Kind.Constraint
 import Constraint.Trivial
 import Type.NatTrans

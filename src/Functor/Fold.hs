@@ -3,8 +3,8 @@ module Functor.Fold (module Functor.Fold, module X) where
 import Num.Add0 as X
 import {-# source #-} Type.K
 import {-# source #-} Type.I
-import {-# source #-} E
-import X
+import {-# source #-} ADT.E
+import ADT.X
 import Coerce
 import Functor.Pure as X
 

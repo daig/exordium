@@ -11,9 +11,9 @@ import Coerce
 import Mono.Cons
 import Mono.Snoc
 import Arrow.Traversed
-import Maybe
+import ADT.Maybe
 import Optic.Review
-import Bool
+import ADT.Bool
 
 data FingerTree a
   = FT0

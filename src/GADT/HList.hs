@@ -1,4 +1,4 @@
-module HList (module HList,module X) where
+module GADT.HList (module GADT.HList,module X) where
 import Arrow.Promap as X
 
 data HList (xs :: [*]) where

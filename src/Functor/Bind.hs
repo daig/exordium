@@ -1,7 +1,7 @@
 module Functor.Bind (module Functor.Bind, module X) where
 import Functor.Apply as X
 import Functor.Plus
-import {-# source #-} E
+import {-# source #-} ADT.E
 
 -- | Associativity of join:
 --  join < join = join < map join

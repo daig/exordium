@@ -2,7 +2,7 @@ module Functor.Pure (Pure(..), module X) where
 import Functor.Map as X
 import Num.Zero
 import Num.One as X
-import {-# source #-} E as X
+import {-# source #-} ADT.E as X
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 

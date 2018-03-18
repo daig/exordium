@@ -1,4 +1,4 @@
-module X (X, __, absurd) where
+module ADT.X (X, __, absurd) where
 import qualified Prelude as P
 
 data X 

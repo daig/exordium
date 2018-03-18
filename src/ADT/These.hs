@@ -1,4 +1,4 @@
-module These where
+module ADT.These where
 import Functor.Bimap
 import Functor.Swap as X
 

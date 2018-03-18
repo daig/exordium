@@ -1,6 +1,6 @@
 module Functor.Swap where
 import Arrow.Promap as X
-import {-# source #-} E
+import {-# source #-} ADT.E
 
 -- | swap < swap = id
 class Swap f where

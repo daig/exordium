@@ -4,7 +4,7 @@ import Num.Mul as X
 import GHC.Integer
 import Type.Int
 import Type.Word
-import Bool
+import ADT.Bool
 
 -- | Near Semiring. Ie a "Ring" without the Identity and Negation
 -- a(b + c) = ab + ac

@@ -1,6 +1,6 @@
 module Arrow.Traversed.Co (module Arrow.Traversed.Co, module X) where
 import Arrow.Promap as X
-import E
+import ADT.E
 
 class Promap p => CoTraversed' p where
   {-# minimal unleft | unright #-}

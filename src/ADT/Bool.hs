@@ -1,4 +1,4 @@
-module Bool (Bool(T,F)) where
+module ADT.Bool (Bool(T,F)) where
 import GHC.Types (Bool(..))
 
 pattern T :: Bool

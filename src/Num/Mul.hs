@@ -4,7 +4,7 @@ import Struct.Natural as X
 import GHC.Integer
 import Type.Word
 import Type.Int
-import Bool
+import ADT.Bool
 import qualified Prelude as P
 
 class Mul m where

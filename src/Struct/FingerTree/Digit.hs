@@ -3,8 +3,8 @@ import Prelude (Show,error)
 import Functor.Fold as X
 import Num.Measured as X
 import Functor.Traverse as X
-import Maybe
-import Bool
+import ADT.Maybe
+import ADT.Bool
 import Functor.Map
 import Mono.Cons
 import Mono.Snoc

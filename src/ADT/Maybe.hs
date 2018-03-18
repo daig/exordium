@@ -1,5 +1,5 @@
 {-# GHC_OPTIONS -wno-orphans #-}
-module Maybe (Maybe(..),maybe, maybe'map,module X) where
+module ADT.Maybe (Maybe(..),maybe, maybe'map,module X) where
 import GHC.Base (Maybe(..))
 import Functor.Traverse as X
 import Functor.Distribute as X

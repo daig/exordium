@@ -1,6 +1,6 @@
 module Functor.Bimap (Bimap(..), module X) where
 import Functor.Map as X
-import {-# source #-} E
+import {-# source #-} ADT.E
 
 -- | Independently Map each on both sides
 class Bimap p where

@@ -2,7 +2,7 @@ module Optic.Prism (module Optic.Prism, module X) where
 import Prelude ((.))
 import Functor.Pure as X
 import Arrow.Traversed
-import Maybe as X
+import ADT.Maybe as X
 import Optic.View as X
 import Optic.Review as X
 import Functor.Bifold

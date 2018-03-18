@@ -1,6 +1,6 @@
 module Type.K where
 import Functor.Bimap
-import Functor.Traverse.Bi
+import Functor.Bitraverse
 import Functor.Applicative as X
 import Num.Add0 as X
 

@@ -1,7 +1,7 @@
 module Functor.Empty (module Functor.Empty, module X) where
 {-import Num.Zero as X-}
 {-import Functor.Map as X-}
-import Maybe
+import ADT.Maybe
 import Type.Any as X
 
 

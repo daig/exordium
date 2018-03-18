@@ -2,7 +2,7 @@
 module Num.Add (Add(..), scale1#,module X) where
 import Struct.Natural as X
 import GHC.Integer
-import Bool
+import ADT.Bool
 import Type.Int
 import Type.Word
 import qualified Prelude as P

@@ -1,4 +1,4 @@
-module Functor.Traverse.Bi.Internal (module Functor.Traverse.Bi.Internal, module X) where
+module Functor.Bitraverse.Internal (module Functor.Bitraverse.Internal, module X) where
 import Functor.Applicative as X
 import Functor.Bifold as X
 import Coerce

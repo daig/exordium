@@ -1,5 +1,5 @@
-module Functor.Traverse.Bi (module Functor.Traverse.Bi, module X) where
-import Functor.Traverse.Bi.Internal
+module Functor.Bitraverse (module Functor.Bitraverse, module X) where
+import Functor.Bitraverse.Internal
 import Functor.Bimap as X
 import Functor.Bifold as X
 import Functor.Applicative as X

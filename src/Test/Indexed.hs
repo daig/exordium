@@ -1,7 +1,7 @@
 {-# language UndecidableSuperClasses #-}
 module Test.Indexed where
 import {-# source #-} Type.I
-import Maybe
+import ADT.Maybe
 import Prelude (Enum(..),(==))
 
 class (Unindexed (Unindexed f) ~ Unindexed f

@@ -1,8 +1,8 @@
 module Functor.Pure.Utils where
-import X
+import ADT.X
 import Functor.Pure
-import Functor.Traverse.Bi
-import E
+import Functor.Bitraverse
+import ADT.E
 
 distL :: (Bitraverse_ t, Pure f) => t (f a) b -> f (t a b)
 distL = bitraverse_ (\fa -> fa) pure

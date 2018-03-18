@@ -1,7 +1,7 @@
 module Functor.Align (module Functor.Align, Add, module X) where
 import Num.Add
 import Functor.Map as X
-import {-# source #-} These as X
+import {-# source #-} ADT.These as X
 
 -- | fa |&| fb = map swap (fb |&| fa) TODO: Is this always useful?
 -- f |&| empty = map This f

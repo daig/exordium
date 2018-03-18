@@ -1,6 +1,6 @@
 module Functor.Adjoint.Class (module Functor.Adjoint.Class, module X) where
 import Functor.Monad as X
-import Functor.Monad.Co as X hiding (mapDefault)
+import Functor.Comonad as X hiding (mapDefault)
 import Type.O as X
 import Arrow.Promap as X
 {-import Star as X-}

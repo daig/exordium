@@ -1,7 +1,7 @@
 module Functor.Traverse (module Functor.Traverse, module X) where
 import Functor.Fold as X
 import Functor.Applicative as X
-import Functor.Monad.Co as X
+import Functor.Comonad as X
 import {-# source #-} Type.K
 import Type.I
 

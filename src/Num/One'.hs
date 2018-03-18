@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module Num.One' (module Num.One', module X) where
 import Num.One as X
-import Bool as X
+import ADT.Bool as X
 import Struct.Natural
 import GHC.Integer
 import Type.Int
