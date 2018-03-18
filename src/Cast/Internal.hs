@@ -1,8 +1,9 @@
+{-# language MagicHash #-}
 module Cast.Internal where
 import Type.Int.I
 import Map.Pro
 import Traversed
-import Enum
+import Stock.Enum
 import GHC.Enum (Bounded(..))
 import qualified Prelude as P
 
@@ -10,7 +11,7 @@ import qualified Prelude as P
 -- Fix after making a good toInteger class in Num
 _enum :: forall a p. (Bounded a, Enum a, Traversed' p) => p a a -> p Int Int
 _enum = prism down up where
-  down i = if i P.> fromEnum (maxBound @a) || i P.< fromEnum (minBound @a)
+  down i = if i `gt#` fromEnum (maxBound @a) `max#` i `lt#` fromEnum (minBound @a)
     then L i else R (toEnum i)
   up = fromEnum
 

@@ -2,7 +2,7 @@
 module Num.Recip (Recip(..), module X) where
 import Num.Mul1 as X
 import GHC.Integer
-import Num.Ord
+import Stock.Ord
 import qualified Prelude as P
 
 class Mul1 m => Recip m where

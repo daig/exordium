@@ -6,8 +6,8 @@ import Traverse as X
 import Maybe
 import Bool
 import Map
-import Cons
-import Snoc
+import Mono.Cons
+import Mono.Snoc
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show
 

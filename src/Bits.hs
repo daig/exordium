@@ -8,7 +8,7 @@ import Optic.Re
 import Optic.Iso
 import Type.Word
 import qualified Data.Bits  as P
-import Cons
+import Mono.Cons
 
 class Mapping s a b t => Zip s a b t | s -> a, t -> b, s b -> t, t a -> s where
   _zip :: Closed p => p a b -> p s t

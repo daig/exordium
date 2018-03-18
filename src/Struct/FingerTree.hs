@@ -5,11 +5,11 @@ import Num.Measured as X
 import Struct.FingerTree.Digit as X
 import Struct.FingerTree.Node as X
 import Prelude (Show,error)
-import Num.Eq
+import Stock.Eq
 import Struct.Unsafe
 import Coerce
-import Cons
-import Snoc
+import Mono.Cons
+import Mono.Snoc
 import Traversed
 import Maybe
 import Optic.Review
