@@ -4,7 +4,6 @@ import Functor.Distribute.Internal
 import Functor.Map
 import {-# source #-} Type.I
 import {-# source #-} Type.K
-import Coerce (mapCoerce#)
 import Functor.Fold
 import Functor.Applicative as X
 

@@ -1,6 +1,6 @@
 module Functor.Fold.First (FoldFirst(..),module X) where
 import Functor.Fold as X
-import Coerce
+import Cast
 import Num.Add.First
 
 newtype FoldFirst f a = FoldFirst {unFoldFirst :: f a}

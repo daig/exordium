@@ -5,7 +5,7 @@ import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} ADT.E
 import ADT.X
-import Coerce
+import Cast.Coerce.Unsafe
 import Functor.Pure as X
 
 class Fold t where

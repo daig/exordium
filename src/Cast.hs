@@ -2,31 +2,18 @@
 {-# language MagicHash #-}
 module Cast where
 import Type.Word
-import Kind.Nat
-import Prelude (Enum(..),(>),(<),(||),fromInteger,minBound,maxBound,Bounded)
+{-import Kind.Nat-}
+{-import Prelude (Enum(..),(>),(<),(||),fromInteger,minBound,maxBound,Bounded)-}
 import Type.Int.I
-import Type.Word.W8
-import Optic.Prism (prism',match,match',preview,view',_View)
-import ADT.Maybe
-import Optic.View (view)
-import Optic.Review (review)
-import Optic.Re (re)
-import Arrow.Traversed (Promap(..),Traversed'(..),E(..),Cochoice)
+{-import Type.Word.W8-}
+import Optic.Prism
+import ADT.Maybe as X
+{-import Optic.Re (re)-}
+import Arrow.Traversed as X
 
 import qualified Prelude as P
-import Data.Coerce (Coercible)
-import qualified Data.Coerce as C
 
 import Cast.Internal
-
-
--- | Structural equality, which may not preserve semantics of nominal typeclass instances
-type (#=#) = Coercible
-coerce :: forall b a. a #=# b => a -> b
-coerce = C.coerce
-
-_coerce_ :: forall a s p. (Promap p, s #=# a, a #=# s ) => p a a -> p s s
-_coerce_ = promap coerce coerce
 
 class a ~>~ b where
   _cast :: Traversed' p => p a a -> p b b

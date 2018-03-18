@@ -1,4 +1,4 @@
-module Functor.Pure.T (TPure(..), module X) where
+module Transformer.Pure (TPure(..), module X) where
 import Transformer.Map as X
 import Functor.Monad as X
 import Constraint.Lifts

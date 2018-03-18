@@ -7,7 +7,7 @@ import Arrow.Promap as X
 import Arrow.Traversed.Internal
 import ADT.E
 import Functor.Swap
-import Coerce
+import Cast.Coerce.Unsafe
 
 class (Traversed0 p, Traversed1 p) => Traversed p where
   {-# minimal traversal | traversed #-}

@@ -4,7 +4,7 @@ module Constraint.Pred where
 import ADT.Maybe
 import Prelude
 import Constraint.Witness
-import Coerce
+import Cast
 
 class Pred' c ~ flag => Test (c :: Constraint) (flag :: Bool) where tt :: (c => r) -> r -> r
 instance Pred' c ~ flag => Test c flag where tt _ r = r

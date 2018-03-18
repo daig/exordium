@@ -7,7 +7,7 @@ import Struct.FingerTree.Node as X
 import Prelude (Show,error)
 import Stock.Eq
 import Struct.Unsafe
-import Coerce
+import Cast.Coerce.Unsafe
 import Mono.Cons
 import Mono.Snoc
 import Arrow.Traversed

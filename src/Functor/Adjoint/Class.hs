@@ -6,7 +6,7 @@ import Arrow.Promap as X
 {-import Star as X-}
 {-import Optic.Grate as X (FZip(..))-}
 import Functor.Indexed as X hiding (mapDefault)
-import Coerce
+import Cast
 {-import Optic.Review-}
 {-import Optic.View-}
 {-import Arrow.Promap-}

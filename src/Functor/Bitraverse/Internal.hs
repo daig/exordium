@@ -1,7 +1,7 @@
 module Functor.Bitraverse.Internal (module Functor.Bitraverse.Internal, module X) where
 import Functor.Applicative as X
 import Functor.Bifold as X
-import Coerce
+import Cast.Coerce
 
 data TheseK a b x = ThisK a | ThatK b | TheseK a b
 

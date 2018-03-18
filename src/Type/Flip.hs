@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module Type.Flip where
-import Coerce
+import Cast.Coerce.Unsafe
 import Type.K
 import Arrow.Traversed
 

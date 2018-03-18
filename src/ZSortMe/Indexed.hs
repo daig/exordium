@@ -1,5 +1,5 @@
 {-# language UndecidableSuperClasses #-}
-module Test.Indexed where
+module ZSortMe.Indexed where
 import {-# source #-} Type.I
 import ADT.Maybe
 import Prelude (Enum(..),(==))

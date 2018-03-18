@@ -6,7 +6,7 @@ import Functor.Map as X
 import Num.Measured as X
 import Functor.Fold as X
 import Struct.Unsafe
-import Coerce
+import Cast.Coerce.Unsafe
 
 data Node a = Node2# (Measure a) ~a ~a | Node3# (Measure a) ~a ~a ~a
 
