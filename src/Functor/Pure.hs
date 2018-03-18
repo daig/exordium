@@ -5,6 +5,7 @@ import Num.One as X
 import {-# source #-} ADT.E as X
 import {-# source #-} Type.K
 import {-# source #-} Type.I
+import ADT.Maybe
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E
@@ -25,3 +26,4 @@ instance (Zero a) => Pure (K a) where pure _ = K zero
 instance Pure I where pure = I
 instance Pure (E x) where pure = R
 instance Zero x => Pure ((,) x) where pure a = (zero,a)
+instance Pure Maybe where pure = Just

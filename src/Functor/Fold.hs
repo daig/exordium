@@ -4,9 +4,10 @@ import Num.Add0 as X
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} ADT.E
-import ADT.X
-import Cast.Coerce.Unsafe
+import {-# source #-} ADT.Maybe
+import ADT.X as X
 import Functor.Pure as X
+import Cast.Coerce.Unsafe
 
 class Fold t where
   {-# minimal foldMap | foldr #-}
@@ -30,14 +31,14 @@ class Fold t => Fold0 t where
 --   law: foldMap' coerce# (pure . f) = map f.
 --   The above only makes sense when @t@ is representational/parametric.
 class (Fold0 t, Pure t) => Fold' t where
-  foldMap' :: (forall x. t x -> b) -> (a -> b) -> t a -> b
+  foldMap' :: (t X -> b) -> (a -> b) -> t a -> b
   foldMap' l r ta = case fold' ta of
     L tx -> l tx
     R a -> r a
-  fold' :: forall a x. t a -> E (t x) a
+  fold' :: forall a. t a -> E (t X) a
   fold' = foldMap' (\tx -> L (mapCoerce# tx)) R
 instance Fold' (E x) where
-  foldMap' txb ab = \case {l@L{} -> txb l; R a -> ab a}
+  foldMap' txb ab = \case {L x -> txb (L x); R a -> ab a}
 instance Zero x => Fold' ((,) x) where
   foldMap' txb ab (x,a) = ab a
 
@@ -87,10 +88,15 @@ list'foldMap zero add = go' where
       [] -> zero
       a:as -> f a `add` go as
 
+instance Fold' I where foldMap' _ f (I a) = f a
 instance Fold_ I where foldMap_ f (I a) = f a
 instance Fold0 I where foldMap0 = foldMap_
 instance Fold1 I where foldMap1 = foldMap_
 instance Fold  I where foldMap = foldMap_
+
+instance Fold Maybe where foldMap = foldMap0
+instance Fold0 Maybe where foldMap0 f = \case {Nothing -> zero; Just a -> f a}
+instance Fold' Maybe where foldMap' f0 f = \case {Nothing -> f0 Nothing; Just a -> f a}
 
 instance Fold (E x) where foldMap = foldMap0
 instance Fold0 (E x) where

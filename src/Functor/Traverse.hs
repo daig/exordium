@@ -4,6 +4,7 @@ import Functor.Applicative as X
 import Functor.Comonad as X
 import {-# source #-} Type.K
 import Type.I
+import ADT.Maybe
 
 class (Map t,Fold t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}
@@ -28,12 +29,12 @@ class (Traverse t,Fold0 t) => Traverse0 t where
   sequence0 = traverse0 (\x -> x)
 
 class (Traverse0 t, Fold' t) => Traverse' t where
-  traverse' :: Map f => (forall x. t x -> f x) -> (a -> f b) -> t a -> f (t b)
-  sequence' :: Map f => (forall x. t x -> f x) -> t (f a) -> f (t a)
+  traverse' :: Map f => (t X -> f X) -> (a -> f b) -> t a -> f (t b)
+  sequence' :: Map f => (t X -> f X) -> t (f a) -> f (t a)
   {-traverse' x a ta = map foldMap' x a ta-}
 instance Traverse' (E x) where
-  traverse' txfx afb = \case {L x -> txfx (L x); R a -> R `map` afb a}
-  sequence' txfx = \case {L x -> txfx (L x); R fa -> R `map` fa}
+  traverse' txfx afb = \case {L x -> map (\case) (txfx (L x)); R a -> R `map` afb a}
+  sequence' txfx = \case {L x -> map (\case) (txfx (L x)); R fa -> R `map` fa}
 
 
 traverse0_foldMap0 :: (Traverse0 t,Zero m) => (a -> m) -> t a -> m
@@ -90,3 +91,14 @@ instance Traverse0 (E x) where
     L x -> pure (L x)
     R a -> R `map` f a
 
+
+instance Traverse0 Maybe where
+  traverse0 afb = \case
+    Nothing -> pure Nothing
+    Just a -> Just `map` afb a
+instance Traverse Maybe where traverse = traverse0
+instance Traverse' Maybe where
+  traverse' f0 f = \case {Nothing -> map (\case) (f0 Nothing); Just a -> Just `map` f a}
+
+instance Traverse' I where
+  traverse' _ f (I a) = I `map` f a

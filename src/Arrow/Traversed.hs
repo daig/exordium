@@ -6,6 +6,8 @@ import Functor.Traverse as X
 import Arrow.Promap as X
 import Arrow.Traversed.Internal
 import ADT.E
+import ADT.Maybe
+import ADT.Where
 import Functor.Swap
 import Cast.Coerce.Unsafe
 
@@ -66,6 +68,7 @@ class Traversed_ p => Traversed1 p where
 
 class (Traversed' p, Traversed_ p) => Traversed0 p where
   traversal0 :: (forall f. Pure f => (a -> f b) -> s -> f t) -> p a b -> p s t
+  traversal0 afbsft = lens0 (\s -> swap (afbsft L s)) (\s b -> case afbsft (\_ -> I b) s of I t -> t)
   {-traversal0 f pab = promap (\s -> Baz (\afb -> f afb s)) (sold @Pure) (traversed0 pab)-}
   traversed0 :: Traverse0 t => p a b -> p (t a) (t b)
   traversed0 = traversal0 traverse0
@@ -98,6 +101,7 @@ class Promap p => Traversed' p where
   {-left = traversal' (\tfx afb -> \case {R x -> R `map` tfx (R x); L a -> L `map` afb a})-}
 
 instance Traversed' (->) where
+  {-prism pat constr f s = foldMap' (\case L t -> t) (\a -> constr (f a)) (pat s)-}
   prism pat constr f s = case pat s of
     L t -> t
     R a -> constr (f a)

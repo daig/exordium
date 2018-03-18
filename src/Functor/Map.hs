@@ -5,6 +5,7 @@ import Cast.Coerce.Unsafe (coerceF#)
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} ADT.E
+import ADT.Maybe
 
 class Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
@@ -49,3 +50,9 @@ instance Map (E x) where
   map f = \case
     L a -> L a
     R b -> R (f b)
+
+instance Map Maybe where map f = \case {Nothing -> Nothing; Just a -> Just (f a)}
+maybe'map :: (a -> b) -> Maybe a -> Maybe b
+maybe'map f = \case
+  Nothing -> Nothing
+  Just a -> Just (f a)

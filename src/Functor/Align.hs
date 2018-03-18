@@ -1,6 +1,7 @@
 module Functor.Align (module Functor.Align, Add, module X) where
 import Num.Add
 import Functor.Map as X
+import ADT.Maybe
 import {-# source #-} ADT.These as X
 
 -- | fa |&| fb = map swap (fb |&| fa) TODO: Is this always useful?
@@ -55,3 +56,9 @@ instance Align List where
   align Mu bs = map That bs
 
 -- https://hackage.haskell.org/package/unamb
+instance Align Maybe where
+  alignWith ar br abr = go where
+    go Nothing Nothing = Nothing
+    go Nothing (Just b) = Just (br b)
+    go (Just a) Nothing = Just (ar a)
+    go (Just a) (Just b) = Just (abr a b)
