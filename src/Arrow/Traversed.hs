@@ -2,11 +2,11 @@
 module Arrow.Traversed (module Arrow.Traversed, module X) where
 import {-# source #-} Type.I
 import {-# source #-} Type.K
-import Traverse as X
+import Functor.Traverse as X
 import Arrow.Promap as X
 import Arrow.Traversed.Internal
 import E
-import Swap
+import Functor.Swap
 import Coerce
 
 class (Traversed0 p, Traversed1 p) => Traversed p where

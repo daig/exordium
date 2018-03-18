@@ -4,7 +4,7 @@ import Kind.Constraint
 import Constraint.Trivial
 import Type.NatTrans
 import Kind.Type
-import Monad
+import Functor.Monad
 
   
 

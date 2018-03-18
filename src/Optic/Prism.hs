@@ -1,11 +1,11 @@
 module Optic.Prism (module Optic.Prism, module X) where
 import Prelude ((.))
-import Pure as X
+import Functor.Pure as X
 import Arrow.Traversed
 import Maybe as X
 import Optic.View as X
 import Optic.Review as X
-import Fold.Bi
+import Functor.Bifold
 
 data Prism a b s t = Prism (s -> E t a) (b -> t)
 type Prism' a = Prism a a

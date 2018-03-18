@@ -1,11 +1,11 @@
 module Optic.Grate (module Optic.Grate, module X) where
 import Arrow.Mapped as X
 import Arrow.Category as X
-import Monad.Co as X
-import Map.Co
+import Functor.Monad.Co as X
+import Functor.Comap
 
-import Distribute.Internal
-import Adjoint
+import Functor.Distribute.Internal
+{-import Adjoint-}
 
 newtype Grate a b s t = Grate {runGrate :: (((s -> a) -> b) -> t)}
 {-_Grate = promap runGrate Grate-}

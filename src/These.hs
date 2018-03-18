@@ -1,6 +1,6 @@
 module These where
-import Map.Bi
-import Swap as X
+import Functor.Bimap
+import Functor.Swap as X
 
 data These a b = This a | That b | These a b
 

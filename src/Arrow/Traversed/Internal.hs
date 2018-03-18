@@ -1,5 +1,5 @@
 module Arrow.Traversed.Internal where
-import Traverse
+import Functor.Traverse
 import Arrow.Promap
 import Type.I
 import Type.O

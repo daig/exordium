@@ -1,7 +1,7 @@
 module Type.K where
-import Map.Bi
-import Traverse.Bi
-import Applicative as X
+import Functor.Bimap
+import Functor.Traverse.Bi
+import Functor.Applicative as X
 import Num.Add0 as X
 
 newtype K a (b :: *) = K a

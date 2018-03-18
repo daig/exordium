@@ -3,7 +3,7 @@ import Num.Zero as X
 import Optic.Prism
 import Maybe
 import Arrow.Traversed
-import Plus.F
+import Functor.Plus
 
 class Cons s a b t | s -> a, t -> b, s b -> t, t a -> s where
   _Cons :: Traversed' p => p (a,s) (b,t) -> p s t

@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module Type.O (module Type.O, module X) where
 import Type.I as X
-import Applicative as X
+import Functor.Applicative as X
 
 newtype O f g a = O {unO :: f (g a)}
 

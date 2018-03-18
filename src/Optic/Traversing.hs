@@ -1,7 +1,8 @@
 module Optic.Traversing (module Optic.Traversing, module X) where
-import Indexable.Class as X
-import Arrow.Promap as X
-import Arrow.Closed as X
+{-import Functor.Indexed-}
+{-import Indexable.Class as X-}
+import Arrow.Traversed as X
+import Arrow.Mapped as X
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
 
@@ -28,7 +29,7 @@ instance Pure f => Traversed0 (Traversing f) where
 instance Applicative f => Traversed (Traversing f) where
   traversal afbsft (Traversing afb) = Traversing (\s -> afbsft afb s)
 
-instance Indexed i (Traversing f) where indexed s _ = s
+{-instance Indexed i (Traversing f) where indexed s _ = s-}
 
 instance Distribute f => Mapped (Traversing f) where
    mapped (Traversing f) = Traversing (collect f)

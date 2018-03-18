@@ -1,7 +1,7 @@
 module Where (Where(..)) where
-import InLR
-import Align
-import Pure
+import Functor.Bipure
+import Functor.Align
+import Functor.Pure
 
 data Where a b = Here a | There b | Nowhere
 
@@ -17,9 +17,9 @@ where'map :: (x -> b) -> Where a x -> Where a b
 where'map = where'bimap (\a -> a)
 
 
-instance InLR Where where
-  inL = Here
-  inR = There
+instance Bipure Where where
+  purel = Here
+  purer = There
 
 instance Choose (Where a) where
   choose bfc = \case

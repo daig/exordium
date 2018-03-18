@@ -1,11 +1,11 @@
 module Optic.View (module Optic.View,module X) where
 import Num.Add0 as X
 import Arrow.Mapped as X
-import Map.Co.Bi as X
-import Map.Co as X
+import Functor.BiComap as X
+import Functor.Comap as X
 import Type.K
 import Arrow.Promap
-import Fold.Bi
+import Functor.Bifold
 
 newtype View r a b = View {runView :: (a -> r)}
 _View :: Promap p => p (View n a a) (View m s s) -> p (a -> n) (s -> m)

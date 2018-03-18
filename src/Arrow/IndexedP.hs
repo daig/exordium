@@ -1,7 +1,7 @@
 module Arrow.IndexedP (module Arrow.IndexedP, module X) where
 import Constraint.Witness as X
 import Arrow.Traversed as X
-import Applicative as X
+import Functor.Applicative as X
 
 class IndexedP p where ixmap :: (i -> j) -> p j a b -> p i a b
 

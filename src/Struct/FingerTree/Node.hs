@@ -2,9 +2,9 @@
 {-# language MagicHash #-}
 module Struct.FingerTree.Node (Node(Node2,Node2#,Node3,Node3#), module X) where
 import Prelude (Show)
-import Map as X
+import Functor.Map as X
 import Num.Measured as X
-import Fold as X
+import Functor.Fold as X
 import Struct.Unsafe
 import Coerce
 

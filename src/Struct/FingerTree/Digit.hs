@@ -1,11 +1,11 @@
 module Struct.FingerTree.Digit (module Struct.FingerTree.Digit,module X) where
 import Prelude (Show,error)
-import Fold as X
+import Functor.Fold as X
 import Num.Measured as X
-import Traverse as X
+import Functor.Traverse as X
 import Maybe
 import Bool
-import Map
+import Functor.Map
 import Mono.Cons
 import Mono.Snoc
 

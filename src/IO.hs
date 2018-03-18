@@ -4,8 +4,8 @@ import GHC.Types as X (IO(..))
 import Control.Monad.ST as X (RealWorld) -- fix
 import GHC.Prim as X (State#)
 
-{-import Traverse.Class_ as X-}
-{-import Monad-}
+{-import Functor.Traverse.Class_ as X-}
+{-import Functor.Monad-}
 
 {-instance MapIso IO where mapIso = map_mapIso-}
 {-instance Map IO where-}

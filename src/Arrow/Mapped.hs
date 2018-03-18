@@ -2,7 +2,7 @@ module Arrow.Mapped (Mapped(..), module X) where
 import Arrow.Mapped.Internal
 import Arrow.Traversed as X
 import Arrow.Closed as X
-import Distribute as X
+import Functor.Distribute as X
 import Type.I
 
 class (Closed p, Traversed p) => Mapped p where

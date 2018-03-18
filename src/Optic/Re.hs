@@ -1,9 +1,9 @@
 module Optic.Re where
 import Arrow.Closed as X
 import Arrow.Traversed as X
-import Swap -- TODO: integrate into E
+import Functor.Swap -- TODO: integrate into E
 import Prelude ((.))
-import Fold.Bi
+import Functor.Bifold
 
 newtype Re p s t a b = Re {runRe :: p b a -> p t s}
 

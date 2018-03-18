@@ -1,6 +1,6 @@
 module Arrow.Closed (module Arrow.Closed, module X) where
 import Arrow.Promap as X
-import Distribute as X
+import Functor.Distribute as X
 
 class Promap p => Closed p where
   {-# minimal zipped | closed | grate | collection #-}

@@ -1,10 +1,10 @@
 module E (module E, module X) where
-import Pure as X
-import Map.Bi as X
-import Traverse.Bi as X
-import Swap as X
+import Functor.Pure as X
+import Functor.Bimap as X
+import Functor.Traverse.Bi as X
+import Functor.Swap as X
 
-import Traverse as X
+import Functor.Traverse as X
 
 data E a b = L ~a | R ~b
 

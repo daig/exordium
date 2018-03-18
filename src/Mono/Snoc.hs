@@ -3,7 +3,7 @@ module Mono.Snoc where
 import Maybe
 import Optic.Review
 import Optic.View
-import Plus.F
+import Functor.Plus
 
 class Snoc s a b t | s -> a, t -> b, s b -> t, t a -> s where
   _Snoc :: Traversed' p => p (s,a) (t,b) -> p s t

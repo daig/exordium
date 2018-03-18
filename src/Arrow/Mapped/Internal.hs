@@ -1,6 +1,6 @@
 module Arrow.Mapped.Internal (Context(..),Bar(..), module X) where
-import Applicative as X
-import Distribute as X
+import Functor.Applicative as X
+import Functor.Distribute as X
 
 newtype Bar t b a = Bar {runBar :: forall f. (Applicative f, Distribute f) => (a -> f b) -> f t}
 instance Map (Bar t b) where map f (Bar k) = Bar (\xfb -> k (\x -> xfb (f x)))

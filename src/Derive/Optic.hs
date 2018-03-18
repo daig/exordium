@@ -6,11 +6,11 @@ import qualified Data.Map as M
 import qualified Prelude as P
 import qualified Control.Monad as P
 import qualified Data.List as P
-import Plus.F
+import Functor.Plus
 import Type.Int.I
-import MapM.Class
-import Map.I
-import Fold
+import Functor.Map'
+import Functor.IMap
+import Functor.Fold
 import Arrow.Traversed
 import Debug.Trace
 
