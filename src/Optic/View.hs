@@ -1,6 +1,7 @@
 module Optic.View (module Optic.View,module X) where
 import Num.Add0 as X
 import Arrow.Mapped as X
+import Arrow.Loop as X
 import Arrow.Postcoerce as X
 import Functor.BiComap as X
 import Functor.Comap as X
@@ -33,9 +34,9 @@ instance Traversed_ (View r) where
   _1 (View z) = View (\(a,_) -> z a)
   traversal_ l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 
-instance Cochoice (View r) where
-  un_R (View exar) = View (\a -> exar (R a))
-  un_L (View eaxr) = View (\a -> eaxr (L a))
+instance Loop' (View r) where
+  loopRight (View exar) = View (\a -> exar (R a))
+  loopLeft (View eaxr) = View (\a -> eaxr (L a))
 
 {-instance Zero r => Closed (View r) where-} -- bad
   {-closed (View ar) = View (\_ -> zero)-}
@@ -44,9 +45,9 @@ instance Cochoice (View r) where
   {-setter abst (View ar) = View (\_ -> zero)-}
   
 
-{-instance Cochoice (View r) where-}
-  {-un_L (View r) = View (\a -> r (L a))-}
-  {-un_R (View r) = View (\a -> r (R a))-}
+{-instance Loop' (View r) where-}
+  {-loopLeft (View r) = View (\a -> r (L a))-}
+  {-loopRight (View r) = View (\a -> r (R a))-}
 {-type (s ~+ a) b t = forall p. Prism p => p a b -> p s t-}
 {-unprismoid :: (forall f. Traverse0 f => (f a -> b) -> f s -> t) -> b -> t-}
 {-unprismoid fabfst b = fabfst (\_ -> b) (K ())-}

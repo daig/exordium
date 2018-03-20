@@ -86,4 +86,3 @@ instance Promap (Bazaar Applicative a) where promap f g (Bazaar m) = Bazaar (\k 
 {-bazaar'map map = \f (Bazaar t) -> Bazaar (\afb -> f `map` t afb)-}
 {-bazaar'pure :: (forall f x. c f => x -> f x) -> t -> Bazaar c a b t-}
 {-bazaar'pure pure = \a -> Bazaar (\_ -> pure a)-}
-

@@ -144,11 +144,3 @@ instance Traversed_ (->) where
 instance Traversed1 (->) where traversal1 l f s = case l (\a -> I (f a)) s of {I t -> t}
 instance Traversed0 (->) where traversal0 l f s = case l (\a -> I (f a)) s of {I t -> t}
 instance Traversed (->) where traversal l f s = case l (\a -> I (f a)) s of {I t -> t}
-
-class Promap p => Cochoice p where
-  {-# minimal un_L | un_R #-}
-  un_L :: p (E a y) (E b y) -> p a b
-  un_L p = un_R (promap swap swap p)
-  un_R :: p (E x a) (E x b) -> p a b
-  un_R p = un_L (promap swap swap p)
-{-instance Prism p -}
