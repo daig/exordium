@@ -1,11 +1,11 @@
 module Arrow.Closed (module Arrow.Closed, module X) where
 import Arrow.Promap as X
-import Functor.Distribute as X
+import Functor.Zip as X
 
 class Promap p => Closed p where
   {-# minimal zipped | closed | grate | collection #-}
-  zipped :: Distribute f => p a b -> p (f a) (f b)
-  zipped = collection zipF -- grate (\f -> zipF f (\x -> x))
+  zipped :: Zip f => p a b -> p (f a) (f b)
+  zipped = collection zip -- grate (\f -> zip f (\x -> x))
   closed :: p a b -> p (x -> a) (x -> b)
   closed = zipped -- grate (\g x -> g (\f -> f x))
   grate :: (((s -> a) -> b) -> t) -> p a b -> p s t

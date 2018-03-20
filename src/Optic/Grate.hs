@@ -5,7 +5,7 @@ import Arrow.Category as X
 import Functor.Comonad as X
 import Functor.Coerce1 as X
 
-import Functor.Distribute.Internal
+import Functor.Zip.Internal
 {-import Adjoint-}
 
 newtype Grate a b s t = Grate {runGrate :: (((s -> a) -> b) -> t)}
@@ -44,8 +44,8 @@ cloneGrate g = grate (withGrate g)
 {-zipWithOf :: Grate a b s t -> (a -> a -> b) -> (s -> s -> t)-}
 {-zipWithOf (Grate g) op s1 s2 = g (\get -> get s1 `op` get s2)-}
 
-zipFOf' :: Map f => Grate a b s t -> (f a -> b) -> f s -> t
-zipFOf' (Grate g) reduce fs = g (\get -> reduce (map get fs))
+zipOf' :: Map f => Grate a b s t -> (f a -> b) -> f s -> t
+zipOf' (Grate g) reduce fs = g (\get -> reduce (map get fs))
 
 {-grate0 :: Grate a b a b-}
 {-grate0 = Grate (\aab -> aab (\a -> a))-}
@@ -53,8 +53,8 @@ zipFOf' (Grate g) reduce fs = g (\get -> reduce (map get fs))
 {-repGrate :: (Grate a b a b -> Grate a b s t) -> Grate a b s t-}
 {-repGrate g = g grate0-}
 
-{-zipFOf :: Map f => (Grate a b a b -> Grate a b s t) -> (f a -> b) -> f s -> t-}
-{-zipFOf g reduce fs = g grate0 `runGrate` \get -> reduce (map get fs)-}
+{-zipOf :: Map f => (Grate a b a b -> Grate a b s t) -> (f a -> b) -> f s -> t-}
+{-zipOf g reduce fs = g grate0 `runGrate` \get -> reduce (map get fs)-}
 
 
 {-_Zip2 :: (FZip V2 a b -> FZip V2 s t) -> (a -> a -> b) -> s -> s -> t-}
@@ -63,9 +63,9 @@ zipFOf' (Grate g) reduce fs = g (\get -> reduce (map get fs))
 
 newtype Zip2 a b = Zip2 {runZip2 :: a -> a -> b}
 instance Pure (Zip2 a) where pure x = Zip2 (\_ _ -> x)
-instance Apply (Zip2 a) where ap = zipF_ap
+instance Apply (Zip2 a) where ap = zip_ap
 instance Applicative (Zip2 a) 
-instance Distribute (Zip2 a) where zipF fab faab = Zip2 (\a b -> fab (map (\(Zip2 f) -> f a b) faab))
+instance Zip (Zip2 a) where zip fab faab = Zip2 (\a b -> fab (map (\(Zip2 f) -> f a b) faab))
 instance Closed Zip2 where closed (Zip2 z) = Zip2 (\xa xa' x -> z (xa x) (xa' x))
 {-instance Traversed Zip2 where traversal afbsft (Zip2 z) = Zip2 (\s s' -> -}
 {-instance Mapped Zip2 where setter abst (Zip2 z) = Zip2 (\s s' -> abst (\x -> z x x) s)-}

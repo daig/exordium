@@ -12,7 +12,7 @@ _Traversing l afb s = case l (Traversing afb) of Traversing sft -> sft s
 
 {-instance Bind m => Compose (Traversing m) where Traversing f > Traversing g = Traversing (g <=< f)-}
 {-instance Monad m => Category (Traversing m) where id = Traversing pure-}
-instance Distribute f => Closed (Traversing f) where
+instance Zip f => Closed (Traversing f) where
   closed (Traversing afb) = Traversing (\xa -> distribute (\x -> afb (xa x)))
 instance Map f => Promap (Traversing f) where promap f g (Traversing s) = Traversing (promap f (map g) s)
 instance Map f => Map (Traversing f a) where map f (Traversing s) = Traversing (\a -> map f (s a))
@@ -34,7 +34,7 @@ instance Applicative f => Traversed (Traversing f) where
 
 {-instance Indexed i (Traversing f) where indexed s _ = s-}
 
-instance Distribute f => Mapped (Traversing f) where
+instance Zip f => Mapped (Traversing f) where
    mapped (Traversing f) = Traversing (collect f)
 
 

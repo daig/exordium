@@ -2,13 +2,13 @@ module Functor.Indexed
   (module Functor.Indexed
   ,module X) where
 import Arrow.Promap as X
-import Functor.Distribute as X
+import Functor.Zip as X
 import Optic.Review
 import Optic.View
 import Arrow.Promap
 import Functor.Apply
 
-class Distribute f => Indexed f where
+class Zip f => Indexed f where
   {-# minimal indexed | index,tabulate #-}
   type Ix f :: *
   indexed :: f ~~= ((->) (Ix f))

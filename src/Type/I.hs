@@ -1,6 +1,6 @@
 module Type.I (I(..), module X) where
 import Functor.Applicative as X
-import Functor.Distribute as X
+import Functor.Zip as X
 import Functor.Fold as X
 
 -- | Identity type
