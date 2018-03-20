@@ -3,15 +3,15 @@ import Arrow.Promap as X
 import Functor.Zip as X
 
 class Promap p => Closed p where
-  {-# minimal zipped | closed | grate | collection #-}
+  {-# minimal zipped | closed | grate | zipping #-}
   zipped :: Zip f => p a b -> p (f a) (f b)
-  zipped = collection zip -- grate (\f -> zip f (\x -> x))
+  zipped = zipping zip -- grate (\f -> zip f (\x -> x))
   closed :: p a b -> p (x -> a) (x -> b)
   closed = zipped -- grate (\g x -> g (\f -> f x))
   grate :: (((s -> a) -> b) -> t) -> p a b -> p s t
   grate f = \p -> promap (\a g -> g a) f (closed p)
-  collection :: (forall f. Map f => (f a -> b) -> f s -> t) -> p a b -> p s t
-  collection sabsst = grate (`sabsst` (\x -> x))
+  zipping :: (forall f. Map f => (f a -> b) -> f s -> t) -> p a b -> p s t
+  zipping sabsst = grate (`sabsst` (\x -> x))
 
   {-traversal :: (forall f. Applicative f => (a -> f b) -> s -> f t) -> p a b -> p s t-}
 
