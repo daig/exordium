@@ -1,10 +1,10 @@
 module Optic.View (module Optic.View,module X) where
 import Num.Add0 as X
 import Arrow.Mapped as X
+import Arrow.Postcoerce as X
 import Functor.BiComap as X
 import Functor.Comap as X
 import Type.K
-import Arrow.Promap
 import Functor.Bifold
 
 newtype View r a b = View {runView :: (a -> r)}
@@ -18,6 +18,7 @@ instance Map (View r a) where map = postmap
 instance BiComap (View r) where
   bicomap f _ (View z) = View (premap f z)
 instance Comap (View r a) where comap = cormap
+instance Postcoerce (View r) where postcoerce (View ar) = View ar
 
 instance Zero r => Traversed' (View r) where
   _R (View z) = View (bifoldMap_ (\_ -> zero) z)

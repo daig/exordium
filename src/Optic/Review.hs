@@ -1,9 +1,10 @@
-module Optic.Review where
-import Arrow.Traversed
+module Optic.Review (module Optic.Review, module X) where
+import Arrow.Precoerce as X
 
 newtype Review a b = Review {runReview :: b}
 instance Promap Review where promap _ g (Review b) = Review (g b)
 instance Traversed' Review where prism _ bt (Review b) = Review (bt b)
+instance Precoerce Review where precoerce (Review b) = Review b
 instance Pure (Review a) where pure = Review
 instance Map (Review a ) where map f (Review b) = Review (f b)
 

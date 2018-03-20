@@ -1,8 +1,9 @@
 module Optic.Grate (module Optic.Grate, module X) where
 import Arrow.Mapped as X
+import Arrow.Precoerce as X
 import Arrow.Category as X
 import Functor.Comonad as X
-import Functor.Comap
+import Functor.Coerce1 as X
 
 import Functor.Distribute.Internal
 {-import Adjoint-}
@@ -85,6 +86,12 @@ instance Map f => Promap (FZip f) where
 instance Map (FZip f a) where map f (FZip fab) = FZip (\fa -> f (fab fa))
 instance Duplicate w => Compose (FZip w) where FZip f `precompose` FZip g = FZip (g `postcompose` extend f)
 instance Comonad w => Category (FZip w) where identity = FZip fold_
+instance Coerce1 f => Precoerce (FZip f) where precoerce (FZip z) = FZip (premap coerce1 z)
+instance Traverse0 f => Traversed' (FZip f) where
+  prism seta bt (FZip z) = FZip (\fs -> case traverse0 seta fs of
+    L t -> t
+    R fa -> bt (z fa))
+  {-prism -}
 
 _FZip :: (FZip f a b -> FZip f s t) -> (f a -> b) -> f s -> t
 _FZip = promap FZip runFZip

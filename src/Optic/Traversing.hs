@@ -1,8 +1,9 @@
 module Optic.Traversing (module Optic.Traversing, module X) where
 {-import Functor.Indexed-}
 {-import Indexable.Class as X-}
-import Arrow.Traversed as X
+import Arrow.Postcoerce as X
 import Arrow.Mapped as X
+import Functor.Coerce1 as X
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
 
@@ -16,6 +17,8 @@ instance Distribute f => Closed (Traversing f) where
 instance Map f => Promap (Traversing f) where promap f g (Traversing s) = Traversing (promap f (map g) s)
 instance Map f => Map (Traversing f a) where map f (Traversing s) = Traversing (\a -> map f (s a))
 {--- TODO: move to PromapIso class-}
+instance Comap f => Comap (Traversing f a) where comap f (Traversing s) = Traversing (\a -> comap f (s a))
+instance Coerce1 f => Postcoerce (Traversing f) where postcoerce (Traversing s) = Traversing (\a -> coerce1 (s a))
 
 instance Map f => Traversed_ (Traversing f) where traversal_ afbsft (Traversing afb) = Traversing (\s -> afbsft afb s)
 instance Pure f => Traversed' (Traversing f) where
