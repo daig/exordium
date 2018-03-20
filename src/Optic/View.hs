@@ -20,7 +20,7 @@ instance BiComap (View r) where
 instance Comap (View r a) where comap = cormap
 
 instance Zero r => Traversed' (View r) where
-  right (View z) = View (bifoldMap_ (\_ -> zero) z)
+  _R (View z) = View (bifoldMap_ (\_ -> zero) z)
 
 instance Add0 r => Traversed (View r) where
   traversal l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
@@ -29,12 +29,12 @@ instance Zero r => Traversed0 (View r) where
 instance Add r => Traversed1 (View r) where
   traversal1 l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Traversed_ (View r) where
-  first (View z) = View (\(a,_) -> z a)
+  _1 (View z) = View (\(a,_) -> z a)
   traversal_ l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 
 instance Cochoice (View r) where
-  unright (View exar) = View (\a -> exar (R a))
-  unleft (View eaxr) = View (\a -> eaxr (L a))
+  un_R (View exar) = View (\a -> exar (R a))
+  un_L (View eaxr) = View (\a -> eaxr (L a))
 
 {-instance Zero r => Closed (View r) where-} -- bad
   {-closed (View ar) = View (\_ -> zero)-}
@@ -44,8 +44,8 @@ instance Cochoice (View r) where
   
 
 {-instance Cochoice (View r) where-}
-  {-unleft (View r) = View (\a -> r (L a))-}
-  {-unright (View r) = View (\a -> r (R a))-}
+  {-un_L (View r) = View (\a -> r (L a))-}
+  {-un_R (View r) = View (\a -> r (R a))-}
 {-type (s ~+ a) b t = forall p. Prism p => p a b -> p s t-}
 {-unprismoid :: (forall f. Traverse0 f => (f a -> b) -> f s -> t) -> b -> t-}
 {-unprismoid fabfst b = fabfst (\_ -> b) (K ())-}

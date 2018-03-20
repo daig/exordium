@@ -40,12 +40,12 @@ instance Traversed' (Prism a b) where
       R a -> case pat' a of
         L b -> L (constr b)
         R a' -> R a'
-  right (Prism seta bt) = (`Prism` (R . bt)) (\case
+  _R (Prism seta bt) = (`Prism` (R . bt)) (\case
     L c -> L (L c)
     R s -> case seta s of
       L t -> L (R t)
       R a -> R a)
-  left (Prism seta bt) = (`Prism` (L . bt)) (\case
+  _L (Prism seta bt) = (`Prism` (L . bt)) (\case
     L s -> case seta s of
       L t -> L (L t)
       R a -> R a

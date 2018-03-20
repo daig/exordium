@@ -17,9 +17,9 @@ re = (`_Re` (\q -> q))
 
 -- TODO: should it use Cochoice, or some 'EmptyP' class?
 instance Cochoice p => Traversed' (Re p s t) where
-  right (Re l) = Re (\p -> l (unright p))
+  _R (Re l) = Re (\p -> l (un_R p))
 instance Traversed' p => Cochoice (Re p s t) where
-  unright (Re l) = Re (\p -> l (right p))
+  un_R (Re l) = Re (\p -> l (_R p))
 instance Cochoice (->) where
-  unleft f = go . L where go = bifoldMap_ (\x -> x) (go . R) . f
-  unright f = go . R where go = bifoldMap_ (go . L) (\x -> x) . f
+  un_L f = go . L where go = bifoldMap_ (\x -> x) (go . R) . f
+  un_R f = go . R where go = bifoldMap_ (go . L) (\x -> x) . f
