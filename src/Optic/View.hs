@@ -2,7 +2,9 @@ module Optic.View (module Optic.View,module X) where
 import Num.Add0 as X
 import Arrow.Mapped as X
 import Arrow.Loop as X
+import Arrow.ITraversed as X
 import Arrow.Postcoerce as X
+import Arrow.Compose as X
 import Functor.BiComap as X
 import Functor.Comap as X
 import Type.K
@@ -20,10 +22,10 @@ instance BiComap (View r) where
   bicomap f _ (View z) = View (premap f z)
 instance Comap (View r a) where comap = cormap
 instance Postcoerce (View r) where postcoerce (View ar) = View ar
+instance Compose (View r) where precompose (View f) _ = View f
 
 instance Zero r => Traversed' (View r) where
   _R (View z) = View (bifoldMap_ (\_ -> zero) z)
-
 instance Add0 r => Traversed (View r) where
   traversal l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
 instance Zero r => Traversed0 (View r) where
@@ -33,6 +35,21 @@ instance Add r => Traversed1 (View r) where
 instance Traversed_ (View r) where
   _1 (View z) = View (\(a,_) -> z a)
   traversal_ l (View ar) = View (\s -> case (l (\a -> K (ar a))) s of {K r -> r})
+
+instance PIndexed i (View r) (View r)
+instance Zero r => ITraversed' i (View r) (View r) where
+  iprism pat _ (View ar) = View (\s -> case pat s of
+    L t -> zero
+    R (_,a) -> ar a) 
+instance Add0 r => ITraversed i (View r) (View r) where
+  itraversal l (View ar) = View (\s -> case (l (\_ a -> K (ar a))) s of {K r -> r})
+instance Zero r => ITraversed0 i (View r) (View r) where
+  itraversal0 l (View ar) = View (\s -> case (l (\_ a -> K (ar a))) s of {K r -> r})
+instance Add r => ITraversed1 i (View r) (View r) where
+  itraversal1 l (View ar) = View (\s -> case (l (\_ a -> K (ar a))) s of {K r -> r})
+instance ITraversed_ i (View r) (View r) where
+  itraversal_ l (View ar) = View (\s -> case (l (\_ a -> K (ar a))) s of {K r -> r})
+
 
 instance Loop' (View r) where
   loopRight (View exar) = View (\a -> exar (R a))

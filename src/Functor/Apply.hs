@@ -4,6 +4,8 @@ import Num.Add
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} ADT.E
+import IO
+import qualified Prelude as P
 
 -- | (f |$(<)$| g) |$| w = f |$| (g |$| w)
 class Map f => Apply f where
@@ -33,3 +35,5 @@ instance Apply ((->) x) where f `ap` g = \x -> f x (g x)
 instance Apply [] where fs `ap` as = [f a | f <- fs, a <- as]
 instance Add a => Apply (K a) where K a `ap` K b = K (a `add` b)
 instance Add a => Apply ((,) a) where (a,f) `ap` (b,x) = (add a b, f x)
+
+instance Apply IO where ap = (P.<*>)

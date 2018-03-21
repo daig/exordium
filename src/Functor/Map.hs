@@ -1,11 +1,13 @@
 {-# language MagicHash #-}
+{-# language UnboxedTuples #-}
 module Functor.Map (module Functor.Map, module X) where
-import Cast.Coerce as X (type (#=#),coerce,coerceF)
+import Cast.Coerce as X (type ( #=# ),coerce,coerceF)
 import Cast.Coerce.Unsafe (coerceF#)
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} ADT.E
 import ADT.Maybe
+import IO
 
 class Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
@@ -56,3 +58,5 @@ maybe'map :: (a -> b) -> Maybe a -> Maybe b
 maybe'map f = \case
   Nothing -> Nothing
   Just a -> Just (f a)
+
+instance Map IO where map f (IO io) = IO (\s -> case io s of (# s', a #) -> (# s', f a #))

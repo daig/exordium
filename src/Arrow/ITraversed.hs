@@ -5,6 +5,7 @@ import {-# source #-} Type.I
 import {-# source #-} Type.K
 import Functor.ITraverse as X
 import Arrow.Indexed as X
+import Arrow.Compose as X
 import Arrow.Traversed as X
 import ADT.E
 {-import Arrow.ITraversed.Internal-}
@@ -92,17 +93,7 @@ class (Traversed_ p, PIndexed i q p) => ITraversed_ i q p | p -> q where
   -- | Pass through the product structure of any linearly traversable container
   itraversed_ :: ITraverse_ i t => p a b -> q (t a) (t b)
   itraversed_ = itraversal_ (itraverse_ @i)
-  -- | Pass through the second component of a product
 
-
-
-{-instance Optic ITraversed_ i where data A ITraversed_ i a b s t = ITraversed_ i (s -> a) (s -> b -> t)-}
-{-instance ITraversed_ i (A ITraversed_ i a b) where-}
-  {-_1 (ITraversed_ i x y) = ITraversed_ i (\(a,_) -> x a) (\(s,c) b -> (y s b,c))-}
-{-instance Promap (A ITraversed_ i a b) where-}
-  {-promap f g (ITraversed_ i x y) = ITraversed_ i (\s -> x (f s)) (\s b -> g (y (f s) b))-}
-
-{-data A ITraversed_ i q p a b t = Pretext {runPretext :: forall f. Map f => p a (f b) -> f t}-}
 
 instance Pure f => ITraversed' i (Traversing f) (ITraversing i f) where
   iprism pat constr (ITraversing iafb) = Traversing (\s -> case pat s of
@@ -117,4 +108,30 @@ instance Apply f => ITraversed1 i (Traversing f) (ITraversing i f) where
 instance Map f => ITraversed_ i (Traversing f) (ITraversing i f) where
   itraversal_ l (ITraversing f) = Traversing (\s -> l (\i a -> (f i a)) s)
   ilens si sa sbt (ITraversing iafb) = Traversing (\s -> sbt s `map` iafb (si s) (sa s))
-{-instance ITraversed (->) where itraversal l f s = case l (\a -> I (f a)) s of {I t -> t}-}
+
+instance ITraversed' i (->) (->) where iprism = prism_iprism
+instance ITraversed0 i (->) (->) where itraversal0 = traversal0_itraversal0
+instance ITraversed_ i (->) (->) where itraversal_ = traversal__itraversal_
+instance ITraversed1 i (->) (->) where itraversal1 = traversal1_itraversal1
+instance ITraversed  i (->) (->) where itraversal = traversal_itraversal
+
+instance Pure f => ITraversed' i (Traversing f) (Traversing f) where iprism = prism_iprism
+instance Pure f => ITraversed0 i (Traversing f) (Traversing f) where itraversal0 = traversal0_itraversal0
+instance Map f => ITraversed_ i (Traversing f) (Traversing f) where itraversal_ = traversal__itraversal_
+instance Apply f => ITraversed1 i (Traversing f) (Traversing f) where itraversal1 = traversal1_itraversal1
+instance Applicative f => ITraversed  i (Traversing f) (Traversing f) where itraversal = traversal_itraversal
+
+prism_iprism :: Traversed' p => (s -> E t (i,a)) -> (b -> t) -> p a b -> p s t
+prism_iprism pat = prism (map (map (\(_,a) -> a)) pat)
+traversal__itraversal_ :: Traversed_ p => (forall f. Map f => (i -> a -> f b) -> s -> f t) -> p a b -> p s t
+traversal__itraversal_ iafbsft = traversal_ (\afb -> iafbsft (\_ -> afb))
+traversal0_itraversal0 :: Traversed0 p => (forall f. Pure f => (i -> a -> f b) -> s -> f t) -> p a b -> p s t
+traversal0_itraversal0 iafbsft = traversal0 (\afb -> iafbsft (\_ -> afb))
+traversal1_itraversal1 :: Traversed1 p => (forall f. Apply f => (i -> a -> f b) -> s -> f t) -> p a b -> p s t
+traversal1_itraversal1 iafbsft = traversal1 (\afb -> iafbsft (\_ -> afb))
+traversal_itraversal :: Traversed p => (forall f. Applicative f => (i -> a -> f b) -> s -> f t) -> p a b -> p s t
+traversal_itraversal iafbsft = traversal (\afb -> iafbsft (\_ -> afb))
+
+{-instance Traversed_ p => Traversed_ (IP i p) where traversal_ l (IP ip) = IP (\i -> traversal_ l (ip i))-}
+{-instance (Traversed_ p, PIndexed i p p, Compose p) => ITraversed_ i p (IP i p) where-}
+  {-itraversing_ l (IP ip) = l (\i a -> (ip i))-}

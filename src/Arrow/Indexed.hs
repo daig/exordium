@@ -1,9 +1,9 @@
 {-# language UndecidableSuperClasses #-}
-module Arrow.Indexed (PIndexed(..), ITraversing(..),Traversing(..),module X) where
+module Arrow.Indexed (module Arrow.Indexed,module X) where
 import Arrow.Postcoerce
 import Functor.Coerce1
 import Arrow.Closed
-import Optic.Traversing
+import Optic.Traversing as X
 import Arrow.Compose
 import Arrow.Promap as X
 
@@ -14,6 +14,9 @@ class (Promap p, PIndexed i q q) => PIndexed i q p | p -> q where
   
 
 newtype ITraversing i f a b = ITraversing {runITraversing :: i -> a -> f b}
+_ITraversing :: Promap p => p (ITraversing i f a b) (Traversing f s t) -> p (i -> a -> f b) (s -> f t)
+_ITraversing = promap ITraversing runTraversing
+
 
 
 instance Zip f => Closed (ITraversing i f) where
@@ -44,3 +47,16 @@ instance PIndexed i (->) (->)
 instance Map f => PIndexed i (Traversing f) (Traversing f)
 instance (i ~ j, Map f) => PIndexed i (Traversing f) (ITraversing j f) where
   pix (ITraversing f) i = Traversing (f i)
+
+{-icompose :: (i -> j -> k) -> (ITraversing i f s t -> r) -> (ITraversing j f a b -> Traversing f s t) -> (ITraversing k f a b -> r)-}
+{-icompose ijk istr jabst pab = istr (ITraversing (\i s -> jabst (ITraversing (\j -> (runITraversing pab (ijk i j)))) `runTraversing` s))-}
+
+icompose :: (i -> j -> k) -> (ITraversing i f s t -> r) -> (ITraversing j f a b -> Traversing f s t) -> (ITraversing k f a b -> r)
+icompose ijk istr jabst pab = istr (ITraversing (\i s -> jabst (ITraversing (\j -> (runITraversing pab (ijk i j)))) `runTraversing` s))
+
+newtype IP i p a b = IP {runIP :: i -> p a b}
+instance Promap p => Promap (IP i p) where promap f g (IP ip) = IP (\i -> promap f g (ip i))
+instance PIndexed i p p => PIndexed i p (IP i p) where pix = runIP
+
+pcompose :: PIndexed k q p => (i -> j -> k) -> (IP i q s t -> r) -> (IP j q a b -> q s t) -> (p a b -> r)
+pcompose ijk istr jabst pab = istr (IP (\i -> jabst (IP (\j -> pix pab (ijk i j)))))

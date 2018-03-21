@@ -1,3 +1,4 @@
+{-# language UnboxedTuples #-}
 module Functor.Pure (Pure(..), module X) where
 import Functor.Map as X
 import Num.Zero
@@ -6,6 +7,7 @@ import {-# source #-} ADT.E as X
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import ADT.Maybe
+import IO
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E
@@ -27,3 +29,4 @@ instance Pure I where pure = I
 instance Pure (E x) where pure = R
 instance Zero x => Pure ((,) x) where pure a = (zero,a)
 instance Pure Maybe where pure = Just
+instance Pure IO where pure a = IO (\s -> (# s, a #))

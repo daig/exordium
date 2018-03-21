@@ -6,6 +6,7 @@ import Num.Mul1 as X
 import Num.Add0 as X
 import {-# source #-} Type.K
 import {-# source #-} Type.I
+import IO
 
 class (Pure f, Apply f) => Applicative f
 
@@ -16,3 +17,4 @@ instance Add0 a => Applicative (K a)
 instance Add0 a => Applicative ((,) a)
 
 instance Applicative I
+instance Applicative IO
