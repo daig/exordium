@@ -1,6 +1,7 @@
 module Arrow.Loop (module Arrow.Loop, module X) where
 import Arrow.Promap as X
 import ADT.E as X
+import Prelude ((.))
 
 class Promap p => Loop' p where
   {-# minimal loopLeft | loopRight #-}
@@ -15,3 +16,7 @@ class Promap p => Loop_ p where
   loopFirst p = loopSecond (promap swap swap p)
   loopSecond :: p (x, a) (x, b) -> p a b
   loopSecond p = loopFirst (promap swap swap p)
+
+instance Loop' (->) where
+  loopLeft f = go . L where go = bifoldMap_ (\x -> x) (go . R) . f
+  loopRight f = go . R where go = bifoldMap_ (go . L) (\x -> x) . f

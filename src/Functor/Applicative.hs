@@ -13,5 +13,6 @@ instance Applicative []
 instance Applicative ((->) x)
 
 instance Add0 a => Applicative (K a)
+instance Add0 a => Applicative ((,) a)
 
 instance Applicative I

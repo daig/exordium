@@ -1,4 +1,4 @@
-module ADT.X (X, __, absurd) where
+module ADT.X where
 import qualified Prelude as P
 
 data X 
@@ -8,3 +8,6 @@ __ = P.undefined
 
 absurd :: X -> a
 absurd = \case {}
+
+never :: a -> b
+never _ = __

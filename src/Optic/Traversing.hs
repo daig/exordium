@@ -7,6 +7,7 @@ import Functor.Coerce1 as X
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
 
+-- | Lift an f-operation over the target of a traversal
 _Traversing :: (Traversing f a b -> Traversing f s t) -> (a -> f b) -> s -> f t
 _Traversing l afb s = case l (Traversing afb) of Traversing sft -> sft s
 
@@ -43,3 +44,18 @@ instance Zip f => Mapped (Traversing f) where
 
 {-collectOf :: (Traversing f a b -> Traversing f s t) -> (a -> f b) -> s -> f t-}
 {-collectOf g f = case g (Traversing f) of Traversing f' -> f'-}
+
+--itraverseOf' :: (IFun f Int a b -> IFun f Int s t) -> (Int -> a -> f b) -> s -> f t
+--itraverseOf' l iafb = case l (IFun iafb) of IFun isft -> isft 0
+
+
+{-withTraversed_ :: (s ~*. a) b t -> ((s -> a) -> (s -> b -> t) -> r) -> r-}
+{-withTraversed_ l f = case l (A Traversed_ (\x -> x) (\_ b -> b)) of A Traversed_ x y -> f x y-}
+
+{-cloneTraversed_ :: (s ~*. a) b t -> (s ~* a) b t-}
+{-cloneTraversed_ l = withTraversed_ l (\x y p -> lens x y p)-}
+
+{-withTraversed_' :: (forall f. Map f => (a -> f b) -> s -> f t) -> ((s -> a) -> (s -> b -> t) -> r) -> r-}
+{-withTraversed_' -}
+
+{-type (s ~*  a) b t = forall p. Traversed_ p => p a b -> p s t-}

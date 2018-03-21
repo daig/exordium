@@ -18,6 +18,7 @@ import Arrow.Mapped as X
 {-_Edit = promap Edit runEdit-}
 
 
+-- | An @Update@ inserts a single value into a container, possibly changing its type
 newtype Update b s t = Update {runUpdate :: b -> s -> t}
 instance Promap (Update b) where promap sa bt (Update bab) = Update (\b -> promap sa bt (bab b))
 instance Closed (Update b) where closed (Update f) = Update (\b xs x -> f b (xs x))
@@ -25,19 +26,25 @@ instance Traversed_ (Update b) where traversed_ = mapped
 instance Traversed1 (Update b) where traversed1 = mapped
 instance Traversed0 (Update b) where traversed0 = mapped
 instance Traversed (Update b)  where traversed = mapped
-instance Traversed' (Update b) where traversed' = mapped
+instance Traversed' (Update b) where
+  prism seta bt (Update bab) = Update (\b s -> case seta s of
+    L t -> t
+    R a -> bt (bab b a))
+    -- traversed' = mapped
 instance Mapped (Update b) where setter abst (Update bab) = Update (\b s -> abst (bab b) s)
 
 
+-- | Update the values targeted by an optic, providing a combining function and value to insert.
 _Update :: Promap p => p (Update b a b) (Update b s t) -> p (b -> a -> b) (b -> s -> t)
 _Update = promap Update runUpdate
 
 -- TODO: compare ergononomics and performance of _Update/update and set/set'
-update :: (((a -> b) -> a -> b) -> ((a -> b) -> s -> t)) -> (b -> a -> b) -> b -> s -> t
-update l bab b s = l (\ab -> ab) (bab b) s
+-- | Update the values targeted by an optic, providing a combining function and value to insert.
+{-update :: (((a -> b) -> a -> b) -> ((a -> b) -> s -> t)) -> (b -> a -> b) -> b -> s -> t-}
+{-update l bab b s = l (\ab -> ab) (bab b) s-}
 
 set :: (Update b a b -> Update b s t) -> b -> s -> t
 set = (`_Update` (\b _ -> b))
 
-set' :: ((a -> b) -> s -> t) -> b -> s -> t
-set' l x = l (\_ -> x)
+{-set' :: ((a -> b) -> s -> t) -> b -> s -> t-}
+{-set' l x = l (\_ -> x)-}
