@@ -10,7 +10,8 @@ import Functor.Plus
 import Type.Int.I
 import Functor.Map'
 import Functor.IMap
-import Functor.Fold
+{-import Functor.Fold-}
+import Prelude (Foldable(..))
 import Arrow.Traversed
 import Debug.Trace
 
@@ -99,8 +100,8 @@ filterTraverseds_ cmap lmap =
       else labels'
     {-filter (\label -> -}
 
-collectFromList :: (P.Ord k, Fold t) => (a -> as) -> (a -> as -> as) -> M.Map k as -> t (k,a) -> M.Map k as
-collectFromList f0 f m0 x = foldr (\(k,a) -> M.alter (f' a) k) m0 x where
+collectFromList :: (P.Ord k, Foldable t) => (a -> as) -> (a -> as -> as) -> M.Map k as -> t (k,a) -> M.Map k as
+collectFromList f0 f m0 x = Prelude.foldr (\(k,a) -> M.alter (f' a) k) m0 x where
   f' a' = \case
     P.Nothing -> P.Just (f0 a')
     P.Just as -> P.Just (f a' as)

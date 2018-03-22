@@ -4,8 +4,10 @@ module Optic.Traversing (module Optic.Traversing, module X) where
 import Arrow.Postcoerce as X
 import Arrow.Mapped as X
 import Functor.Coerce1 as X
+import Arrow.Representable as X
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
+  deriving anyclass Representable
 
 -- | Lift an f-operation over the target of a traversal
 _Traversing :: (Traversing f a b -> Traversing f s t) -> (a -> f b) -> s -> f t
@@ -59,3 +61,7 @@ instance Zip f => Mapped (Traversing f) where
 {-withTraversed_' -}
 
 {-type (s ~*  a) b t = forall p. Traversed_ p => p a b -> p s t-}
+
+type instance Rep (Traversing f) = f
+instance Map f => Sieve (Traversing f) where sieve = runTraversing
+instance Map f => Tabulated (Traversing f) where tabulateP = Traversing

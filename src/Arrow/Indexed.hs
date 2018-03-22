@@ -3,6 +3,7 @@ module Arrow.Indexed (module Arrow.Indexed,module X) where
 import Arrow.Postcoerce
 import Functor.Coerce1
 import Arrow.Closed
+import Arrow.Representable
 import Optic.Traversing as X
 import Arrow.Compose
 import Arrow.Promap as X
@@ -54,9 +55,15 @@ instance (i ~ j, Map f) => PIndexed i (Traversing f) (ITraversing j f) where
 icompose :: (i -> j -> k) -> (ITraversing i f s t -> r) -> (ITraversing j f a b -> Traversing f s t) -> (ITraversing k f a b -> r)
 icompose ijk istr jabst pab = istr (ITraversing (\i s -> jabst (ITraversing (\j -> (runITraversing pab (ijk i j)))) `runTraversing` s))
 
-newtype IP i p a b = IP {runIP :: i -> p a b}
-instance Promap p => Promap (IP i p) where promap f g (IP ip) = IP (\i -> promap f g (ip i))
-instance PIndexed i p p => PIndexed i p (IP i p) where pix = runIP
+rcompose :: (PIndexed k q p, Sieve q)
+         => (i -> j -> k)
+         -> (ITraversing i (Rep q) s t -> r)
+         -> (ITraversing j (Rep q) a b -> q s t)
+         -> (p a b -> r)
+rcompose ijk istr jabst pab = istr (ITraversing (\i -> sieve (jabst (ITraversing (\j -> sieve (pix pab (ijk i j)))))))
+{-newtype IP i p a b = IP {runIP :: i -> p a b}-}
+{-instance Promap p => Promap (IP i p) where promap f g (IP ip) = IP (\i -> promap f g (ip i))-}
+{-instance PIndexed i p p => PIndexed i p (IP i p) where pix = runIP-}
 
-pcompose :: PIndexed k q p => (i -> j -> k) -> (IP i q s t -> r) -> (IP j q a b -> q s t) -> (p a b -> r)
-pcompose ijk istr jabst pab = istr (IP (\i -> jabst (IP (\j -> pix pab (ijk i j)))))
+{-pcompose :: PIndexed k q p => (i -> j -> k) -> (IP i q s t -> r) -> (IP j q a b -> q s t) -> (p a b -> r)-}
+{-pcompose ijk istr jabst pab = istr (IP (\i -> jabst (IP (\j -> pix pab (ijk i j)))))-}

@@ -92,6 +92,8 @@ instance Traverse0 f => Traversed' (FZip f) where
     L t -> t
     R fa -> bt (z fa))
   {-prism -}
+instance (Map f, Fold_ f) => Traversed_ (FZip f) where
+  lens sa sbt (FZip fab) = FZip (\fs -> sbt (fold_ fs) (fab (map sa fs)))
 
 _FZip :: (FZip f a b -> FZip f s t) -> (f a -> b) -> f s -> t
 _FZip = promap FZip runFZip
@@ -124,9 +126,9 @@ instance Fold V2 where foldMap = traverse_foldMap
 instance Fold1 V2 where foldMap1 = traverse1_foldMap1
 
 
-newtype Optic f g a b = Optic {runOptic :: f a -> g b}
-instance (Map f, Map g) => Promap (Optic f g) where
-  promap f g (Optic fagb) = Optic (promap (map f) (map g) fagb)
+{-newtype Optic f g a b = Optic {runOptic :: f a -> g b}-}
+{-instance (Map f, Map g) => Promap (Optic f g) where-}
+  {-promap f g (Optic fagb) = Optic (promap (map f) (map g) fagb)-}
 
 {-instance (Pure f, Map g) => Traversed_ (Optic f g) where traversal_ afbsft (Optic fagb)-}
   {-= Optic (\fs -> afbsft (\a -> fagb (pure a)) fs)-}
