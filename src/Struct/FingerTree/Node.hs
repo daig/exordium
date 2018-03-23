@@ -7,6 +7,7 @@ import Num.Measured as X
 import Functor.Fold as X
 import Struct.Unsafe
 import Cast.Coerce.Unsafe
+import Mono.Map
 
 data Node a = Node2# (Measure a) ~a ~a | Node3# (Measure a) ~a ~a ~a
 
@@ -40,6 +41,11 @@ pattern Node3 a b c <- Node3# _ a b c where
 {-# complete Node2, Node3# #-}
 
 
+instance Measured b => Monomap (Node b) (Node a) b a where
+  _map = setter (\f -> \case
+    Node2# _ a b -> Node2 (f a) (f b)
+    Node3# _ a b c -> Node3 (f a) (f b) (f c))
+-- | Only safe for measure-preserving functions
 instance Map (Unsafe Node) where
   map f (Unsafe (Node2# v a b))   = Unsafe (Node2# (coerce# v) (f a) (f b))
   map f (Unsafe (Node3# v a b c)) = Unsafe (Node3# (coerce# v) (f a) (f b) (f c))

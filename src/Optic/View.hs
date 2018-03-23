@@ -3,7 +3,7 @@ import Num.Add0 as X
 import Arrow.Mapped as X
 import Arrow.Loop as X
 import Arrow.ITraversed as X
-import Arrow.Postcoerce as X
+import Arrow.Folded as X
 import Arrow.Compose as X
 import Functor.BiComap as X
 import Functor.Comap as X
@@ -21,7 +21,7 @@ instance Map (View r a) where map = postmap
 instance BiComap (View r) where
   bicomap f _ (View z) = View (premap f z)
 instance Comap (View r a) where comap = cormap
-instance Postcoerce (View r) where postcoerce (View ar) = View ar
+instance Folded (View r) where postcoerce (View ar) = View ar
 instance Compose (View r) where precompose (View f) _ = View f
 
 instance Zero r => Traversed' (View r) where
@@ -72,3 +72,6 @@ instance Loop' (View r) where
 {-_Just = (`prismoid` Just) (\case-}
   {-Just a -> R a-}
   {-Nothing -> L Nothing)-}
+
+instance Add r => Folded1 (View r) where
+  folding1 amsm (View ar) = View (\s -> amsm ar s)

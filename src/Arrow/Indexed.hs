@@ -1,6 +1,6 @@
 {-# language UndecidableSuperClasses #-}
 module Arrow.Indexed (module Arrow.Indexed,module X) where
-import Arrow.Postcoerce
+import Arrow.Folded
 import Functor.Coerce1
 import Arrow.Closed
 import Arrow.Representable
@@ -28,7 +28,7 @@ instance Map f => Map (ITraversing i f a) where
 {--- TODO: move to PromapIso class-}
 instance Comap f => Comap (ITraversing i f a) where
   comap f (ITraversing s) = ITraversing (\i a -> comap f (s i a))
-instance Coerce1 f => Postcoerce (ITraversing i f) where
+instance Coerce1 f => Folded (ITraversing i f) where
    postcoerce (ITraversing s) = ITraversing (\i a -> coerce1 (s i a))
 
 instance Map f => Traversed_ (ITraversing i f) where

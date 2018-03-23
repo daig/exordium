@@ -31,7 +31,6 @@ instance Traverse1 Digit where
   traverse1 f (Digit4 a b c d) = map Digit4 (f a) `ap` f b `ap` f c `ap` f d
 instance Traverse Digit where traverse = traverse1
   
-
 instance Measured a => Measured (Digit a) where
   type Measure (Digit a) = Measure a
   measure = foldMap1 measure

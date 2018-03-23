@@ -10,6 +10,7 @@ import Struct.Unsafe
 import Cast.Coerce.Unsafe
 import Mono.Cons
 import Mono.Snoc
+import Mono.Map
 import Arrow.Traversed
 import ADT.Maybe
 import Optic.Review
@@ -47,9 +48,13 @@ nodeToDigit = \case
   Node3# _ a b c -> Digit3 a b c
 
 
+instance Measured b => Monomap (FingerTree b) (FingerTree a) b a where
+  _map = setter (\f -> \case
+    FT0 -> FT0
+    FT1 a -> FT1 (f a)
+    FTN# _ d1 t d2 -> FTN (map f d1) (_map (_map f) t) (map f d2))
 
-
--- | Only safe if function preserves measure.
+-- | Only safe for measure preserving functions
 instance Map (Unsafe FingerTree) where
   map f (Unsafe ft) = Unsafe (go ft) where
     go FT0 = FT0
