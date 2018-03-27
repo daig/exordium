@@ -144,6 +144,33 @@ dataInfo n = do
         _ -> P.error ("getConstrs:RecGadtC expecting one constructor but got " `fplus` P.show cs)
     varBangType'nameType (name,_,t) = (name,t)
 
+-- | Create Prisms of suitable type for each constructor. 
+--
+-- If a constructor `MkFoo` has a single argument, it will create a Prism `_MkFoo`.
+--
+-- If a constructor has more than one argument, it will create a Prism into a tuple of the same size.
+--
+-- If a datatype has a single constructor, it will create an Iso instead of a Prism.
+--
+-- For example, a call like:
+--
+--  > data Foo a b = MkFoo {foo :: a} | MkBar {foo :: a, bar :: b}
+--  > $(mkPrisms ''Foo)
+--
+--  will create:
+--
+--   > _MkFoo :: Traversed' p => p a a' -> p (Foo a b) (Foo a' b')
+--   > _MkBar :: Traversed' p => p (a,b) (a',b') -> p (Foo a b) (Foo a' b')
+--
+--   while a call like:
+--
+--   > newtype Baz = Baz Int
+--   > $(mkPrisms ''Baz)
+--   
+--   will create:
+--
+--   > _Baz :: Promap p => p Int Int -> p Baz Baz
+--
 mkPrisms :: Name -> DecsQ
 mkPrisms n = do
   (M.assocs -> cmap,_) <- dataInfo n
@@ -153,6 +180,21 @@ mkPrisms n = do
   P.concat P.<$> P.mapM prismDecl cmap
   
 
+-- | For each record label `lab`, create an optic `_lab` of the suitable type.
+-- If `lab` appears on every constructor, then it will be a lens, otherwise it will be an affine traversal
+--
+-- For example, a call like:
+--
+--  > data Foo a b = MkFoo {foo :: a} | MkBar {foo :: a, bar :: b}
+--  > $(mkTraverseds_ ''Foo)
+--
+--  will create:
+--
+--   > _foo :: Traversed_ p => p a a' -> p (Foo a b) (Foo a' b)
+--   > _bar :: Traversed0 p => p b b' -> p (Foo a b) (Foo a b')
+--
+--   See `mkTraverseds_` and `mkPrisms` for finer details
+--
 mkTraverseds_ :: Name -> DecsQ
 mkTraverseds_ n = do
   (cmap,lmap) <- dataInfo n
@@ -172,6 +214,21 @@ mkTraverseds_ n = do
   affTraverseds_ <- P.concat P.<$> P.mapM affDecl affLabels
   P.pure (lenses P.++ affTraverseds_)
 
+-- | Create both Prisms and Traversals of the suitable type for each record label and constructor. 
+--
+-- For example, a call like:
+--
+--  > data Foo a b = MkFoo {foo :: a} | MkBar {foo :: a, bar :: b}
+--  > $(mkOptics ''Foo)
+--
+--  will create:
+--
+--   > _MkFoo :: Traversed' p => p a a' -> p (Foo a b) (Foo a' b')
+--   > _MkBar :: Traversed' p => p (a,b) (a',b') -> p (Foo a b) (Foo a' b')
+--   > _foo :: Traversed_ p => p a a' -> p (Foo a b) (Foo a' b)
+--   > _bar :: Traversed0 p => p b b' -> p (Foo a b) (Foo a b')
+--
+--
 mkOptics :: Name -> DecsQ
 mkOptics n = (P.++) P.<$> mkTraverseds_ n P.<*> mkPrisms n
 
