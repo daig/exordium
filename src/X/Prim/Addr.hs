@@ -1,6 +1,7 @@
 {-# language MagicHash #-}
 module X.Prim.Addr 
   (Addr#, module X
+  ,addrToAny#
   ,nullAddr#
   ,plusAddr#, minusAddr#,remAddr#
   ,gtAddr#, geAddr#, eqAddr#, neAddr#, ltAddr#, leAddr#

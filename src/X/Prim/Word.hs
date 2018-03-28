@@ -18,8 +18,14 @@ module X.Prim.Word
 
   -- * Arithmetic
   ,plusWord#, minusWord#, timesWord#
-  ,plusWord2#, subWordC#, timesWord2#
-  ,quotWord#, remWord#, quotRemWord#, quotRemWord2#
+  ,plusWord2# -- | Returns @(\# high, low \#)@ (or equivalently, @(\# carry, low \#)@)
+  ,subWordC#
+  ,timesWord2# -- | Returns @(\# high, low \#)@
+  ,quotWord#, remWord#, quotRemWord#
+  , quotRemWord2#
+  -- | Takes high word of dividend, then low word of dividend, then divisor.
+  -- Requires that high word is not divisible by divisor.
+
   -- * Comparisons
   ,gtWord#, geWord#, eqWord#, neWord#, ltWord#, leWord#
   -- * Conversions
@@ -108,3 +114,7 @@ import X.Prim.Double as X (Double#)
 
 -- $narrow
 -- #narrow#
+
+-- $quotRemWord2
+-- | Takes high word of dividend, then low word of dividend, then divisor.
+-- Requires that high word is not divisible by divisor.
