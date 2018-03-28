@@ -1,11 +1,11 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
-module X.Struct.FingerTree.Node (Node(Node2,Node2#,Node3,Node3#), module X) where
+module X.Data.Struct.FingerTree.Node (Node(Node2,Node2#,Node3,Node3#), module X) where
 import Prelude (Show)
 import X.Functor.Map as X
 import X.Num.Measured as X
 import X.Functor.Fold as X
-import X.Struct.Unsafe
+import X.Data.Struct.Unsafe
 import X.Cast.Coerce.Unsafe
 import X.Mono.Map
 

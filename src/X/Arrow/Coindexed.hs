@@ -1,7 +1,7 @@
 {-# language UndecidableSuperClasses #-}
 module X.Arrow.Coindexed (Coindexed(..), module X) where
 import X.Arrow.Promap as X
-import X.ADT.E as X
+import X.Data.E as X
 
 class (Coindexed e q q, Promap p) => Coindexed e q p where
   coindexed :: p a b -> q a (E e b)

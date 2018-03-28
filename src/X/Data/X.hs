@@ -1,4 +1,4 @@
-module X.ADT.X where
+module X.Data.X where
 import qualified Prelude as P
 
 data X 

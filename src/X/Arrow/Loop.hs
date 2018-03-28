@@ -1,6 +1,6 @@
 module X.Arrow.Loop (module X.Arrow.Loop, module X) where
 import X.Arrow.Promap as X
-import X.ADT.E as X
+import X.Data.E as X
 import Prelude ((.))
 
 class Promap p => Loop' p where

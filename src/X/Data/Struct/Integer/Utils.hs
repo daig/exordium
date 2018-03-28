@@ -1,6 +1,6 @@
 {-# OPTIONS_HADDOCK not-home #-}
 {-# language MagicHash #-}
-module X.Struct.Integer.Utils
+module X.Data.Struct.Integer.Utils
   (Integer(..)
   ,isValidInteger#
   ,mkInteger,smallInteger,wordToInteger
@@ -36,4 +36,4 @@ module X.Struct.Integer.Utils
   ) where
 import GHC.Integer.GMP.Internals
 import GHC.Integer
-import X.Struct.Integer as X
+import X.Data.Struct.Integer as X

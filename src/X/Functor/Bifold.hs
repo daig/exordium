@@ -1,6 +1,6 @@
 module X.Functor.Bifold (module X.Functor.Bifold, module X) where
 import X.Num.Add0 as X
-import {-# source #-} X.ADT.E
+import {-# source #-} X.Data.E
 
 class BifoldMap t where
   {-# minimal bifoldMap | bifoldr #-}

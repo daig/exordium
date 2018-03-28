@@ -3,7 +3,7 @@ import X.Functor.Map as X
 import X.Num.Add
 import {-# source #-} X.Type.K
 import {-# source #-} X.Type.I
-import {-# source #-} X.ADT.E
+import {-# source #-} X.Data.E
 import X.Type.IO
 import qualified Prelude as P
 

@@ -1,10 +1,10 @@
-module X.Struct.FingerTree.Digit (module X.Struct.FingerTree.Digit,module X) where
+module X.Data.Struct.FingerTree.Digit (module X.Data.Struct.FingerTree.Digit,module X) where
 import Prelude (Show,error)
 import X.Functor.Fold as X
 import X.Num.Measured as X
 import X.Functor.Traverse as X
-import X.ADT.Maybe
-import X.ADT.Bool
+import X.Data.Maybe
+import X.Data.Bool
 import X.Functor.Map
 import X.Mono.Cons
 import X.Mono.Snoc

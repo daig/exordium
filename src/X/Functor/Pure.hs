@@ -3,10 +3,10 @@ module X.Functor.Pure (Pure(..), module X) where
 import X.Functor.Map as X
 import X.Num.Zero
 import X.Num.One as X
-import {-# source #-} X.ADT.E as X
+import {-# source #-} X.Data.E as X
 import {-# source #-} X.Type.K
 import {-# source #-} X.Type.I
-import X.ADT.Maybe
+import X.Data.Maybe
 import X.Type.IO
 
 -- http://r6research.livejournal.com/28338.html

@@ -1,4 +1,4 @@
-module X.ADT.E (module X.ADT.E, module X) where
+module X.Data.E (module X.Data.E, module X) where
 import X.Functor.Pure as X
 import X.Functor.Bimap as X
 import X.Functor.Bitraverse as X

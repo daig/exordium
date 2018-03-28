@@ -5,9 +5,9 @@ import {-# source #-} X.Type.K
 import X.Functor.Traverse as X
 import X.Arrow.Promap as X
 import X.Arrow.Traversed.Internal
-import X.ADT.E
-import X.ADT.Maybe
-import X.ADT.Where
+import X.Data.E
+import X.Data.Maybe
+import X.Data.Where
 import X.Functor.Swap
 import X.Cast.Coerce.Unsafe
 

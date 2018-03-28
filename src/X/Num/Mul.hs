@@ -1,10 +1,10 @@
 {-# language MagicHash #-}
 module X.Num.Mul (module X.Num.Mul, module X) where
-import X.Struct.Natural as X
+import X.Data.Struct.Natural as X
 import GHC.Integer
 import X.Type.Word
 import X.Type.Int
-import X.ADT.Bool
+import X.Data.Bool
 import qualified Prelude as P
 
 class Mul m where

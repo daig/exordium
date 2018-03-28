@@ -4,7 +4,7 @@ import X.Functor.Applicative as X
 import X.Functor.Comonad as X
 import {-# source #-} X.Type.K
 import X.Type.I
-import X.ADT.Maybe
+import X.Data.Maybe
 
 class (Map t,Fold t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}

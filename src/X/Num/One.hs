@@ -1,9 +1,9 @@
 {-# language MagicHash #-}
 module X.Num.One where
-import X.Struct.Natural
+import X.Data.Struct.Natural
 import GHC.Integer
 import X.Type.Word
-import X.ADT.Bool
+import X.Data.Bool
 import X.Type.Int
 
 -- | one * a = a * one = a

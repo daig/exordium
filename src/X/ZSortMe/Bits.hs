@@ -1,7 +1,7 @@
 module X.ZSortMe.Bits where
 import X.Num
 import X.Arrow.Mapped
-import X.ADT.Bool
+import X.Data.Bool
 import X.Optic.Grate
 import X.Optic.View
 import X.Optic.Re

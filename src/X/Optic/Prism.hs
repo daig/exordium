@@ -3,7 +3,7 @@ import Prelude ((.))
 import X.Functor.Pure as X
 import X.Arrow.Loop as X
 import X.Arrow.Traversed
-import X.ADT.Maybe as X
+import X.Data.Maybe as X
 import X.Optic.View as X
 import X.Optic.Review as X
 import X.Functor.Bifold

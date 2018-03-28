@@ -4,7 +4,7 @@ import X.Num.Mul as X
 import X.Num.One as X
 import GHC.Integer
 import X.Type.Word
-import X.ADT.Bool
+import X.Data.Bool
 import X.Type.Int
 
 -- | one * a = a * one = a

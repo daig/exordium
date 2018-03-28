@@ -1,5 +1,5 @@
 {-# GHC_OPTIONS -wno-orphans #-}
-module X.ADT.Maybe (Maybe(..),maybe) where
+module X.Data.Maybe (Maybe(..),maybe) where
 import GHC.Base (Maybe(..))
 
 

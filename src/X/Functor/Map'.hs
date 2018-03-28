@@ -1,8 +1,8 @@
 {-# language UnboxedSums #-}
 module X.Functor.Map' (module X.Functor.Map', module X) where
 import X.Functor.Map as X
-import X.ADT.Bool as X
-import X.ADT.Maybe
+import X.Data.Bool as X
+import X.Data.Maybe
 import X.Functor.Pure
 import X.Functor.Empty
 

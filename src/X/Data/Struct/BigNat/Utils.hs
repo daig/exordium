@@ -1,6 +1,6 @@
 {-# OPTIONS_HADDOCK not-home #-}
 {-# language MagicHash #-}
-module X.Struct.BigNat.Utils
+module X.Data.Struct.BigNat.Utils
   (BigNat(..)
   ,isValidBigNat#
   ,sizeofBigNat#

@@ -7,7 +7,7 @@ import X.Type.Word
 import X.Type.Int.I
 {-import X.Type.Word.W8-}
 import X.Optic.Prism
-import X.ADT.Maybe as X
+import X.Data.Maybe as X
 {-import X.Optic.Re (re)-}
 import X.Arrow.Traversed as X
 

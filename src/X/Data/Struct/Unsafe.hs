@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
-module X.Struct.Unsafe where
+module X.Data.Struct.Unsafe where
 
 -- | A wrapper providing instances which ignore the normal datastructure contract
 newtype Unsafe f a = Unsafe {getUnsafe# :: f a}

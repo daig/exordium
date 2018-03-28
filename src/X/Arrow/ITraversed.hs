@@ -7,7 +7,7 @@ import X.Functor.ITraverse as X
 import X.Arrow.Indexed as X
 import X.Arrow.Compose as X
 import X.Arrow.Traversed as X
-import X.ADT.E
+import X.Data.E
 {-import X.Arrow.ITraversed.Internal-}
 
 -- | Definitions in terms of @itraversal@ are much more efficient

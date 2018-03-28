@@ -1,20 +1,20 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
-module X.Struct.FingerTree (FingerTree(..,FTN), module X) where
+module X.Data.Struct.FingerTree (FingerTree(..,FTN), module X) where
 import X.Num.Measured as X
-import X.Struct.FingerTree.Digit as X
-import X.Struct.FingerTree.Node as X
+import X.Data.Struct.FingerTree.Digit as X
+import X.Data.Struct.FingerTree.Node as X
 import Prelude (Show,error)
 import X.Stock.Eq
-import X.Struct.Unsafe
+import X.Data.Struct.Unsafe
 import X.Cast.Coerce.Unsafe
 import X.Mono.Cons
 import X.Mono.Snoc
 import X.Mono.Map
 import X.Arrow.Traversed
-import X.ADT.Maybe
+import X.Data.Maybe
 import X.Optic.Review
-import X.ADT.Bool
+import X.Data.Bool
 
 data FingerTree a
   = FT0

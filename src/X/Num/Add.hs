@@ -1,12 +1,12 @@
 {-# language MagicHash #-}
 module X.Num.Add (Add(..), scale1#,module X) where
-import X.Struct.Natural as X
+import X.Data.Struct.Natural as X
 import GHC.Integer
-import X.ADT.Bool
+import X.Data.Bool
 import X.Type.Int
 import X.Type.Word
 import qualified Prelude as P
-import X.Struct.BigNat.Utils
+import X.Data.Struct.BigNat.Utils
 import X.Functor.Plus
 
 -- | a + (b + c) = (a + b) + c

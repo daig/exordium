@@ -1,8 +1,8 @@
 {-# language MagicHash #-}
 module X.Num.Zero' (module X.Num.Zero', module X) where
 import X.Num.Zero as X
-import X.ADT.Bool as X
-import X.Struct.Natural
+import X.Data.Bool as X
+import X.Data.Struct.Natural
 import GHC.Integer
 import X.Type.Int
 import X.Type.Word

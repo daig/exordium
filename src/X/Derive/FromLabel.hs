@@ -8,7 +8,7 @@ import X.Type.Int.I
 import X.Arrow.Traversed as X
 import Language.Haskell.TH.Syntax
 import Language.Haskell.TH
-import X.ADT.Maybe
+import X.Data.Maybe
 import qualified Prelude as P
 import qualified Data.List as P
 import qualified Control.Monad as P

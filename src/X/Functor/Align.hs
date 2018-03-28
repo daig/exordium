@@ -1,8 +1,8 @@
 module X.Functor.Align (module X.Functor.Align, Add, module X) where
 import X.Num.Add
 import X.Functor.Map as X
-import X.ADT.Maybe
-import {-# source #-} X.ADT.These as X
+import X.Data.Maybe
+import {-# source #-} X.Data.These as X
 
 -- | fa |&| fb = map swap (fb |&| fa) TODO: Is this always useful?
 -- f |&| empty = map This f

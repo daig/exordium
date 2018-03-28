@@ -3,9 +3,9 @@ module X.Functor.Fold (module X.Functor.Fold, module X) where
 import X.Num.Add0 as X
 import {-# source #-} X.Type.K
 import {-# source #-} X.Type.I
-import {-# source #-} X.ADT.E
-import {-# source #-} X.ADT.Maybe
-import X.ADT.X as X
+import {-# source #-} X.Data.E
+import {-# source #-} X.Data.Maybe
+import X.Data.X as X
 import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe
 

@@ -1,4 +1,4 @@
-module X.ADT.Where where
+module X.Data.Where where
 import X.Functor.Pure as X
 import X.Functor.Swap as X
 import X.Functor.Empty as X

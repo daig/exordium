@@ -1,7 +1,7 @@
 {-# language UndecidableSuperClasses #-}
 module X.ZSortMe.Indexed where
 import {-# source #-} X.Type.I
-import X.ADT.Maybe
+import X.Data.Maybe
 import Prelude (Enum(..),(==))
 
 class (Unindexed (Unindexed f) ~ Unindexed f

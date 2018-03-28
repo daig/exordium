@@ -1,5 +1,5 @@
 {-# OPTIONS_HADDOCK not-home #-}
-module X.Struct.Natural.Utils
+module X.Data.Struct.Natural.Utils
   (Natural(..)
   ,isValidNatural
   ,naturalFromInteger,wordToNatural,naturalToWordMaybe

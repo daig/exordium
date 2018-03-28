@@ -1,10 +1,10 @@
 {-# language MagicHash #-}
 module X.Mono.Snoc where
-import X.ADT.Maybe
+import X.Data.Maybe
 import X.Optic.Review
 import X.Optic.View
 import X.Functor.Plus
-import X.ADT.X
+import X.Data.X
 
 class Snoc s a b t | s -> a, t -> b, s b -> t, t a -> s where
   _Snoc :: Traversed' p => p (s,a) (t,b) -> p s t

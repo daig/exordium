@@ -21,7 +21,7 @@ instance Map (View r a) where map = postmap
 instance BiComap (View r) where
   bicomap f _ (View z) = View (premap f z)
 instance Comap (View r a) where comap = cormap
-instance Folded (View r) where postcoerce (View ar) = View ar
+instance Folded_ (View r) where postcoerce (View ar) = View ar
 instance Compose (View r) where precompose (View f) _ = View f
 
 instance Zero r => Traversed' (View r) where
