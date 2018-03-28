@@ -39,21 +39,7 @@ bind f [] = []
 bind f (a:as) = append (f a) (bind f as)
 bind_ap abs as = bind (\a -> map (, a) abs) as
 
--- map (\a -> fmin (ftop a) bs) as
--- These (f a) (f b) -> f (These a b)
 --
-class Never
-data List a where
-  Nil :: List a
-  Cons :: a -> List a -> List a
-  Mu :: Never => List a
-instance Map List where map f = \case {Nil -> Nil; Cons a as -> Cons (f a) (map f as); Mu -> Mu}
-instance Align List where
-  align (Cons a as) (Cons b bs) = Cons (These a b) (align as bs)
-  align as Nil = map This as
-  align Nil bs = map That bs
-  align as Mu = map This as
-  align Mu bs = map That bs
 
 -- https://hackage.haskell.org/package/unamb
 instance Align Maybe where

@@ -1,8 +1,8 @@
 {-# language MagicHash #-}
-module IO (IO(..),module X) where
-import GHC.Types as X (IO(..))
-import Control.Monad.ST as X (RealWorld) -- fix
-import GHC.Prim as X (State#)
+module Type.IO (IO(..),RealWorld,State#) where
+import GHC.Types
+import Control.Monad.ST
+import GHC.Prim 
 
 {-import Functor.Traverse.Class_ as X-}
 {-import Functor.Monad-}

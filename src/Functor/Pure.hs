@@ -7,7 +7,7 @@ import {-# source #-} ADT.E as X
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import ADT.Maybe
-import IO
+import Type.IO
 
 -- http://r6research.livejournal.com/28338.html
 -- a Pure f is strong with respect to E

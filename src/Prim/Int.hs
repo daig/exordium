@@ -9,7 +9,12 @@ module Prim.Int
   ,addIntC#, subIntC#
   ,(>#),(>=#),(==#),(/=#),(<#),(<=#)
   ,uncheckedIShiftL#, uncheckedIShiftRA#, uncheckedIShiftRL#
+  -- * Narrowing primops
+  -- $narrow
   ,narrow8Int#, narrow16Int#, narrow32Int#) where
 import GHC.Prim
 
 -- | Int literals are written like @3#@
+
+-- $narrow
+-- #narrow#

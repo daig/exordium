@@ -4,7 +4,7 @@ import Num.Add
 import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} ADT.E
-import IO
+import Type.IO
 import qualified Prelude as P
 
 -- | (f |$(<)$| g) |$| w = f |$| (g |$| w)

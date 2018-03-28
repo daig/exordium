@@ -7,7 +7,7 @@ import {-# source #-} Type.K
 import {-# source #-} Type.I
 import {-# source #-} ADT.E
 import ADT.Maybe
-import IO
+import Type.IO
 
 class Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
