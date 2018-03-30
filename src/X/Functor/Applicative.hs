@@ -4,8 +4,8 @@ import X.Functor.Pure as X
 import X.Functor.Apply as X
 import X.Num.Mul1 as X
 import X.Num.Add0 as X
-import {-# source #-} X.Type.K
-import {-# source #-} X.Type.I
+import X.Type.K
+import X.Type.I
 import X.Type.IO
 
 class (Pure f, Apply f) => Applicative f

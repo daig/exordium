@@ -2,6 +2,8 @@ module X.Arrow.Loop (module X.Arrow.Loop, module X) where
 import X.Arrow.Promap as X
 import X.Data.E as X
 import Prelude ((.))
+import X.Functor.Bifold
+import X.Functor.Swap
 
 class Promap p => Loop' p where
   {-# minimal loopLeft | loopRight #-}

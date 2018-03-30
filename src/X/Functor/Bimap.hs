@@ -1,6 +1,7 @@
 module X.Functor.Bimap (Bimap(..), module X) where
 import X.Functor.Map as X
-import {-# source #-} X.Data.E
+import X.Data.E
+import X.Type.K
 
 -- | Independently Map each on both sides
 class Bimap p where
@@ -20,3 +21,4 @@ instance Bimap E where
   bimap f g = \case
     L a -> L (f a)
     R b -> R (g b)
+instance Bimap K where bimap f _ (K a) = K (f a) 

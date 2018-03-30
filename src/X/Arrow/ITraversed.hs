@@ -1,13 +1,14 @@
 {-# language MagicHash #-}
 {-# language UndecidableSuperClasses #-}
 module X.Arrow.ITraversed (module X.Arrow.ITraversed, module X) where
-import {-# source #-} X.Type.I
-import {-# source #-} X.Type.K
+import X.Type.I
+import X.Type.K
 import X.Functor.ITraverse as X
 import X.Arrow.Indexed as X
 import X.Arrow.Compose as X
 import X.Arrow.Traversed as X
 import X.Data.E
+import X.Functor.Swap
 {-import X.Arrow.ITraversed.Internal-}
 
 -- | Definitions in terms of @itraversal@ are much more efficient

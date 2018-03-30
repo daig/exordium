@@ -1,7 +1,4 @@
-module X.Type.I (I(..), module X) where
-import X.Functor.Applicative as X
-import X.Functor.Zip as X
-import X.Functor.Fold as X
+module X.Type.I where
 
 -- | Identity type
 newtype I a = I a

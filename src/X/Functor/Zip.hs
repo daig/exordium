@@ -2,8 +2,8 @@
 module X.Functor.Zip (module X.Functor.Zip, module X) where
 import X.Functor.Zip.Internal
 import X.Functor.Map
-import {-# source #-} X.Type.I
-import {-# source #-} X.Type.K
+import X.Type.I
+import X.Type.K
 import X.Functor.Fold
 import X.Functor.Applicative as X
 
@@ -47,3 +47,4 @@ instance Zip I where distribute a = I (map fold_ a)
 instance Zip ((->) x) where
   collect axb fa = \x -> (\a -> axb a x) `map` fa
   distribute fxa = \x -> (\f -> f x) `map` fxa
+instance Zip V2 where distribute fta = V2 (map v2a fta) (map v2b fta)

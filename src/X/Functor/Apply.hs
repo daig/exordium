@@ -1,9 +1,9 @@
 module X.Functor.Apply (module X.Functor.Apply, module X) where
 import X.Functor.Map as X
 import X.Num.Add
-import {-# source #-} X.Type.K
-import {-# source #-} X.Type.I
-import {-# source #-} X.Data.E
+import X.Type.K
+import X.Type.I
+import X.Data.E
 import X.Type.IO
 import qualified Prelude as P
 

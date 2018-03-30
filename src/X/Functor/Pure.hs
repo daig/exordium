@@ -3,9 +3,9 @@ module X.Functor.Pure (Pure(..), module X) where
 import X.Functor.Map as X
 import X.Num.Zero
 import X.Num.One as X
-import {-# source #-} X.Data.E as X
-import {-# source #-} X.Type.K
-import {-# source #-} X.Type.I
+import X.Data.E as X
+import X.Type.K
+import X.Type.I
 import X.Data.Maybe
 import X.Type.IO
 

@@ -1,6 +1,7 @@
 module X.Functor.Bifold (module X.Functor.Bifold, module X) where
 import X.Num.Add0 as X
-import {-# source #-} X.Data.E
+import X.Data.E
+import X.Type.K
 
 class BifoldMap t where
   {-# minimal bifoldMap | bifoldr #-}
@@ -37,3 +38,8 @@ instance BifoldMap_ E where
   bifoldMap_ f g = \case
     L a -> f a
     R b -> g b
+
+instance BifoldMap K where bifoldMap f _ (K a) = f a
+instance BifoldMap0 K where bifoldMap0 f _ (K a) = f a
+instance BifoldMap1 K where bifoldMap1 f _ (K a) = f a
+instance BifoldMap_ K where bifoldMap_ f _ (K a) = f a

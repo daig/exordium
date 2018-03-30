@@ -3,9 +3,9 @@
 module X.Functor.Map (module X.Functor.Map, module X) where
 import X.Cast.Coerce as X (type ( #=# ),coerce,coerceF)
 import X.Cast.Coerce.Unsafe (coerceF#)
-import {-# source #-} X.Type.K
-import {-# source #-} X.Type.I
-import {-# source #-} X.Data.E
+import X.Type.K
+import X.Type.I
+import X.Data.E
 import X.Data.Maybe
 import X.Type.IO
 

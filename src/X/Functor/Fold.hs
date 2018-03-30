@@ -1,10 +1,10 @@
 {-# language MagicHash #-}
 module X.Functor.Fold (module X.Functor.Fold, module X) where
 import X.Num.Add0 as X
-import {-# source #-} X.Type.K
-import {-# source #-} X.Type.I
-import {-# source #-} X.Data.E
-import {-# source #-} X.Data.Maybe
+import X.Type.K
+import X.Type.I
+import X.Data.E
+import X.Data.Maybe
 import X.Data.X as X
 import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe

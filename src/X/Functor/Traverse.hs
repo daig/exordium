@@ -2,7 +2,7 @@ module X.Functor.Traverse (module X.Functor.Traverse, module X) where
 import X.Functor.Fold as X
 import X.Functor.Applicative as X
 import X.Functor.Comonad as X
-import {-# source #-} X.Type.K
+import X.Type.K
 import X.Type.I
 import X.Data.Maybe
 

@@ -1,10 +1,4 @@
-module X.Data.E (module X.Data.E, module X) where
-import X.Functor.Pure as X
-import X.Functor.Bimap as X
-import X.Functor.Bitraverse as X
-import X.Functor.Swap as X
-
-import X.Functor.Traverse as X
+module X.Data.E where
 
 data E a b = L ~a | R ~b
 

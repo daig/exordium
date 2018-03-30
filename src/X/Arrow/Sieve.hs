@@ -1,4 +1,5 @@
 module X.Arrow.Sieve (Sieve(..), module X) where
+import X.Functor.Map as X
 import X.Arrow.Promap as X
 import X.Rep.Type as X
 import X.Type.I

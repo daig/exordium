@@ -3,6 +3,7 @@ import X.Functor.Bitraverse.Internal
 import X.Functor.Bimap as X
 import X.Functor.Bifold as X
 import X.Functor.Applicative as X
+import X.Type.K
 
 class (Bimap t,BifoldMap t) => Bitraverse t where
 --  {-# minimal traverse | cocollect | sequence #-}
@@ -56,3 +57,7 @@ instance Bitraverse_ E where
   bitraverse_ f g = \case
     L a -> map L (f a)
     R b -> map R (g b)
+
+instance Bitraverse K where bitraverse f _ (K a) = K `map` f a
+instance Bitraverse0 K where bitraverse0 f _ (K a) = K `map` f a
+instance Bitraverse1 K where bitraverse1 f _ (K a) = K `map` f a

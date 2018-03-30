@@ -1,5 +1,5 @@
 module X.Functor.Comap (Comap(..)) where
-import {-# source #-} X.Type.K
+import X.Type.K
 
 class Comap f where comap :: (b -> a) -> f a -> f b
 

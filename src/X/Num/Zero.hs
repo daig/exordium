@@ -4,7 +4,8 @@ import GHC.Integer
 import X.Data.Bool
 import X.Type.Int
 import X.Type.Word
-import {-# source #-} X.Data.Maybe
+import X.Data.Maybe
+import X.Type.K
 
 class Zero x where zero :: x
 
@@ -18,3 +19,4 @@ instance (Zero a, Zero b) => Zero (a,b) where zero = (zero,zero)
 instance Zero (Maybe a) where zero = Nothing
 instance Zero [a] where zero = []
 instance Zero (a -> a) where zero a = a
+{-instance Zero a => Zero (K a b) where zero = K zero-}

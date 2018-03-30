@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 module X.Arrow.Traversed (module X.Arrow.Traversed, module X) where
-import {-# source #-} X.Type.I
-import {-# source #-} X.Type.K
+import X.Type.I
+import X.Type.K
 import X.Functor.Traverse as X
 import X.Arrow.Promap as X
 import X.Arrow.Traversed.Internal
@@ -10,6 +10,7 @@ import X.Data.Maybe
 import X.Data.Where
 import X.Functor.Swap
 import X.Cast.Coerce.Unsafe
+import X.Functor.Bifold
 
 -- | Definitions in terms of @traversal@ are much more efficient
 class (Traversed0 p, Traversed1 p) => Traversed p where
