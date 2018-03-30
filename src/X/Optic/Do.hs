@@ -2,7 +2,6 @@ module X.Optic.Do (module X.Optic.Do, module X) where
 import X.Optic.Do.Internal
 import X.Arrow.Mapped as X
 import X.Arrow.Folded as X
-import X.Type.K as X
 
 _Do :: Promap p => p (Do f r a b) (Do g  r' s t) -> p (a -> f r) (s -> g r')
 _Do = promap Do runDo

@@ -21,3 +21,4 @@ instance Add0 ()
 instance Add0 (a -> a)
 
 instance (Add0 a, Add0 b) => Add0 (a,b)
+instance Add0 [a]
