@@ -1,8 +1,8 @@
 module X.ZSortMe.IView where
-import X.ZSortMe.Indexable.Class
-import X.Optic.View
-import X.Type.K
-import X.Functor.Bifold
+{-import X.ZSortMe.Indexable.Class-}
+{-import X.Optic.View-}
+{-import X.Type.K-}
+{-import X.Functor.Bifold-}
 
 {-newtype IView i r a b = IView {runIView :: i -> a -> r}-}
 {-{-_IView :: Promap p => p (a -> r) (a' -> r') -> p (IView r a b) (IView r' a' b')-}-}

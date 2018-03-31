@@ -4,10 +4,10 @@ import X.Data.E
 import X.Type.K
 
 class BifoldMap t where
-  {-# minimal bifoldMap | bifoldr #-}
+--  {-# minimal bifoldMap | bifoldr #-}
   bifoldMap :: Add0 m => (a -> m) -> (b -> m) -> t a b -> m
-  bifoldMap f g t = bifoldr (\a m -> f a `add` m) (\b m -> g b `add` m) zero t -- TODO: check the order
-  bifoldr :: (a -> x -> x) -> (b -> x -> x) -> x -> t a b -> x
+  {-bifoldMap f g t = bifoldr (\a m -> f a `add` m) (\b m -> g b `add` m) zero t -- TODO: check the order-}
+  {-bifoldr :: (a -> x -> x) -> (b -> x -> x) -> x -> t a b -> x-}
   {-bifoldr c k z t = bifoldMap c k t z-} -- TODO: need an Add instance for (->)
 
 class BifoldMap t => BifoldMap1 t where

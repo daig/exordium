@@ -1,16 +1,16 @@
 {-# language UndecidableSuperClasses #-}
-module X.Functor.Adjoint.L (module X) where
-import X.Functor.Monad as X
-import X.Functor.Comonad as X hiding (mapDefault)
-import X.Type.O as X
-import X.Arrow.Promap as X
-{-import X.Star as X-}
-import X.Optic.Grate as X (FZip(..))
-import X.Functor.Indexed as X hiding (mapDefault)
-import X.Cast
-import X.Optic.Review
-import X.Optic.View
-import X.Arrow.Promap
+module X.Functor.Adjoint.L where
+{-import X.Functor.Monad as X-}
+{-import X.Functor.Comonad as X hiding (mapDefault)-}
+{-import X.Type.O as X-}
+{-import X.Arrow.Promap as X-}
+{-{-import X.Star as X-}-}
+{-import X.Optic.Grate as X (FZip(..))-}
+{-import X.Functor.Indexed as X hiding (mapDefault)-}
+{-import X.Cast-}
+{-import X.Optic.Review-}
+{-import X.Optic.View-}
+{-import X.Arrow.Promap-}
 
 {-class (Monad (f `O` RightAdjunct f)-}
       {-,Comonad (RightAdjunct f `O` f)-}

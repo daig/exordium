@@ -4,7 +4,7 @@ import X.Data.E
 
 -- | swap < swap = id
 class Swap f where
-  {-# minimal swap | swapped #-}
+  {-# minimal swap #-}
   swap :: f a b -> f b a
   swapped :: Promap p => p (f b a) (f b' a') -> p (f a b) (f a' b')
   swapped = promap swap swap

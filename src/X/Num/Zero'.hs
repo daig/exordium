@@ -7,7 +7,6 @@ import GHC.Integer
 import X.Type.Int
 import X.Type.Word
 import X.Stock.Eq
-import qualified Prelude as P
 
 
 class Zero a => Zero' a where

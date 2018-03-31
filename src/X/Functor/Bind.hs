@@ -50,4 +50,3 @@ instance Bind (E x) where
     L x -> L x
     R (L x) -> L x
     R (R x) -> R x
-instance Apply (E x) where

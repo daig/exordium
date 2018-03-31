@@ -3,10 +3,9 @@ module X.Arrow.Indexed (module X.Arrow.Indexed,module X) where
 import X.Arrow.Folded
 import X.Functor.Coerce1
 import X.Arrow.Closed
-import X.Arrow.Representable
+{-import X.Arrow.Representable-}
+import X.Arrow.Sieve
 import X.Optic.Traversing as X
-import X.Arrow.Compose
-import X.Arrow.Promap as X
 
 class (Promap p, PIndexed i q q) => PIndexed i q p | p -> q where
   pix :: p a b -> i -> q a b

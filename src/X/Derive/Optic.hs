@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wwarn #-}
 {-# language TemplateHaskell #-}
 module X.Derive.Optic (mkTraverseds_,mkPrisms,mkOptics) where
 import Language.Haskell.TH

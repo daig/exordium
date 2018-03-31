@@ -12,7 +12,8 @@
 -- Meant to be imported qualified.
 --------------------------------------------------------------------
 module X.Stock
-  (Eq(..)
+  (Stock(..)
+  ,Eq(..)
   ,Num(..)
   ,Ord(..),Ordering(..)
   ,Functor(..)
@@ -32,7 +33,6 @@ import GHC.Base
 import GHC.Num
 import Data.Foldable
 import Data.Traversable
-import X.Stock.Foldable
 
 
 -- | A wrapper for providing stock instances

@@ -2,22 +2,14 @@ module X.Optic.Grate (module X.Optic.Grate, module X) where
 import X.Arrow.Mapped as X
 import X.Arrow.Precoerce as X
 import X.Arrow.Category as X
-import X.Functor.Comonad as X
 import X.Functor.Coerce1 as X
 
-import X.Functor.Zip.Internal
+{-import X.Functor.Zip.Internal-}
 {-import X.Adjoint-}
 
 newtype Grate a b s t = Grate {runGrate :: (((s -> a) -> b) -> t)}
 {-_Grate = promap runGrate Grate-}
 
-instance Traversed (Grate a b)
-instance Traversed1 (Grate a b)
-instance Traversed0 (Grate a b)
-instance Traversed_ (Grate a b) where
-  {-lens sa sbt = Grate (\sa'b -> sa'b't (\-}
-instance Traversed' (Grate a b)
-instance Mapped (Grate a b)
 
 
 instance Closed (Grate a b) where
@@ -120,10 +112,6 @@ instance Traversed' Zip2 where
   {-promap ax yb (Z fstfxy) = Z (\fst fa -> -}
   {-promap ax yb (Z fxyfst) = Z (\fab fs -> fxyfst (\fx -> yb (fab (comap ax fx))) fs)-}
   
-instance Traverse V2 where traverse = traverse1
-instance Traverse1 V2 where traverse1 afb (V2 a b) = V2 `map` afb a `ap` afb b
-instance Fold V2 where foldMap = traverse_foldMap
-instance Fold1 V2 where foldMap1 = traverse1_foldMap1
 
 
 {-newtype Optic f g a b = Optic {runOptic :: f a -> g b}-}

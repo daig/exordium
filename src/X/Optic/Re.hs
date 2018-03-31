@@ -1,11 +1,5 @@
 module X.Optic.Re (module X.Optic.Re, module X) where
 import X.Optic.Iso as X
-import X.Arrow.Closed as X
-import X.Arrow.Loop as X
-import X.Arrow.Traversed as X
-import X.Functor.Swap -- TODO: integrate into E
-import Prelude ((.))
-import X.Functor.Bifold
 
 newtype Re p s t a b = Re {runRe :: p b a -> p t s}
 

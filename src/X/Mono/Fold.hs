@@ -1,4 +1,4 @@
-module X.Mono.Fold (MonoFold(..), module X) where
+module X.Mono.Fold (module X.Mono.Fold, module X) where
 import X.Num.Add0 as X
 import X.Arrow.Folded
 

@@ -1,5 +1,5 @@
-module X.Functor.Adjoint (module X.Functor.Adjoint, module X) where
-import X.Functor.Adjoint.Class as X
+module X.Functor.Adjoint where
+{-import X.Functor.Adjoint.Class as X-}
 
 {-leftAdjunct_pure :: f -| g => a -> O g f a-}
 {-leftAdjunct_pure = O < leftAdjunct id-}

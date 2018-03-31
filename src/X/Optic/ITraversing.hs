@@ -1,6 +1,6 @@
 module X.Optic.ITraversing where
 {-import X.Star-}
-import X.Arrow.Traversed as X
+{-import X.Arrow.Traversed as X-}
 {-import X.Indexable.Class as X-}
 
 {-newtype ITraversing i f a b = ITraversing {runITraversing :: i -> a -> f b}-}

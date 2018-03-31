@@ -3,19 +3,15 @@ module X.Functor.Map' (module X.Functor.Map', module X) where
 import X.Functor.Map as X
 import X.Data.Bool as X
 import X.Data.Maybe
-import X.Functor.Pure
-import X.Functor.Empty
-
-true _ t = t
-false f _ = f
+import X.Data.X
 
 -- TODO: add a quasiquoter for church encoding
 -- like mapM' :: (a -> [t|() + b|]) -> f a -> f b
 class Map f => Map' f where
   {-# minimal map' | filter #-}
   map' :: (forall r. a -> r -> (b -> r) -> r) -> f a -> f b
-  map' f x = map (\case Just t -> t)
-    (filter (\case {Nothing -> false; _ -> true}) 
+  map' f x = map (\case Just t -> t; _ -> __)
+    (filter (\case {Nothing -> \a _ -> a; _ -> \_ b -> b}) 
     ( map (\a -> f a Nothing Just) x))
   {-mapM f x = map (\case Some a -> a)-}
                 {-( filter (\case {None -> F; _ -> T})-}

@@ -1,10 +1,10 @@
-module X.Arrow.Representable (Representable(..), module X) where
-import X.Arrow.Sieve as X
-import X.Arrow.Tabulated as X
-import X.Type.I
+module X.Arrow.Representable where
+{-import X.Arrow.Sieve as X-}
+{-import X.Arrow.Tabulated as X-}
+{-import X.Type.I-}
 
-class (Sieve p, Tabulated p, Traversed_ p) => Representable p where
-  {-tabulatedP :: Iso' (a -> Rep p b) (p a b)-}
+{-class (Sieve p, Tabulated p, Traversed_ p) => Representable p where-}
+  {-tabulatedP :: Promap q => q (p a b) (p s t) -> q (a -> Rep p b) (s -> Rep p t)-}
 
 {-traversal_Default :: Representable p => (forall f. Map f => (a -> f b) -> s -> f t) -> p a b -> p s t-}
 {-traversal_Default l p = tabulateP (l (sieve p))-}
@@ -21,5 +21,5 @@ class (Sieve p, Tabulated p, Traversed_ p) => Representable p where
 {-secondDefault :: Representable p => p a b -> p (x,a) (x,b)-}
 {-secondDefault p = tabulateP (\(x,a) -> map (x,) (sieve p a))-}
 
-instance Tabulated (->) where tabulateP f a = case f a of I b -> b
-instance Representable (->)
+{-instance Tabulated (->) where tabulateP f a = case f a of I b -> b-}
+{-instance Representable (->)-}

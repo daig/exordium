@@ -5,8 +5,6 @@ import X.Arrow.Promap as X
 import X.Functor.Zip as X
 import X.Optic.Review
 import X.Optic.View
-import X.Arrow.Promap
-import X.Functor.Apply
 
 class Zip f => Indexed f where
   {-# minimal indexed | index,tabulate #-}

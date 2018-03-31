@@ -1,12 +1,11 @@
 module X.Arrow.IndexedP (module X.Arrow.IndexedP, module X) where
 import X.Constraint.Witness as X
 import X.Arrow.Traversed as X
-import X.Functor.Applicative as X
 
 class IndexedP p where ixmap :: (i -> j) -> p j a b -> p i a b
 
 class IndexedP p => ITraversed p where
-  {-# minimal itraversing | iwander #-}
+--  {-# minimal itraversing | iwander #-}
   itraversing :: p (i,o) a b -> p o (t a) (t b)
   iwander :: (forall f. Applicative f => (i -> a -> f b) -> (s -> f t)) -> p (i,o) a b -> p o s t
 

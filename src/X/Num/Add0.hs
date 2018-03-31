@@ -3,7 +3,6 @@ module X.Num.Add0 (Add0(..), module X) where
 import X.Num.Add as X
 import X.Num.Zero as X
 import GHC.Integer
-import X.Data.Bool
 import X.Type.Int
 import X.Type.Word
 

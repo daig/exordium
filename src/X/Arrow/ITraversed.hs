@@ -6,8 +6,6 @@ import X.Type.K
 import X.Functor.ITraverse as X
 import X.Arrow.Indexed as X
 import X.Arrow.Compose as X
-import X.Arrow.Traversed as X
-import X.Data.E
 import X.Functor.Swap
 {-import X.Arrow.ITraversed.Internal-}
 

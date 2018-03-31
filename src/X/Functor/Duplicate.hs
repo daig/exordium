@@ -1,5 +1,6 @@
 module X.Functor.Duplicate (Duplicate(..), module X) where
 import X.Functor.Apply as X
+import X.Type.I
 
 -- | associativity of duplicate:
 -- duplicate < duplicate = map duplicate < duplicate
@@ -14,6 +15,7 @@ class Map w => Duplicate w where
 
 -- | Distribution over |$|:
 -- duplicate (f |$| a) = duplicate f |$(|$|)$| duplicate a
-class (Apply w, Duplicate w) => DuplicateApply w
+{-class (Apply w, Duplicate w) => DuplicateApply w-}
 
 instance Duplicate ((,) x) where duplicate xa = constMap xa xa
+instance Duplicate I where duplicate = I

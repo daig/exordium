@@ -1,7 +1,6 @@
 module X.Functor.Bitraverse.Internal (module X.Functor.Bitraverse.Internal, module X) where
 import X.Functor.Applicative as X
 import X.Functor.Bifold as X
-import X.Cast.Coerce
 
 data TheseK a b x = ThisK a | ThatK b | TheseK a b
 
@@ -17,9 +16,11 @@ instance (Mul a, Mul b) => Apply (TheseK a b) where
     ThatK b' -> TheseK a (mul b b')
     TheseK a' b' -> TheseK (mul a a') (mul b b')
   ap (ThisK a) = \case
+    ThisK a' -> ThisK (mul a a')
     ThatK b -> TheseK a b
     TheseK a' b -> TheseK (mul a a') b
   ap (ThatK b) = \case
+    ThisK a -> TheseK a b
     ThatK b' -> ThatK (mul b b')
     TheseK a b' -> TheseK a (mul b b')
 instance (One a, One b) => Pure (TheseK a b) where pure _ = one

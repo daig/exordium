@@ -10,10 +10,10 @@ import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe
 
 class Fold t where
-  {-# minimal foldMap | foldr #-}
+--  {-# minimal foldMap | foldr #-}
   foldMap :: Add0 m => (a -> m) -> t a -> m
-  foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order
-  foldr :: (a -> b -> b) -> b -> t a -> b
+  {-foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order-}
+  {-foldr :: (a -> b -> b) -> b -> t a -> b-}
   {-foldr c z t = foldMap c t z-} -- TODO: need an Add instances for (->)
   {-foldl :: (b -> a -> b) -> b -> t a -> b-}
 
@@ -40,7 +40,7 @@ class (Fold0 t, Pure t) => Fold' t where
 instance Fold' (E x) where
   foldMap' txb ab = \case {L x -> txb (L x); R a -> ab a}
 instance Zero x => Fold' ((,) x) where
-  foldMap' txb ab (x,a) = ab a
+  foldMap' _ ab (_,a) = ab a
 
 class Fold t => Fold1 t where
   foldMap1 :: Add s => (a -> s) -> t a -> s
@@ -82,11 +82,11 @@ instance Fold ((,) x) where foldMap = foldMap_
 
 instance Fold [] where foldMap = list'foldMap zero add
 list'foldMap :: acc -> (x -> acc -> acc) -> (a -> x) -> [a] -> acc
-list'foldMap zero add = go' where
+list'foldMap z c = go' where
   go' f = go where
     go = \case
-      [] -> zero
-      a:as -> f a `add` go as
+      [] -> z
+      a:as -> f a `c` go as
 
 instance Fold' I where foldMap' _ f (I a) = f a
 instance Fold_ I where foldMap_ f (I a) = f a

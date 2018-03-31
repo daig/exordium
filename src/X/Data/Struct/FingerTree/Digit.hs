@@ -5,9 +5,7 @@ import X.Num.Measured as X
 import X.Functor.Traverse as X
 import X.Data.Maybe
 import X.Data.Bool
-import X.Functor.Map
-import X.Mono.Cons
-import X.Mono.Snoc
+import Prelude (otherwise) --TODO: Move somewhere
 
 data Digit a = Digit1 ~a | Digit2 ~a ~a | Digit3 ~a ~a ~a | Digit4 ~a ~a ~a ~a deriving Show
 
@@ -65,14 +63,14 @@ splitDigit :: Measured a => (Measure a -> Bool) -> Measure a -> Digit a
 splitDigit p !i = \case
   Digit1 a                -> (Nothing, a, Nothing)
   Digit2 a b     | p va   -> (Nothing, a, Just (Digit1 b))
-                 | T   -> (Just (Digit1 a), b, Nothing)
+                 | otherwise   -> (Just (Digit1 a), b, Nothing)
    where va = i `add` measure a
   Digit3 a b c   | p va   -> (Nothing, a, Just (Digit2 b c))
                  | p vab  -> (Just (Digit1 a), b, Just (Digit1 c))
-                 | T   -> (Just (Digit2 a b), c, Nothing)
+                 | otherwise   -> (Just (Digit2 a b), c, Nothing)
    where (va,vab) = (i `add` measure a, va `add` measure b)
   Digit4 a b c d | p va   -> (Nothing, a, Just (Digit3 a b c))
                  | p vab  -> (Just (Digit1 a), b, Just (Digit2 c d))
                  | p vabc -> (Just (Digit2 a b), c, Just (Digit1 d))
-                 | T   -> (Just (Digit3 a b c), c, Nothing)
+                 | otherwise   -> (Just (Digit3 a b c), c, Nothing)
    where (va,vab,vabc) = (i `add` measure a, va `add` measure b,vab `add` measure c)

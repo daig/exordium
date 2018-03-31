@@ -5,7 +5,6 @@ import X.Data.Bool
 import X.Type.Int
 import X.Type.Word
 import X.Data.Maybe
-import X.Type.K
 
 class Zero x where zero :: x
 

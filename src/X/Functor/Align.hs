@@ -30,14 +30,11 @@ alignWith_add = alignWith (\x -> x) (\x -> x) add
 {-fmul :: f a -> f b -> f (a,b)-}
 
 
-prod as bs = [(a,b) | a <- as, b <- bs]
-append [] bs = bs
-append (a:as) bs = a : append as bs
-
-bind :: (a -> [b]) -> [a] -> [b]
-bind f [] = []
-bind f (a:as) = append (f a) (bind f as)
-bind_ap abs as = bind (\a -> map (, a) abs) as
+{-bind :: (a -> [b]) -> [a] -> [b]-}
+{-bind _ [] = []-}
+{-bind f (a:as) = f a `add` bind f as-}
+{-bind_ap :: [a] -> [b] -> [(a,b)]-}
+{-bind_ap abs as = bind (\a -> map (, a) abs) as-}
 
 --
 

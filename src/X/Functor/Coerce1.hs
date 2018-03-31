@@ -1,8 +1,7 @@
-module X.Functor.Coerce1 (Coerce1(..), module X) where
+module X.Functor.Coerce1 (module X.Functor.Coerce1, module X) where
 import X.Functor.Traverse as X
 import X.Functor.Comap as X
 import X.Type.K
-import X.Data.X
 
 class (Traverse0 f, Comap f) =>  Coerce1 f where
   coerce1 :: f a -> f b

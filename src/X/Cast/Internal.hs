@@ -5,7 +5,6 @@ import X.Arrow.Promap
 import X.Arrow.Traversed
 import X.Stock.Enum
 import GHC.Enum (Bounded(..))
-import qualified Prelude as P
 
 -- TODO: broken if maxBound outside Int's maxBound (ex: for Word64).
 -- Fix after making a good toInteger class in Num

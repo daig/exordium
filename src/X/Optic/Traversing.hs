@@ -1,13 +1,14 @@
 module X.Optic.Traversing (module X.Optic.Traversing, module X) where
-{-import X.Functor.Indexed-}
+import X.Arrow.Sieve
+import X.Arrow.Tabulated
 {-import X.Indexable.Class as X-}
 import X.Arrow.Folded as X
 import X.Arrow.Mapped as X
 import X.Functor.Coerce1 as X
-import X.Arrow.Representable as X
+{-import X.Arrow.Representable as X-}
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
-  deriving anyclass Representable
+  {-deriving anyclass Representable-}
 
 -- | Lift an f-operation over the target of a traversal
 _Traversing :: (Traversing f a b -> Traversing f s t) -> (a -> f b) -> s -> f t

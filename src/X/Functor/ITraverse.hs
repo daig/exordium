@@ -4,7 +4,7 @@ import X.Functor.Applicative as X
 import X.Functor.Comonad as X
 import X.Type.K
 import X.Type.I
-import X.Data.Maybe
+{-import X.Data.Maybe-}
 import X.Functor.Traverse as X
 import X.Num.FromNatural
 

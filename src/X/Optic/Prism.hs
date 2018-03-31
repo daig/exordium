@@ -75,4 +75,4 @@ instance Loop' (Prism a a) where
       L t -> t
       R y -> case loop1 (R y) of
         L t -> t
-        R a -> loop2 a
+        R a' -> loop2 a'

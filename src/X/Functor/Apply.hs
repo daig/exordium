@@ -3,8 +3,8 @@ import X.Functor.Map as X
 import X.Num.Add
 import X.Type.K
 import X.Type.I
-import X.Data.E
 import X.Type.IO
+import X.Data.E
 import qualified Prelude as P
 
 -- | (f |$(<)$| g) |$| w = f |$| (g |$| w)
@@ -37,3 +37,7 @@ instance Add a => Apply (K a) where K a `ap` K b = K (a `add` b)
 instance Add a => Apply ((,) a) where (a,f) `ap` (b,x) = (add a b, f x)
 
 instance Apply IO where ap = (P.<*>)
+instance Apply (E x) where
+  ap (L x) _ = L x
+  ap (R f) (R a) = R (f a)
+  ap _ (L x) = L x

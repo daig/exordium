@@ -3,9 +3,9 @@ module X.ZSortMe.Indexable.Class (module X.ZSortMe.Indexable.Class, module X) wh
 import X.Arrow.Traversed
 import X.Optic.View
 import X.Type.Int
-import X.Arrow.Category
+{-import X.Arrow.Category-}
 import X.Arrow.Mapped as X
-import Prelude (($))
+{-import Prelude (($))-}
 
 class (
   {-Mapping p, Mapping (Unindexed p),-}

@@ -1,6 +1,5 @@
 module X.Functor.Fold.First (FoldFirst(..),module X) where
 import X.Functor.Fold as X
-import X.Cast
 import X.Num.Add.First
 
 newtype FoldFirst f a = FoldFirst {unFoldFirst :: f a}

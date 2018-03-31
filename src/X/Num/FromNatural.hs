@@ -2,7 +2,6 @@ module X.Num.FromNatural (FromNatural(..), module X) where
 import X.Num.Rg as X
 import X.Num.Add0 as X
 import X.Num.One as X
-import X.Data.Struct.Natural
 import X.Type.Int
 import qualified Prelude as P
 

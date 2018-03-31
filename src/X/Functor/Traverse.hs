@@ -31,6 +31,7 @@ class (Traverse t,Fold0 t) => Traverse0 t where
 class (Traverse0 t, Fold' t) => Traverse' t where
   traverse' :: Map f => (t X -> f X) -> (a -> f b) -> t a -> f (t b)
   sequence' :: Map f => (t X -> f X) -> t (f a) -> f (t a)
+  sequence' f t = traverse' f (\fa -> fa) t
   {-traverse' x a ta = map foldMap' x a ta-}
 instance Traverse' (E x) where
   traverse' txfx afb = \case {L x -> map (\case) (txfx (L x)); R a -> R `map` afb a}
@@ -57,16 +58,16 @@ class (Traverse0 t, Traverse1 t,Fold_ t, Comonad t) => Traverse_ t where
   sequence_ :: Map f => t (f a) -> f (t a)
   sequence_ = traverse_ (\x -> x)
 
+-- TODO: check that these satisfy laws
 traverse__duplicate :: Traverse_ w => w a -> w (w a)
 traverse__duplicate w = w `constMap` w
+traverse__extend :: Map f => (f a -> b) -> f a -> f b
 traverse__extend wab wa = wab wa `constMap` wa
 
 
 traverse__foldMap_ :: Traverse_ t => (a -> m) -> t a -> m
 traverse__foldMap_ f ta = case traverse_ (\a -> K (f a)) ta of K m -> m
 
-instance Duplicate I where duplicate = I
-instance Comonad I
 instance Traverse I where traverse = traverse_
 instance Traverse0 I where traverse0 = traverse_
 instance Traverse1 I where traverse1 = traverse_
@@ -80,10 +81,10 @@ instance Traverse [] where
   traverse = go' where
     go' f = go where
       go = \case
-	[] -> pure []
-	(x:xs) -> (:) `map` f x  `ap` go xs
-instance Traverse (K x) where traverse f (K x) = pure (K x)
-instance Traverse0 (K x) where traverse0 f (K x) = pure (K x)
+        [] -> pure []
+        (x:xs) -> (:) `map` f x  `ap` go xs
+instance Traverse (K x) where traverse _ (K x) = pure (K x)
+instance Traverse0 (K x) where traverse0 _ (K x) = pure (K x)
 
 instance Traverse (E x) where traverse = traverse0
 instance Traverse0 (E x) where

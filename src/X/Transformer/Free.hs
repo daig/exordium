@@ -2,7 +2,7 @@
 module X.Transformer.Free where
 import X.Kind.Constraint
 import X.Constraint.Trivial
-import X.Type.NatTrans
+{-import X.Type.NatTrans-}
 import X.Kind.Type
 import X.Functor.Monad
 

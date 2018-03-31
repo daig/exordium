@@ -5,11 +5,7 @@ import X.Type.K
 import X.Functor.Traverse as X
 import X.Arrow.Promap as X
 import X.Arrow.Traversed.Internal
-import X.Data.E
-import X.Data.Maybe
-import X.Data.Where
 import X.Functor.Swap
-import X.Cast.Coerce.Unsafe
 import X.Functor.Bifold
 
 -- | Definitions in terms of @traversal@ are much more efficient
@@ -80,7 +76,7 @@ class Promap p => Traversed' p where
   {-traversed' l p = promap (l ) pure p-}
   -- | Pass through the right component of a sum
   _R :: p a b -> p (E x a) (E x b)
-  {-_R = prism (\case L t -> L t; R a -> R a) R-}
+  _R = prism (\case L t -> L (L t); R a -> R a) R
   {-_R = traversal' (\tfx afb -> \case {L x -> L `map` tfx (L x); R a -> R `map` afb a})-}
   -- | Pass through the left component of a sum
   _L :: p a b -> p (E a y) (E b y)

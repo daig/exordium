@@ -1,9 +1,6 @@
 module X.Mono.Cons (module X.Mono.Cons, module X) where
 import X.Num.Zero as X
 import X.Optic.Prism
-import X.Data.Maybe
-import X.Arrow.Traversed
-import X.Functor.Plus
 
 class Cons s a b t | s -> a, t -> b, s b -> t, t a -> s where
   _Cons :: Traversed' p => p (a,s) (b,t) -> p s t

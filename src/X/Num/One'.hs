@@ -7,7 +7,6 @@ import GHC.Integer
 import X.Type.Int
 import X.Type.Word
 import X.Stock.Eq
-import qualified Prelude as P
 
 class One a => One' a where
   one' :: a -> Bool

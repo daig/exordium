@@ -1,6 +1,10 @@
 {-# language UndecidableInstances #-}
 {-# language MagicHash #-}
-module X.Data.Struct.FingerTree (FingerTree(..,FTN), module X) where
+module X.Data.Struct.FingerTree
+  (FingerTree(..,FTN)
+  ,splitTree
+  ,split
+  ,module X) where
 import X.Num.Measured as X
 import X.Data.Struct.FingerTree.Digit as X
 import X.Data.Struct.FingerTree.Node as X
@@ -11,10 +15,9 @@ import X.Cast.Coerce.Unsafe
 import X.Mono.Cons
 import X.Mono.Snoc
 import X.Mono.Map
-import X.Arrow.Traversed
 import X.Data.Maybe
 import X.Optic.Review
-import X.Data.Bool
+import Prelude (otherwise) -- TODO: move somewhere
 
 data FingerTree a
   = FT0
@@ -157,11 +160,11 @@ splitNode :: Measured a => (Measure a -> Bool) -> Measure a -> Node a
           -> (Maybe (Digit a), a, Maybe (Digit a))
 splitNode p i = \case
   Node2 a b | p va -> (Nothing, a, Just (Digit1 b))
-            | T -> (Just (Digit1 a), b, Nothing)
+            | otherwise -> (Just (Digit1 a), b, Nothing)
     where va = i `add` measure a
   Node3 a b c | p va -> (Nothing, a, Just (Digit2 b c))
               | p vab -> (Just (Digit1 a), b, Just (Digit1 c))
-              | T -> (Just (Digit2 a b), c, Nothing)
+              | otherwise -> (Just (Digit2 a b), c, Nothing)
     where (va,vab) = (i `add` measure a, va `add` measure b)
 
 
@@ -176,7 +179,7 @@ splitTree p i = \case
               | p vm -> let  (ml, xs, mr)  =  splitTree p vpr m
                              (l, x, r)     =  splitNode p (vpr `add` measure ml) xs
                         in   (ftR pr ml l, x, ftL r mr sf)
-              | T -> let (l,x,r) = splitDigit p vm sf
+              | otherwise -> let (l,x,r) = splitDigit p vm sf
                         in (ftR pr m l, x, maybe FT0 (review _Digit) r)
     where (vpr,vm) = (i `add` measure pr, vpr `add` measure m)
 

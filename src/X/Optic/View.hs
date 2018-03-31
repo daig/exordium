@@ -3,10 +3,9 @@ import X.Num.Add0 as X
 import X.Arrow.Mapped as X
 import X.Arrow.Loop as X
 import X.Arrow.ITraversed as X
-import X.Arrow.Folded as X
-import X.Arrow.Compose as X
+{-import X.Arrow.Folded as X-}
 import X.Functor.BiComap as X
-import X.Functor.Comap as X
+{-import X.Functor.Comap as X-}
 import X.Type.K
 import X.Functor.Bifold
 
@@ -39,7 +38,7 @@ instance Traversed_ (View r) where
 instance PIndexed i (View r) (View r)
 instance Zero r => ITraversed' i (View r) (View r) where
   iprism pat _ (View ar) = View (\s -> case pat s of
-    L t -> zero
+    L _ -> zero
     R (_,a) -> ar a) 
 instance Add0 r => ITraversed i (View r) (View r) where
   itraversal l (View ar) = View (\s -> case (l (\_ a -> K (ar a))) s of {K r -> r})
@@ -75,3 +74,4 @@ instance Loop' (View r) where
 
 instance Add r => Folded1 (View r) where
   folding1 amsm (View ar) = View (\s -> amsm ar s)
+  folded1 (View ar) = View (foldMap1 ar)

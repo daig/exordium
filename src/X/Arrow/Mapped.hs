@@ -2,7 +2,6 @@ module X.Arrow.Mapped (Mapped(..), module X) where
 import X.Arrow.Mapped.Internal
 import X.Arrow.Traversed as X
 import X.Arrow.Closed as X
-import X.Functor.Zip as X
 import X.Type.I
 
 class (Closed p, Traversed p) => Mapped p where

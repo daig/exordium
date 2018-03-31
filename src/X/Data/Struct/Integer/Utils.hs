@@ -35,5 +35,4 @@ module X.Data.Struct.Integer.Utils
   ,module X
   ) where
 import GHC.Integer.GMP.Internals
-import GHC.Integer
 import X.Data.Struct.Integer as X

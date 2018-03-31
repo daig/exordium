@@ -10,7 +10,6 @@ module X.Num
   ,FromNatural(..),FromInteger(..)
   ,QuotRem(..)
   ,Act(..),Diff(..)
-  ,module X
   ) where
 import X.Num.Zero' as X
 import X.Num.Negate as X

@@ -1,14 +1,14 @@
 module X.ZSortMe.Bits where
-import X.Num
-import X.Arrow.Mapped
-import X.Data.Bool
-import X.Optic.Grate
-import X.Optic.View
-import X.Optic.Re
-import X.Optic.Iso
-import X.Type.Word
-import qualified Data.Bits  as P
-import X.Mono.Cons
+{-import X.Num-}
+{-import X.Arrow.Mapped-}
+{-import X.Data.Bool-}
+{-import X.Optic.Grate-}
+{-import X.Optic.View-}
+{-import X.Optic.Re-}
+{-import X.Optic.Iso-}
+{-import X.Type.Word-}
+{-import qualified Data.Bits  as P-}
+{-import X.Mono.Cons-}
 
 {-class Mapping s a b t => Zip s a b t | s -> a, t -> b, s b -> t, t a -> s where-}
   {-_zip :: Closed p => p a b -> p s t-}
