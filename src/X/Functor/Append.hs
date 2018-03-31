@@ -1,9 +1,9 @@
-module X.Functor.Plus where
+module X.Functor.Append where
 
 -- | Associative: fadd (fadd a b) c = fadd a (fadd b c)
-class FPlus f where fplus :: f a -> f a -> f a
+class Append f where append :: f a -> f a -> f a
 
-instance FPlus [] where fplus = list'append
+instance Append [] where append = list'append
 
 list'prepend,list'append :: [a] -> [a] -> [a]
 list'prepend bs = go where

@@ -1,6 +1,6 @@
 module X.Functor.Bind (module X.Functor.Bind, module X) where
 import X.Functor.Apply as X
-import X.Functor.Plus
+import X.Functor.Append
 import X.Data.E
 
 -- | Associativity of join:
@@ -26,7 +26,7 @@ instance Bind ((->) r) where
 instance Bind [] where
   bind f = \case
     [] -> []
-    a:as -> f a `fplus` (f `bind` as)
+    a:as -> f a `append` (f `bind` as)
 
 (=<<) :: Bind m => (a -> m b) -> m a -> m b
 (=<<) = bind

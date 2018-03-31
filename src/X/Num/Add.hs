@@ -7,7 +7,7 @@ import X.Type.Int
 import X.Type.Word
 import qualified Prelude as P
 import X.Data.Struct.BigNat.Utils
-import X.Functor.Plus
+import X.Functor.Append
 
 -- | a + (b + c) = (a + b) + c
 class Add a where
@@ -37,4 +37,4 @@ instance Add Bool where add = (P./=)
 instance Add () where add _ _ = ()
 instance Add (a -> a) where add f g a = f (g a)
 instance Add BigNat where add = plusBigNat 
-instance Add [a] where add = fplus
+instance Add [a] where add = append

@@ -7,7 +7,7 @@ import qualified Data.Map as M
 import qualified Prelude as P
 import qualified Control.Monad as P
 import qualified Data.List as P
-import X.Functor.Plus
+import X.Functor.Append
 import X.Type.Int.I
 import X.Functor.Map'
 import X.Functor.IMap
@@ -139,10 +139,10 @@ dataInfo n = do
       ForallC _tyvarbndrs _cxt c -> con'args c -- P.error "getConstrs:ForallC"
       GadtC cs args _type -> case cs of
         [con] -> con'args (NormalC con args)
-        _ -> P.error ("getConstrs:GadtC expecting one constructor but got " `fplus` P.show cs)
+        _ -> P.error ("getConstrs:GadtC expecting one constructor but got " `append` P.show cs)
       RecGadtC cs labs _type -> case cs of
         [con] -> con'args (RecC con labs)
-        _ -> P.error ("getConstrs:RecGadtC expecting one constructor but got " `fplus` P.show cs)
+        _ -> P.error ("getConstrs:RecGadtC expecting one constructor but got " `append` P.show cs)
     varBangType'nameType (name,_,t) = (name,t)
 
 -- | Create Prisms of suitable type for each constructor. 
