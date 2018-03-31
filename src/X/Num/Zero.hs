@@ -5,6 +5,7 @@ import X.Data.Bool
 import X.Type.Int
 import X.Type.Word
 import X.Data.Maybe
+import X.Data.Struct.BigNat.Utils
 
 class Zero x where zero :: x
 
@@ -19,3 +20,4 @@ instance Zero (Maybe a) where zero = Nothing
 instance Zero [a] where zero = []
 instance Zero (a -> a) where zero a = a
 {-instance Zero a => Zero (K a b) where zero = K zero-}
+instance Zero BigNat where zero = zeroBigNat

@@ -1,6 +1,7 @@
 module X.Functor.Swap where
 import X.Arrow.Promap as X
 import X.Data.E
+import X.Data.These
 
 -- | swap < swap = id
 class Swap f where
@@ -10,3 +11,8 @@ class Swap f where
   swapped = promap swap swap
 instance Swap (,) where swap (a,b) = (b,a)
 instance Swap E where swap = \case {L a -> R a; R b -> L b}
+instance Swap These where
+  swap = \case
+    This a -> That a
+    That b -> This b
+    These a b -> These b a

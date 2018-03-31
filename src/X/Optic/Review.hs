@@ -6,7 +6,8 @@ instance Promap Review where promap _ g (Review b) = Review (g b)
 instance Traversed' Review where prism _ bt (Review b) = Review (bt b)
 instance Precoerce Review where precoerce (Review b) = Review b
 instance Pure (Review a) where pure = Review
-instance Map (Review a ) where map f (Review b) = Review (f b)
+instance Map (Review a) where map f (Review b) = Review (f b)
+instance Remap (Review a) where remap _ = map
 
 
 instance Fold (Review x) where foldMap = foldMap_

@@ -23,6 +23,7 @@ instance Fold0 (Baz Map t b) where foldMap0 = traverse__foldMap_
 instance Fold1 (Baz Map t b) where foldMap1 = traverse__foldMap_
 instance Fold_ (Baz Map t b) where foldMap_ = traverse__foldMap_
 instance Map (Baz Map t b) where map = traverse_map
+instance Remap (Baz Map t b) where remap _ = map
 
 instance Traverse (Baz Pure t b) where traverse = traverse0
 instance Traverse0 (Baz Pure t b) where
@@ -30,6 +31,7 @@ instance Traverse0 (Baz Pure t b) where
 instance Fold  (Baz Pure t b) where foldMap  = traverse0_foldMap0
 instance Fold0 (Baz Pure t b) where foldMap0 = traverse0_foldMap0
 instance Map (Baz Pure t b) where map = traverse_map
+instance Remap (Baz Pure t b) where remap _ = map
 
 instance Traverse (Baz Apply t b) where traverse = traverse1
 instance Traverse1 (Baz Apply t b) where
@@ -37,11 +39,13 @@ instance Traverse1 (Baz Apply t b) where
 instance Fold  (Baz Apply t b) where foldMap  = traverse1_foldMap1
 instance Fold1 (Baz Apply t b) where foldMap1 = traverse1_foldMap1
 instance Map (Baz Apply t b) where map = traverse_map
+instance Remap (Baz Apply t b) where remap _ = map
 
 instance Traverse (Baz Applicative t b) where
   traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Applicative) (f x)))))
 instance Fold  (Baz Applicative t b) where foldMap  = traverse_foldMap
 instance Map (Baz Applicative t b) where map = traverse_map
+instance Remap (Baz Applicative t b) where remap _ = map
 
 
 
@@ -52,17 +56,21 @@ sell :: forall c a b. a -> Bazaar c a b b
 sell a = Bazaar (\f -> f a)
 
 instance Map (Bazaar Map a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
+instance Remap (Bazaar Map a b) where remap _ = map
 instance Promap (Bazaar Map a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
 
 instance Map (Bazaar Pure a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
+instance Remap (Bazaar Pure a b) where remap _ = map
 instance Pure (Bazaar Pure a b) where pure a = Bazaar (\_ -> pure a)
 instance Promap (Bazaar Pure a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
 
 instance Map (Bazaar Apply a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
+instance Remap (Bazaar Apply a b) where remap _ = map
 instance Apply (Bazaar Apply a b) where (Bazaar mf) `ap` (Bazaar ma) = Bazaar (\k -> mf k `ap` ma k)
 instance Promap (Bazaar Apply a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f  `map` k x))
 
 instance Map (Bazaar Applicative a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
+instance Remap (Bazaar Applicative a b) where remap _ = map
 instance Pure (Bazaar Applicative a b) where pure a = Bazaar (\_ -> pure a)
 instance Apply (Bazaar Applicative a b) where (Bazaar mf) `ap` (Bazaar ma) = Bazaar (\k -> mf k `ap` ma k)
 instance Applicative (Bazaar Applicative a b)

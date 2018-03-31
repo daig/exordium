@@ -61,6 +61,7 @@ instance Promap (Prism a b) where
   promap f g (Prism seta bt) = Prism (bifoldMap_ (L . g) R . seta . f) (g . bt)
 instance Map (Prism a b s) where
  map f (Prism seta bt) = Prism (bifoldMap_ (L . f) R . seta) (f . bt)
+instance Remap (Prism a b s) where remap _ = map
 instance Pure (Prism a b s) where pure t = Prism (\_ -> L t) (\_ -> t)
 
 {-type (s @?~ a) b t  = forall f. Pure f => (a -> f b) -> s -> f t-}

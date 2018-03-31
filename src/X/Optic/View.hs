@@ -17,6 +17,7 @@ view = (`_View` \x -> x)
 instance Promap (View r) where
   promap f _ (View z) = View (premap f z)
 instance Map (View r a) where map = postmap
+instance Remap (View r a) where remap _ = map
 instance BiComap (View r) where
   bicomap f _ (View z) = View (premap f z)
 instance Comap (View r a) where comap = cormap

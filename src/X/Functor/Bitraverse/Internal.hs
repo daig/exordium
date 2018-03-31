@@ -10,6 +10,7 @@ thesek'biextract = \case
   ThatK b -> b
   TheseK a b -> a `mul` b
 instance Map (TheseK a b) where map _ = coerce
+instance Remap (TheseK a b) where remap _ = map
 instance (Mul a, Mul b) => Apply (TheseK a b) where
   ap (TheseK a b) = \case
     ThisK a' -> TheseK (mul a a') b

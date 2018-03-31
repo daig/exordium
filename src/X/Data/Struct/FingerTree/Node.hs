@@ -46,6 +46,7 @@ instance Measured b => Monomap (Node b) (Node a) b a where
     Node2# _ a b -> Node2 (f a) (f b)
     Node3# _ a b c -> Node3 (f a) (f b) (f c))
 -- | Only safe for measure-preserving functions
+instance Remap (Unsafe Node) where remap _ = map
 instance Map (Unsafe Node) where
   map f (Unsafe (Node2# v a b))   = Unsafe (Node2# (coerce# v) (f a) (f b))
   map f (Unsafe (Node3# v a b c)) = Unsafe (Node3# (coerce# v) (f a) (f b) (f c))

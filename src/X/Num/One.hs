@@ -5,6 +5,7 @@ import GHC.Integer
 import X.Type.Word
 import X.Data.Bool
 import X.Type.Int
+import X.Data.Struct.BigNat.Utils
 
 -- | one * a = a * one = a
 class One m where one :: m
@@ -15,3 +16,4 @@ instance One Word where one = 1
 instance One Int where one = 1
 instance One () where one = ()
 instance One Bool where one = T
+instance One BigNat where one = oneBigNat

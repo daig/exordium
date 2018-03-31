@@ -24,6 +24,8 @@ instance Zip f => Closed (ITraversing i f) where
 instance Map f => Promap (ITraversing i f) where promap f g (ITraversing s) = ITraversing (\i -> (promap f (map g) (s i)))
 instance Map f => Map (ITraversing i f a) where
   map f (ITraversing s) = ITraversing (\i a -> map f (s i a))
+instance Remap f => Remap (ITraversing i f a) where
+  remap f g (ITraversing s) = ITraversing (\i a -> remap f g (s i a))
 {--- TODO: move to PromapIso class-}
 instance Comap f => Comap (ITraversing i f a) where
   comap f (ITraversing s) = ITraversing (\i a -> comap f (s i a))

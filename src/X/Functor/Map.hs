@@ -8,8 +8,10 @@ import X.Type.I
 import X.Data.E
 import X.Data.Maybe
 import X.Type.IO
+import X.Functor.Remap as X
+import X.Data.These
 
-class Map (f :: * -> *) where
+class Remap f => Map (f :: * -> *) where
   map :: (a -> b) -> f a -> f b
   -- | Try to coerce if @f@ is parametric.
   map# :: a #=# b => (a -> b) -> f a -> f b
@@ -60,3 +62,8 @@ maybe'map f = \case
   Just a -> Just (f a)
 
 instance Map IO where map f (IO io) = IO (\s -> case io s of (# s', a #) -> (# s', f a #))
+instance Map (These a) where
+  map f = \case
+    This a -> This a
+    That b -> That (f b)
+    These a b -> These a (f b)

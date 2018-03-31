@@ -63,6 +63,7 @@ instance Closed Zip2 where closed (Zip2 z) = Zip2 (\xa xa' x -> z (xa x) (xa' x)
 {-instance Mapped Zip2 where setter abst (Zip2 z) = Zip2 (\s s' -> abst (\x -> z x x) s)-}
 instance Promap Zip2 where promap f g (Zip2 z) = Zip2 (\a a' -> g (z (f a) (f a')))
 instance Map (Zip2 a) where map = postmap
+instance Remap (Zip2 a) where remap _ = map
 
 _Zip2 :: (Zip2 a b -> Zip2 s t) -> (a -> a -> b) -> s -> s -> t
 _Zip2 = promap Zip2 runZip2
@@ -76,6 +77,7 @@ instance Map f => Closed (FZip f) where
 instance Map f => Promap (FZip f) where
   promap f g (FZip fab) = FZip (promap (map f) g fab)
 instance Map (FZip f a) where map f (FZip fab) = FZip (\fa -> f (fab fa))
+instance Remap (FZip f a) where remap _ = map
 instance Duplicate w => Compose (FZip w) where FZip f `precompose` FZip g = FZip (g `postcompose` extend f)
 instance Comonad w => Category (FZip w) where identity = FZip fold_
 instance Coerce1 f => Precoerce (FZip f) where precoerce (FZip z) = FZip (premap coerce1 z)

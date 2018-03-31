@@ -7,6 +7,7 @@ import GHC.Integer
 import X.Type.Int
 import X.Type.Word
 import X.Stock.Eq
+import X.Data.Struct.BigNat.Utils
 
 
 class Zero a => Zero' a where
@@ -23,3 +24,4 @@ instance Zero' Bool
 instance Zero' Int
 instance Zero' Integer
 instance Zero' Word
+instance Zero' BigNat where zero' = isZeroBigNat

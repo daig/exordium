@@ -16,6 +16,7 @@ instance Fold1 Digit where
   foldMap1 f (Digit4 a b c d) = f a `add` f b `add` f c `add` f d
 instance Fold Digit where foldMap = foldMap1
 
+instance Remap Digit where remap _ = map
 instance Map Digit where
   map f (Digit1 a) = Digit1 (f a)
   map f (Digit2 a b) = Digit2 (f a) (f b)

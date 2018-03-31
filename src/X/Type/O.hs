@@ -12,3 +12,5 @@ instance (Map f,Map g) => Map (O f g) where
   map f (O fg) = O (map (map f) fg)
   map# f (O fg) = O ((map## f) fg)
   map## f hofg = map# O (unO (map## f (O (map# unO hofg)))) -- Yikes
+instance (Remap f,Remap g) => Remap (O f g) where
+  remap f g (O fg) = O (remap (remap g f) (remap f g) fg)

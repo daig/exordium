@@ -36,7 +36,5 @@ instance Add Integer where add = (P.+)
 instance Add Bool where add = (P./=)
 instance Add () where add _ _ = ()
 instance Add (a -> a) where add f g a = f (g a)
-
 instance Add BigNat where add = plusBigNat 
-
 instance Add [a] where add = fplus
