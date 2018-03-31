@@ -1,6 +1,8 @@
 module X.Arrow.Category (Category(..), module X) where
 import X.Arrow.Compose as X
+import X.Arrow.Identity as X
 
-class Compose p => Category p where identity :: p a a
+-- | identity < p = p < identity = p
+class (Compose p, Identity p) => Category p
 
-instance Category (->) where identity = \x -> x
+instance Category (->) 

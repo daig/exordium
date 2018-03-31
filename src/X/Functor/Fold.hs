@@ -5,6 +5,7 @@ import X.Type.K
 import X.Type.I
 import X.Data.E
 import X.Data.Maybe
+import X.Data.These
 import X.Data.X as X
 import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe
@@ -97,6 +98,13 @@ instance Fold  I where foldMap = foldMap_
 instance Fold Maybe where foldMap = foldMap0
 instance Fold0 Maybe where foldMap0 f = \case {Nothing -> zero; Just a -> f a}
 instance Fold' Maybe where foldMap' f0 f = \case {Nothing -> f0 Nothing; Just a -> f a}
+
+instance Fold (These a) where foldMap = foldMap0
+instance Fold0 (These a) where
+  foldMap0 f = \case
+    This{} -> zero
+    That b -> f b
+    These _ b -> f b
 
 instance Fold (E x) where foldMap = foldMap0
 instance Fold0 (E x) where

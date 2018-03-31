@@ -3,6 +3,8 @@ import X.Num.Rg as X
 
 -- | A near semiring (bi)module X..
 --
+--   (r*s)a = r(sa)
+--
 --   r(as) = (ra)s
 --
 --   (r+s)a = ra + sa

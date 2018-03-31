@@ -1,3 +1,5 @@
-module X.Num.Top where
+module X.Num.Top (Top(..),module X) where
+import X.Num.Ord' as X
 
-class Top x where top :: x
+-- | gte top a = T
+class Ord' a => Top a where top :: a

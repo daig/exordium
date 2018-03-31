@@ -1,6 +1,7 @@
 module X.Functor.IFold (module X.Functor.IFold, module X) where
 import X.Num.Add0 as X
-import Prelude (Enum(..))
+import X.Num.FromNatural
+import X.Type.I
 
 class IFold i t where
 --  {-# minimal ifoldMap | ifoldr #-}
@@ -17,13 +18,21 @@ class IFold i t => IFold0 i t where
 class IFold i t => IFold1 i t where
   ifoldMap1 :: Add s => (i -> a -> s) -> t a -> s
 
+class (IFold0 i t,IFold1 i t) => IFold_ i t where
+  ifoldMap_ :: (i -> a -> s) -> t a -> s
 
-instance Zero i => IFold0 i ((,) x) where ifoldMap0 f (_,x) = f zero x
-instance Zero i => IFold1 i ((,) x) where ifoldMap1 f (_,y) = f zero y
+
+instance Zero i => IFold0 i ((,) x) where ifoldMap0 = ifoldMap_
+instance Zero i => IFold1 i ((,) x) where ifoldMap1 = ifoldMap_
+instance Zero i => IFold_ i ((,) x) where ifoldMap_ f (_,y) = f zero y
 instance Zero i => IFold i ((,) x) where ifoldMap f (_,a) = f zero a
-instance Enum i => IFold i [] where
+instance FromNatural i => IFold i [] where
   ifoldMap = go' where
-    go' f = go (toEnum 0) where
+    go' f = go zero where
       go i = \case
         [] -> zero
-        a:as -> f i a `add` go (succ i) as
+        a:as -> f i a `add` go (add one i) as
+instance Zero i => IFold i I where ifoldMap = ifoldMap_
+instance Zero i => IFold0 i I where ifoldMap0 = ifoldMap_
+instance Zero i => IFold1 i I where ifoldMap1 = ifoldMap_
+instance Zero i => IFold_ i I where ifoldMap_ iab (I a) = iab zero a
