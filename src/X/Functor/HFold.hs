@@ -20,3 +20,4 @@ class (Fold_ t, HFold0 e t, HFold1 e t) => HFold_ e t where
     {-This e -> em e-}
     {-That a -> am a-}
     {-These e a -> em e `add` am a-}
+

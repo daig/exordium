@@ -1,46 +1,30 @@
 {-# language UnboxedSums #-}
 module X.Functor.Map' (module X.Functor.Map', module X) where
-import X.Functor.Map as X
+import X.Functor.HMap as X
 import X.Data.Bool as X
 import X.Data.Maybe
 import X.Data.X
 
+
+
 -- TODO: add a quasiquoter for church encoding
--- like mapM' :: (a -> [t|() + b|]) -> f a -> f b
+-- like map' :: (a -> [t|() + b|]) -> f a -> f b
+
 class Map f => Map' f where
   {-# minimal map' | filter #-}
-  map' :: (forall r. a -> r -> (b -> r) -> r) -> f a -> f b
-  map' f x = map (\case Just t -> t; _ -> __)
-    (filter (\case {Nothing -> \a _ -> a; _ -> \_ b -> b}) 
-    ( map (\a -> f a Nothing Just) x))
-  {-mapM f x = map (\case Some a -> a)-}
-                {-( filter (\case {None -> F; _ -> T})-}
-                {-( map f x))-}
-  filter :: (forall r. a -> r -> r -> r) -> f a -> f a
-  filter p =  map' (\a r ar -> p a r (ar a))
+  map' :: (a -> Maybe b) -> f a -> f b
+  map' f x = map (\a -> case f a of {Just b -> b; Nothing -> __})
+    (filter (\a -> case f a of {Nothing -> F; Just{} -> T}) x)
+  filter :: (a -> Bool) -> f a -> f a
+  filter p =  map' (\a -> if p a then Just a else Nothing)
 
 
 instance Map' [] where
-  filter = list'filter
-  {-map' = list'map'-}
-
-list'filter :: (forall r. a -> r -> r -> r) -> [a] -> [a]
-list'filter p = go where
-  go = \case
-    [] -> []
-    a:as -> p a as (a:as)
-{-# noinline[0] list'filter #-}
-
+  map' f = go where
+    go = \case
+      [] -> []
+      a:as -> case f a of {Nothing -> go as; Just b -> b : go as}
+instance Map' f => EMap () f where emap f = map' (\a -> case f a of {L () -> Nothing; R a -> Just a})
 
 map'_map :: Map' f => (a -> b) -> f a -> f b
-map'_map f = map' (\a _ br -> br (f a))
-
-test :: [Bool] -> [Bool]
-test = map' (\x a b -> case x of {T -> b T; F -> a})
-{-list'mapM = mapM @[] (\case {T -> Some T; F -> None})-}
-
-{-data Option a = None | Some a-}
-
-
-{-filterJust :: MapM f => f (Maybe a) -> f a-}
-{-filterJust = mapM (\x -> x)-}
+map'_map f = map' (\a -> Just (f a))

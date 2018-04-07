@@ -31,3 +31,4 @@ class (HTraverse0 e t, HTraverse1 e t, HFold_ e t) => HTraverse_ e t where
 
 htraverse_hfoldMap_ :: HTraverse_ e t => (e -> m) -> (a -> m) -> t a -> m
 htraverse_hfoldMap_ eb ab ta = case htraverse_ (\e -> K (eb e)) (\a -> K (ab a)) ta of K m -> m
+
