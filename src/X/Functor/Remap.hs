@@ -7,6 +7,7 @@ import X.Data.E
 import X.Cast.Coerce as X (type ( #=# ),coerce,coerceF)
 import X.Data.Maybe
 import X.Data.These
+import Control.Arrow ((***))
 
 class Remap f where remap :: (b -> a) -> (a -> b) -> f a -> f b
 
