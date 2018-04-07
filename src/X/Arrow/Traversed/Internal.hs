@@ -2,7 +2,7 @@ module X.Arrow.Traversed.Internal where
 import X.Functor.Traverse
 import X.Arrow.Promap
 import X.Type.I
-import X.Type.O
+import X.Arrow.Traversed.Internal.O
 
 -- TODO: merge implementations if possible
 
@@ -22,6 +22,7 @@ instance Fold  (Baz Map t b) where foldMap  = traverse__foldMap_
 instance Fold0 (Baz Map t b) where foldMap0 = traverse__foldMap_
 instance Fold1 (Baz Map t b) where foldMap1 = traverse__foldMap_
 instance Fold_ (Baz Map t b) where foldMap_ = traverse__foldMap_
+instance Strong (Baz Map t b) where strong = map_strong
 instance Map (Baz Map t b) where map = traverse_map
 instance Remap (Baz Map t b) where remap _ = map
 
@@ -30,6 +31,7 @@ instance Traverse0 (Baz Pure t b) where
   traverse0 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Pure) (f x)))))
 instance Fold  (Baz Pure t b) where foldMap  = traverse0_foldMap0
 instance Fold0 (Baz Pure t b) where foldMap0 = traverse0_foldMap0
+instance Strong (Baz Pure t b) where strong = map_strong
 instance Map (Baz Pure t b) where map = traverse_map
 instance Remap (Baz Pure t b) where remap _ = map
 
@@ -38,12 +40,14 @@ instance Traverse1 (Baz Apply t b) where
   traverse1 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Apply) (f x)))))
 instance Fold  (Baz Apply t b) where foldMap  = traverse1_foldMap1
 instance Fold1 (Baz Apply t b) where foldMap1 = traverse1_foldMap1
+instance Strong (Baz Apply t b) where strong = map_strong
 instance Map (Baz Apply t b) where map = traverse_map
 instance Remap (Baz Apply t b) where remap _ = map
 
 instance Traverse (Baz Applicative t b) where
   traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Applicative) (f x)))))
 instance Fold  (Baz Applicative t b) where foldMap  = traverse_foldMap
+instance Strong (Baz Applicative t b) where strong = map_strong
 instance Map (Baz Applicative t b) where map = traverse_map
 instance Remap (Baz Applicative t b) where remap _ = map
 
@@ -55,23 +59,29 @@ newtype Bazaar c a b t = Bazaar {runBazaar :: forall f. c f => (a -> f b) -> f t
 sell :: forall c a b. a -> Bazaar c a b b
 sell a = Bazaar (\f -> f a)
 
+instance Strong (Bazaar Map a b) where strong = map_strong
 instance Map (Bazaar Map a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
 instance Remap (Bazaar Map a b) where remap _ = map
 instance Promap (Bazaar Map a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
 
+instance Strong (Bazaar Pure a b) where strong = map_strong
 instance Map (Bazaar Pure a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
 instance Remap (Bazaar Pure a b) where remap _ = map
 instance Pure (Bazaar Pure a b) where pure a = Bazaar (\_ -> pure a)
 instance Promap (Bazaar Pure a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
 
+instance Strong (Bazaar Apply a b) where strong = map_strong
 instance Map (Bazaar Apply a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
 instance Remap (Bazaar Apply a b) where remap _ = map
+instance FTimes (Bazaar Apply a b) where ftimes = ap_ftimes
 instance Apply (Bazaar Apply a b) where (Bazaar mf) `ap` (Bazaar ma) = Bazaar (\k -> mf k `ap` ma k)
 instance Promap (Bazaar Apply a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f  `map` k x))
 
+instance Strong (Bazaar Applicative a b) where strong = map_strong
 instance Map (Bazaar Applicative a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
 instance Remap (Bazaar Applicative a b) where remap _ = map
 instance Pure (Bazaar Applicative a b) where pure a = Bazaar (\_ -> pure a)
+instance FTimes (Bazaar Applicative a b) where ftimes = ap_ftimes
 instance Apply (Bazaar Applicative a b) where (Bazaar mf) `ap` (Bazaar ma) = Bazaar (\k -> mf k `ap` ma k)
 instance Applicative (Bazaar Applicative a b)
 instance Promap (Bazaar Applicative a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))

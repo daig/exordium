@@ -19,6 +19,8 @@ _Traversing l afb s = case l (Traversing afb) of Traversing sft -> sft s
 instance Zip f => Closed (Traversing f) where
   closed (Traversing afb) = Traversing (\xa -> distribute (\x -> afb (xa x)))
 instance Map f => Promap (Traversing f) where promap f g (Traversing s) = Traversing (promap f (map g) s)
+instance Strong f => Strong (Traversing f a) where
+  strong x (Traversing afb) = Traversing (\a -> strong x (afb a))
 instance Map f => Map (Traversing f a) where map f (Traversing s) = Traversing (\a -> map f (s a))
 instance Remap f => Remap (Traversing f a) where
   remap f g (Traversing s) = Traversing (\a -> remap f g (s a))

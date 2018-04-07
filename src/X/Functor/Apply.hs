@@ -29,6 +29,8 @@ f $| fb = f fb
 apply_add :: (Apply f, Add a) => f a -> f a -> f a
 apply_add = liftA2 add
 
+ap_ftimes a b = map (,) a `ap` b
+
 constAp :: Apply f => f a -> f b -> f a
 fa `constAp` fb = (\a _ -> a) `map` fa `ap` fb
 

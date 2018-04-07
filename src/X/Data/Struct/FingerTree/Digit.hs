@@ -17,6 +17,7 @@ instance Fold1 Digit where
 instance Fold Digit where foldMap = foldMap1
 
 instance Remap Digit where remap _ = map
+instance Strong Digit where strong = map_strong
 instance Map Digit where
   map f (Digit1 a) = Digit1 (f a)
   map f (Digit2 a b) = Digit2 (f a) (f b)

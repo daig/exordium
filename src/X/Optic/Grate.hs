@@ -55,6 +55,7 @@ zipOf' (Grate g) reduce fs = g (\get -> reduce (map get fs))
 
 newtype Zip2 a b = Zip2 {runZip2 :: a -> a -> b}
 instance Pure (Zip2 a) where pure x = Zip2 (\_ _ -> x)
+instance FTimes (Zip2 a) where ftimes = ap_ftimes
 instance Apply (Zip2 a) where ap = zip_ap
 instance Applicative (Zip2 a) 
 instance Zip (Zip2 a) where zip fab faab = Zip2 (\a b -> fab (map (\(Zip2 f) -> f a b) faab))
@@ -62,6 +63,7 @@ instance Closed Zip2 where closed (Zip2 z) = Zip2 (\xa xa' x -> z (xa x) (xa' x)
 {-instance Traversed Zip2 where traversal afbsft (Zip2 z) = Zip2 (\s s' -> -}
 {-instance Mapped Zip2 where setter abst (Zip2 z) = Zip2 (\s s' -> abst (\x -> z x x) s)-}
 instance Promap Zip2 where promap f g (Zip2 z) = Zip2 (\a a' -> g (z (f a) (f a')))
+instance Strong (Zip2 a) where strong = map_strong
 instance Map (Zip2 a) where map = postmap
 instance Remap (Zip2 a) where remap _ = map
 
@@ -76,6 +78,7 @@ instance Map f => Closed (FZip f) where
   closed (FZip fab) = FZip (\fxa x -> fab (map (\f -> f x) fxa))
 instance Map f => Promap (FZip f) where
   promap f g (FZip fab) = FZip (promap (map f) g fab)
+instance Strong (FZip f a) where strong x (FZip fab) = FZip (\fa -> (x,fab fa))
 instance Map (FZip f a) where map f (FZip fab) = FZip (\fa -> f (fab fa))
 instance Remap (FZip f a) where remap _ = map
 instance Duplicate w => Compose (FZip w) where FZip f `precompose` FZip g = FZip (g `postcompose` extend f)

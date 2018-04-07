@@ -22,6 +22,8 @@ _ITraversing = promap ITraversing runTraversing
 instance Zip f => Closed (ITraversing i f) where
   closed (ITraversing iafb) = ITraversing (\i xa -> distribute (\x -> iafb i (xa x)))
 instance Map f => Promap (ITraversing i f) where promap f g (ITraversing s) = ITraversing (\i -> (promap f (map g) (s i)))
+instance Strong f => Strong (ITraversing i f a) where
+  strong x (ITraversing iafb) = ITraversing (\i a -> strong x (iafb i a))
 instance Map f => Map (ITraversing i f a) where
   map f (ITraversing s) = ITraversing (\i a -> map f (s i a))
 instance Remap f => Remap (ITraversing i f a) where

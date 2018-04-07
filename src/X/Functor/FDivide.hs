@@ -7,7 +7,7 @@ class (Comap f, FTimes f) => FDivide f where
   fdivide f g fa fb = comap (\x -> (f x, g x)) (ftimes fa fb)
 
 fdivide_comap :: FDivide f => (b -> a) -> f a -> f b -- TODO: is this a law-abiding implementation?
-fdivide_comap f fa = fdivide (\(f -> a) -> (a, a)) fa fa
+fdivide_comap f fa = fdivide f f fa fa
 
 fdivide_ftimes :: FDivide f => f a -> f b -> f (a,b)
 fdivide_ftimes = fdivide (\(a,_) -> a) (\(_,b) -> b)

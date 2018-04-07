@@ -59,6 +59,7 @@ instance Measured b => Monomap (FingerTree b) (FingerTree a) b a where
 
 -- | Only safe for measure preserving functions
 instance Remap (Unsafe FingerTree) where remap _ = map
+instance Strong (Unsafe FingerTree) where strong = map_strong
 instance Map (Unsafe FingerTree) where
   map f (Unsafe ft) = Unsafe (go ft) where
     go FT0 = FT0

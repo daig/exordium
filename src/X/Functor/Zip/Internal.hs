@@ -3,9 +3,11 @@ import X.Num.One
 import X.Functor.Traverse
 
 data V2 a = V2 {v2a :: ~a, v2b :: ~a} 
+instance Strong V2 where strong = map_strong
 instance Map V2 where map f (V2 a b) = V2 (f a) (f b)
 instance Remap V2 where remap _ = map
 instance Pure V2 where pure a = V2 a a
+instance FTimes V2 where ftimes = ap_ftimes
 instance Apply V2 where ap (V2 f g) (V2 a b) = V2 (f a) (g b)
 instance Applicative V2
 instance One a => One (V2 a) where one = pure one

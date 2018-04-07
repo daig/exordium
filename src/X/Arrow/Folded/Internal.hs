@@ -10,6 +10,7 @@ instance Add (FreeFold Add a) where
   FreeFold f `add` FreeFold g = FreeFold (\am -> add (f am) (g am))
 instance Fold (FreeFold Add) where foldMap = foldMap1
 instance Fold1 (FreeFold Add) where foldMap1 f = (`runFreeFold` f)
+instance Strong (FreeFold Add) where strong = map_strong
 instance Map (FreeFold Add) where map f (FreeFold k) = FreeFold (\bm -> k (\a -> bm (f a)))
 instance Remap (FreeFold Add) where remap _ = map
 instance Pure (FreeFold Add) where pure a = FreeFold (\f -> f a)
@@ -18,6 +19,7 @@ instance Add0 (FreeFold Add0 a)
 instance Add (FreeFold Add0 a) where
   FreeFold f `add` FreeFold g = FreeFold (\am -> add (f am) (g am))
 instance Fold (FreeFold Add0) where foldMap f = (`runFreeFold` f)
+instance Strong (FreeFold Add0) where strong = map_strong
 instance Map (FreeFold Add0) where map f (FreeFold k) = FreeFold (\bm -> k (\a -> bm (f a)))
 instance Remap (FreeFold Add0) where remap _ = map
 instance Pure (FreeFold Add0) where pure a = FreeFold (\f -> f a)
@@ -26,6 +28,7 @@ instance Zero (FreeFold Add0 a) where zero = empty
 
 instance Fold (FreeFold Zero) where foldMap f = (`runFreeFold` f)
 instance Fold0 (FreeFold Zero) where foldMap0 f = (`runFreeFold` f)
+instance Strong (FreeFold Zero) where strong = map_strong
 instance Map (FreeFold Zero) where map f (FreeFold k) = FreeFold (\bm -> k (\a -> bm (f a)))
 instance Remap (FreeFold Zero) where remap _ = map
 instance Pure (FreeFold Zero) where pure a = FreeFold (\f -> f a)
@@ -36,6 +39,7 @@ instance Fold (FreeFold Trivial) where foldMap = foldMap_
 instance Fold0 (FreeFold Trivial) where foldMap0 = foldMap_
 instance Fold1 (FreeFold Trivial) where foldMap1 = foldMap_
 instance Fold_ (FreeFold Trivial) where foldMap_ f = (`runFreeFold` f)
+instance Strong (FreeFold Trivial) where strong = map_strong
 instance Map (FreeFold Trivial) where map f (FreeFold k) = FreeFold (\bm -> k (\a -> bm (f a)))
 instance Remap (FreeFold Trivial) where remap _ = map
 instance Pure (FreeFold Trivial) where pure a = FreeFold (\f -> f a)

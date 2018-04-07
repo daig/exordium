@@ -16,6 +16,7 @@ view :: (View a a a -> View m s s) -> s -> m
 view = (`_View` \x -> x)
 instance Promap (View r) where
   promap f _ (View z) = View (premap f z)
+instance Strong (View r a) where strong = map_strong
 instance Map (View r a) where map = postmap
 instance Remap (View r a) where remap _ = map
 instance BiComap (View r) where

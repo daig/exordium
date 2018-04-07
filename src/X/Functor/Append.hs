@@ -1,15 +1,15 @@
-module X.Functor.Append where
+module X.Functor.Append (Append(..), module X) where
 import X.Functor.Map as X
 import X.Data.E as X
 import X.Data.X as X
+import X.Functor.FPlus as X
 
 -- | Associative: fadd (fadd a b) c = fadd a (fadd b c)
-class Map f => Append f where
-  {-# minimal append | fplus #-}
+class (FPlus f, Map f) => Append f where
   append :: f a -> f a -> f a
   append fa fa' = map (\case {L a -> a; R a -> a}) (fplus fa fa')
-  fplus :: f a -> f b -> f (E a b)
-  fplus fa fb = append (map L fa) (map R fb)
+  {-fplus :: f a -> f b -> f (E a b)-}
+  {-fplus fa fb = append (map L fa) (map R fb)-}
 
 
 -- | either (map f) (map g) . decide = decide . map (either f g)

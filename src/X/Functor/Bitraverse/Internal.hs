@@ -9,8 +9,10 @@ thesek'biextract = \case
   ThisK a -> a
   ThatK b -> b
   TheseK a b -> a `mul` b
+instance Strong (TheseK a b) where strong = map_strong
 instance Map (TheseK a b) where map _ = coerce
 instance Remap (TheseK a b) where remap _ = map
+instance (Mul a, Mul b) => FTimes (TheseK a b) where ftimes = ap_ftimes
 instance (Mul a, Mul b) => Apply (TheseK a b) where
   ap (TheseK a b) = \case
     ThisK a' -> TheseK (mul a a') b
