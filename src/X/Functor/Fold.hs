@@ -10,6 +10,14 @@ import X.Data.X as X
 import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe
 
+-- | foldMap m (ftimes a b) = foldMap (\a -> foldMap (\b -> m (a,b)) fb) fa
+--   foldMap m (fone a) = m a
+--
+--   foldMap m (fplus a b) = foldMap (m . L) a `add` foldMap (m . R) b
+--   foldMap m fzero = zero
+--
+--   foldMap m (ftop a) = let ms = m a `add` ms in ms -- ?????
+--
 class Fold t where
 --  {-# minimal foldMap | foldr #-}
   foldMap :: Add0 m => (a -> m) -> t a -> m
@@ -17,6 +25,8 @@ class Fold t where
   {-foldr :: (a -> b -> b) -> b -> t a -> b-}
   {-foldr c z t = foldMap c t z-} -- TODO: need an Add instances for (->)
   {-foldl :: (b -> a -> b) -> b -> t a -> b-}
+  fold :: Add0 m => t m -> m
+  fold = foldMap (\m -> m)
 
 class Fold t => Fold0 t where
   foldMap0 :: Zero m => (a -> m) -> t a -> m

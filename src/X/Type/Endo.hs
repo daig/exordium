@@ -94,3 +94,11 @@ class Remap f => Cochoice f where
   pure a = pure' (L a)
   absurd :: f X -> f a
   absurd fx = pure' (R fx)
+
+data Wierd a = Wierd a (a -> a)
+instance Fold Wierd where foldMap m (Wierd a f) = m (f a)
+instance Remap Wierd where remap ba ab (Wierd a aa) = Wierd (ab a) (\b -> ab (aa (ba b)))
+
+
+foldMap m (remap ba ab (Wierd a aa)) = (m . ab . aa . ba . ab) 
+foldMap m (remap ba ab (Wierd a aa)) = 
