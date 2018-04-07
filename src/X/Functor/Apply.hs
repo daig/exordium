@@ -5,11 +5,13 @@ import X.Type.K
 import X.Type.I
 import X.Type.IO
 import X.Data.E
+import X.Functor.FTimes as X
 import qualified Prelude as P
 
 -- | (f |$(<)$| g) |$| w = f |$| (g |$| w)
-class Map f => Apply f where
+class (FTimes f, Map f) => Apply f where
   ap :: f (a -> b) -> f a -> f b
+  ap fab fa = (\(f,a) -> f a) `map` ftimes fab fa
 
 
 liftA2 :: Apply f => (a -> b -> c) -> f a -> f b -> f c
