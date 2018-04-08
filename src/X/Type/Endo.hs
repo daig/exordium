@@ -99,6 +99,11 @@ data Wierd a = Wierd a (a -> a)
 instance Fold Wierd where foldMap m (Wierd a f) = m (f a)
 instance Remap Wierd where remap ba ab (Wierd a aa) = Wierd (ab a) (\b -> ab (aa (ba b)))
 
-
-foldMap m (remap ba ab (Wierd a aa)) = (m . ab . aa . ba . ab) 
-foldMap m (remap ba ab (Wierd a aa)) = 
+class Count f where
+  count :: Add0 m => m -> f a -> m
+  size :: FromNatural n => f a -> n
+  size = count one
+class Count f => Null' f where
+  null' :: f a -> Bool
+  count0 :: Zero m => m -> f a -> m
+class Count f => Count1 f where count1 :: Add m => m -> f a -> m
