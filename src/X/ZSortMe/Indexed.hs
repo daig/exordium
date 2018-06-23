@@ -2,11 +2,12 @@
 module X.ZSortMe.Indexed where
 import X.Type.I
 import X.Data.Maybe
+import X.Kind.Type (Type)
 import Prelude (Enum(..),(==))
 
 class (Unindexed (Unindexed f) ~ Unindexed f
       ,Indexed i (Unindexed f)) => Indexed i f where
-  type Unindexed f :: * -> *
+  type Unindexed f :: Type -> Type
   type Unindexed f = f
   indexed :: f a -> i -> Unindexed f a
   default indexed :: (Unindexed f ~ f) => f a -> i -> Unindexed f a

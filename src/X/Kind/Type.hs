@@ -1,5 +1,5 @@
 module X.Kind.Type
-  (Type, type (*), RuntimeRep(..)
+  (Type, RuntimeRep(..)
   ,VecCount(..),VecElem(..)
   ,type TYPE
   ) where

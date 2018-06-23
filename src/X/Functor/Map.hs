@@ -3,6 +3,7 @@
 module X.Functor.Map (module X.Functor.Map, module X) where
 import X.Cast.Coerce as X (type ( #=# ),coerce,coerceF)
 import X.Cast.Coerce.Unsafe (coerceF#)
+import X.Kind.Type
 import X.Type.K
 import X.Type.I
 import X.Data.E
@@ -11,7 +12,7 @@ import X.Type.IO
 import X.Functor.Strong as X
 import X.Data.These
 
-class Strong f => Map (f :: * -> *) where
+class Strong f => Map (f :: Type -> Type) where
   map :: (a -> b) -> f a -> f b
   -- | Try to coerce if @f@ is parametric.
   map# :: a #=# b => (a -> b) -> f a -> f b

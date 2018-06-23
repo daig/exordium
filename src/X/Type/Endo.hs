@@ -5,9 +5,9 @@ import X.Functor.Comap
 import X.Arrow.Propure
 import X.Functor.Append0
 
-newtype Endo p a = Endo {runEndo :: p a a}
-instance Folded_ p => Comap (Endo p) where
-  comap f (Endo p) = Endo (folding_ f p)
+{-newtype Endo p a = Endo {runEndo :: p a a}-}
+{-instance Folded_ p => Comap (Endo p) where-}
+  {-comap f (Endo p) = Endo (folding_ f p)-}
 {-instance Precoerce p => Map (Endo p) where-}
   {-map f (Endo p) = Endo (from f p)-}
 {-instance Promap p => Remap (Endo p) where-}
@@ -52,58 +52,58 @@ instance Folded_ p => Comap (Endo p) where
 
 {-data FDay c f g :: * -> * where-}
   {-(c x y -> a) -> f x -> g y -> Day c f g (-}
-class Remap f => Costrong f where
-  {-# minimal costrong | costrengthen #-}
-  costrong :: f (a,b) -> (a,f b)
-  costrong = costrengthen (,) (\(a,_) -> a) (\(_,b) -> b)
-  costrengthen :: (a -> b -> ab) -> (ab -> a) -> (ab -> b) -> f ab -> (a, f b)
-  costrengthen f l r fab = costrong (remap (\(x,y) -> f x y) (\xy -> (l xy, r xy)) fab)
-  split :: f a -> (a, f ())
-  split = costrengthen (\a _ -> a) (\a -> a) (\_ -> ())
-  extract :: f a -> a
-  extract (split -> (a,_)) = a
-  shape :: f a -> f ()
-  shape (split -> (_,fx)) = fx
+{-class Remap f => Costrong f where-}
+  {-{-# minimal costrong | costrengthen #-}-}
+  {-costrong :: f (a,b) -> (a,f b)-}
+  {-costrong = costrengthen (,) (\(a,_) -> a) (\(_,b) -> b)-}
+  {-costrengthen :: (a -> b -> ab) -> (ab -> a) -> (ab -> b) -> f ab -> (a, f b)-}
+  {-costrengthen f l r fab = costrong (remap (\(x,y) -> f x y) (\xy -> (l xy, r xy)) fab)-}
+  {-split :: f a -> (a, f ())-}
+  {-split = costrengthen (\a _ -> a) (\a -> a) (\_ -> ())-}
+  {-extract :: f a -> a-}
+  {-extract (split -> (a,_)) = a-}
+  {-shape :: f a -> f ()-}
+  {-shape (split -> (_,fx)) = fx-}
   
 
-class Remap f => Choice f where
-  {-# minimal choice | rechoose #-}
-  choice :: f (E a b) -> E a (f b)
-  choice = rechoose L R (\e -> e)
-  rechoose :: (a -> c) -> (b -> c) -> (c -> E a b) -> f c -> E a (f b)
-  rechoose l r c f = choice (remap (\case {L a -> l a; R b -> r b}) c f)
-  extract' :: f a -> E a (f X)
-  extract' = rechoose (\a -> a) (\case {}) L
+{-class Remap f => Choice f where-}
+  {-{-# minimal choice | rechoose #-}-}
+  {-choice :: f (E a b) -> E a (f b)-}
+  {-choice = rechoose L R (\e -> e)-}
+  {-rechoose :: (a -> c) -> (b -> c) -> (c -> E a b) -> f c -> E a (f b)-}
+  {-rechoose l r c f = choice (remap (\case {L a -> l a; R b -> r b}) c f)-}
+  {-extract' :: f a -> E a (f X)-}
+  {-extract' = rechoose (\a -> a) (\case {}) L-}
 
-class (Choice f, Map f) => FChoice f where
-  choose :: (c -> E a b) -> f c -> E a (f b)
-  choose c f = choice (map c f)
+{-class (Choice f, Map f) => FChoice f where-}
+  {-choose :: (c -> E a b) -> f c -> E a (f b)-}
+  {-choose c f = choice (map c f)-}
 
-class (Choice f, Comap f) => CChoice f where
-  cchoose :: (a -> c) -> (b -> c) -> f c -> E a (f b)
-  cchoose l r f = choice (comap (\case {L a -> l a; R b -> r b}) f)
+{-class (Choice f, Comap f) => CChoice f where-}
+  {-cchoose :: (a -> c) -> (b -> c) -> f c -> E a (f b)-}
+  {-cchoose l r f = choice (comap (\case {L a -> l a; R b -> r b}) f)-}
 
-class Remap f => Cochoice f where
-  cochoice :: E a (f b) -> f (E a b)
-  cochoice = cochoose (\e -> e) L R
-  cochoose :: (c -> E a b) -> (a -> c) -> (b -> c) -> E a (f b) -> f c
-  cochoose f l r a = remap f (\case {L x -> l x; R y -> r y}) (cochoice a)
-  pure' :: E a (f X) -> f a
-  pure' = cochoose L (\a -> a) (\case {})
-  pure :: a -> f a
-  pure a = pure' (L a)
-  absurd :: f X -> f a
-  absurd fx = pure' (R fx)
+{-class Remap f => Cochoice f where-}
+  {-cochoice :: E a (f b) -> f (E a b)-}
+  {-cochoice = cochoose (\e -> e) L R-}
+  {-cochoose :: (c -> E a b) -> (a -> c) -> (b -> c) -> E a (f b) -> f c-}
+  {-cochoose f l r a = remap f (\case {L x -> l x; R y -> r y}) (cochoice a)-}
+  {-pure' :: E a (f X) -> f a-}
+  {-pure' = cochoose L (\a -> a) (\case {})-}
+  {-pure :: a -> f a-}
+  {-pure a = pure' (L a)-}
+  {-absurd :: f X -> f a-}
+  {-absurd fx = pure' (R fx)-}
 
-data Wierd a = Wierd a (a -> a)
-instance Fold Wierd where foldMap m (Wierd a f) = m (f a)
-instance Remap Wierd where remap ba ab (Wierd a aa) = Wierd (ab a) (\b -> ab (aa (ba b)))
+{-data Wierd a = Wierd a (a -> a)-}
+{-instance Fold Wierd where foldMap m (Wierd a f) = m (f a)-}
+{-instance Remap Wierd where remap ba ab (Wierd a aa) = Wierd (ab a) (\b -> ab (aa (ba b)))-}
 
-class Count f where
-  count :: Add0 m => m -> f a -> m
-  size :: FromNatural n => f a -> n
-  size = count one
-class Count f => Null' f where
-  null' :: f a -> Bool
-  count0 :: Zero m => m -> f a -> m
-class Count f => Count1 f where count1 :: Add m => m -> f a -> m
+{-class Count f where-}
+  {-count :: Add0 m => m -> f a -> m-}
+  {-size :: FromNatural n => f a -> n-}
+  {-size = count one-}
+{-class Count f => Null' f where-}
+  {-null' :: f a -> Bool-}
+  {-count0 :: Zero m => m -> f a -> m-}
+{-class Count f => Count1 f where count1 :: Add m => m -> f a -> m-}

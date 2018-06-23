@@ -29,7 +29,7 @@ import X.Functor.Monad
   {-lowerFree2 :: Free c p a b -> p a b-}
 
 {-class (forall x. c (f x) => c' (t f x)) => Free (c :: (k -> *) -> Constraint) (c' :: (k -> *) -> Constraint) (t :: (k -> *) -> k -> *) where-}
-class Free (c :: (k -> *) -> Constraint) where
+class Free (c :: (k -> Type) -> Constraint) where
   type Free'C c :: (k -> *) -> Constraint
   type Free'C c = Trivial
   data T c :: (k -> *) -> k -> *

@@ -1,7 +1,8 @@
 module X.Data.Exist.HList (module X.Data.Exist.HList,module X) where
 import X.Arrow.Promap as X
+import X.Kind.Type
 
-data HList (xs :: [*]) where
+data HList (xs :: [Type]) where
   HNil :: HList '[]
   HCons :: a -> HList xs -> HList (a ': xs)
 

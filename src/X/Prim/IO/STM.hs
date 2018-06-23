@@ -7,5 +7,5 @@ module X.Prim.IO.STM
   ,retry#
   ,catchRetry#
   ,catchSTM#
-  ,check#) where
+  {- ,check# -}) where
 import GHC.Prim
