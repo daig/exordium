@@ -28,7 +28,7 @@ source-repository head
 library
   hs-source-dirs:
       src
-  default-extensions: NoImplicitPrelude AllowAmbiguousTypes BangPatterns BinaryLiterals ConstraintKinds DataKinds DefaultSignatures DeriveAnyClass DeriveDataTypeable DeriveGeneric DeriveLift DerivingStrategies EmptyCase FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving HexFloatLiterals InstanceSigs LambdaCase MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals OverloadedLabels OverloadedStrings ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving StrictData TupleSections TypeApplications TypeFamilyDependencies TypeOperators ViewPatterns QuantifiedConstraints
+  default-extensions: NoImplicitPrelude AllowAmbiguousTypes BangPatterns BinaryLiterals ConstraintKinds DataKinds DefaultSignatures DeriveAnyClass DeriveDataTypeable DeriveGeneric DeriveLift DerivingStrategies EmptyCase FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving HexFloatLiterals InstanceSigs LambdaCase MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals OverloadedLabels OverloadedStrings ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving StrictData TupleSections TypeApplications TypeFamilyDependencies TypeOperators ViewPatterns QuantifiedConstraints NumericUnderscores BlockArguments DerivingVia
   ghc-options: -Wall
   build-depends:
       base
@@ -69,7 +69,6 @@ library
       X.Constraint
       X.Constraint.Implies
       X.Constraint.Impossible
-      X.Constraint.Lifts
       X.Constraint.Trivial
       X.Constraint.Witness
       X.Data.Bool
@@ -237,8 +236,8 @@ library
       X.Stock.Foldable
       X.Stock.Ord
       X.Transformer.Free
+      X.Transformer.Lift
       X.Transformer.Map
-      X.Transformer.Pure
       X.Type.Any
       X.Type.BigNat
       X.Type.Char
