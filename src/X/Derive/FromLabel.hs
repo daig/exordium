@@ -9,9 +9,10 @@ import X.Arrow.Traversed as X
 {-import qualified Prelude as P-}
 {-import qualified Language.Haskell.TH.Ppr as P-}
 import X.Kind.Constraint
+import X.Kind.Type
 
 class FromLabel (x :: Symbol) c s t a b | x s -> c, x t -> c, s -> a, t -> b, s b -> t, t a -> s where
-  type FromLabelC x s :: (* -> * -> *) -> Constraint
+  type FromLabelC x s :: (Type -> Type -> Type) -> Constraint
   fromLabel :: c p => p a b -> p s t
 
 instance FromLabel "fst" Traversed_ (a,x,y) (b,x,y) a b where

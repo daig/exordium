@@ -1,9 +1,10 @@
 module X.Functor.Monad.Log (MonadLog(..), module X) where
 import X.Functor.Monad as X
+import X.Kind.Type
 
 class Monad m => MonadLog m where
   {-# minimal (log | tell), pass, listen #-}
-  type Log m :: *
+  type Log m :: Type
   log :: (Log m,a) -> m a
   log ~(w,a) = a `constMap` tell w
   pass :: m (a, Log m -> Log m) -> m a

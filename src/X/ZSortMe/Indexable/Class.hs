@@ -6,11 +6,12 @@ import X.Type.Int
 {-import X.Arrow.Category-}
 import X.Arrow.Mapped as X
 {-import Prelude (($))-}
+import X.Kind.Type
 
 class (
   {-Mapping p, Mapping (Unindexed p),-}
   Unindexed (Unindexed p) ~ Unindexed p, Indexed i (Unindexed p)) => Indexed i p where
-  type Unindexed p :: * -> * -> *
+  type Unindexed p :: Type -> Type -> Type
   type Unindexed p = p
   indexed :: p a b -> i -> Unindexed p a b
   default indexed :: (Unindexed p ~ p) => p a b -> i -> Unindexed p a b

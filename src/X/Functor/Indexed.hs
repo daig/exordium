@@ -5,10 +5,11 @@ import X.Arrow.Promap as X
 import X.Functor.Zip as X
 import X.Optic.Review
 import X.Optic.View
+import X.Kind.Type
 
 class Zip f => Indexed f where
   {-# minimal indexed | index,tabulate #-}
-  type Ix f :: *
+  type Ix f :: Type
   indexed :: f ~~= ((->) (Ix f))
   indexed = isoF index tabulate
   index :: f a -> Ix f -> a

@@ -2,12 +2,13 @@ module X.Transformer.Pure (TPure(..), module X) where
 import X.Transformer.Map as X
 import X.Functor.Monad as X
 import X.Constraint.Lifts
+import X.Kind.Type
 
 {-instance Lifts Monad II-}
 {-instance Lifts Map II-}
 
 class (Lifts (LiftC t) t, TMap t) => TPure t where
-  type LiftC t :: (* -> *) -> Constraint
+  type LiftC t :: (Type -> Type) -> Constraint
   type LiftC t = Map
   tpure :: c m => m --> t m
 

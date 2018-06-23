@@ -30,16 +30,16 @@ import X.Functor.Monad
 
 {-class (forall x. c (f x) => c' (t f x)) => Free (c :: (k -> *) -> Constraint) (c' :: (k -> *) -> Constraint) (t :: (k -> *) -> k -> *) where-}
 class Free (c :: (k -> Type) -> Constraint) where
-  type Free'C c :: (k -> *) -> Constraint
+  type Free'C c :: (k -> Type) -> Constraint
   type Free'C c = Trivial
-  data T c :: (k -> *) -> k -> *
+  data T c :: (k -> Type) -> k -> Type
   lift :: c f => f a -> T c f a
   lower :: Free'C c f => T c f a -> f a
 
-class CoFree (c :: (k -> *) -> Constraint) where
-  type CoFree'C c :: (k -> *) -> Constraint
+class CoFree (c :: (k -> Type) -> Constraint) where
+  type CoFree'C c :: (k -> Type) -> Constraint
   type CoFree'C c = Trivial
-  data CoT c :: (k -> *) -> k -> *
+  data CoT c :: (k -> Type) -> k -> Type
   liftc :: c f => f a -> CoT c f a
   lowerc :: CoFree'C c f => CoT c f a -> f a
 
