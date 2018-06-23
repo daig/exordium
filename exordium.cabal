@@ -11,7 +11,7 @@ homepage:       https://github.com/daig/exordium#readme
 bug-reports:    https://github.com/daig/exordium/issues
 author:         Dai
 maintainer:     dailectic@gmail.com
-copyright:      2017 Dai
+copyright:      2018 Dai
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
