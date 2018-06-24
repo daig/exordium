@@ -5,6 +5,8 @@ import X.Arrow.Closed as X
 import X.Functor.Tabulate as X
 import X.Type.I
 
+-- class (Choice p, Corepresentable p, Comonad (Corep p), Traversable (Corep p), Strong p, Representable p, Monad (Rep p), MonadFix (Rep p), Distributive (Rep p), Costrong p, ArrowLoop p, ArrowApply p, ArrowChoice p, Closed p) => Conjoined p where
+-- | Yields index-preserving optics
 class (Closed p, Traversed p) => Mapped p where
   {-# minimal mapping | mapped | setter #-}
   setter :: ((a -> b) -> s -> t) -> p a b -> p s t -- aka mapping
@@ -16,6 +18,8 @@ class (Closed p, Traversed p) => Mapped p where
                           {-(mapped p)-}
   mapped :: Map f => p a b -> p (f a) (f b)
   mapped = mapping collect
+  conjoined :: (p ~ (->) => q (a -> b) r) -> q (p a b) r -> q (p a b) r
+  conjoined _ p = p
 
 instance Mapped (->) where setter l = l
 

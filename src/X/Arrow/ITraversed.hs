@@ -94,19 +94,6 @@ class (Traversed_ p, PIndexed i q p) => ITraversed_ i q p | p -> q where
   itraversed_ = itraversal_ (itraverse_ @i)
 
 
-instance Pure f => ITraversed' i (Traversing f) (ITraversing i f) where
-  iprism pat constr (ITraversing iafb) = Traversing (\s -> case pat s of
-      L t -> pure t
-      R (i,a) -> constr `map` iafb i a)
-instance Applicative f => ITraversed i (Traversing f) (ITraversing i f) where
-  itraversal l (ITraversing f) = Traversing (\s -> l (\i a -> (f i a)) s)
-instance Pure f => ITraversed0 i (Traversing f) (ITraversing i f) where
-  itraversal0 l (ITraversing f) = Traversing (\s -> l (\i a -> (f i a)) s)
-instance Apply f => ITraversed1 i (Traversing f) (ITraversing i f) where
-  itraversal1 l (ITraversing f) = Traversing (\s -> l (\i a -> (f i a)) s)
-instance Map f => ITraversed_ i (Traversing f) (ITraversing i f) where
-  itraversal_ l (ITraversing f) = Traversing (\s -> l (\i a -> (f i a)) s)
-  ilens si sa sbt (ITraversing iafb) = Traversing (\s -> sbt s `map` iafb (si s) (sa s))
 
 instance ITraversed' i (->) (->) where iprism = prism_iprism
 instance ITraversed0 i (->) (->) where itraversal0 = traversal0_itraversal0
@@ -114,11 +101,6 @@ instance ITraversed_ i (->) (->) where itraversal_ = traversal__itraversal_
 instance ITraversed1 i (->) (->) where itraversal1 = traversal1_itraversal1
 instance ITraversed  i (->) (->) where itraversal = traversal_itraversal
 
-instance Pure f => ITraversed' i (Traversing f) (Traversing f) where iprism = prism_iprism
-instance Pure f => ITraversed0 i (Traversing f) (Traversing f) where itraversal0 = traversal0_itraversal0
-instance Map f => ITraversed_ i (Traversing f) (Traversing f) where itraversal_ = traversal__itraversal_
-instance Apply f => ITraversed1 i (Traversing f) (Traversing f) where itraversal1 = traversal1_itraversal1
-instance Applicative f => ITraversed  i (Traversing f) (Traversing f) where itraversal = traversal_itraversal
 
 prism_iprism :: Traversed' p => (s -> E t (i,a)) -> (b -> t) -> p a b -> p s t
 prism_iprism pat = prism (map (map (\(_,a) -> a)) pat)
