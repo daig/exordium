@@ -22,3 +22,6 @@ class Promap p => Loop_ p where
 instance Loop' (->) where
   loopLeft f = go . L where go = bifoldMap_ (\x -> x) (go . R) . f
   loopRight f = go . R where go = bifoldMap_ (go . L) (\x -> x) . f
+instance Loop_ (->) where
+  loopFirst ayby = \a -> let (b,y) = ayby (a,y) in b
+  loopSecond xaxb = \a -> let (x,b) = xaxb (x,a) in b
