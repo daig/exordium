@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module X.Num.Zero where
 import X.Data.Struct.Natural
 import GHC.Integer
@@ -6,6 +7,8 @@ import X.Type.Int
 import X.Type.Word
 import X.Data.Maybe
 import X.Data.Struct.BigNat.Utils
+import X.Data.Addr
+import X.Prim.Addr
 
 class Zero x where zero :: x
 
@@ -21,3 +24,4 @@ instance Zero [a] where zero = []
 instance Zero (a -> a) where zero a = a
 {-instance Zero a => Zero (K a b) where zero = K zero-}
 instance Zero BigNat where zero = zeroBigNat
+instance Zero Addr where zero = Addr# nullAddr#

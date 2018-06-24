@@ -1,4 +1,5 @@
 {-# language MagicHash #-}
+-- | Primitive Arrays of boxed values.
 module X.Prim.Array
   (Array#, MutableArray#
   -- * Pure

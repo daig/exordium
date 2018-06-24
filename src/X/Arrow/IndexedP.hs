@@ -4,14 +4,14 @@ import X.Arrow.Traversed as X
 
 class IndexedP p where ixmap :: (i -> j) -> p j a b -> p i a b
 
-class IndexedP p => ITraversed p where
+class (forall i. Traversed (p i), IndexedP p) => ITraversed p where
 --  {-# minimal itraversing | iwander #-}
   itraversing :: p (i,o) a b -> p o (t a) (t b)
   iwander :: (forall f. Applicative f => (i -> a -> f b) -> (s -> f t)) -> p (i,o) a b -> p o s t
 
-  traversingIWitness :: W (Traversed (p i))
-  default traversingIWitness :: Traversed (p i) => W (Traversed (p i))
-  traversingIWitness = W
+  {-traversingIWitness :: W (Traversed (p i))-}
+  {-default traversingIWitness :: Traversed (p i) => W (Traversed (p i))-}
+  {-traversingIWitness = W-}
 
 newtype StarI f i a b = StarI {runStarI :: i -> a -> f b}
 newtype ForgetI r i a b = ForgetI {runForgetI :: a -> r}

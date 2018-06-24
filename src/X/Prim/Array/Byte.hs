@@ -1,5 +1,5 @@
 {-# language MagicHash #-}
--- | Operations on 'ByteArray#'. A 'ByteArray#' is a just a region of raw memory in the garbage-collected heap, which is not scanned for pointers. It carries its own size (in bytes). There are three sets of operations for accessing byte array contents: index for reading from immutable byte arrays, and read/write for mutable byte arrays. Each set contains operations for a range of useful primitive data types. Each operation takes an offset measured in terms of the size of the primitive type being read or written.
+-- | A 'ByteArray#' is a just a region of raw memory in the garbage-collected heap, which is not scanned for pointers. It carries its own size (in bytes). There are three sets of operations for accessing byte array contents: index for reading from immutable byte arrays, and read/write for mutable byte arrays. Each set contains operations for a range of useful primitive data types. Each operation takes an offset measured in terms of the size of the primitive type being read or written.
 module X.Prim.Array.Byte
   (ByteArray#, MutableByteArray#
   -- * Pure

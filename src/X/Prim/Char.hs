@@ -1,4 +1,5 @@
 {-# language MagicHash #-}
+-- | Unboxed 31-bit characters.
 module X.Prim.Char
   (Char#, module X
   ,gtChar#, geChar#, eqChar#, neChar#, ltChar#, leChar#

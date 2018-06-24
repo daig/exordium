@@ -1,5 +1,7 @@
-module X.Data.Bool (Bool(T,F)) where
-import GHC.Types (Bool(..))
+{-# language MagicHash #-}
+module X.Data.Bool (Bool(T,F),isTrue#) where
+import GHC.Types (Bool(..),isTrue#)
+
 
 pattern T :: Bool
 pattern T = True

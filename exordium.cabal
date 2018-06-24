@@ -127,7 +127,6 @@ library
       X.Functor.IEMap
       X.Functor.IFold
       X.Functor.IMap
-      X.Functor.Indexed
       X.Functor.ITraverse
       X.Functor.Map
       X.Functor.Map'
@@ -142,6 +141,7 @@ library
       X.Functor.Remap
       X.Functor.Strong
       X.Functor.Swap
+      X.Functor.Tabulate
       X.Functor.Throw
       X.Functor.Traverse
       X.Functor.Traverse.T

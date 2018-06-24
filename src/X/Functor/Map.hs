@@ -2,6 +2,7 @@
 {-# language UnboxedTuples #-}
 module X.Functor.Map (module X.Functor.Map, module X) where
 import X.Cast.Coerce as X (type ( #=# ),coerce,coerceF)
+import X.Cast.Coerce.Unsafe
 import X.Cast.Coerce.Unsafe (coerceF#)
 import X.Kind.Type
 import X.Type.K
