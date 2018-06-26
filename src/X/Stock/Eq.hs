@@ -12,6 +12,7 @@ import X.Stock
 
 type Eq# = Eq
 eq# :: Eq# a => a -> a -> Bool
+infix 4 `eq#`
 eq# = (==)
 neq# :: Eq# a => a -> a -> Bool
 neq# = (/=)

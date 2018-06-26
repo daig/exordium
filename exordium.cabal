@@ -85,6 +85,7 @@ library
       X.Data.Struct.Integer.Utils
       X.Data.Struct.Natural
       X.Data.Struct.Natural.Utils
+      X.Data.Struct.Set
       X.Data.Struct.Unsafe
       X.Data.These
       X.Data.X

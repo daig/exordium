@@ -12,6 +12,7 @@ class Mul m where
   -- | Raise to the @n+1@ power
   pow1 :: Natural -> m -> m
   pow1 n = pow1# (n P.+1)
+infixl 7 `mul`
 
 -- | Raise to a non-zero @Natural@ power, this is not checked and will loop on 0.
 pow1# :: Mul m => Natural -> m -> m

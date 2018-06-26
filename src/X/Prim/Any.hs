@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module X.Prim.Any 
   (module X
   ,reallyUnsafePtrEquality#
