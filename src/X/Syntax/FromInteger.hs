@@ -26,10 +26,10 @@
 --
 -- In some cases, you may not need or want polymorphic numeric literals.
 -- In that case, use one of the submodules like 'X.Num.FromInteger.Int',
--- Either by hiding this module or shadowing
+-- Either by hiding this module or shadowing locally
 --
 -- > import qualified X.Syntax.FromInteger.Int as Int
 -- > x = let fromInteger = Int.fromInteger in 3 + 5
 --
-module X.Syntax.FromInteger (module X) where
-import X.Num.FromInteger as X
+module X.Syntax.FromInteger(module X) where
+import X.Syntax.FromInteger.Ring as X

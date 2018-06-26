@@ -14,8 +14,8 @@
 module X.Stock
   (Stock(..)
   ,Eq(..)
-  ,Num(..)
-  ,Ord(..),Ordering(..)
+  ,Num(..), Integer
+  ,Ord(..),Ordering(..), Bool
   ,Functor(..)
   ,Foldable(..)
   {-,Lift(..)-}
