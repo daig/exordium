@@ -235,6 +235,10 @@ library
       X.Stock.Eq
       X.Stock.Foldable
       X.Stock.Ord
+      X.Syntax.FromInteger
+      X.Syntax.FromInteger.Int
+      X.Syntax.FromInteger.Integer
+      X.Syntax.FromInteger.Word
       X.Transformer.Free
       X.Transformer.Lift
       X.Transformer.Map
