@@ -4,6 +4,7 @@ import X.Arrow.ITraversed as X
 import X.Arrow.Sieve
 import X.Arrow.Tabulated
 
+{- 
 newtype ITraversing i f a b = ITraversing {runITraversing :: i -> a -> f b}
   {-deriving anyclass Representable-}
 
@@ -20,10 +21,10 @@ itraversing = coerce
 {-instance Bind m => Compose (Traversing m) where Traversing f > Traversing g = Traversing (g <=< f)-}
 {-instance Monad m => Category (Traversing m) where id = Traversing pure-}
 instance Zip f => Closed (ITraversing i f) where
-  closed (ITraversing iafb) = ITraversing \i xa -> distribute \x -> iafb i (xa x)
-instance Map f => Promap (ITraversing i f) where promap f g (ITraversing is) = ITraversing \i -> (promap f (map g) (is i))
+  closed (ITraversing iafb) = ITraversing (\i xa -> distribute (\x -> iafb i (xa x)))
+instance Map f => Promap (ITraversing i f) where promap f g (ITraversing is) = ITraversing (\i -> (promap f (map g) (is i)))
 instance Strong f => Strong (ITraversing i f a) where
-  strong x (ITraversing iafb) = ITraversing \i a -> strong x (iafb i a)
+  strong x (ITraversing iafb) = ITraversing (\i a -> strong x (iafb i a))
 instance Map f => Map (ITraversing i f a) where map f (ITraversing is) = ITraversing (\i a -> map f (is i a))
 instance Remap f => Remap (ITraversing i f a) where
   remap f g (ITraversing is) = ITraversing \i a -> remap f g (is i a)
@@ -117,3 +118,4 @@ instance Pure f => ITraversed0 i (Traversing f) (Traversing f) where itraversal0
 instance Map f => ITraversed_ i (Traversing f) (Traversing f) where itraversal_ = traversal__itraversal_
 instance Apply f => ITraversed1 i (Traversing f) (Traversing f) where itraversal1 = traversal1_itraversal1
 instance Applicative f => ITraversed  i (Traversing f) (Traversing f) where itraversal = traversal_itraversal
+-}

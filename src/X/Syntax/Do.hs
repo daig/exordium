@@ -1,36 +1,24 @@
-{-# language RecordWildCards #-}
 module X.Syntax.Do where
-import qualified X.Functor.Monad as Mon
-import qualified Prelude as P
-import qualified Data.Map as M
 
-
-data DoSyntax return andThen ap map bind = DoSyntax {return :: return
+-- | A record to hold all the identifiers needed for [do notation](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-470003.14) under [-XRebindableSyntax](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RebindableSyntax) (possibly also with [-XApplicativeDo](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#applicative-do-notation)).
+--
+-- Use together with [-XRecordWildCards](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RecordWildCards) to efficiently select syntax, either as a toplevel declaration applying to the whole module
+--
+-- > DoSyntax {..} = myDoSyntax
+--
+-- or locally within an expression, shaddowing the existing syntax
+--
+-- > let DoSyntax {..} = myDoSyntax in do
+-- >    x <- fx
+-- >    y <- fy
+-- >    foo x y
+data DoSyntax map return andThen ap bind = DoSyntax {fmap :: map
+                                                    ,return :: return
                                                     ,(>>) :: andThen
                                                     ,(<*>) :: ap
-                                                    ,fmap :: map
                                                     ,(>>=) :: bind}
-defaultDoSyntax = DoSyntax {return = M.singleton (999  :: P.Integer)
-                           ,(>>) = M.unionWith (P.++)
-                           ,(<*>) = ()
-                           ,fmap = M.map
-                           ,(>>=) = ()}
-type family Foo f where
-  Foo () = forall a. a -> a
-{-ff = let DoSyntax {..} = defaultDoSyntax in do -}
-  {-return @P.Integer ("a"::P.String)-}
-  {-return ("b"::P.String)-}
-{-return :: Pure f => a -> f a-}
-{-return = pure-}
-
-{-(>>) :: Apply f => f a -> f b -> f b-}
-{-fa >> fb = map (\_ b -> b) fa `ap` fb-}
-
-{-(<*>) :: Apply f => f (a -> b) -> f a -> f b-}
-{-(<*>) = ap-}
-
-{-fmap :: Map f => (a -> b) -> f a -> f b-}
-{-fmap = map-}
-
-{-(>>=) :: Bind m => m a -> (a -> m b) -> m b-}
-{-m >>= f = bind f m-}
+-- | We want to store polymorphic functions in @DoSyntax@, (for example @return :: forall m. Monad m => a -> m a@)
+-- which requires [-XImpredicativeTypes](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-ImpredicativeTypes).
+-- Unfortunately, @ImpredicativeTypes@ is broken, so we cannot get an impredicative @DoSyntax@ simply by applying its constructor. We CAN however make an impredicative tuple by giving explicit type annotations. Then, using @mkDoSyntax@, recover an appropriately impredicative @DoSyntax@
+mkDoSyntax :: (a,b,c,d,e) -> DoSyntax a b c d e
+mkDoSyntax (a,b,c,d,e) = DoSyntax a b c d e

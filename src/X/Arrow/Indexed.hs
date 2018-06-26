@@ -14,10 +14,12 @@ class (Promap p, PIndexed i q q) => PIndexed i q p | p -> q where
   pix :: p a b -> i -> q a b
   default pix :: q ~ p => p a b -> i -> q a b
   pix p _ = p
+instance PIndexed i (->) (->)
 
 reindexed :: PIndexed j q p => (i -> j) -> ((i -> q a b) -> r) -> p a b -> r
 reindexed ij iqabr pab = iqabr (\i -> pix pab (ij i))
 
+{- 
 newtype Indexingg f a b = Indexingg {runIndexingg :: a -> Int -> (Int, f b)}
 instance Map f => Promap (Indexingg f) where
   promap f g (Indexingg aiifb) = Indexingg \(f -> a) i -> map g `_2` aiifb a i
@@ -196,5 +198,5 @@ instance (Promap p, PIndexed i p p) => PIndexed i p (IndexingT i p) where pix = 
 {-instance Applicative f => Traversed (ITraversing i f) where-}
   {-traversal afbsft (ITraversing iafb) = ITraversing (\i s -> afbsft (iafb i) s)-}
 
-instance PIndexed i (->) (->)
 
+-}

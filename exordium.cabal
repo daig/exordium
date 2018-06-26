@@ -28,7 +28,7 @@ source-repository head
 library
   hs-source-dirs:
       src
-  default-extensions: NoImplicitPrelude AllowAmbiguousTypes BangPatterns BinaryLiterals ConstraintKinds DataKinds DefaultSignatures DeriveAnyClass DeriveDataTypeable DeriveGeneric DeriveLift DerivingStrategies EmptyCase FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving HexFloatLiterals InstanceSigs LambdaCase MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals OverloadedLabels OverloadedStrings ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving StrictData TupleSections TypeApplications TypeFamilyDependencies TypeOperators ViewPatterns QuantifiedConstraints NumericUnderscores BlockArguments DerivingVia
+  default-extensions: NoImplicitPrelude AllowAmbiguousTypes BangPatterns BinaryLiterals ConstraintKinds DataKinds DefaultSignatures DeriveAnyClass DeriveDataTypeable DeriveGeneric DeriveLift DerivingStrategies EmptyCase FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiWayIf NamedFieldPuns NamedWildCards NegativeLiterals NumDecimals OverloadedLabels OverloadedStrings ParallelListComp PartialTypeSignatures PatternSynonyms PolyKinds RankNTypes RecordWildCards RecursiveDo RoleAnnotations ScopedTypeVariables StandaloneDeriving StrictData TupleSections TypeApplications TypeFamilyDependencies TypeOperators ViewPatterns ImpredicativeTypes
   ghc-options: -Wall
   build-depends:
       base
@@ -37,6 +37,7 @@ library
     , integer-gmp
     , template-haskell
   exposed-modules:
+      X
       X.Arrow.Alongside
       X.Arrow.Category
       X.Arrow.Closed
@@ -58,7 +59,7 @@ library
       X.Arrow.Representable
       X.Arrow.Sieve
       X.Arrow.Tabulated
-      X.Arrow.Transformed
+      --X.Arrow.Transformed
       X.Arrow.Traversed
       X.Arrow.Traversed.Internal
       X.Arrow.Traversed.Internal.O
@@ -240,7 +241,7 @@ library
       X.Syntax.FromInteger.Integer
       X.Syntax.FromInteger.Word
       X.Transformer.Free
-      X.Transformer.Lift
+      --X.Transformer.Lift
       X.Transformer.Map
       X.Type.Any
       X.Type.BigNat
