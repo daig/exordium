@@ -4,6 +4,8 @@ import X.Num.Add0 as X
 import X.Type.K
 import X.Type.I
 import X.Data.E
+import X.Num.Add.Endo
+import X.Num.Add.Dual
 import X.Data.Maybe
 import X.Data.These
 import X.Data.X as X
@@ -19,20 +21,22 @@ import X.Cast.Coerce.Unsafe
 --   foldMap m (ftop a) = let ms = m a `add` ms in ms -- ?????
 --
 class Fold t where
---  {-# minimal foldMap | foldr #-}
+  {-# minimal foldMap | foldr #-}
   foldMap :: Add0 m => (a -> m) -> t a -> m
-  {-foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order-}
-  {-foldr :: (a -> b -> b) -> b -> t a -> b-}
-  {-foldr c z t = foldMap c t z-} -- TODO: need an Add instances for (->)
-  {-foldl :: (b -> a -> b) -> b -> t a -> b-}
+  foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order
+  foldr :: (a -> b -> b) -> b -> t a -> b
+  foldr c z t = foldMap (\a -> Endo (c a)) t `runEndo` z
+  foldl :: (b -> a -> b) -> b -> t a -> b
+  foldl f z t = getDual (foldMap (\a -> Dual (Endo (\b -> f b a))) t) `runEndo` z
   fold :: Add0 m => t m -> m
   fold = foldMap (\m -> m)
 
 class Fold t => Fold0 t where
+--  {-# minimal foldMap0 | fold0 #-}
   foldMap0 :: Zero m => (a -> m) -> t a -> m
   {-foldMap0 = fold0 zero-}
   {-fold0 :: m -> (a -> m) -> t a -> m-}
-  {-fold0 = foldMap0 zero-} -- TODO: use reflection
+  {-fold0 = foldMap0 zero -- TODO: use reflection-}
 
 -- | like @Fold0@ but can use the context if there is no @a@.
 --
