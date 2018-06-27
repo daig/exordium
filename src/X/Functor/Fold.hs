@@ -11,6 +11,7 @@ import X.Data.These
 import X.Data.X as X
 import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe
+import X.Class.Reflect.Instance
 
 -- | foldMap m (ftimes a b) = foldMap (\a -> foldMap (\b -> m (a,b)) fb) fa
 --   foldMap m (fone a) = m a
@@ -25,18 +26,27 @@ class Fold t where
   foldMap :: Add0 m => (a -> m) -> t a -> m
   foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order
   foldr :: (a -> b -> b) -> b -> t a -> b
-  foldr c z t = foldMap (\a -> Endo (c a)) t `runEndo` z
+  foldr c z t = foldMap (Endo < c) t `runEndo` z
+  -- | Strict left fold
   foldl :: (b -> a -> b) -> b -> t a -> b
-  foldl f z t = getDual (foldMap (\a -> Dual (Endo (\b -> f b a))) t) `runEndo` z
+  foldl bab b0 t = foldr (\a k b -> k $! bab b a) (\b -> b) t b0
+  {-foldl f z t = getDual (foldMap (\(!a) -> Dual (Endo (`f` a))) t) `runEndo` z-}
   fold :: Add0 m => t m -> m
   fold = foldMap (\m -> m)
 
 class Fold t => Fold0 t where
---  {-# minimal foldMap0 | fold0 #-}
+  {-# minimal foldMap0 | fold0 #-}
   foldMap0 :: Zero m => (a -> m) -> t a -> m
-  {-foldMap0 = fold0 zero-}
-  {-fold0 :: m -> (a -> m) -> t a -> m-}
-  {-fold0 = foldMap0 zero -- TODO: use reflection-}
+  foldMap0 f = foldr0 f zero
+  foldr0 :: (a -> b) -> b -> t a -> b
+  foldr0 f z t = foldMap0 (Endo < (\a _ -> f a)) t `runEndo` z -- TODO: check performance
+  {-foldr1  f z = foldMap0 (Reflected < f) `withInstance` Zero z-} --   between these two
+  fold0 :: Zero m => t m -> m
+  fold0 = foldMap0 (\m -> m)
+  {-fold0 z f = foldMap0 (Reflected < f) `withInstance` Zero z-}
+
+f < g = \a -> f (g a)
+f $! x = let !vx = x in f vx 
 
 -- | like @Fold0@ but can use the context if there is no @a@.
 --
@@ -46,6 +56,7 @@ class Fold t => Fold0 t where
 --   law: foldMap' coerce# (pure . f) = map f.
 --   The above only makes sense when @t@ is representational/parametric.
 class (Fold0 t, Pure t) => Fold' t where
+  {-# minimal foldMap' | fold' #-}
   foldMap' :: (t X -> b) -> (a -> b) -> t a -> b
   foldMap' l r ta = case fold' ta of
     L tx -> l tx
@@ -58,8 +69,25 @@ instance Zero x => Fold' ((,) x) where
   foldMap' _ ab (_,a) = ab a
 
 class Fold t => Fold1 t where
+  {-# minimal foldMap1 | foldr1 #-}
   foldMap1 :: Add s => (a -> s) -> t a -> s
-  {-fold1 :: (a -> a -> a) -> t a -> a-}
+  foldMap1 f = foldr1 (\a s -> add (f a) s) f
+  {-default foldMap1 :: (Map t, Add s) => (a -> s) -> t a -> s-}
+  {-foldMap1 f t = fold1 add (map f t) -- TODO: better way to do it-}
+  -- | Non-empty right fold
+  foldr1 :: (a -> b -> b) -> (a -> b) -> t a -> b
+  foldr1 c z t = foldMap1 (\a -> Endo0 (c' a)) t `runEndo0` Nothing where
+    c' a = \case
+      Nothing -> z a
+      Just b -> c a b
+  -- | Strict non-empty left fold
+  foldl1 :: (b -> a -> b) -> (a -> b) -> t a -> b
+  foldl1 c z t = foldMap1 (\a -> Endo0 (c' a)) t `runEndo0` Nothing where
+    c' a = \case -- TODO: check strictness here
+      Nothing -> z a
+      Just !b -> c b a
+  fold1 :: (a -> a -> a) -> t a -> a
+  fold1 c = foldr1 c (\a -> a)
 
 class (Fold0 t, Fold1 t) =>  Fold_ t where
   {-# minimal foldMap_ | fold_ #-}

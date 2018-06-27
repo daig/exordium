@@ -7,6 +7,7 @@ import X.Num.Add0
 import X.Num.Mul
 import X.Syntax.FromInteger
 import X.Cast.Coerce
+import X.Functor.Map
 
 -- | A value of type @a@, in the context of an instance dictionary @s@ for class @c@
 newtype Reflected c a s = Reflected a
@@ -17,21 +18,22 @@ type Instance c a s = Reflect s (Reified c a)
 class (forall a s. Instance c a s => c (Reflected c a s))
   => Reify (c :: Type -> Constraint) where
   data Reified   c :: Type         -> Type -- TODO: generalize
-reifyInstance :: Reify c
-       => Reified c a 
-       -> (forall (s :: Type). Instance c a s => t -> Reflected c a s)
-       ->                                        t ->             a
-reifyInstance i m xs = reify i (unReflected (m xs)) where
-  unReflected :: Reflected c a s -> proxy s -> a
-  unReflected t _ = coerce t
+reifyInstance :: (Reify c, Map f)
+               => Reified c a 
+               -> (forall (s :: Type). Instance c a s => f (Reflected c a s))
+               -> f a
+reifyInstance i fa = reify i (\p -> map# (unReflected p) fa) where
+  unReflected :: proxy s -> Reflected c a s -> a
+  unReflected _ t = coerce t
+
+withInstance :: (Reify c, Map f)
+             => (forall (s :: Type). Instance c a s => f (Reflected c a s))
+             -> Reified c a 
+             -> f a
+withInstance fa i = reifyInstance i fa
+
 
 -- TODO: derive these instances with TH
-{-instance Reify Add where data Reified Add a = Add {__add__ :: a -> a -> a}-}
-{-instance Reflect s (Reified Add a) => Add (Reflected Add a s) where-}
-  {-add x y = reflectResult (\(__add__ -> c) -> coerce c x y)-}
-{-instance Reflect s (Reified Add0 a) => Zero (Reflected Add0 a s) where-}
-  {-zero = reflectResult (coerce __zero__)-}
-{-instance Reflect s (Reified Add0 a) => Add0 (Reflected Add0 a s)-}
 
 instance Reify Zero where
   data Reified Zero a = Zero {__zero__ :: a}
