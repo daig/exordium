@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 -- | Use with @-XRebindableSyntax@ for numeric literals
 -- 
 -- >>> 10
@@ -31,5 +32,8 @@
 -- > import qualified X.Syntax.FromInteger.Int as Int
 -- > x = let fromInteger = Int.fromInteger in 3 + 5
 --
-module X.Syntax.FromInteger(module X) where
-import X.Syntax.FromInteger.Ring as X
+module X.Syntax.FromInteger(FromInteger#(..),Integer) where
+import X.Data.Struct.Integer
+
+class FromInteger# i where fromInteger :: Integer -> i
+instance FromInteger# Integer where fromInteger i = i
