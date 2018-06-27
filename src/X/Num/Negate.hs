@@ -11,6 +11,7 @@ import qualified Prelude as P
 class Add0 s => Negate s where
   {-# minimal sub | negate #-}
   sub :: s -> s -> s
+  infixl 6 `sub`
   a `sub` b = a `add` negate b
   negate :: s -> s
   negate = sub zero

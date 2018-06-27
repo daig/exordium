@@ -18,6 +18,8 @@ import X.Data.E as X
 import qualified X.Stock.Foldable  as Foldable
 import X.Num.Add
 import X.Num.Mul
+import X.Functor.Fold
+import X.Num.Negate
 
 ptrEq :: a -> a -> Bool
 infix 4 `ptrEq`
@@ -268,7 +270,7 @@ lookupMin (Bin _ x l _) = Just $! lookupMinSure x l
 findMin :: Set a -> a
 findMin t
   | Just r <- lookupMin t = r
-  | otherwise = error "Set.findMin: empty set has no minimal element"
+  | otherwise = let x = x in x -- error "Set.findMin: empty set has no minimal element"
 
 lookupMaxSure :: a -> Set a -> a
 lookupMaxSure x Tip = x
@@ -415,7 +417,7 @@ mapSet f = fromList . map f . toList
 -- /The precondition is not checked./
 -- Semi-formally, we have:
 --
--- > and [x < y `eq#`> f x < f y | x <- ls, y <- ls]
+-- > and [x `lt#` y `eq#`> f x `lt#` f y | x <- ls, y <- ls]
 -- >                     `eq#`> mapMonotonic f s `eq#` map f s
 -- >     where ls = toList s
 
@@ -426,6 +428,13 @@ mapMonotonic f (Bin sz x l r) = Bin sz (f x) (mapMonotonic f l) (mapMonotonic f 
 {--------------------------------------------------------------------
   Fold
 --------------------------------------------------------------------}
+
+instance Fold Set where
+  fold = go
+    where go Tip = mempty
+	  go (Bin 1 k _ _) = k
+	  go (Bin _ k l r) = go l `mappend` (k `mappend` go r)
+  {-# INLINABLE fold #-}
 -- | /O(n)/. Fold the elements in the set using the given right-associative
 -- binary operator. This function is an equivalent of 'foldr' and is present
 -- for compatibility only.
@@ -441,22 +450,22 @@ fold = foldr
 -- For example,
 --
 -- > toAscList set = foldr (:) [] set
-foldr :: (a -> b -> b) -> b -> Set a -> b
-foldr f z = go z
+set'foldr :: (a -> b -> b) -> b -> Set a -> b
+set'foldr f z = go z
   where
     go z' Tip           = z'
     go z' (Bin _ x l r) = go (f x (go z' r)) l
-{-# INLINE foldr #-}
+{-# INLINE set'foldr #-}
 
 -- | /O(n)/. A strict version of 'foldr'. Each application of the operator is
 -- evaluated before using the result in the next application. This
 -- function is strict in the starting value.
-foldr' :: (a -> b -> b) -> b -> Set a -> b
-foldr' f z = go z
+set'foldr' :: (a -> b -> b) -> b -> Set a -> b
+set'foldr' f z = go z
   where
     go !z' Tip           = z'
     go z' (Bin _ x l r) = go (f x (go z' r)) l
-{-# INLINE foldr' #-}
+{-# INLINE set'foldr' #-}
 
 -- | /O(n)/. Fold the elements in the set using the given left-associative
 -- binary operator, such that @'foldl' f z `eq#` 'Prelude.foldl' f z . 'toAscList'@.
@@ -464,22 +473,22 @@ foldr' f z = go z
 -- For example,
 --
 -- > toDescList set = foldl (flip (:)) [] set
-foldl :: (a -> b -> a) -> a -> Set b -> a
-foldl f z = go z
+set'foldl :: (a -> b -> a) -> a -> Set b -> a
+set'foldl f z = go z
   where
     go z' Tip           = z'
     go z' (Bin _ x l r) = go (f (go z' l) x) r
-{-# INLINE foldl #-}
+{-# INLINE set'foldl #-}
 
 -- | /O(n)/. A strict version of 'foldl'. Each application of the operator is
 -- evaluated before using the result in the next application. This
 -- function is strict in the starting value.
-foldl' :: (a -> b -> a) -> a -> Set b -> a
-foldl' f z = go z
+set'foldl' :: (a -> b -> a) -> a -> Set b -> a
+set'foldl' f z = go z
   where
     go !z' Tip           = z'
     go z' (Bin _ x l r) = go (f (go z' l) x) r
-{-# INLINE foldl' #-}
+{-# INLINE set'foldl' #-}
 
 {--------------------------------------------------------------------
   List variations
@@ -549,7 +558,7 @@ fromList (x0 : xs0) | not_ordered x0 xs0 = fromList' (Bin 1 x0 Tip Tip) xs0
                     | otherwise = go (1::Int) (Bin 1 x0 Tip Tip) xs0
   where
     not_ordered _ [] = False
-    not_ordered x (y : _) = x >= y
+    not_ordered x (y : _) = x  `ge#`  y
     {-# INLINE not_ordered #-}
 
     fromList' t0 xs = Foldable.foldl' ins t0 xs
@@ -764,7 +773,7 @@ elemAt !_ Tip = error "Set.elemAt: index out of range"
 elemAt i (Bin _ x l r)
   = case compare# i sizeL of
       LT -> elemAt i l
-      GT -> elemAt (i-sizeL-1) r
+      GT -> elemAt (i `sub` sizeL `sub` 1) r
       EQ -> x
   where
     sizeL = size l
@@ -783,10 +792,10 @@ elemAt i (Bin _ x l r)
 deleteAt :: Int -> Set a -> Set a
 deleteAt !i t =
   case t of
-    Tip -> error "Set.deleteAt: index out of range"
+    Tip -> let x = x in x -- error "Set.deleteAt: index out of range"
     Bin _ x l r -> case compare# i sizeL of
       LT -> balanceR x (deleteAt i l) r
-      GT -> balanceL x l (deleteAt (i-sizeL-1) r)
+      GT -> balanceL x l (deleteAt (i `sub` sizeL `sub` 1) r)
       EQ -> glue l r
       where
         sizeL = size l
@@ -800,7 +809,7 @@ deleteAt !i t =
 --
 -- @since 0.5.8
 take :: Int -> Set a -> Set a
-take i m | i >= size m = m
+take i m | i  `ge#`  size m = m
 take i0 m0 = go i0 m0
   where
     go i !_ | i `le#` 0 = Tip
@@ -808,7 +817,7 @@ take i0 m0 = go i0 m0
     go i (Bin _ x l r) =
       case compare# i sizeL of
         LT -> go i l
-        GT -> link x l (go (i - sizeL - 1) r)
+        GT -> link x l (go (i `sub` sizeL `sub` 1) r)
         EQ -> l
       where sizeL = size l
 
@@ -821,7 +830,7 @@ take i0 m0 = go i0 m0
 --
 -- @since 0.5.8
 drop :: Int -> Set a -> Set a
-drop i m | i >= size m = Tip
+drop i m | i  `ge#`  size m = Tip
 drop i0 m0 = go i0 m0
   where
     go i m | i `le#` 0 = m
@@ -829,7 +838,7 @@ drop i0 m0 = go i0 m0
     go i (Bin _ x l r) =
       case compare# i sizeL of
         LT -> link x (go i l) r
-        GT -> go (i - sizeL - 1) r
+        GT -> go (i `sub` sizeL `sub` 1) r
         EQ -> insertMin x r
       where sizeL = size l
 
@@ -840,7 +849,7 @@ drop i0 m0 = go i0 m0
 -- @
 splitAt :: Int -> Set a -> (Set a, Set a)
 splitAt i0 m0
-  | i0 >= size m0 = (m0, Tip)
+  | i0  `ge#`  size m0 = (m0, Tip)
   | otherwise = toPair $ go i0 m0
   where
     go i m | i `le#` 0 = Tip :* m
@@ -849,14 +858,14 @@ splitAt i0 m0
       = case compare# i sizeL of
           LT -> case go i l of
                   ll :* lr -> ll :* link x lr r
-          GT -> case go (i - sizeL - 1) r of
+          GT -> case go (i `sub` sizeL `sub` 1) r of
                   rl :* rr -> link x l rl :* rr
           EQ -> l :* insertMin x r
       where sizeL = size l
 
 -- | /O(log n)/. Take while a predicate on the elements holds.
 -- The user is responsible for ensuring that for all elements @j@ and @k@ in the set,
--- @j \< k `eq#`\> p j \>= p k@. See note at 'spanAntitone'.
+-- @j \< k `eq#`\> p j \ `ge#`  p k@. See note at 'spanAntitone'.
 --
 -- @
 -- takeWhileAntitone p = 'fromDistinctAscList' . 'Data.List.takeWhile' p . 'toList'
@@ -873,7 +882,7 @@ takeWhileAntitone p (Bin _ x l r)
 
 -- | /O(log n)/. Drop while a predicate on the elements holds.
 -- The user is responsible for ensuring that for all elements @j@ and @k@ in the set,
--- @j \< k `eq#`\> p j \>= p k@. See note at 'spanAntitone'.
+-- @j \< k `eq#`\> p j \ `ge#`  p k@. See note at 'spanAntitone'.
 --
 -- @
 -- dropWhileAntitone p = 'fromDistinctAscList' . 'Data.List.dropWhile' p . 'toList'
@@ -890,7 +899,7 @@ dropWhileAntitone p (Bin _ x l r)
 
 -- | /O(log n)/. Divide a set at the point where a predicate on the elements stops holding.
 -- The user is responsible for ensuring that for all elements @j@ and @k@ in the set,
--- @j \< k `eq#`\> p j \>= p k@.
+-- @j \< k `eq#`\> p j \ `ge#`  p k@.
 --
 -- @
 -- spanAntitone p xs = ('takeWhileAntitone' p xs, 'dropWhileAntitone' p xs)
@@ -915,8 +924,8 @@ spanAntitone p0 m = toPair (go p0 m)
 
 {--------------------------------------------------------------------
   Utility functions that maintain the balance properties of the tree.
-  All constructors assume that all values in [l] < [x] and all values
-  in [r] > [x], and that [l] and [r] are valid trees.
+  All constructors assume that all values in [l] `lt#` [x] and all values
+  in [r] `gt#` [x], and that [l] and [r] are valid trees.
 
   In order of sophistication:
     [Bin sz x l r]    The type constructor.
@@ -928,7 +937,7 @@ spanAntitone p0 m = toPair (go p0 m)
     [link x l r]      Restores balance and size.
 
   Furthermore, we can construct a new tree from two trees. Both operations
-  assume that all values in [l] < all values in [r] and that [l] and [r]
+  assume that all values in [l] `lt#` all values in [r] and that [l] and [r]
   are valid:
     [glue l r]        Glues [l] and [r] together. Assumes that [l] and
                       [r] are already balanced with respect to each other.
@@ -942,8 +951,8 @@ link :: a -> Set a -> Set a -> Set a
 link x Tip r  = insertMin x r
 link x l Tip  = insertMax x l
 link x l@(Bin sizeL y ly ry) r@(Bin sizeR z lz rz)
-  | delta*sizeL < sizeR  = balanceL z (link x l lz) rz
-  | delta*sizeR < sizeL  = balanceR y ly (link x ry r)
+  | delta `mul` sizeL `lt#` sizeR  = balanceL z (link x l lz) rz
+  | delta `mul` sizeR `lt#` sizeL  = balanceR y ly (link x ry r)
   | otherwise            = bin x l r
 
 
@@ -968,8 +977,8 @@ merge :: Set a -> Set a -> Set a
 merge Tip r   = r
 merge l Tip   = l
 merge l@(Bin sizeL x lx rx) r@(Bin sizeR y ly ry)
-  | delta*sizeL < sizeR = balanceL y (merge l ly) ry
-  | delta*sizeR < sizeL = balanceR x lx (merge rx r)
+  | delta `mul` sizeL `lt#` sizeR = balanceL y (merge l ly) ry
+  | delta `mul` sizeR `lt#` sizeL = balanceR x lx (merge rx r)
   | otherwise           = glue l r
 
 {--------------------------------------------------------------------
@@ -980,7 +989,7 @@ glue :: Set a -> Set a -> Set a
 glue Tip r = r
 glue l Tip = l
 glue l@(Bin sl xl ll lr) r@(Bin sr xr rl rr)
-  | sl > sr = let !(m :* l') = maxViewSure xl ll lr in balanceR m l' r
+  | sl `gt#` sr = let !(m :* l') = maxViewSure xl ll lr in balanceR m l' r
   | otherwise = let !(m :* r') = minViewSure xr rl rr in balanceL m l r'
 
 -- | /O(log n)/. Delete and find the minimal element.
@@ -990,7 +999,7 @@ glue l@(Bin sl xl ll lr) r@(Bin sr xr rl rr)
 deleteFindMin :: Set a -> (a,Set a)
 deleteFindMin t
   | Just r <- minView t = r
-  | otherwise = (error "Set.deleteFindMin: can not return the minimal element of an empty set", Tip)
+  | otherwise = let x = x in x -- (error "Set.deleteFindMin: can not return the minimal element of an empty set", Tip)
 
 -- | /O(log n)/. Delete and find the maximal element.
 --
@@ -998,7 +1007,7 @@ deleteFindMin t
 deleteFindMax :: Set a -> (a,Set a)
 deleteFindMax t
   | Just r <- maxView t = r
-  | otherwise = (error "Set.deleteFindMax: can not return the maximal element of an empty set", Tip)
+  | otherwise = let x = x in x -- (error "Set.deleteFindMax: can not return the maximal element of an empty set", Tip)
 
 minViewSure :: a -> Set a -> Set a -> StrictPair a (Set a)
 minViewSure = go
@@ -1042,19 +1051,19 @@ maxView (Bin _ x l r) = Just $! toPair $ maxViewSure x l r
           of $\alpha$ in Adam's article.
 
   Note that according to the Adam's paper:
-  - [delta] should be larger than 4.646 with a [ratio] of 2.
-  - [delta] should be larger than 3.745 with a [ratio] of 1.534.
+  `sub` [delta] should be larger than 4.646 with a [ratio] of 2.
+  `sub` [delta] should be larger than 3.745 with a [ratio] of 1.534.
 
   But the Adam's paper is errorneous:
-  - it can be proved that for delta=2 and delta>=5 there does
+  `sub` it can be proved that for delta=2 and delta `ge#` 5 there does
     not exist any ratio that would work
-  - delta=4.5 and ratio=2 does not work
+  `sub` delta=4.5 and ratio=2 does not work
 
   That leaves two reasonable variants, delta=3 and delta=4,
   both with ratio=2.
 
-  - A lower [delta] leads to a more 'perfectly' balanced tree.
-  - A higher [delta] performs less rebalancing.
+  `sub` A lower [delta] leads to a more 'perfectly' balanced tree.
+  `sub` A higher [delta] performs less rebalancing.
 
   In the benchmarks, delta=3 is faster on insert operations,
   and delta=4 has slightly better deletes. As the insert speedup
@@ -1070,8 +1079,8 @@ ratio = 2
 --   balance :: a -> Set a -> Set a -> Set a
 --   balance x l r
 --     | sizeL `add` sizeR `le#` 1   = Bin sizeX x l r
---     | sizeR > delta*sizeL  = rotateL x l r
---     | sizeL > delta*sizeR  = rotateR x l r
+--     | sizeR `gt#` delta `mul` sizeL  = rotateL x l r
+--     | sizeL `gt#` delta `mul` sizeR  = rotateR x l r
 --     | otherwise            = Bin sizeX x l r
 --     where
 --       sizeL = size l
@@ -1079,10 +1088,10 @@ ratio = 2
 --       sizeX = sizeL `add` sizeR `add` 1
 --
 --   rotateL :: a -> Set a -> Set a -> Set a
---   rotateL x l r@(Bin _ _ ly ry) | size ly < ratio*size ry = singleL x l r
+--   rotateL x l r@(Bin _ _ ly ry) | size ly `lt#` ratio*size ry = singleL x l r
 --                                 | otherwise               = doubleL x l r
 --   rotateR :: a -> Set a -> Set a -> Set a
---   rotateR x l@(Bin _ _ ly ry) r | size ry < ratio*size ly = singleR x l r
+--   rotateR x l@(Bin _ _ ly ry) r | size ry `lt#` ratio*size ly = singleR x l r
 --                                 | otherwise               = doubleR x l r
 --
 --   singleL, singleR :: a -> Set a -> Set a -> Set a
@@ -1112,18 +1121,18 @@ balanceL x l r = case r of
            (Bin _ lx Tip (Bin _ lrx _ _)) -> Bin 3 lrx (Bin 1 lx Tip Tip) (Bin 1 x Tip Tip)
            (Bin _ lx ll@(Bin _ _ _ _) Tip) -> Bin 3 lx ll (Bin 1 x Tip Tip)
            (Bin ls lx ll@(Bin lls _ _ _) lr@(Bin lrs lrx lrl lrr))
-             | lrs < ratio*lls -> Bin (1`add`ls) lx ll (Bin (1`add`lrs) x lr Tip)
+             | lrs `lt#` ratio `mul` lls -> Bin (1`add`ls) lx ll (Bin (1`add`lrs) x lr Tip)
              | otherwise -> Bin (1`add`ls) lrx (Bin (1`add`lls`add`size lrl) lx ll lrl) (Bin (1`add`size lrr) x lrr Tip)
 
   (Bin rs _ _ _) -> case l of
            Tip -> Bin (1`add`rs) x Tip r
 
            (Bin ls lx ll lr)
-              | ls > delta*rs  -> case (ll, lr) of
+              | ls `gt#` delta `mul` rs  -> case (ll, lr) of
                    (Bin lls _ _ _, Bin lrs lrx lrl lrr)
-                     | lrs < ratio*lls -> Bin (1`add`ls`add`rs) lx ll (Bin (1`add`rs`add`lrs) x lr r)
+                     | lrs `lt#` ratio `mul` lls -> Bin (1`add`ls`add`rs) lx ll (Bin (1`add`rs`add`lrs) x lr r)
                      | otherwise -> Bin (1`add`ls`add`rs) lrx (Bin (1`add`lls`add`size lrl) lx ll lrl) (Bin (1`add`rs`add`size lrr) x lrr r)
-                   (_, _) -> error "Failure in Data.Map.balanceL"
+                   (_, _) -> let x = x in x -- error "Failure in Data.Map.balanceL"
               | otherwise -> Bin (1`add`ls`add`rs) x l r
 {-# NOINLINE balanceL #-}
 
@@ -1137,18 +1146,18 @@ balanceR x l r = case l of
            (Bin _ rx Tip rr@(Bin _ _ _ _)) -> Bin 3 rx (Bin 1 x Tip Tip) rr
            (Bin _ rx (Bin _ rlx _ _) Tip) -> Bin 3 rlx (Bin 1 x Tip Tip) (Bin 1 rx Tip Tip)
            (Bin rs rx rl@(Bin rls rlx rll rlr) rr@(Bin rrs _ _ _))
-             | rls < ratio*rrs -> Bin (1`add`rs) rx (Bin (1`add`rls) x Tip rl) rr
+             | rls `lt#` ratio `mul` rrs -> Bin (1`add`rs) rx (Bin (1`add`rls) x Tip rl) rr
              | otherwise -> Bin (1`add`rs) rlx (Bin (1`add`size rll) x Tip rll) (Bin (1`add`rrs`add`size rlr) rx rlr rr)
 
   (Bin ls _ _ _) -> case r of
            Tip -> Bin (1`add`ls) x l Tip
 
            (Bin rs rx rl rr)
-              | rs > delta*ls  -> case (rl, rr) of
+              | rs `gt#` delta `mul` ls  -> case (rl, rr) of
                    (Bin rls rlx rll rlr, Bin rrs _ _ _)
-                     | rls < ratio*rrs -> Bin (1`add`ls`add`rs) rx (Bin (1`add`ls`add`rls) x l rl) rr
+                     | rls `lt#` ratio `mul` rrs -> Bin (1`add`ls`add`rs) rx (Bin (1`add`ls`add`rls) x l rl) rr
                      | otherwise -> Bin (1`add`ls`add`rs) rlx (Bin (1`add`ls`add`size rll) x l rll) (Bin (1`add`rrs`add`size rlr) rx rlr rr)
-                   (_, _) -> error "Failure in Data.Map.balanceR"
+                   (_, _) -> let x = x in x -- error "Failure in Data.Map.balanceR"
               | otherwise -> Bin (1`add`ls`add`rs) x l r
 {-# NOINLINE balanceR #-}
 
@@ -1208,7 +1217,7 @@ splitRoot orig =
 --
 -- @since 0.5.11
 powerSet :: Set a -> Set (Set a)
-powerSet xs0 = insertMin empty (foldr' step Tip xs0) where
+powerSet xs0 = insertMin Tip (set'foldr' step Tip xs0) where
   step x pxs = insertMin (singleton x) (insertMin x `mapMonotonic` pxs) `glue` pxs
 
 -- | Calculate the Cartesian product of two sets.
@@ -1229,6 +1238,13 @@ cartesianProduct :: Set a -> Set b -> Set (a, b)
 cartesianProduct as bs =
   getMergeSet $ foldMap (\a -> MergeSet $ mapMonotonic ((,) a) bs) as
 
+f $ a = f a
+infixr 0 $
+
+newtype MergeSet a = MergeSet {getMergeSet :: Set a}
+instance Add (MergeSet a) where add = coerce merge
+instance Zero (MergeSet a) where zero = MergeSet Tip
+instance Add0 (MergeSet a)
 
 -- | Calculate the disjoint union of two sets.
 --
@@ -1255,12 +1271,12 @@ valid t
 
 ordered :: Ord# a => Set a -> Bool
 ordered t
-  = bounded (const True) (const True) t
+  = bounded (\_ -> T) (\_ -> T) t
   where
     bounded lo hi t'
       = case t' of
           Tip         -> True
-          Bin _ x l r -> (lo x) `and` (hi x) `and` bounded lo (<x) l `and` bounded (>x) hi r
+          Bin _ x l r -> (lo x) `and` (hi x) `and` bounded lo (`lt#` x) l `and` bounded (`gt#` x) hi r
 
 balanced :: Set a -> Bool
 balanced t

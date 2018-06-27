@@ -1,4 +1,5 @@
 {-# language MagicHash #-}
+{-# language DuplicateRecordFields #-}
 {-# language QuantifiedConstraints #-}
 {-# language UndecidableInstances #-}
 module X.Class.Reflect.Instance (module X.Class.Reflect.Instance, module X) where

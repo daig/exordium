@@ -47,6 +47,7 @@ class Fold t => Fold0 t where
 
 f < g = \a -> f (g a)
 f $! x = let !vx = x in f vx 
+infixr 0 $!
 
 -- | like @Fold0@ but can use the context if there is no @a@.
 --
