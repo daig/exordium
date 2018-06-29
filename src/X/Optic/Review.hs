@@ -11,6 +11,8 @@ instance Map (Review a) where map f (Review b) = Review (f b)
 instance Remap (Review a) where remap _ = map
 
 
+instance StaticLen (Review a) where staticLen = fromNatural 1
+instance Len (Review x) where len = staticLen_len
 instance Fold (Review x) where foldMap = foldMap_
 instance Fold0 (Review x) where foldMap0 = foldMap_
 instance Fold1 (Review x) where foldMap1 = foldMap_

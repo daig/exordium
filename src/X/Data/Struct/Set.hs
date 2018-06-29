@@ -1,6 +1,7 @@
 {-# language CPP #-}
 {-# language MagicHash #-}
 module X.Data.Struct.Set (Set(..), module X.Data.Struct.Set, module X) where
+import X.Ops
 import X.Type.Int.I as X
 import Data.Bool (Bool(..))
 import X.Data.Bool as X
@@ -20,6 +21,7 @@ import X.Num.Add
 import X.Num.Mul
 import X.Functor.Fold
 import X.Num.Negate
+import GHC.Exts (build, lazy) -- TODO: find new homes for this import
 
 ptrEq :: a -> a -> Bool
 infix 4 `ptrEq`
@@ -47,10 +49,9 @@ null' :: Set a -> Bool
 -- | /O(1)/
 null' = \case {Tip -> T; Bin{} -> F}
 
-size :: Set a -> Int
-{-# inline size #-}
--- | /O(1)/
-size = \case {Tip -> 0; Bin sz _ _ _ -> sz}
+instance Len Set where
+  {-# inline len #-}
+  len = \case {Tip -> 0; Bin sz _ _ _ -> sz} -- | /O(1)/
 
 elem' :: Ord# a => a -> Set a -> Bool
 {-# inlinable elem' #-}
@@ -205,7 +206,7 @@ isProperSubsetOf :: Ord# a => Set a -> Set a -> Bool
 {-# INLINABLE isProperSubsetOf #-}
 -- | /O(n`add`m)/. Is this a proper subset? (ie. a subset but not equal).
 isProperSubsetOf s1 s2
-    = (size s1 `lt#` size s2) `and` (isSubsetOf s1 s2)
+    = (len s1 `lt#` len s2) `and` (isSubsetOf s1 s2)
 
 
 isSubsetOf :: Ord# a => Set a -> Set a -> Bool
@@ -213,7 +214,7 @@ isSubsetOf :: Ord# a => Set a -> Set a -> Bool
 -- | /O(n`add`m)/. Is this a subset?
 -- @(s1 \`isSubsetOf\` s2)@ tells whether @s1@ is a subset of @s2@.
 isSubsetOf t1 t2
-  = (size t1 `le#` size t2) `and` (isSubsetOfX t1 t2)
+  = (len t1 `le#` len t2) `and` (isSubsetOfX t1 t2)
 
 isSubsetOfX :: Ord# a => Set a -> Set a -> Bool
 {-# INLINABLE isSubsetOfX #-}
@@ -330,7 +331,7 @@ difference Tip _   = Tip
 difference t1 Tip  = t1
 difference t1 (Bin _ x l2 r2) = case split x t1 of
    (l1, r1)
-     | size l1l2 `add` size r1r2 `eq#` size t1 -> t1
+     | len l1l2 `add` len r1r2 `eq#` len t1 -> t1
      | otherwise -> merge l1l2 r1r2
      where !l1l2 = difference l1 l2
            !r1r2 = difference r1 r2
@@ -409,7 +410,7 @@ mapSet :: Ord# b => (a->b) -> Set a -> Set b
 --
 -- It's worth noting that the size of the result may be smaller if,
 -- for some @(x,y)@, @x \/= y `and` f x `eq#` f y@
-mapSet f = fromList . map f . toList
+mapSet f = fromList < map f < toList
 
 -- | /O(n)/. The
 --
@@ -431,9 +432,9 @@ mapMonotonic f (Bin sz x l r) = Bin sz (f x) (mapMonotonic f l) (mapMonotonic f 
 
 instance Fold Set where
   fold = go
-    where go Tip = mempty
+    where go Tip = zero
 	  go (Bin 1 k _ _) = k
-	  go (Bin _ k l r) = go l `mappend` (k `mappend` go r)
+	  go (Bin _ k l r) = go l `add` (k `add` go r)
   {-# INLINABLE fold #-}
 -- | /O(n)/. Fold the elements in the set using the given right-associative
 -- binary operator. This function is an equivalent of 'foldr' and is present
@@ -513,7 +514,7 @@ toAscList = foldr (:) []
 -- | /O(n)/. Convert the set to a descending list of elements. Subject to list
 -- fusion.
 toDescList :: Set a -> [a]
-toDescList = foldl (flip (:)) []
+toDescList = foldl (\as a -> a:as) []
 
 -- List fusion for the list generating functions.
 #if __GLASGOW_HASKELL__
@@ -732,8 +733,8 @@ findIndex = go 0
     go !_ !_ Tip  = error "Set.findIndex: element is not in the set"
     go idx x (Bin _ kx l r) = case compare# x kx of
       LT -> go idx x l
-      GT -> go (idx `add` size l `add` 1) x r
-      EQ -> idx `add` size l
+      GT -> go (idx `add` len l `add` 1) x r
+      EQ -> idx `add` len l
 
 -- | /O(log n)/. Lookup the /index/ of an element, which is its zero-based index in
 -- the sorted sequence of elements. The index is a number from /0/ up to, but not
@@ -755,8 +756,8 @@ lookupIndex = go 0
     go !_ !_ Tip  = Nothing
     go idx x (Bin _ kx l r) = case compare# x kx of
       LT -> go idx x l
-      GT -> go (idx `add` size l `add` 1) x r
-      EQ -> Just $! idx `add` size l
+      GT -> go (idx `add` len l `add` 1) x r
+      EQ -> Just $! idx `add` len l
 
 -- | /O(log n)/. Retrieve an element by its /index/, i.e. by its zero-based
 -- index in the sorted sequence of elements. If the /index/ is out of range (less
@@ -771,12 +772,11 @@ lookupIndex = go 0
 elemAt :: Int -> Set a -> a
 elemAt !_ Tip = error "Set.elemAt: index out of range"
 elemAt i (Bin _ x l r)
-  = case compare# i sizeL of
+  = case compare# i lenL of
       LT -> elemAt i l
-      GT -> elemAt (i `sub` sizeL `sub` 1) r
+      GT -> elemAt (i `sub` lenL `sub` 1) r
       EQ -> x
-  where
-    sizeL = size l
+  where lenL = len l
 
 -- | /O(log n)/. Delete the element at /index/, i.e. by its zero-based index in
 -- the sorted sequence of elements. If the /index/ is out of range (less than zero,
@@ -793,12 +793,11 @@ deleteAt :: Int -> Set a -> Set a
 deleteAt !i t =
   case t of
     Tip -> let x = x in x -- error "Set.deleteAt: index out of range"
-    Bin _ x l r -> case compare# i sizeL of
+    Bin _ x l r -> case compare# i lenL of
       LT -> balanceR x (deleteAt i l) r
-      GT -> balanceL x l (deleteAt (i `sub` sizeL `sub` 1) r)
+      GT -> balanceL x l (deleteAt (i `sub` lenL `sub` 1) r)
       EQ -> glue l r
-      where
-        sizeL = size l
+      where lenL = len l
 
 -- | Take a given number of elements in order, beginning
 -- with the smallest ones.

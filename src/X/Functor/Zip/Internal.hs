@@ -11,6 +11,8 @@ instance FTimes V2 where ftimes = ap_ftimes
 instance Apply V2 where ap (V2 f g) (V2 a b) = V2 (f a) (g b)
 instance Applicative V2
 instance One a => One (V2 a) where one = pure one
+instance StaticLen V2 where staticLen = fromNatural 2
+instance Len V2 where len = staticLen_len
 instance Fold V2 where foldMap = traverse_foldMap
 instance Fold1 V2 where foldMap1 = traverse1_foldMap1
 instance Traverse V2 where traverse = traverse1

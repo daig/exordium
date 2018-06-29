@@ -1,4 +1,4 @@
-{-# language BlockArguments #-}
+-- {-# language BlockArguments #-}
 module X.Functor.Comap (Comap(..)) where
 import X.Type.K
 

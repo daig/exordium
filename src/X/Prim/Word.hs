@@ -37,12 +37,16 @@ module X.Prim.Word
   ,and#, or#, xor#, not#
   -- * Bitshifts
   ,uncheckedShiftL#, uncheckedShiftRL#
-  -- * Bitwise Folds
+  -- * Bitmap operations
   -- ** Population Count
   ,popCnt8#, popCnt16#, popCnt32#, popCnt64#, popCnt#
-  -- ** Leading Zeroes
+  -- ** Parallel Deposit Bits
+  {-,pdep8#, pdep16#, pdep32#, pdep64#, pdep#-}
+  -- ** Parallel Extract Bits
+  {-,pext8#, pext16#, pext32#, pext64#, pext#-}
+  -- ** Count Leading Zeroes
   ,clz8#, clz16#, clz32#, clz64#, clz#
-  -- ** Trailing Zeroes
+  -- ** Count Trailing Zeroes
   ,ctz8#, ctz16#, ctz32#, ctz64#, ctz#
   -- * Byte Swaps
   ,byteSwap16#, byteSwap32#, byteSwap64#, byteSwap#

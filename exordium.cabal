@@ -72,10 +72,12 @@ library
       X.Constraint.Impossible
       X.Constraint.Trivial
       X.Constraint.Witness
+      X.Data.Addr
       X.Data.Bool
       X.Data.E
       X.Data.Exist.HList
       X.Data.Maybe
+      X.Data.Pair
       X.Data.Struct.BigNat
       X.Data.Struct.BigNat.Utils
       X.Data.Struct.FingerTree
@@ -130,6 +132,7 @@ library
       X.Functor.IFold
       X.Functor.IMap
       X.Functor.ITraverse
+      X.Functor.Len
       X.Functor.Map
       X.Functor.Map'
       X.Functor.Monad
@@ -162,6 +165,8 @@ library
       X.Num
       X.Num.Act
       X.Num.Add
+      X.Num.Add.Dual
+      X.Num.Add.Endo
       X.Num.Add.First
       X.Num.Add.Last
       X.Num.Add0
@@ -194,6 +199,7 @@ library
       X.Num.Top
       X.Num.Zero
       X.Num.Zero'
+      X.Ops
       X.Optic.Do
       X.Optic.Do.Internal
       X.Optic.Edit
@@ -208,6 +214,7 @@ library
       X.Optic.Tuple
       X.Optic.View
       X.Prim.Addr
+      X.Prim.Any
       X.Prim.Array
       X.Prim.Array.Array
       X.Prim.Array.Byte
@@ -237,6 +244,8 @@ library
       X.Stock.Eq
       X.Stock.Foldable
       X.Stock.Ord
+      X.Syntax.Do
+      X.Syntax.Do.X
       X.Syntax.FromInteger
       X.Syntax.FromInteger.Int
       X.Syntax.FromInteger.Integer

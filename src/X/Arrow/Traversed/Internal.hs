@@ -18,6 +18,8 @@ instance Traverse_ (Baz Map t b) where
   traverse_ f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Map) (f x)))))
 instance Comonad (Baz Map t b)
 instance Duplicate (Baz Map t b) where duplicate = traverse__duplicate
+instance StaticLen (Baz Map t b) where staticLen = fromNatural 1
+instance Len (Baz Map t b) where len = foldMap_len
 instance Fold  (Baz Map t b) where foldMap  = traverse__foldMap_
 instance Fold0 (Baz Map t b) where foldMap0 = traverse__foldMap_
 instance Fold1 (Baz Map t b) where foldMap1 = traverse__foldMap_
@@ -29,6 +31,7 @@ instance Remap (Baz Map t b) where remap _ = map
 instance Traverse (Baz Pure t b) where traverse = traverse0
 instance Traverse0 (Baz Pure t b) where
   traverse0 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Pure) (f x)))))
+instance Len (Baz Pure t b) where len = foldMap_len
 instance Fold  (Baz Pure t b) where foldMap  = traverse0_foldMap0
 instance Fold0 (Baz Pure t b) where foldMap0 = traverse0_foldMap0
 instance Strong (Baz Pure t b) where strong = map_strong
@@ -38,6 +41,7 @@ instance Remap (Baz Pure t b) where remap _ = map
 instance Traverse (Baz Apply t b) where traverse = traverse1
 instance Traverse1 (Baz Apply t b) where
   traverse1 f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Apply) (f x)))))
+instance Len (Baz Apply t b) where len = foldMap_len
 instance Fold  (Baz Apply t b) where foldMap  = traverse1_foldMap1
 instance Fold1 (Baz Apply t b) where foldMap1 = traverse1_foldMap1
 instance Strong (Baz Apply t b) where strong = map_strong
@@ -46,6 +50,7 @@ instance Remap (Baz Apply t b) where remap _ = map
 
 instance Traverse (Baz Applicative t b) where
   traverse f (Baz bz) = map (\(Bazaar m) -> Baz m) ((\(O fg) -> fg) (bz (\x -> O (map (sell @Applicative) (f x)))))
+instance Len (Baz Applicative t b) where len = foldMap_len
 instance Fold  (Baz Applicative t b) where foldMap  = traverse_foldMap
 instance Strong (Baz Applicative t b) where strong = map_strong
 instance Map (Baz Applicative t b) where map = traverse_map

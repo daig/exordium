@@ -1,5 +1,6 @@
 {-# language MagicHash #-}
 module X.Functor.Fold (module X.Functor.Fold, module X) where
+import X.Ops
 import X.Num.Add0 as X
 import X.Type.K
 import X.Type.I
@@ -11,7 +12,9 @@ import X.Data.These
 import X.Data.X as X
 import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe
-import X.Class.Reflect.Instance
+import X.Functor.Len as X
+{-import X.Class.Reflect.Instance-}
+
 
 -- | foldMap m (ftimes a b) = foldMap (\a -> foldMap (\b -> m (a,b)) fb) fa
 --   foldMap m (fone a) = m a
@@ -21,7 +24,10 @@ import X.Class.Reflect.Instance
 --
 --   foldMap m (ftop a) = let ms = m a `add` ms in ms -- ?????
 --
-class Fold t where
+foldMap_len :: (Fold t,FromNatural n) => t a -> n
+foldMap_len = foldMap (\_ -> fromNatural 1)
+
+class Len t => Fold t where
   {-# minimal foldMap | foldr #-}
   foldMap :: Add0 m => (a -> m) -> t a -> m
   foldMap f t = foldr (\a m -> f a `add` m) zero t -- TODO: check the order
@@ -45,9 +51,6 @@ class Fold t => Fold0 t where
   fold0 = foldMap0 (\m -> m)
   {-fold0 z f = foldMap0 (Reflected < f) `withInstance` Zero z-}
 
-f < g = \a -> f (g a)
-f $! x = let !vx = x in f vx 
-infixr 0 $!
 
 -- | like @Fold0@ but can use the context if there is no @a@.
 --
@@ -90,7 +93,7 @@ class Fold t => Fold1 t where
   fold1 :: (a -> a -> a) -> t a -> a
   fold1 c = foldr1 c (\a -> a)
 
-class (Fold0 t, Fold1 t) =>  Fold_ t where
+class (StaticLen t, Fold0 t, Fold1 t) =>  Fold_ t where
   {-# minimal foldMap_ | fold_ #-}
   foldMap_ :: (a -> b) -> t a -> b
   foldMap_ f x = f (fold_ x)

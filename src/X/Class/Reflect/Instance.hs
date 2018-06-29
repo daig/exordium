@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 {-# language DuplicateRecordFields #-}
-{-# language QuantifiedConstraints #-}
+-- {-# language QuantifiedConstraints #-}
 {-# language UndecidableInstances #-}
 module X.Class.Reflect.Instance (module X.Class.Reflect.Instance, module X) where
 import X.Class.Reflect as X
@@ -16,8 +16,8 @@ newtype Reflected c a s = Reflected a
 -- | Opaque type variable @s@ reflects a reified instance of @c@ for @a@
 type Instance c a s = Reflect s (Reified c a)
 
-class (forall a s. Instance c a s => c (Reflected c a s))
-  => Reify (c :: Type -> Constraint) where
+class Reify (c :: Type -> Constraint) where
+  {-(forall a s. Instance c a s => c (Reflected c a s)) =>-}
   data Reified   c :: Type         -> Type -- TODO: generalize
 reifyInstance :: (Reify c, Map f)
                => Reified c a 
