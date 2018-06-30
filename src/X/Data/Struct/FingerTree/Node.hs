@@ -28,6 +28,7 @@ instance Fold1 Node where
     Node2# _ a b -> f a `add` f b
     Node3# _ a b c -> f a `add` f b `add` f c
 instance Fold Node where foldMap = foldMap1
+instance Len Node where len = \case {Node2#{} -> fromNatural 2; Node3#{} -> fromNatural 3}
 
 pattern Node2 :: Measured a => a -> a -> Node a
 pattern Node2 a b <- Node2# _ a b where

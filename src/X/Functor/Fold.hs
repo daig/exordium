@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
 module X.Functor.Fold (module X.Functor.Fold, module X) where
-import X.Ops
+import X.Ops.Fun
 import X.Num.Add0 as X
 import X.Type.K
 import X.Type.I

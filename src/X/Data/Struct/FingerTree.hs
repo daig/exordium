@@ -31,6 +31,12 @@ instance (Measured a, Zero (Measure a)) => Measured (FingerTree a) where
     FT1 a -> measure a
     FTN# v _ _ _ -> v
 
+instance Len FingerTree where
+  len = \case
+    FT0 -> fromNatural 0
+    FT1{} -> fromNatural 1
+    FTN# _ l t r -> (len l `add` len r) `lenFrom` t
+
 instance Fold FingerTree where
   foldMap f = \case
     FT0 -> zero

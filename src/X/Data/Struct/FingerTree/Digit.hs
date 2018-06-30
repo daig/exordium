@@ -14,6 +14,8 @@ instance Fold1 Digit where
   foldMap1 f (Digit2 a b) = f a `add` f b
   foldMap1 f (Digit3 a b c) = f a `add` f b `add` f c
   foldMap1 f (Digit4 a b c d) = f a `add` f b `add` f c `add` f d
+instance Len Digit where
+  len = \case {Digit1{} -> fromNatural 1; Digit2{} -> fromNatural 2; Digit3{} -> fromNatural 3; Digit4{} -> fromNatural 4}
 instance Fold Digit where foldMap = foldMap1
 
 instance Remap Digit where remap _ = map

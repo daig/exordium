@@ -87,7 +87,8 @@ library
       X.Data.Struct.Integer.Utils
       X.Data.Struct.Natural
       X.Data.Struct.Natural.Utils
-      X.Data.Struct.Set
+      --X.Data.Struct.Set
+      --X.Data.Struct.Set.Internal
       X.Data.Struct.Unsafe
       X.Data.These
       X.Data.X
@@ -199,7 +200,7 @@ library
       X.Num.Top
       X.Num.Zero
       X.Num.Zero'
-      X.Ops
+      --X.Ops
       X.Optic.Do
       X.Optic.Do.Internal
       X.Optic.Edit

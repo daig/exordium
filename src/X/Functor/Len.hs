@@ -9,7 +9,12 @@ import X.Type.Word.W
 import X.Type.K
 
 class Len t where
+  -- | Count the number of elements in a container
   len :: FromNatural n => t a -> n
+  len = lenFrom (fromNatural 0)
+  -- | Count the number of elements in a container starting from some base count
+  lenFrom :: FromNatural n => n -> t a -> n
+  lenFrom !n t = n `add` len t
   {-default len :: (StaticLen t,FromNatural n) => t a -> n-}
   {-len _ = staticLen @t-}
 class Len t => StaticLen t where staticLen :: FromNatural n => n

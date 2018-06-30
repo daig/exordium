@@ -16,4 +16,3 @@ infix 4 `eq#`
 eq# = (==)
 neq# :: Eq# a => a -> a -> Bool
 neq# = (/=)
-
