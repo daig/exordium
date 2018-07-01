@@ -1,6 +1,3 @@
-
-#include "containers.h"
-
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.Set
@@ -60,4 +57,11 @@
 --
 -----------------------------------------------------------------------------
 
-module Data.Set where
+module X.Data.Struct.Set where
+import Data.Set.Internal
+import X.Functor.Fold
+import X.Data.Struct.Natural.Utils
+import X.Cast
+
+instance Len Set where
+  {-len = \case {Bin n _ _ _ -> upcast n ; Tip -> fromNatural 0}-}

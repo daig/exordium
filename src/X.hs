@@ -41,5 +41,7 @@ import X.Type.Char
 import X.Type.Int
 import X.Type.Word
 import X.Data.Struct.Integer
+import X.Ops.Fun
+import X.Ops.Num
 
 DoSyntax {..} = XDo.doSyntax

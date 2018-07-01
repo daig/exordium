@@ -12,6 +12,7 @@ import X.Data.Maybe
 import X.Type.IO
 import X.Functor.Strong as X
 import X.Data.These
+import qualified X.Data.List.Internal as List
 
 class Strong f => Map (f :: Type -> Type) where
   map :: (a -> b) -> f a -> f b
@@ -49,10 +50,8 @@ instance Map ((->) x) where
   map## _ = map# coerce
 instance Strong [] where strong = map_strong
 instance Map [] where
-  map f = go where
-    go = \case
-      [] -> []
-      a:as -> f a : go as
+  {-# INLINE map #-}
+  map = List.map
 instance Strong ((,) x) where strong = map_strong
 instance Map ((,) x) where map f (x,y) = (x,f y)
 instance Strong (K a) where strong = map_strong

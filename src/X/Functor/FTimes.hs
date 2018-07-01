@@ -6,6 +6,7 @@ import X.Type.I
 import X.Type.IO
 import X.Data.E
 import qualified Control.Applicative as P
+import X.Data.Maybe
 
 -- | remap (f *** x) (g *** y) (ftimes a b) = remap f g a `ftimes` remap x y b
 -- | remap f g a `ftimes` remap x y b = remap (O
@@ -25,3 +26,6 @@ instance FTimes (E x) where
   ftimes (L x) _ = L x
   ftimes (R a) (R b) = R (a,b)
   ftimes _ (L x) = L x
+instance FTimes Maybe where
+  ftimes (Just x) (Just y) = Just (x,y)
+  ftimes _ _ = Nothing

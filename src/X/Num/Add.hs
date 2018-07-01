@@ -31,7 +31,9 @@ scale1# y0 x0 = f x0 y0 where
 
 instance Add Natural where add = (P.+)
 instance (Add a, Add b) => Add (a,b) where (a,b) `add` (x,y) = (add a x,add b y)
-instance Add Int where add = (P.+)
+instance Add Int where
+  {-# INLINE add #-}
+  add = (P.+)
 instance Add Word where add = (P.+)
 instance Add Integer where add = (P.+)
 instance Add Bool where add = (P./=)

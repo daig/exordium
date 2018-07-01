@@ -2,7 +2,6 @@
 
 module X.Prim.Int
   (Int# -- | Int literals are written like @3#@
-
   -- * Arithmetic
   ,(+#),(-#),(*#)
   ,mulIntMayOflo#
@@ -26,7 +25,6 @@ module X.Prim.Int
   ,uncheckedIShiftL#, uncheckedIShiftRA#, uncheckedIShiftRL#
   ) where
 import GHC.Prim
-
 
 -- $narrow
 -- #narrow#

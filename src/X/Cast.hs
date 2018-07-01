@@ -11,22 +11,19 @@ import X.Optic.Prism
 
 import X.Cast.Internal
 
-class a ~>~ b where
-  _cast :: Traversed' p => p a a -> p b b
-  default _cast :: (a ~=~ b, Traversed' p) => p a a -> p b b
-  _cast = _cast_
-  {-upcast :: a -> b-}
-  {-upcast = review _cast-}
-  {-downcast' :: b -> Maybe a-}
-  {-downcast' = _View _cast Just-}
+class super ~>~ sub where
+  {-# minimal _cast | upcast, downcast' #-}
+  _cast :: Traversed' p => p sub sub -> p super super
+  _cast = prism' downcast' upcast
+  upcast :: sub -> super
+  upcast = review _cast
+  downcast' :: super -> Maybe sub
+  downcast' = _View _cast Just
 
--- TODO: annoying, should be part of ~>~ class, but the type application order is wrong
-upcast :: forall b a. a ~>~ b => a -> b
-upcast = review _cast
-downcast' :: a ~>~ b => b -> Maybe a
-downcast' = _View _cast Just
+_cast__cast :: (a ~=~ b, Promap p) => p a a -> p b b
+_cast__cast = _cast_
 
-instance a ~>~ a where _cast = _cast_
+instance a ~>~ a where _cast = _cast__cast
 
 -- TODO: update with quantified constraints when available
 -- | Semantic equality, which should preserve all typeclass instances shared between them.
@@ -39,9 +36,9 @@ class (a ~>~ b, b ~=~ a) => a ~=~ b where
   downcast = view _cast_
 instance a ~=~ a where _cast_ p = p
 
-instance Word8 ~>~ Int where _cast = _enum
-instance Word16 ~>~ Int where _cast = _enum
-instance Word32 ~>~ Int where _cast = _enum
+instance Int ~>~ Word8 where _cast = _enum
+instance Int ~>~ Word16 where _cast = _enum
+instance Int ~>~ Word32 where _cast = _enum
 {-instance Word64 ~>~ Int where _cast = _enum-}
 {-instance Word ~>~ Int where _cast = _enum-}
   {-_cast = prism down up where-}

@@ -5,10 +5,14 @@ import X.Functor.Comonad as X
 import X.Type.K
 import X.Type.I
 import X.Data.Maybe
+import qualified X.Data.List.Internal as List
 
 class (Map t,Fold t) => Traverse t where
   {-# minimal traverse | cocollect | sequence #-}
   traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
+  {-traverseWith :: (t b -> f (t b)) -> (f (t b -> t b) -> f (t b) -> f (t b))-}
+  {-foldr :: (a -> b -> b) -> b -> t a -> b-}
+               {--> (a -> f b) -> t a -> f (t b)-}
   traverse f t = cocollect (\x -> x) (map f t)
   cocollect :: Applicative f => (t a -> b) -> t (f a) -> f b
   cocollect tab tfa = map tab (sequence tfa)
@@ -78,11 +82,9 @@ instance Traverse1 ((,) x) where traverse1 f (x,a) = (x,) `map` f a
 instance Traverse_ ((,) x) where traverse_ f (x,a) = (x,) `map` f a
 instance Traverse ((,) x) where traverse f (x,a) = (x,) `map` f a
 instance Traverse [] where
-  traverse = go' where
-    go' f = go where
-      go = \case
-        [] -> pure []
-        (x:xs) -> (:) `map` f x  `ap` go xs
+  {-# INLINE traverse #-}
+  traverse f = List.foldr f' (pure []) where
+    f' x ys = (:) `map` f x `ap` ys
 instance Traverse (K x) where traverse _ (K x) = pure (K x)
 instance Traverse0 (K x) where traverse0 _ (K x) = pure (K x)
 

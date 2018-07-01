@@ -6,6 +6,7 @@ import X.Type.I
 import X.Type.K
 import X.Functor.Fold
 import X.Functor.Applicative as X
+import qualified Prelude as P
 
 -- TODO: is Applicative right? or should we have a distinct Zip class that handles day convolution
 class Applicative t => Zip t where
@@ -48,3 +49,15 @@ instance Zip ((->) x) where
   collect axb fa = \x -> (\a -> axb a x) `map` fa
   distribute fxa = \x -> (\f -> f x) `map` fxa
 instance Zip V2 where distribute fta = V2 (map v2a fta) (map v2b fta)
+
+
+fix f = f (fix f)
+class Map f => Ap f where app :: f (a -> b) -> f a -> f b -> f b
+instance Ap [] where
+  app (f:xs) ys z = map f ys P.++ z -- apList xs ys
+  app _ _ _ = []
+
+{-instance Zip [] where-}
+  {-distribute fas = map f fas where-}
+    {-f = \case-}
+      {-[] -> -}

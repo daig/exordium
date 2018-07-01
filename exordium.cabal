@@ -38,6 +38,7 @@ library
     , template-haskell
   exposed-modules:
       X
+      RTS.Thread
       X.Arrow.Alongside
       X.Arrow.Category
       X.Arrow.Closed

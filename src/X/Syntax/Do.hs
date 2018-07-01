@@ -12,13 +12,14 @@ module X.Syntax.Do where
 -- >    x <- fx
 -- >    y <- fy
 -- >    foo x y
-data DoSyntax map return andThen ap bind = DoSyntax {fmap :: map
+data DoSyntax map return andThen ap bind fail = DoSyntax {fmap :: map
                                                     ,return :: return
                                                     ,(>>) :: andThen
                                                     ,(<*>) :: ap
-                                                    ,(>>=) :: bind}
+                                                    ,(>>=) :: bind
+                                                    ,fail :: fail}
 -- | We want to store polymorphic functions in @DoSyntax@, (for example @return :: forall m. Monad m => a -> m a@)
 -- which requires [-XImpredicativeTypes](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-ImpredicativeTypes).
 -- Unfortunately, @ImpredicativeTypes@ is broken, so we cannot get an impredicative @DoSyntax@ simply by applying its constructor. We CAN however make an impredicative tuple by giving explicit type annotations. Then, using @mkDoSyntax@, recover an appropriately impredicative @DoSyntax@
-mkDoSyntax :: (a,b,c,d,e) -> DoSyntax a b c d e
-mkDoSyntax (a,b,c,d,e) = DoSyntax a b c d e
+mkDoSyntax :: (a,b,c,d,e,f) -> DoSyntax a b c d e f
+mkDoSyntax (a,b,c,d,e,f) = DoSyntax a b c d e f

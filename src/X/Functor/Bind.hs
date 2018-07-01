@@ -2,6 +2,7 @@ module X.Functor.Bind (module X.Functor.Bind, module X) where
 import X.Functor.Apply as X
 import X.Functor.Append
 import X.Data.E
+import X.Data.Maybe
 
 -- | Associativity of join:
 --  join < join = join < map join
@@ -50,3 +51,7 @@ instance Bind (E x) where
     L x -> L x
     R (L x) -> L x
     R (R x) -> R x
+instance Bind Maybe where
+  bind f = \case
+    Nothing -> Nothing
+    Just a -> f a

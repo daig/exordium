@@ -8,7 +8,8 @@ module X.Prim.Exception
   -- * Re-exported Types
   ,State#, RealWorld
 ) where
-import GHC.Prim
+import qualified GHC.Prim as GHC
+import X.Prim.IO
 
 -- $raiseIO
 -- @raiseIO#@ needs to be a primop, because exceptions in the IO monad
@@ -21,3 +22,15 @@ import GHC.Prim
 -- >   f x y | x>0       = raiseIO blah
 -- >         | y>0       = return 1
 -- >         | otherwise = return 2
+raiseIO# :: a -> IO# b
+raiseIO# = GHC.raiseIO#
+
+maskAsyncExceptions# :: IO# a -> IO# a
+maskAsyncExceptions# = GHC.maskAsyncExceptions# 
+
+maskUninterruptible# :: IO# a -> IO# a
+maskUninterruptible# = GHC.maskUninterruptible# 
+
+getMaskingState# :: IOInt#
+getMaskingState# = GHC.getMaskingState#
+

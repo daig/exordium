@@ -6,6 +6,7 @@ import X.Arrow.Folded as X
 import X.Arrow.Mapped as X
 import X.Functor.Coerce1 as X
 {-import X.Arrow.Representable as X-}
+import qualified Prelude as P
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
   {-deriving anyclass Representable-}
@@ -70,3 +71,9 @@ instance Zip f => Mapped (Traversing f) where
 type instance Rep (Traversing f) = f
 instance Map f => Sieve (Traversing f) where sieve = runTraversing
 instance Map f => Tabulated (Traversing f) where tabulateP = Traversing
+
+
+test,test2 :: [P.String]
+test = traversed P.show [99,100,101]
+
+test2 = traverse P.show [99,100,101]
