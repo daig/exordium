@@ -9,7 +9,7 @@ import X.Num.Add.Endo
 import X.Num.Add.Dual
 import X.Data.Maybe
 import X.Data.These
-import X.Data.X as X
+import X.Data.X as X hiding (absurd)
 import X.Functor.Pure as X
 import X.Cast.Coerce.Unsafe
 import X.Functor.Len as X
