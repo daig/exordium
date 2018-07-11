@@ -43,5 +43,11 @@ import X.Type.Word
 import X.Data.Struct.Integer
 import X.Ops.Fun
 import X.Ops.Num
+import X.Arrow.Traversed
+import Language.Haskell.TH.Syntax
 
 DoSyntax {..} = XDo.doSyntax
+
+($:) :: Traversed_ p => p a (b -> c) -> p (a,b) c
+-- | Uncurry
+($:) = \p -> (\(f,x) -> f x) `postmap` _1 p

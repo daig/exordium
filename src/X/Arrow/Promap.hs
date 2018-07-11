@@ -1,11 +1,15 @@
 {-# language MagicHash #-}
-module X.Arrow.Promap (module X.Arrow.Promap) where
+module X.Arrow.Promap (module X.Arrow.Promap, module X) where
 import X.Type.NatTrans
 import X.Cast.Coerce
+import X.Functor.Map as X
+import X.Functor.Comap as X
+import X.Type.Permute as X (BA(..))
+
 id :: x -> x
 id x = x
 
-class Promap p where
+class (forall a. Map (p a), forall b. Comap (BA p b)) => Promap p where
   {-# minimal promap | premap,postmap #-}
   promap :: (s -> a) -> (b -> t) -> p a b -> p s t
   promap f g = \p -> postmap g (premap f p)
@@ -32,10 +36,11 @@ class Promap p where
   {-# INLINE premap# #-}
   premap# f = promap# f id
   postmap :: (y -> b) -> p a y -> p a b
-  postmap = promap (\a -> a)
+  postmap = map
   postmap# :: forall y b a. y #=# b => (y -> b) -> p a y -> p a b
   {-# INLINE postmap# #-}
   postmap# = promap# id
+
 
 instance Promap (->) where promap f g p = \a -> g (p (f a))
 
@@ -118,3 +123,8 @@ isoF = promap
 --withIso ai k = case ai (AnIso (\x -> x) (\x -> x)) of {AnIso sa bt -> k sa bt}
 --under :: (s ~=. a) b t -> (t -> s) -> b -> a
 --under k = withIso k (\sa bt ts x -> sa (ts (bt x)))
+
+promap_comap :: Promap p => (a' -> a) -> BA p b a -> BA p b a'
+promap_comap a'a = _BA (promap a'a id) where
+  _BA :: Promap p => p (f b a) (f y x) -> p (BA f a b) (BA f x y)
+  _BA = promap# coerce coerce

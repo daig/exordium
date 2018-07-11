@@ -1,12 +1,16 @@
 -- {-# language BlockArguments #-}
 module X.Functor.Comap (Comap(..)) where
 import X.Type.K
+import X.Type.Permute
+import X.Ops.Fun
+import X.Cast.Coerce
 
 import qualified Prelude as P
 
 class Comap f where comap :: (b -> a) -> f a -> f b
 
 instance Comap (K a) where comap _ (K a) = K a
+instance Comap (BA (->) a) where comap ba (BA ar) = BA (ba > ar)
 
 {-data CoList a = Done (P.IO ()) | More (a -> CoList a)-}
 {-instance Comap CoList where-}

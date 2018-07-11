@@ -1,3 +1,4 @@
+{-# language MagicHash #-}
 module X.Optic.Prism (module X.Optic.Prism, module X) where
 import Prelude ((.))
 import X.Functor.Pure as X
@@ -7,6 +8,8 @@ import X.Data.Maybe as X
 import X.Optic.View as X
 import X.Optic.Review as X
 import X.Functor.Bifold
+import X.Cast.Coerce.Unsafe
+import X.Data.Maybe
 
 -- | A @Prism@ is like a first class pattern synonym, consisting of a possible match, and a cosntructor
 data Prism a b s t = Prism (s -> E t a) (b -> t)
@@ -39,6 +42,10 @@ _Just = prism (\s -> case s of {Nothing -> L Nothing; Just a -> R a}) Just
 -- | Construct a simple prism
 prism' :: Traversed' p => (s -> Maybe a) -> (b -> s) -> p a b -> p s s
 prism' sma bs = prism (\s -> case sma s of {Just a -> R a; Nothing -> L s}) bs
+
+-- | Construct a simple affine traversal
+lens0' :: Traversed0 p => (s -> Maybe a) -> (s -> b -> t) -> p a b -> p s t
+lens0' sa' = lens0 (\s -> case sa' s of {Nothing -> L (coerce# s); Just a -> R a})
 
 instance Traversed' (Prism a b) where
   prism pat constr (Prism pat' constr' ) = Prism f (constr . constr') where

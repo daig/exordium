@@ -68,12 +68,14 @@ instance Strong (Bazaar Map a b) where strong = map_strong
 instance Map (Bazaar Map a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
 instance Remap (Bazaar Map a b) where remap _ = map
 instance Promap (Bazaar Map a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
+instance Comap (BA (Bazaar Map a) t) where comap = promap_comap
 
 instance Strong (Bazaar Pure a b) where strong = map_strong
 instance Map (Bazaar Pure a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
 instance Remap (Bazaar Pure a b) where remap _ = map
 instance Pure (Bazaar Pure a b) where pure a = Bazaar (\_ -> pure a)
 instance Promap (Bazaar Pure a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
+instance Comap (BA (Bazaar Pure a) t) where comap = promap_comap
 
 instance Strong (Bazaar Apply a b) where strong = map_strong
 instance Map (Bazaar Apply a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
@@ -81,6 +83,7 @@ instance Remap (Bazaar Apply a b) where remap _ = map
 instance FTimes (Bazaar Apply a b) where ftimes = ap_ftimes
 instance Apply (Bazaar Apply a b) where (Bazaar mf) `ap` (Bazaar ma) = Bazaar (\k -> mf k `ap` ma k)
 instance Promap (Bazaar Apply a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f  `map` k x))
+instance Comap (BA (Bazaar Apply a) t) where comap = promap_comap
 
 instance Strong (Bazaar Applicative a b) where strong = map_strong
 instance Map (Bazaar Applicative a b) where map f (Bazaar m) = Bazaar (\k -> f `map` m k)
@@ -90,6 +93,7 @@ instance FTimes (Bazaar Applicative a b) where ftimes = ap_ftimes
 instance Apply (Bazaar Applicative a b) where (Bazaar mf) `ap` (Bazaar ma) = Bazaar (\k -> mf k `ap` ma k)
 instance Applicative (Bazaar Applicative a b)
 instance Promap (Bazaar Applicative a) where promap f g (Bazaar m) = Bazaar (\k -> g `map` m (\x -> f `map` k x))
+instance Comap (BA (Bazaar Applicative a) t) where comap = promap_comap
 {-traverse_foldMap :: (forall x y. (x -> K m y) -> t x -> K m (t y)) -> (a -> m) -> t a -> m-}
 {-traverse_foldMap traverse = \am ta -> case traverse (\a -> K (am a)) ta of K m' -> m'-}
 {-baz'traverse :: forall c f a a' t b. (forall g x y. c g => (x -> y) -> g x -> g y)-}

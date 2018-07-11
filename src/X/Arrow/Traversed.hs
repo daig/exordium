@@ -1,4 +1,3 @@
-{-# language MagicHash #-}
 module X.Arrow.Traversed (module X.Arrow.Traversed, module X) where
 import X.Type.I
 import X.Type.K
@@ -57,8 +56,6 @@ class (Traversed' p, Traversed_ p) => Traversed0 p where
   -- | Create an affine traversal ("Laser") from a match pattern and a setter
   lens0 :: (s -> E t a) -> (s -> b -> t) -> p a b -> p s t
   lens0 get set pab = promap (\s -> (get s, s)) (\(bt, s) -> bifoldMap_ (\x -> x) (set s) bt) (_1 (_R pab))
-
-
 
 -- | A Strong profunctor with respect to the sum @E@.
 --
@@ -133,9 +130,6 @@ instance Traversed1 (->) where traversal1 l f s = case l (\a -> I (f a)) s of {I
 instance Traversed0 (->) where traversal0 l f s = case l (\a -> I (f a)) s of {I t -> t}
 instance Traversed (->) where traversal l f s = case l (\a -> I (f a)) s of {I t -> t}
 
-
-($:) :: Traversed_ p => p a (b -> c) -> p (a,b) c
-($:) = \p -> (\(f,x) -> f x) `postmap` _1 p
 
 
 traversal__promap :: Traversed_ p => (a -> x) -> (y -> b) -> p x y -> p a b
