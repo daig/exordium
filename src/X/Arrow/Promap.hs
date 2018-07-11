@@ -1,13 +1,41 @@
+{-# language MagicHash #-}
 module X.Arrow.Promap (module X.Arrow.Promap) where
 import X.Type.NatTrans
+import X.Cast.Coerce
+id :: x -> x
+id x = x
 
 class Promap p where
+  {-# minimal promap | premap,postmap #-}
   promap :: (s -> a) -> (b -> t) -> p a b -> p s t
   promap f g = \p -> postmap g (premap f p)
+  -- | Strictly @promap@ with functions that are assumed
+  -- operationally to be a cast, such as a newtype
+  -- constructor.
+  --
+  -- /Note:/ This operation is explicitly /unsafe/
+  -- since an implementation may choose to use
+  -- 'unsafeCoerce' to implement this combinator
+  -- and it has no way to validate that your function
+  -- meets the requirements.
+  --
+  -- If you implement this combinator with
+  -- 'unsafeCoerce', then you are taking upon yourself
+  -- the obligation that you don't use GADT-like
+  -- tricks to distinguish values.
+  promap# :: forall s a b t. (s #=# a, b #=# t) => (s -> a) -> (b -> t) -> p a b -> p s t
+  {-# INLINE promap# #-}
+  promap# _ _ !p = promap coerce coerce p -- TODO: fiddle with arguments to get good inlining
   premap :: (a -> x) -> p x b -> p a b
   premap = (`promap` \b -> b)
+  premap# :: forall s a t. s #=# a => (s -> a) -> p a t -> p s t
+  {-# INLINE premap# #-}
+  premap# f = promap# f id
   postmap :: (y -> b) -> p a y -> p a b
   postmap = promap (\a -> a)
+  postmap# :: forall y b a. y #=# b => (y -> b) -> p a y -> p a b
+  {-# INLINE postmap# #-}
+  postmap# = promap# id
 
 instance Promap (->) where promap f g p = \a -> g (p (f a))
 
