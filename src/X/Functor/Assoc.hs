@@ -1,6 +1,8 @@
 module X.Functor.Assoc where
 import X.Arrow.Promap as X
-import X.Optic.Iso
+import X.Optic.View
+import X.Optic.Review
+import X.Data.E
 --
 class Assoc f where
   {-# minimal assocl, assocr | assoced #-}

@@ -21,6 +21,10 @@ import X.Arrow.Mapped as X
 -- | An @Update@ inserts a single value into a container, possibly changing its type
 newtype Update b s t = Update {runUpdate :: b -> s -> t}
 instance Promap (Update b) where promap sa bt (Update bab) = Update (\b -> promap sa bt (bab b))
+instance Map (Update b s) where map = postmap
+instance Remap (Update b s) where remap _ = map
+instance Strong (Update b s) where strong = map_strong
+instance Comap (BA (Update b) t) where comap = premap_comap
 instance Closed (Update b) where closed (Update f) = Update (\b xs x -> f b (xs x))
 instance Traversed_ (Update b) where traversed_ = mapped
 instance Traversed1 (Update b) where traversed1 = mapped

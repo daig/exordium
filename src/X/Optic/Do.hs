@@ -11,7 +11,7 @@ doWith :: (Zero r, Map f) => (Do (FK f x) r a b -> Do (FK f x) r s t) -> (a -> f
 doWith l afx = case l (Do (\a -> FK (afx a))) of
   Do sfkx -> \s -> case sfkx s of FK fx -> constMap zero fx
 
-newtype Do f r a b = Do {runDo :: a -> f r}
+newtype Do f r a (b :: *) = Do {runDo :: a -> f r}
 instance Promap (Do f r) where promap f _ (Do b) = Do (premap f b)
 instance Map (Do f r a) where map = promap (\x -> x)
 instance Strong (Do f r a) where strong = map_strong

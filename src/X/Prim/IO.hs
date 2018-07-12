@@ -1,7 +1,7 @@
 {-# language MagicHash #-}
 {-# language UnboxedTuples #-}
 module X.Prim.IO
-  (State#, RealWorld
+  (State#, RealWorld, IO#
   ,IOInt#, IOWord#, IOFloat#, IODouble#, IOAddr#, IOCompact#
   ,realWorld#
   -- * Delay/wait operations

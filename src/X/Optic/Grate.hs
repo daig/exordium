@@ -17,6 +17,10 @@ instance Closed (Grate a b) where
 
 instance Promap (Grate a b) where
   promap sa bt (Grate aabb) = Grate (\sab -> bt (aabb  (\aa -> sab (\s -> aa (sa s)))))
+instance Map (Grate a b s) where map = postmap
+instance Remap (Grate a b s) where remap _ = map
+instance Strong (Grate a b s) where strong = map_strong
+instance Comap (BA (Grate a b) t) where comap = premap_comap
 
 withGrate :: (Grate a b a b -> Grate a b s t) -> ((s -> a) -> b) -> t
 withGrate g = case g (Grate (\f -> f (\x -> x))) of Grate z -> z
@@ -63,6 +67,7 @@ instance Closed Zip2 where closed (Zip2 z) = Zip2 (\xa xa' x -> z (xa x) (xa' x)
 {-instance Traversed Zip2 where traversal afbsft (Zip2 z) = Zip2 (\s s' -> -}
 {-instance Mapped Zip2 where setter abst (Zip2 z) = Zip2 (\s s' -> abst (\x -> z x x) s)-}
 instance Promap Zip2 where promap f g (Zip2 z) = Zip2 (\a a' -> g (z (f a) (f a')))
+instance Comap (BA Zip2 b) where comap = premap_comap
 instance Strong (Zip2 a) where strong = map_strong
 instance Map (Zip2 a) where map = postmap
 instance Remap (Zip2 a) where remap _ = map
@@ -78,6 +83,7 @@ instance Map f => Closed (FZip f) where
   closed (FZip fab) = FZip (\fxa x -> fab (map (\f -> f x) fxa))
 instance Map f => Promap (FZip f) where
   promap f g (FZip fab) = FZip (promap (map f) g fab)
+instance Map f => Comap (BA (FZip f) b) where comap = premap_comap
 instance Strong (FZip f a) where strong x (FZip fab) = FZip (\fa -> (x,fab fa))
 instance Map (FZip f a) where map f (FZip fab) = FZip (\fa -> f (fab fa))
 instance Remap (FZip f a) where remap _ = map
