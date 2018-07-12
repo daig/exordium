@@ -1,6 +1,6 @@
 {-# language MagicHash #-}
-module X.Optic.Iso (module X.Optic.Iso) where
-import X.Arrow.Promap
+module X.Optic.Iso (module X.Optic.Iso, module X) where
+import X.Arrow.Promap as X
 import X.Num.Zero
 import X.Arrow.Closed
 {-import X.Optic.Prism as X-}

@@ -1,10 +1,15 @@
 module X.Optic.Re (module X.Optic.Re, module X) where
 import X.Optic.Iso as X
+import X.Arrow.Traversed
+import X.Arrow.Loop
 
 newtype Re p s t a b = Re {runRe :: p b a -> p t s}
 
-instance Promap p => Promap (Re p s t) where
-  promap f g (Re l) = Re (\p -> l (promap g f p))
+instance Promap p => Promap (Re p s t) where promap f g (Re l) = Re (\p -> l (promap g f p))
+instance Promap p => Map (Re p s t a) where map = postmap
+instance Promap p => Remap (Re p s t a) where remap _ = map
+instance Promap p => Strong (Re p s t a) where strong = map_strong
+instance Promap p => Comap (BA (Re p s t) b) where comap = premap_comap
 
 _Re :: Promap w => w (Re p s t a b) (Re q s' t' a' b') -> w (p b a -> p t s) (q b' a' -> q t' s')
 _Re = promap Re runRe

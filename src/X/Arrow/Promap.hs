@@ -124,7 +124,7 @@ isoF = promap
 --under :: (s ~=. a) b t -> (t -> s) -> b -> a
 --under k = withIso k (\sa bt ts x -> sa (ts (bt x)))
 
-promap_comap :: Promap p => (a' -> a) -> BA p b a -> BA p b a'
-promap_comap a'a = _BA (promap a'a id) where
-  _BA :: Promap p => p (f b a) (f y x) -> p (BA f a b) (BA f x y)
-  _BA = promap# coerce coerce
+premap_comap :: Promap p => (a' -> a) -> BA p b a -> BA p b a'
+premap_comap a'a = _BA_ (premap a'a) where
+  _BA_ :: (f b a -> f y x) -> BA f a b -> BA f x y -- TODO: figure out naming for prism, lens, and both iso orderings. Eg. _BA_ which way should it go?
+  _BA_ = promap# coerce coerce

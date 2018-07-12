@@ -9,13 +9,13 @@ import X.Functor.BiComap as X
 import X.Type.K
 import X.Functor.Bifold
 
-newtype View r a b = View {runView :: (a -> r)}
+newtype View r a (b :: *) = View {runView :: (a -> r)}
 _View :: Promap p => p (View n a a) (View m s s) -> p (a -> n) (s -> m)
 _View = promap View runView
 view :: (View a a a -> View m s s) -> s -> m
 view = (`_View` \x -> x)
-instance Promap (View r) where
-  promap f _ (View z) = View (premap f z)
+instance Promap (View r) where promap f _ (View z) = View (premap f z)
+instance Comap (BA (View r) b) where comap = premap_comap
 instance Strong (View r a) where strong = map_strong
 instance Map (View r a) where map = postmap
 instance Remap (View r a) where remap _ = map

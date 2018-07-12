@@ -7,6 +7,7 @@ import X.Arrow.Mapped as X
 import X.Functor.Coerce1 as X
 {-import X.Arrow.Representable as X-}
 import qualified Prelude as P
+import X.Ops.Fun
 
 newtype Traversing f a b = Traversing {runTraversing :: a -> f b}
   {-deriving anyclass Representable-}
@@ -20,13 +21,14 @@ _Traversing l afb s = case l (Traversing afb) of Traversing sft -> sft s
 instance Zip f => Closed (Traversing f) where
   closed (Traversing afb) = Traversing (\xa -> distribute (\x -> afb (xa x)))
 instance Map f => Promap (Traversing f) where promap f g (Traversing s) = Traversing (promap f (map g) s)
+instance Comap (BA (Traversing f) b) where comap a'a (BA (Traversing afb)) = BA (Traversing (a'a > afb))
 instance Strong f => Strong (Traversing f a) where
   strong x (Traversing afb) = Traversing (\a -> strong x (afb a))
 instance Map f => Map (Traversing f a) where map f (Traversing s) = Traversing (\a -> map f (s a))
 instance Remap f => Remap (Traversing f a) where
   remap f g (Traversing s) = Traversing (\a -> remap f g (s a))
 {--- TODO: move to PromapIso class-}
-instance Comap f => Comap (Traversing f a) where comap f (Traversing s) = Traversing (\a -> comap f (s a))
+instance Comap f => Comap (Traversing f a) where comap b'b (Traversing afb) = Traversing (afb > comap b'b)
 instance Coerce1 f => Folded_ (Traversing f) where postcoerce (Traversing s) = Traversing (\a -> coerce1 (s a))
 
 instance Map f => Traversed_ (Traversing f) where traversal_ afbsft (Traversing afb) = Traversing (\s -> afbsft afb s)

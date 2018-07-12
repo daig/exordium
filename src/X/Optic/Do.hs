@@ -2,9 +2,10 @@ module X.Optic.Do (module X.Optic.Do, module X) where
 import X.Optic.Do.Internal
 import X.Arrow.Mapped as X
 import X.Arrow.Folded as X
+import X.Ops.Fun
 
-_Do :: Promap p => p (Do f r a b) (Do g  r' s t) -> p (a -> f r) (s -> g r')
-_Do = promap Do runDo
+_Do_ :: Promap p => p (Do f r a b) (Do g  r' s t) -> p (a -> f r) (s -> g r')
+_Do_ = promap Do runDo
 
 doWith :: (Zero r, Map f) => (Do (FK f x) r a b -> Do (FK f x) r s t) -> (a -> f x) -> s -> f r
 doWith l afx = case l (Do (\a -> FK (afx a))) of
@@ -12,6 +13,10 @@ doWith l afx = case l (Do (\a -> FK (afx a))) of
 
 newtype Do f r a b = Do {runDo :: a -> f r}
 instance Promap (Do f r) where promap f _ (Do b) = Do (premap f b)
+instance Map (Do f r a) where map = promap (\x -> x)
+instance Strong (Do f r a) where strong = map_strong
+instance Remap (Do f r a) where remap _  = map
+instance Comap (BA (Do f r) b) where comap = premap_comap
 instance Traversed_ (Do f r) where lens sa _ (Do x) = Do (\s -> x (sa s))
 instance (Pure f, Zero r) => Traversed' (Do f r) where
   prism seta _ (Do x) = Do (\s -> case seta s of

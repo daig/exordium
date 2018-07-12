@@ -64,8 +64,8 @@ instance Traversed' (Prism a b) where
       L t -> L (L t)
       R a -> R a
     R c -> L (R c))
-instance Promap (Prism a b) where
-  promap f g (Prism seta bt) = Prism (bifoldMap_ (L . g) R . seta . f) (g . bt)
+instance Promap (Prism a b) where promap f g (Prism seta bt) = Prism (bifoldMap_ (L . g) R . seta . f) (g . bt)
+instance Comap (BA (Prism a b) t) where comap = premap_comap
 instance Strong (Prism a b s) where strong = map_strong
 instance Map (Prism a b s) where
  map f (Prism seta bt) = Prism (bifoldMap_ (L . f) R . seta) (f . bt)
