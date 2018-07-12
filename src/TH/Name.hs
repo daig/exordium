@@ -65,15 +65,15 @@ import X.Type.Char as X
 import qualified Language.Haskell.TH.Syntax as Q
 {-import X.Syntax.FromString-}
 import X.Data.Maybe
-import X.Optic.Prism
+{-import X.Optic.Prism-}
 
 pattern Name :: OccName
              -> NameFlavour
              -> Name
 pattern Name{occName, nameFlavour} = Q.Name occName nameFlavour
 
-_Name'module = lens0' get set where
-  get = \case
-    Name _ (NameQ (ModName s)) -> Just s
-  set = set
+{-_Name'module = lens0' get set where-}
+  {-get = \case-}
+    {-Name _ (NameQ (ModName s)) -> Just s-}
+  {-set = set-}
 
