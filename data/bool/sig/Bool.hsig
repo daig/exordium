@@ -1,0 +1,14 @@
+signature Bool where
+import Prelude (Show)
+import GHC.Types (TYPE,RuntimeRep)
+
+data R :: RuntimeRep
+data Bool :: TYPE R
+-- instance Show Bool
+
+(&&) :: Bool -> Bool -> Bool
+infixr 3 &&
+(||) :: Bool -> Bool -> Bool
+infixr 2 ||
+not :: Bool -> Bool
+bool :: a -> a -> Bool -> a

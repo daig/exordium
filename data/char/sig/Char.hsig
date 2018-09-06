@@ -1,0 +1,18 @@
+signature Char where
+import GHC.Types (TYPE,RuntimeRep,Int)
+import Bool (Bool)
+
+data R :: RuntimeRep
+data Char  :: TYPE R
+
+gt,ge,lt,le,eq,ne :: Char -> Char -> Bool
+ord :: Char -> Int
+chr :: Int -> Char
+
+isControl,isSpace,isLower,isUpper,isAlpha,isAlphaNum,isPrint,isDigit,isOctDigit,isHexDigit,isLetter,isMark,isNumber,isPunctuation,isSymbol,isSeparator,isAscii,isLatin1,isAsciiUpper,isAsciiLower :: Char -> Bool
+
+toUpper,toLower,toTitle :: Char -> Char
+-- | Convert a single digit Char to the corresponding Int. This function fails unless its argument satisfies isHexDigit, but recognises both upper- and lower-case hexadecimal digits (that is, '0'..'9', 'a'..'f', 'A'..'F').
+digitToInt :: Char -> Int
+-- | Convert an Int in the range 0..15 to the corresponding single digit Char. This function fails on other inputs, and generates lower-case hexadecimal digits.
+intToDigit  :: Int -> Char

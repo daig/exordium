@@ -1,0 +1,14 @@
+signature Option where
+import Bool
+
+data Maybe a
+maybe :: b -> (a -> b) -> Maybe a -> b
+just :: a -> Maybe a
+nothing :: Maybe a
+isJust :: Maybe a -> Bool
+isNothing :: Maybe a -> Bool
+fromMaybe :: a -> Maybe a -> a
+listToMaybe :: [a] -> Maybe a
+maybeToList :: Maybe a -> [a]
+catMaybes :: [Maybe a] -> [a]
+mapMaybe :: (a -> Maybe b) -> [a] -> [b]
