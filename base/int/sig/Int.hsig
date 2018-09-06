@@ -1,0 +1,44 @@
+signature Int where
+
+data ISize
+data Int
+
+add :: Int -> Int -> Int
+sub :: Int -> Int -> Int
+mul :: Int -> Int -> Int
+
+{-mulMayOflo :: Int -> Int -> Int-}
+
+quot :: Int -> Int -> Int
+rem :: Int -> Int -> Int
+quotRem :: Int -> Int -> (Int,Int)
+div :: Int -> Int -> Int
+mod :: Int -> Int -> Int
+divMod :: Int -> Int -> (Int,Int)
+
+and :: Int -> Int -> Int
+or :: Int -> Int -> Int
+xor :: Int -> Int -> Int
+not :: Int -> Int
+
+negate :: Int -> Int
+
+{-addC :: Int -> Int -> (Int,Int)-}
+{-subC :: Int -> Int -> (Int,Int)-}
+
+gt :: Int -> Int -> Bool
+ge :: Int -> Int -> Bool
+lt :: Int -> Int -> Bool
+le :: Int -> Int -> Bool
+eq :: Int -> Int -> Bool
+ne :: Int -> Int -> Bool
+shift :: Int -> ISize -> Int
+shiftL :: Int -> ISize -> Int
+shiftL# :: Int -> ISize -> Int
+shiftR# :: Int -> ISize -> Int
+rotate :: Int -> ISize -> Int
+popCnt :: Int -> ISize
+clz :: Int -> ISize
+ctz :: Int -> ISize
+size :: Int -> ISize
+bit :: ISize -> Int
