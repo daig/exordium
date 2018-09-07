@@ -1,4 +1,4 @@
-module U16 where
+module U16 (U16#, module U16) where
 import GHC.Prim
 import Types
 

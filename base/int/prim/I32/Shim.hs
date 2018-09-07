@@ -5,12 +5,8 @@ module I32.Shim where
 import GHC.Prim
 import GHC.Types
 #if WORD_SIZE_IN_BITS < 32
-
 import GHC.IntWord32
 
-type Bool# = Int#
-type I32# = Int32#
-type Isize# = Int#
 
 fromInt :: Isize# -> I32#
 {-# INLINE fromInt #-}

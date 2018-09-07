@@ -3,14 +3,10 @@
 module U64.Shim where
 #include "MachDeps.h"
 import GHC.Prim
-import GHC.Types
+import Types
 #if WORD_SIZE_IN_BITS < 64
 
 import GHC.IntWord64
-
-type Bool# = Word#
-type U64# = Word64#
-type Usize# = Word#
 
 fromWord :: Usize# -> U64#
 {-# INLINE fromWord #-}

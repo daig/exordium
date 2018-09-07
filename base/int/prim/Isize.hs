@@ -1,7 +1,7 @@
 {-# language CPP #-}
-module Isize where
 -- | It is also useful to @#include "MachDeps.h"@ and use
 --  @SIZEOF_HSWORD#@, @WORD_SIZE_IN_BITS#@, or @WORD_SIZE_IN_BITS_FLOAT#@
+module Isize (Isize#, module Isize) where
 #include "MachDeps.h"
 import GHC.Prim
 import Types
@@ -42,7 +42,7 @@ mul :: Isize# -> Isize# -> Isize#
 {-# inline mul #-}
 mul = (*#)
 
--- | Returns 1# if there is any possibility that the upper word of a signed integer multiply might contain useful information. Returns 0# only if there is no possibilyty for overflow to occur.
+-- | Returns 1# if there is any possibility that the upper word of a signed integer multiply might contain useful information. Returns 0# only if there is no possibility for overflow to occur.
 mulMayOflo :: Isize# -> Isize# -> Bool#
 {-# INLINE mulMayOflo #-}
 mulMayOflo = mulIntMayOflo#

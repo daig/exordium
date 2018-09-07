@@ -1,9 +1,8 @@
 -- | To get the size of 'I16#', use @SIZEOF_HSWORD#@ after @#include@ing @"MachDeps.h"@
-module I16 where
+module I16 (I16#, module I16) where
 import GHC.Prim
 import Types
 
-type I1# = Int#
 -- | GHC does not enforce this type, so the operations in this module are unsafe:
 -- They assume they are passed a valid @I16#@, but will correctly narrow the return type value.
 
@@ -63,34 +62,34 @@ negate :: I16# -> I16#
 {-# inline negate #-}
 negate x = narrow16Int# (negateInt# x)
 
-{-addC :: I16# -> I16# -> (# I16#,I1# #)-}
+{-addC :: I16# -> I16# -> (# I16#,Bool# #)-}
 {-{-# INLINE addC #-}-}
 {-addC a b = case plusWord2# a b of (# c, x #) -> (# x, word2Int# c #)-}
 
-{-subC :: I16# -> I16# -> (# I16#,I1# #)-}
+{-subC :: I16# -> I16# -> (# I16#,Bool# #)-}
 {-subC = subWordC#-}
 
-gt :: I16# -> I16# -> I1#
+gt :: I16# -> I16# -> Bool#
 {-# inline gt #-}
 gt = (>#)
 
-ge :: I16# -> I16# -> I1#
+ge :: I16# -> I16# -> Bool#
 {-# inline ge #-}
 ge = (>=#)
 
-lt :: I16# -> I16# -> I1#
+lt :: I16# -> I16# -> Bool#
 {-# inline lt #-}
 lt = (<#)
 
-le :: I16# -> I16# -> I1#
+le :: I16# -> I16# -> Bool#
 {-# inline le #-}
 le = (<=#)
 
-eq :: I16# -> I16# -> I1#
+eq :: I16# -> I16# -> Bool#
 {-# inline eq #-}
 eq = (==#)
 
-ne :: I16# -> I16# -> I1#
+ne :: I16# -> I16# -> Bool#
 {-# inline ne #-}
 ne = (/=#)
 

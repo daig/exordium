@@ -1,7 +1,7 @@
 {-# language CPP #-}
 -- | It is also useful to @#include "MachDeps.h"@ and use
 --  @SIZEOF_HSWORD#@, @WORD_SIZE_IN_BITS#@, or @WORD_SIZE_IN_BITS_FLOAT#@
-module Usize where
+module Usize (Usize#, module Usize) where
 #include "MachDeps.h"
 import GHC.Prim
 import Types
@@ -32,7 +32,7 @@ mul :: Usize# -> Usize# -> Usize#
 {-# inline mul #-}
 mul = timesWord#
 
--- | Returns (# high, low #)
+-- | Returns @(\# high, low \#)@
 mul2 :: Usize# -> Usize# -> (# Usize# , Usize# #)
 {-# INLINE mul2 #-}
 mul2 = timesWord2#

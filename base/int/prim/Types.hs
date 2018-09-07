@@ -1,17 +1,8 @@
 {-# language CPP #-}
-{-# language TypeFamilies,  PolyKinds #-}
 module Types where
 #include "MachDeps.h"
 import GHC.Prim
 import GHC.Types (RuntimeRep(..))
-
-type family Rep (a :: TYPE r) :: RuntimeRep where
-  Rep Word32# = WordRep
-  Rep Word64# = WordRep
-  Rep Word# = WordRep
-  Rep Int32# = Int64Rep
-  Rep Int64# = Int64Rep
-  Rep Int# = IntRep
 
 type Bool# = Int#
 

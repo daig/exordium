@@ -3,14 +3,9 @@
 module I64.Shim where
 #include "MachDeps.h"
 import GHC.Prim
-import GHC.Types
+import Types
 #if WORD_SIZE_IN_BITS < 64
-
 import GHC.IntWord64
-
-type Bool# = Int#
-type I64# = Int64#
-type Isize# = Int#
 
 fromInt :: Isize# -> I64#
 {-# INLINE fromInt #-}
