@@ -6,7 +6,7 @@ import Data.Bits as GHC
 import GHC.Types (Bool)
 import ISize (ISize,ISize#)
 
-type I16 = GHC.Int16
+data I16 = I16# ISize#
 
 pattern I16# :: ISize# -> I16
 pattern I16# i = GHC.I16# i

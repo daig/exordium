@@ -1,0 +1,51 @@
+cabal-version: 2.2
+name: exordium-prim
+version: 0.1.0.0
+extra-source-files: floating/LICENSE.Tango floating/cbits/feqrel_source.c
+
+common x
+  default-language: Haskell2010
+  default-extensions: NoImplicitPrelude, MagicHash, ConstraintKinds, DerivingStrategies, GeneralizedNewtypeDeriving, PatternSynonyms
+
+library debug
+  import: x
+  hs-source-dirs: debug
+  exposed-modules: Debug
+  build-depends: ghc-prim, base 
+  -- , char, io
+
+library floating
+  import: x
+  hs-source-dirs: floating
+  exposed-modules: F32, F64
+  cc-options: -Wall --std=c99
+  c-sources: floating/cbits/float.c
+             floating/cbits/double.c
+  build-depends: ghc-prim, base, debug
+
+library int
+  import: x
+  hs-source-dirs: int
+  exposed-modules: ISize,I8, I16, I32, I64
+                 , USize,U8, U16, U32, U64
+  build-depends: ghc-prim, base
+
+library void
+  import: x
+  hs-source-dirs: void
+  exposed-modules: Void
+  build-depends: ghc-prim, base
+
+library string-sig
+  import: x
+  hs-source-dirs: string-sig
+  signatures: String
+  build-depends: ghc-prim, base
+
+
+
+
+library
+  import: x
+  exposed-modules: Int, Char, Bool, Eq, Ord, IO
+  build-depends: ghc-prim, base

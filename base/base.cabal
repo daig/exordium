@@ -12,27 +12,27 @@ source-repository head
 
 common x
   default-language: Haskell2010
-  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies
+  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies, MagicHash, UnboxedTuples, ViewPatterns
   build-depends: ghc-prim
   
 
 library bool-sig
   import: x
   signatures: Bool
-  hs-source-dirs: bool-sig
+  hs-source-dirs: bool/sig
   build-depends: base
 
 library char-sig
   import: x
   signatures: Char
-  hs-source-dirs: char-sig
+  hs-source-dirs: char/sig
   build-depends: base, bool-sig
 
 library char-base
   import: x
   exposed-modules: Char
   reexported-modules: Bool
-  hs-source-dirs: char-base
+  hs-source-dirs: char/base
   build-depends: base, bool-base
 
 library option-sig
@@ -73,6 +73,19 @@ library int-base
   hs-source-dirs: int/base
   exposed-modules: ISize, I8, I16, I32, I64
                  , USize, U8, U16, U32, U64
+  build-depends: ghc-prim, base
+
+library int-prim
+  import: x
+  hs-source-dirs: int/prim
+  exposed-modules: Isize, I8, I16
+                 , I32, I32.Native, I32.Shim
+                 , I64, I64.Native, I64.Shim
+                 , Usize, U8, U16
+                 , U32, U32.Native, U32.Shim
+                 , U64, U64.Native, U64.Shim
+                 , Bool
+                 , Types
   build-depends: ghc-prim, base
 
 library debug
