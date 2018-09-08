@@ -3,6 +3,9 @@ module I64.Native where
 import GHC.Prim
 import Types
 
+type R = IntRep
+type Int = I64#
+
 fromInt :: Isize# -> I64#
 {-# INLINE fromInt #-}
 fromInt i = i

@@ -8,6 +8,9 @@ import Types
 
 import GHC.IntWord32
 
+type R = WordRep
+type Word = U32#
+
 fromWord :: Usize# -> U32#
 {-# INLINE fromWord #-}
 fromWord = intToWord32#

@@ -7,6 +7,9 @@ import GHC.Types
 #if WORD_SIZE_IN_BITS < 32
 import GHC.IntWord32
 
+type R = IntRep
+type Int = I32#
+
 
 fromInt :: Isize# -> I32#
 {-# INLINE fromInt #-}

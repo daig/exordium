@@ -3,8 +3,8 @@ module I16 (I16#, module I16) where
 import GHC.Prim
 import Types
 
--- | GHC does not enforce this type, so the operations in this module are unsafe:
--- They assume they are passed a valid @I16#@, but will correctly narrow the return type value.
+type R = IntRep
+type Int = I64#
 
 pattern MinBound :: I16#
 pattern MinBound = -0x80#

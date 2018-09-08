@@ -6,6 +6,9 @@ module Isize (Isize#, module Isize) where
 import GHC.Prim
 import Types
 
+type R = IntRep
+type Int = Isize#
+
 pattern MinBound :: Isize#
 pattern MaxBound :: Isize#
 

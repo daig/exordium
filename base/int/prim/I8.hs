@@ -1,14 +1,10 @@
 -- | To get the size of 'I8#', use @SIZEOF_HSWORD#@ after @#include@ing @"MachDeps.h"@
 module I8 where
 import GHC.Prim
-import GHC.Types
+import Types
 
-type Bool# = Int#
--- | GHC does not enforce this type, so the operations in this module are unsafe:
--- They assume they are passed a valid @I8#@, but will correctly narrow the return type value.
-type I8# = Int#
-type Usize# = Word#
-type Isize# = Int#
+type R = IntRep
+type Int = I8#
 
 pattern MinBound :: I8#
 pattern MinBound = -0x80#

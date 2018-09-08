@@ -1,12 +1,26 @@
 {-# language CPP #-}
-module Types where
+module Types (module Types, module X) where
+ {-(I8# -- $unsafe-}
+ {-,I16#-}
+ {-,I32#-}
+ {-,I64#-}
+ {-,Isize#-}
+ {-,U8#-}
+ {-,U16#-}
+ {-,U32#-}
+ {-,U64#-}
+ {-,Usize#-}
+ {-,Bool#-}
+ {-,RuntimeRep(..)) where-}
 #include "MachDeps.h"
 import GHC.Prim
-import GHC.Types (RuntimeRep(..))
+import GHC.Types as X (RuntimeRep(..))
 
 type Bool# = Int#
 
+-- | GHC does not enforce this type, so the operations assume they are passed a value within the valid range, but will correctly narrow the return type value.
 type I8# = Int#
+
 type I16# = Int#
 
 #if WORD_SIZE_IN_BITS < 32
@@ -41,3 +55,6 @@ type U64# = Word#
 #endif
 
 type Usize# = Word#
+
+-- $unsafe
+-- GHC does not enforce this type, so the operations assume they are passed a value within the valid range, but will correctly narrow the return type value.

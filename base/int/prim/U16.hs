@@ -5,6 +5,9 @@ import Types
 -- | GHC does not enforce this type, so the operations in this module are unsafe:
 -- They assume they are passed a valid @U16#@, but will correctly narrow the return type value.
 
+type R = WordRep
+type Word = U16#
+
 pattern MinBound :: U16#
 pattern MinBound = 0##
 

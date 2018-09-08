@@ -6,6 +6,9 @@ module Usize (Usize#, module Usize) where
 import GHC.Prim
 import Types
 
+type R = WordRep
+type Word = Usize#
+
 pattern MinBound :: Usize#
 pattern MinBound = 0##
 

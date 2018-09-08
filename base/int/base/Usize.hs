@@ -1,6 +1,6 @@
-module Isize (module Isize, module X) where
-import GHC.Prim (Int#)
-import qualified GHC.Int as GHC
+module Usize (module Usize, module X) where
+import GHC.Prim (Word#)
+import qualified GHC.Word as GHC
 import GHC.Classes as GHC
 import GHC.Num as GHC
 import GHC.Real as GHC
@@ -12,136 +12,137 @@ import GHC.Show
 import GHC.Read
 import Data.Data
 import Foreign.Storable
+import Isize
 
-type Isize# = Int#
-newtype Isize = Isize GHC.Int
+type Usize# = Word#
+newtype Usize = Usize GHC.Word
   deriving newtype (Show, Ix, Bounded, Enum, Real , Integral
                    ,Storable, Read, Ord, Num, Eq, Bits, FiniteBits)
-pattern I# :: Isize# -> Isize
-pattern I# i = Isize (GHC.I# i)
+pattern U# :: Usize# -> Usize
+pattern U# i = Usize (GHC.W# i)
 
-add :: Isize -> Isize -> Isize
+add :: Usize -> Usize -> Usize
 {-# inline add #-}
 add = (GHC.+)
 
-sub :: Isize -> Isize -> Isize
+sub :: Usize -> Usize -> Usize
 {-# inline sub #-}
 sub = (GHC.-)
 
-mul :: Isize -> Isize -> Isize
+mul :: Usize -> Usize -> Usize
 {-# inline mul #-}
 mul = (GHC.*)
 
 {-negate = GHC.negate-}
-{-mulMayOflo :: Isize -> Isize -> Isize-}
+{-mulMayOflo :: Usize -> Usize -> Usize-}
 
-quot :: Isize -> Isize -> Isize
+quot :: Usize -> Usize -> Usize
 {-# inline quot #-}
 quot = GHC.quot
 
-rem :: Isize -> Isize -> Isize
+rem :: Usize -> Usize -> Usize
 {-# inline rem #-}
 rem = GHC.rem
 
-quotRem :: Isize -> Isize -> (Isize,Isize)
+quotRem :: Usize -> Usize -> (Usize,Usize)
 {-# inline quotRem #-}
 quotRem = GHC.quotRem
 
-div :: Isize -> Isize -> Isize
+div :: Usize -> Usize -> Usize
 {-# inline div #-}
 div = GHC.div
 
-mod :: Isize -> Isize -> Isize
+mod :: Usize -> Usize -> Usize
 {-# inline mod #-}
 mod = GHC.mod
 
-divMod :: Isize -> Isize -> (Isize,Isize)
+divMod :: Usize -> Usize -> (Usize,Usize)
 {-# inline divMod #-}
 divMod = GHC.divMod
 
-and :: Isize -> Isize -> Isize
+and :: Usize -> Usize -> Usize
 {-# inline and #-}
 and = (GHC..&.)
 
-or :: Isize -> Isize -> Isize
+or :: Usize -> Usize -> Usize
 {-# inline or #-}
 or = (GHC..|.)
 
-xor :: Isize -> Isize -> Isize
+xor :: Usize -> Usize -> Usize
 {-# inline xor #-}
 xor = GHC.xor
 
-not :: Isize -> Isize
+not :: Usize -> Usize
 {-# inline not #-}
 not = (GHC.complement)
 
-negate :: Isize -> Isize
+negate :: Usize -> Usize
 {-# inline negate #-}
 negate = (GHC.negate)
 
-{-addC :: Isize -> Isize -> (Isize,Isize)-}
-{-subC :: Isize -> Isize -> (Isize,Isize)-}
+{-addC :: Usize -> Usize -> (Usize,Usize)-}
+{-subC :: Usize -> Usize -> (Usize,Usize)-}
 
-gt :: Isize -> Isize -> Bool
+gt :: Usize -> Usize -> Bool
 {-# inline gt #-}
 gt = (GHC.<)
 
-ge :: Isize -> Isize -> Bool
+ge :: Usize -> Usize -> Bool
 {-# inline ge #-}
 ge = (GHC.<=)
 
-lt :: Isize -> Isize -> Bool
+lt :: Usize -> Usize -> Bool
 {-# inline lt #-}
 lt = (GHC.>)
 
-le :: Isize -> Isize -> Bool
+le :: Usize -> Usize -> Bool
 {-# inline le #-}
 le = (GHC.>=)
 
-eq :: Isize -> Isize -> Bool
+eq :: Usize -> Usize -> Bool
 {-# inline eq #-}
 eq = (GHC.==)
 
-ne :: Isize -> Isize -> Bool
+ne :: Usize -> Usize -> Bool
 {-# inline ne #-}
 ne = (GHC./=)
 
-shift :: Isize -> Isize -> Isize
+shift :: Usize -> Isize -> Usize
 {-# inline shift #-}
 shift x (Isize i) = GHC.shift x i
 
-shiftL :: Isize -> Isize -> Isize
+shiftL :: Usize -> Isize -> Usize
 {-# inline shiftL #-}
 shiftL x (Isize i) = GHC.shiftL x i
 
-shiftL# :: Isize -> Isize -> Isize
+shiftL# :: Usize -> Isize -> Usize
 {-# inline shiftL# #-}
 shiftL# x (Isize i) = GHC.unsafeShiftL x i
 
-shiftR# :: Isize -> Isize -> Isize
+shiftR# :: Usize -> Isize -> Usize
 {-# inline shiftR# #-}
 shiftR# x (Isize i) = GHC.unsafeShiftR x i
 
-rotate :: Isize -> Isize -> Isize
+rotate :: Usize -> Isize -> Usize
 {-# inline rotate #-}
 rotate x (Isize i) = GHC.rotate x i
 
-popCnt :: Isize -> Isize
+popCnt :: Usize -> Isize
 {-# inline popCnt #-}
 popCnt i = Isize (GHC.popCount i)
 
-clz :: Isize -> Isize
+clz :: Usize -> Isize
 {-# inline clz #-}
 clz i = Isize (GHC.countLeadingZeros i)
 
-ctz :: Isize -> Isize
+ctz :: Usize -> Isize
 {-# inline ctz #-}
 ctz i = Isize (GHC.countTrailingZeros i)
 
-size :: Isize -> Isize
+size :: Usize -> Isize
 {-# inline size #-}
 size i = Isize (GHC.finiteBitSize i)
 
-bit :: Isize -> Isize
+bit :: Isize -> Usize
 {-# inline bit #-}
 bit (Isize i) = GHC.bit i

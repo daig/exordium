@@ -12,7 +12,7 @@ source-repository head
 
 common x
   default-language: Haskell2010
-  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies, MagicHash, UnboxedTuples, ViewPatterns
+  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies, MagicHash, UnboxedTuples, ViewPatterns, PackageImports
   build-depends: ghc-prim
   
 
@@ -71,11 +71,10 @@ library floating-base
 library int-base
   import: x
   hs-source-dirs: int/base
-  exposed-modules: ISize, I8, I16, I32, I64
-                 , USize, U8, U16, U32, U64
-  build-depends: ghc-prim, base, int-prim
-  --mixins: int-prim (Isize as Prim.Isize, I8 as Prim.I8, I16 as Prim.I16, I32 as Prim.I32, I
-                   --,Usize as Prim.Usize
+  exposed-modules: Isize, I8, I16, I32, I64
+                 , Usize, U8, U16, U32, U64
+  build-depends: ghc-prim, base
+
 
 library int-prim
   import: x

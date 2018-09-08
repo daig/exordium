@@ -1,16 +1,25 @@
-module I32 where
-import qualified GHC.Prim as GHC
+module I32 (module I32, module X) where
+import GHC.Prim (Int#)
 import qualified GHC.Int as GHC
-import qualified Prelude as GHC
+import GHC.Classes as GHC
+import GHC.Num as GHC
+import GHC.Real as GHC
+import GHC.Enum
+import Data.Ix
 import Data.Bits as GHC
-import GHC.Types (Bool)
-import ISize (ISize,ISize#)
+import GHC.Types as X (Bool)
+import GHC.Show
+import GHC.Read
+import Data.Data
+import Foreign.Storable
+import Isize
 
-type I32 = GHC.Int32
-
-pattern I32# :: ISize# -> I32
-pattern I32# i = GHC.I32# i
-
+type I32# = Int#
+newtype I32 = I32 GHC.Int32
+  deriving newtype (Show, Ix, Bounded, Enum, Real , Integral
+                   ,Storable, Read, Ord, Num, Eq, Bits, FiniteBits)
+pattern I32# :: I32# -> I32
+pattern I32# i = I32 (GHC.I32# i)
 
 add :: I32 -> I32 -> I32
 {-# inline add #-}
@@ -96,44 +105,44 @@ eq = (GHC.==)
 
 ne :: I32 -> I32 -> Bool
 {-# inline ne #-}
-ne = (GHC.==)
+ne = (GHC./=)
 
-shift :: I32 -> ISize -> I32
+shift :: I32 -> Isize -> I32
 {-# inline shift #-}
-shift = GHC.shift
+shift x (Isize i) = GHC.shift x i
 
-shiftL :: I32 -> ISize -> I32
+shiftL :: I32 -> Isize -> I32
 {-# inline shiftL #-}
-shiftL = GHC.shiftL
+shiftL x (Isize i) = GHC.shiftL x i
 
-shiftL# :: I32 -> ISize -> I32
+shiftL# :: I32 -> Isize -> I32
 {-# inline shiftL# #-}
-shiftL# = GHC.unsafeShiftL
+shiftL# x (Isize i) = GHC.unsafeShiftL x i
 
-shiftR# :: I32 -> ISize -> I32
+shiftR# :: I32 -> Isize -> I32
 {-# inline shiftR# #-}
-shiftR# = GHC.unsafeShiftR
+shiftR# x (Isize i) = GHC.unsafeShiftR x i
 
-rotate :: I32 -> ISize -> I32
+rotate :: I32 -> Isize -> I32
 {-# inline rotate #-}
-rotate = GHC.rotate
+rotate x (Isize i) = GHC.rotate x i
 
-popCnt :: I32 -> ISize
+popCnt :: I32 -> Isize
 {-# inline popCnt #-}
-popCnt = GHC.popCount
+popCnt i = Isize (GHC.popCount i)
 
-clz :: I32 -> ISize
+clz :: I32 -> Isize
 {-# inline clz #-}
-clz = GHC.countLeadingZeros
+clz i = Isize (GHC.countLeadingZeros i)
 
-ctz :: I32 -> ISize
+ctz :: I32 -> Isize
 {-# inline ctz #-}
-ctz = GHC.countTrailingZeros
+ctz i = Isize (GHC.countTrailingZeros i)
 
-size :: I32 -> ISize
+size :: I32 -> Isize
 {-# inline size #-}
-size = GHC.finiteBitSize
+size i = Isize (GHC.finiteBitSize i)
 
-bit :: ISize -> I32
+bit :: Isize -> I32
 {-# inline bit #-}
-bit = GHC.bit
+bit (Isize i) = GHC.bit i

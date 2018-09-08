@@ -8,6 +8,8 @@ import Types
 
 import GHC.IntWord64
 
+type R = Word64Rep
+
 fromWord :: Usize# -> U64#
 {-# INLINE fromWord #-}
 fromWord = intToWord64#
