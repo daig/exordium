@@ -1,16 +1,19 @@
 -- | To get the size of 'I8#', use @SIZEOF_HSWORD#@ after @#include@ing @"MachDeps.h"@
-module I8 where
+module I8 (module I8, module X) where
 import GHC.Prim
-import Types
+import Types as X
 
 type R = IntRep
 type Int = I8#
+type MaxBound = 0x7F
 
 pattern MinBound :: I8#
 pattern MinBound = -0x80#
+minBound () = MinBound
 
 pattern MaxBound :: I8#
 pattern MaxBound = 0x7F#
+maxBound () = MaxBound
 
 narrow :: Isize# -> I8#
 {-# INLINE narrow #-}
@@ -100,4 +103,3 @@ shiftL# x (word2Int# -> i) = narrow8Int# (uncheckedIShiftL# x i)
 shiftR# :: I8# -> Usize# -> I8#
 {-# inline shiftR# #-}
 shiftR# x (word2Int# -> i) = narrow8Int# (uncheckedIShiftRL# x i)
-

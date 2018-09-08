@@ -12,7 +12,7 @@ source-repository head
 
 common x
   default-language: Haskell2010
-  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies, MagicHash, UnboxedTuples, ViewPatterns, PackageImports
+  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies, MagicHash, UnboxedTuples, ViewPatterns, PackageImports, PolyKinds, TypeOperators, NoStarIsType
   build-depends: ghc-prim
   
 
@@ -68,11 +68,18 @@ library floating-base
              floating/base/cbits/double.c
   build-depends: ghc-prim, base, debug
 
+library int-sig
+  import: x
+  signatures: Int
+  hs-source-dirs: int/sig
+  build-depends: ghc-prim, base
+
 library int-base
   import: x
   hs-source-dirs: int/base
   exposed-modules: Isize, I8, I16, I32, I64
                  , Usize, U8, U16, U32, U64
+  other-modules: Types
   build-depends: ghc-prim, base
 
 
@@ -95,14 +102,15 @@ library debug
 
 library test-lib
   import: x
-  build-depends: base,char-sig
+  build-depends: base,int-sig
+  signatures: Int
   hs-source-dirs: test
   exposed-modules: Test
   --reexported-modules: Bool
 
---executable test
-  --import: x
-  --type: exitcode-stdio-1.0
-  --main-is: Main.hs
-  --hs-source-dirs: test
-  --build-depends: test-lib
+executable test
+  import: x
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  build-depends: test-lib, int-base
+  mixins: test-lib requires (Int as I8)

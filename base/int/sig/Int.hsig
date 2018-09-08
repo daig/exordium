@@ -1,12 +1,22 @@
 signature Int where
-import GHC.Types (TYPE,RuntimeRep(..))
+import GHC.Types (TYPE,RuntimeRep(..),Nat,IO)
 import qualified GHC.Prim as GHC
 
 data R :: RuntimeRep
 data Int :: TYPE R
 data IsizeR :: RuntimeRep
-data Isize :: IsizeR
-type Bool = Isize
+data Isize :: TYPE IsizeR
+-- data MinBound :: Nat
+data MaxBound :: Nat
+data BoolR :: RuntimeRep
+data Bool :: TYPE BoolR
+data PairR r1 r2 :: RuntimeRep
+data (a :: r1) * (b :: r2) :: TYPE (PairR r1 r2)
+
+minBound :: () -> Int
+maxBound :: () -> Int
+
+print :: Int -> IO ()
 
 fromInt :: Isize -> Int
 toInt :: Int -> Isize
@@ -17,7 +27,7 @@ mul :: Int -> Int -> Int
 
 quot :: Int -> Int -> Int
 rem :: Int -> Int -> Int
-quotRem# :: Int -> Int -> (# Int,Int #)
+quotRem# :: Int -> Int -> Int * Int
 
 and :: Int -> Int -> Int
 or :: Int -> Int -> Int
@@ -25,8 +35,8 @@ xor :: Int -> Int -> Int
 not :: Int -> Int
 
 negate :: Int -> Int
-addC :: Int -> Int -> (# Int,Bool #)
-subC :: Int -> Int -> (# Int,Bool #)
+addC :: Int -> Int -> Int * Bool
+subC :: Int -> Int -> Int * Bool
 
 gt :: Int -> Int -> Bool
 ge :: Int -> Int -> Bool

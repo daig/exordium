@@ -1,19 +1,35 @@
-module I8 (module I8, module X) where
+module I8 (
+  -- * Exposed for Signatures
+   module X
+  -- * Int Operations
+  ,Int
+  ,print
+  ,I8.minBound
+  ,I8.maxBound
+  ,module I8) where
 import GHC.Prim (Int#)
 import qualified GHC.Int as GHC
 import GHC.Classes as GHC
 import GHC.Num as GHC
 import GHC.Real as GHC
-import GHC.Enum
+import GHC.Enum as GHC
 import Data.Ix
 import Data.Bits as GHC
-import GHC.Types as X (Bool)
 import GHC.Show
 import GHC.Read
 import Data.Data
 import Foreign.Storable
 import Isize
+import qualified Prelude
+import Types as X
 
+print :: Int -> IO ()
+print = Prelude.print
+minBound :: () -> Int
+minBound () = GHC.minBound
+maxBound :: () -> Int
+maxBound () = GHC.maxBound
+type Int = I8
 type I8# = Int#
 newtype I8 = I8 GHC.Int8
   deriving newtype (Show, Ix, Bounded, Enum, Real , Integral
@@ -33,7 +49,6 @@ mul :: I8 -> I8 -> I8
 {-# inline mul #-}
 mul = (GHC.*)
 
-{-negate = GHC.negate-}
 {-mulMayOflo :: I8 -> I8 -> I8-}
 
 quot :: I8 -> I8 -> I8
@@ -78,7 +93,7 @@ not = (GHC.complement)
 
 negate :: I8 -> I8
 {-# inline negate #-}
-negate = (GHC.negate)
+negate = GHC.negate
 
 {-addC :: I8 -> I8 -> (I8,I8)-}
 {-subC :: I8 -> I8 -> (I8,I8)-}

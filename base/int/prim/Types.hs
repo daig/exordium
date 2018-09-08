@@ -15,7 +15,14 @@ module Types (module Types, module X) where
 #include "MachDeps.h"
 import GHC.Prim
 import GHC.Types as X (RuntimeRep(..))
+import qualified Prelude
+import qualified GHC.Int as GHC
 
+print i = Prelude.print (GHC.I# i)
+type PairR r1 r2 = TupleRep '[r1,r2]
+type (a :: TYPE r1) * (b :: TYPE r2) = (# a, b #)
+type BoolR = IntRep
+type Bool = Bool#
 type Bool# = Int#
 
 -- | GHC does not enforce this type, so the operations assume they are passed a value within the valid range, but will correctly narrow the return type value.
@@ -36,6 +43,7 @@ type I64# = Int64#
 type I64# = Int#
 #endif
 
+type IsizeR = IntRep
 type Isize# = Int#
 
 type U8# = Word#
@@ -54,6 +62,7 @@ type U64# = Word64#
 type U64# = Word#
 #endif
 
+type UsizeR = WordRep
 type Usize# = Word#
 
 -- $unsafe

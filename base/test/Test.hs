@@ -1,7 +1,9 @@
 module Test where
-import Char
-import Base.Bool
-import Prelude (print,return, IO)
+import Int (minBound,maxBound,add,print)
+import Prelude (return, IO)
 
 main :: IO ()
-main = return ()
+main = print (add minBound' (add minBound' (add maxBound' minBound')))
+  where
+      minBound' = minBound ()
+      maxBound' = maxBound ()
