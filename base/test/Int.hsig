@@ -1,1 +1,0 @@
-signature Int (R,Int,minBound,maxBound,add,print) where

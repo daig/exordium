@@ -12,12 +12,30 @@
 #define REAL_MANT_DIG    FLT_MANT_DIG
 
 #define FEQREL           feqrelf
+
+#define MANTISSA_MASK 0x7FFFFF
+#define EXP_MASK  0x7F800000
+#define EXP_SHIFT 
+#define QUIET_MASK  0x400000
+#define QUITE_SHIFT 22
+#define PAYLOAD_MASK  0x3FFFFF
+#define SIGN_MASK  0x80000000
+
+
 #include "feqrel_source.c"
 
 union float_t {
     float f;
     uint32_t w;
 };
+
+uint32_t ieeeBits (float x) { union float_t ux = {x}; return ux.w; }
+float ieeeEncode32 (uint32_t x) { union float_t ux = {x}; return ux.f; }
+
+uint32_t getMantissa (float x) { union float_t ux = {x}; return ux.w & MANTISSA_MASK; }
+uint32_t getExponent (float x) { union float_t ux = {x}; return ux.parts.exponent; }
+uint32_t getSign (float x) { union float_t ux = {x}; return ux.parts.sign; }
+
 
 int
 identicalf (float x, float y)

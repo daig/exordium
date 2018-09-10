@@ -12,7 +12,7 @@ source-repository head
 
 common x
   default-language: Haskell2010
-  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies, MagicHash, UnboxedTuples, ViewPatterns, PackageImports, PolyKinds, TypeOperators, NoStarIsType
+  default-extensions: NoImplicitPrelude,PatternSynonyms, LambdaCase, DataKinds, KindSignatures, ConstraintKinds, DeriveAnyClass, GeneralizedNewtypeDeriving, DerivingStrategies, MagicHash, UnboxedTuples, ViewPatterns, PackageImports, PolyKinds, TypeOperators, NoStarIsType, MultiParamTypeClasses, FunctionalDependencies, TypeSynonymInstances, TypeFamilies
   build-depends: ghc-prim
   
 
@@ -59,14 +59,22 @@ library bool-prim
   hs-source-dirs: bool-prim
   build-depends: base,ghc-prim
 
-library floating-base
+library floating-prim
   import: x
-  hs-source-dirs: floating/base
-  exposed-modules: F32,F64
+  hs-source-dirs: floating/prim
+  exposed-modules: F32, F32.Encoding
   cc-options: -Wall --std=c99
-  c-sources: floating/base/cbits/float.c
-             floating/base/cbits/double.c
-  build-depends: ghc-prim, base, debug
+  c-sources: floating/prim/cbits/float.c
+  build-depends: ghc-prim, int-prim, base, rts
+
+--library floating-base
+  --import: x
+  --hs-source-dirs: floating/base
+  --exposed-modules: F32,F64
+  --cc-options: -Wall --std=c99
+  --c-sources: floating/base/cbits/float.c
+             --floating/base/cbits/double.c
+  --build-depends: ghc-prim, base, debug
 
 library int-sig
   import: x
@@ -88,21 +96,20 @@ library int-prim
   hs-source-dirs: int/prim
   exposed-modules: Isize, I8, I16, I32, I64
                  , Usize, U8, U16, U32, U64
-                 , Bool
+                 , Bool, Types
   other-modules: I32.Native, I32.Shim, I64.Native, I64.Shim
                , U32.Native, U32.Shim, U64.Native, U64.Shim
-               , Types
   build-depends: ghc-prim, base
 
 library debug
   import: x
-  hs-source-dirs: classes
+  hs-source-dirs: classes/stock
   exposed-modules: Debug
   build-depends: ghc-prim, base
 
 library test-lib
   import: x
-  build-depends: base,int-sig
+  build-depends: base, floating-prim
   signatures: Int
   hs-source-dirs: test
   exposed-modules: Test

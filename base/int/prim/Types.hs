@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK not-home #-}
 {-# language CPP #-}
 module Types (module Types, module X) where
  {-(I8# -- $unsafe-}

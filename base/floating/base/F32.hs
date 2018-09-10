@@ -8,6 +8,7 @@ module F32
   ,succ#,pred#,bisect#
   ,copySign
   ,add
+  ,module F32
   ) where
 import GHC.Prim
 import GHC.Types (Int,Word(..),Float(..))
@@ -63,3 +64,8 @@ pattern NaN32# :: Word# -> NaN32
 pattern NaN32# w = NaN32_ (W# w)
 
 add (F32# x) (F32# y) = F32# (plusFloat# x y)
+
+foreign import ccall unsafe "ieeeBits" ieeeBits :: Float -> Word
+foreign import ccall unsafe "getMantissa" getMantissa :: Float -> Word
+foreign import ccall unsafe "getSign" getSign :: Float -> Word
+foreign import ccall unsafe "getSign" getSign :: Float -> Word

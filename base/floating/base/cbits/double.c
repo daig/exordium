@@ -16,7 +16,17 @@
 union double_t {
     double d;
     uint64_t w;
+    struct {
+      uint64_t mantissa : 52;
+      uint32_t exponent : 11;
+      uint32_t sign     : 1; 
+    } parts;
 };
+
+uint64_t ieeeBits (double x) {
+  union double_t ux = {x};
+  return ux.w;
+}
 
 int
 identical (double x, double y)

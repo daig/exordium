@@ -1,9 +1,7 @@
 module Test where
-import Int (minBound,maxBound,add,print)
-import Prelude (return, IO)
+import F32
+import Prelude
+import GHC.Types
 
 main :: IO ()
-main = print (add minBound' (add minBound' (add maxBound' minBound')))
-  where
-      minBound' = minBound ()
-      maxBound' = maxBound ()
+main = print (W# (stgFloatToWord32 0.2#))

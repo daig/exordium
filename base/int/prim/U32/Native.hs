@@ -54,6 +54,7 @@ or = or#
 
 xor :: U32# -> U32# -> U32#
 {-# inline xor #-}
+infixl 6 `xor`
 xor = xor#
 
 not :: U32# -> U32#

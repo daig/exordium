@@ -49,6 +49,21 @@ quotRem# :: I64# -> I64# -> (# I64#,I64# #)
 {-# inline quotRem# #-}
 quotRem# = quotRemInt#
 
+-- | Shift left logcial. Result is undefined if shift amount @ >= WORD_SIZE_IN_BITS@
+shiftL# :: I64# -> Isize# -> I64#
+{-# inline shiftL# #-}
+shiftL# = uncheckedIShiftL#
+
+-- | Shift right arithmetic. Result is undefined if shift amount @ >= WORD_SIZE_IN_BITS@
+shiftR# :: I64# -> Isize# -> I64#
+{-# inline shiftR# #-}
+shiftR# = uncheckedIShiftRA#
+
+-- | Shift right logcial. Result is undefined if shift amount @ >= WORD_SIZE_IN_BITS@
+shiftRL# :: I64# -> Isize# -> I64#
+{-# inline shiftRL# #-}
+shiftRL# = uncheckedIShiftRL#
+
 and :: I64# -> I64# -> I64#
 {-# inline and #-}
 and = andI#
@@ -100,18 +115,3 @@ eq = (==#)
 ne :: I64# -> I64# -> Bool#
 {-# inline ne #-}
 ne = (/=#)
-
--- | Shift left logcial. Result is undefined if shift amount @ >= WORD_SIZE_IN_BITS@
-shiftL# :: I64# -> Isize# -> I64#
-{-# inline shiftL# #-}
-shiftL# = uncheckedIShiftL#
-
--- | Shift right arithmetic. Result is undefined if shift amount @ >= WORD_SIZE_IN_BITS@
-shiftR# :: I64# -> Isize# -> I64#
-{-# inline shiftR# #-}
-shiftR# = uncheckedIShiftRA#
-
--- | Shift right logcial. Result is undefined if shift amount @ >= WORD_SIZE_IN_BITS@
-shiftRL# :: I64# -> Isize# -> I64#
-{-# inline shiftRL# #-}
-shiftRL# = uncheckedIShiftRL#

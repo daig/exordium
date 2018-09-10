@@ -105,5 +105,4 @@ shiftR# :: I32# -> Usize# -> I32#
 shiftR# x (word2Int# -> i) = narrow32Int# (uncheckedIShiftRL# x i)
 
 byteSwap :: I32# -> I32#
-{-# INLINE byteSwap #-}
 byteSwap (int2Word# -> x) = word2Int# (byteSwap32# x)
